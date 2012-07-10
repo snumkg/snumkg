@@ -26,13 +26,6 @@
     </div>
 
     <div id="content_wrapper">
-      <div id="tab_sidebar">
-        <ul>
-          <% for board in @boards %>
-            <li><%= board.name %></li>
-          <% end %>
-        </ul>
-      </div>
       <%= yield %>
     </div>
   </div>

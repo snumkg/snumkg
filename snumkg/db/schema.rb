@@ -11,7 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120710022102) do
+ActiveRecord::Schema.define(:version => 20120710030530) do
+
+  create_table "articles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "board_id"
+    t.string   "title"
+    t.text     "body"
+    t.integer  "view_count", :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "boards", :force => true do |t|
+    t.integer  "tab_id"
+    t.string   "name"
+    t.integer  "admin_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tabs", :force => true do |t|
+    t.string   "name"
+    t.string   "url_name"
+    t.integer  "admin_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"
