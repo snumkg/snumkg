@@ -13,3 +13,22 @@
 
 #top_navigation {
 }
+
+
+#tab_sidebar {
+  float: left;
+  margin-right: 1em;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px;
+    width: 200px;
+    height: 800px;
+    border: 1px solid #aaa;
+  }
+
+  li {
+    padding: 1em;
+  }
+
+}

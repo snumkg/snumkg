@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20120710030530) do
   create_table "boards", :force => true do |t|
     t.integer  "tab_id"
     t.string   "name"
+    t.string   "url_name"
     t.integer  "admin_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

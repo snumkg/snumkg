@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_tab_boards
-    @tab = Tab.find_by_url_name(params[:tab_name])
-    @boards = @tab.boards if @tab
+    @current_tab = Tab.find_by_url_name(params[:tab_name])
+    @boards = @current_tab.boards if @current_tab
   end
 end
