@@ -1,0 +1,13 @@
+
+<div id="article_wrapper">
+  <table class="table">
+    <% for article in @articles %>
+      <tr>
+        <td><%= article.title %> <div class="right"> 작성자: <%= article.user.username %></div></td>
+      </tr>
+      <tr>
+        <td><%= article.body %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
