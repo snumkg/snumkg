@@ -9,32 +9,13 @@
 </head>
 <body>
   <div id="wrapper">
-    <div class="navbar" id="top_navigation">
-      <div class="navbar-inner">
-        <div class="container">
-          <ul class="nav">
-            <li class="active">
-            <%= link_to "MKG", root_path %>
-            </li>
-            <% for tab in @tabs %>
-              <li><%= link_to tab.name, "/#{tab.url_name}" %></li>
-            <% end %>
-          </ul>
-
-        </div>
-      </div>
-    </div>
-
+    <%= render 'layouts/navigator' %>
     <div id="content_wrapper">
-      <div id="tab_sidebar">
-        <ul>
-          <% for board in @boards %>
-            <li><%= link_to board.name, "/#{@current_tab.url_name}/#{board.url_name}" %></li>
-          <% end %>
-        </ul>
-      </div>
+      <%= render 'layouts/sidebar' %>
       <%= yield %>
     </div>
+
+    <%= render 'layouts/footer' %>
   </div>
 </body>
 </html>

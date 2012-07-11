@@ -1,0 +1,17 @@
+<div class="navbar" id="top_navigation">
+  <div class="navbar-inner">
+    <div class="container">
+      <ul class="nav">
+        <li class="active">
+        <%= link_to "MKG", root_path %>
+        </li>
+        <% for tab in @tabs %>
+          <li><%= link_to tab.name, "/#{tab.url_name}" %></li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+

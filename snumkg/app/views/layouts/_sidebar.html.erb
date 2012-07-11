@@ -1,0 +1,8 @@
+<div id="tab_sidebar">
+  <ul>
+    <% for board in @boards %>
+      <li><%= link_to board.name, "/#{@current_tab.url_name}/#{board.url_name}" %></li>
+    <% end %>
+  </ul>
+</div>
+
