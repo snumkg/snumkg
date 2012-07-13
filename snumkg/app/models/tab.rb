@@ -1,5 +1,7 @@
 class Tab < ActiveRecord::Base
-   attr_accessible :name, :url_name, :admin_id
+  attr_protected
 
-   has_many :boards
+  validates_uniqueness_of :url_name
+
+  has_many :boards
 end

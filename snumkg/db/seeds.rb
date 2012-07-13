@@ -10,7 +10,9 @@
 
 
 #관리자
-admin = User.create(username: "snumkg", email: "snumkg@gmail.com")
+admin = User.new(username: "snumkg", email: "snumkg@gmail.com", nickname: "관리자", password: "abcdefg", password_confirmation: "abcdefg")
+admin.set_password('snumkg12')
+admin.save
 
 #Tab
 all_tab = Tab.create(name: "전체",   url_name: "all", admin_id: admin.id)

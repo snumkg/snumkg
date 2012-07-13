@@ -10,4 +10,6 @@
       </tr>
     <% end %>
   </table>
+
+  <%= link_to "글쓰기", new_article_path(:tab_name => params[:tab_name], :board_name => params[:board_name]) %>
 </div>

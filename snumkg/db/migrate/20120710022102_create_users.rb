@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration
 			t.string :department
 			t.integer :grade
 			t.string :email
+      t.integer :level, default: 1
 
       t.timestamps
     end

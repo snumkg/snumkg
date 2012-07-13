@@ -1,7 +1,7 @@
 <div id="tab_sidebar">
   <ul>
     <% for board in @boards %>
-      <li><%= link_to board.name, "/#{@current_tab.url_name}/#{board.url_name}" %></li>
+      <li><%= link_to board.name, articles_path(:tab_name => params[:tab_name], :board_name => board.url_name) %></li>
     <% end %>
   </ul>
 </div>

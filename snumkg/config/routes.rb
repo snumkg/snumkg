@@ -1,5 +1,4 @@
 Snumkg::Application.routes.draw do
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -50,8 +49,20 @@ Snumkg::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'home#index'
+
+  get '/signin', :to => 'auth#signin'
+  post '/authorize', :to => 'auth#authorize'
+  get '/signup', :to => 'users#new'
+  get '/signout', :to => 'auth#signout'
+
+  resources :users
+  scope ':tab_name' do
+    scope ':board_name' do
+      resources :articles
+    end
+  end
+
   get ':tab_name', :to => 'home#tab'
-  match '/:tab_name/:board_name' => 'articles#index'
 
   # See how all your routes lay out with "rake routes"
 

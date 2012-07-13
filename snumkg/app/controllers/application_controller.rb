@@ -3,9 +3,16 @@ class ApplicationController < ActionController::Base
   before_filter :get_tabs
   before_filter :set_tab_boards
 
+  def user
+    User.find_by_id(session[:user_id])
+  end
+
   private
   def get_tabs
     @tabs = Tab.all
+  end
+
+  def set_user
   end
 
   def set_tab_boards

@@ -1,0 +1,30 @@
+<h1>회원가입</h1>
+
+<% if @user.errors.any? %>
+  <div id="error_message">
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@user) do |f| %>
+
+  <%= f.label :username, '아이디' %>
+  <%= f.text_field :username %>
+
+  <%= f.label :password, '비밀번호' %>
+  <%= f.password_field :password %>
+
+  <%= f.label :password_confirmation, '비밀번호 확인' %>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.label :nickname, '이름' %>
+  <%= f.text_field :nickname %>
+  <br />
+
+  <%= f.submit "가입하기", class: "btn" %>
+<% end %>
