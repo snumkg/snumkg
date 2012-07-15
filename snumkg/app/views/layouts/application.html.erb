@@ -12,7 +12,9 @@
     <%= render 'layouts/navigator' %>
     <div id="content_wrapper">
       <%= render 'layouts/sidebar' %>
-      <%= yield %>
+      <div id="content">
+        <%= yield %>
+      </div>
     </div>
 
     <%= render 'layouts/footer' %>

@@ -3,10 +3,7 @@
   <table class="table">
     <% for article in @articles %>
       <tr>
-        <td><%= article.title %> <div class="right"> 작성자: <%= article.user.username %></div></td>
-      </tr>
-      <tr>
-        <td><%= article.body %></td>
+        <td><%= link_to article.title, article_path(:tab_name => params[:tab_name], :board_name => params[:board_name], :id => article) %> <div class="right"> 작성자: <%= article.user.username %></div></td>
       </tr>
     <% end %>
   </table>

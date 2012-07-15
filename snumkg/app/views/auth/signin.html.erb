@@ -1,5 +1,9 @@
+
+<div class="offset3">
+<h1>로그인</h1>
 <%= form_tag authorize_path do %>
-  <%= text_field_tag :username %>
-  <%= password_field_tag :password %>
-  <%= submit_tag("login") %>
+  아이디: <%= text_field_tag :username %> <br />
+  비밀번호: <%= password_field_tag :password %><br />
+  <%= submit_tag "login", class: "btn" %>
 <% end %>
+</div>
