@@ -3,7 +3,16 @@
   <table class="table">
     <% for article in @articles %>
       <tr>
-        <td><%= link_to article.title, article_path(:tab_name => params[:tab_name], :board_name => params[:board_name], :id => article) %> <div class="right"> 작성자: <%= article.user.username %></div></td>
+        <td>
+          <%= link_to article.title, article_path(:tab_name => params[:tab_name], :board_name => params[:board_name], :id => article) %>
+          <span id="comment_number">
+              [<%= article.comments.count %>]
+          </span> 
+          <span class="article_writer"> 
+            작성자: <%= article.user.nickname %>
+        </span>
+      </td>
+
       </tr>
     <% end %>
   </table>

@@ -37,3 +37,13 @@ Article.create(title: "세번째 글", user_id: admin.id, board_id: board1.id, b
 Article.create(title: "네번째 글", user_id: admin.id, board_id: board1.id, body: body_content)
 Article.create(title: "다섯번째 글", user_id: admin.id, board_id: board1.id, body: body_content)
 Article.create(title: "여섯번째 글", user_id: admin.id, board_id: board1.id, body: body_content)
+
+#comments
+
+10.times do
+
+  comment = Article.first.comments.new(content:"안녕하세요!!")
+  comment.user_id = 1
+  comment.save
+
+end

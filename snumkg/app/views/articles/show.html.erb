@@ -1,9 +1,19 @@
 
-<table id="article_box" class="table">
+<table id="article_box">
   <tr>
-    <td><%= @article.title %> <div class="right">작성자:<%= @article.user.username%> </div></td>
+    <td><span id="article_title"><%= @article.title %></span> <span class="article_writer">작성자:<%= @article.user.username%> </span></td>
   </tr>
   <tr>
-    <td><%= @article.body %></td>
+    <td><div id="article_body"><%= @article.body %></div></td>
+  </tr>
+  <tr>
+    <td>
+      <%= render 'comments/show_comments', :locals => {:@comments => @comments}%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= render 'comments/write_comment', :locals => {:@comment => @comment, :@article => @article} %>
+    </td>
   </tr>
 </table>

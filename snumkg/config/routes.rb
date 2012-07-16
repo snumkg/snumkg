@@ -59,6 +59,7 @@ Snumkg::Application.routes.draw do
   scope ':tab_name' do
     scope ':board_name' do
       resources :articles
+      resources :comments, only:[:create, :destroy]
     end
   end
 

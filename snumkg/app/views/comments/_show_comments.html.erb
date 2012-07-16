@@ -1,0 +1,18 @@
+      <table id="show_comments_box">
+        <tr>
+          <td class="bold">댓글</td>
+        </tr>
+        <% for comment in @comments %>
+          <% if !comment.user.nil? %>
+            <tr>
+              <td>
+                <span class="comment_writer">
+                  <%= comment.user.nickname %> 
+                </span>
+                <%= comment.content %>  
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+

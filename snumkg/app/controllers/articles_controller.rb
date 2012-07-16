@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_filter :check_signin, :except => [:index] 
   def index
     @board = @boards.find_by_url_name(params[:board_name])
     @articles = @board.articles.order("created_at desc")
@@ -10,6 +11,8 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find_by_id(params[:id])
+    @comments = @article.comments
+    @comment = @article.comments.new
   end
 
   def create

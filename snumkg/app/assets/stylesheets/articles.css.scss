@@ -1,12 +1,64 @@
 // Place all the styles related to the articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-#article_wrapper {
-  width: 760px;
-  float: left;
-}
-
 .right {
   float: right;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+#article_box {
+  width: 700px;  
+  border: 1px solid #ddd;
+  
+  td {
+    padding: 1em;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+#article_title {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 130%;
+}
+
+.article_writer {
+  display: inline-block;
+  float: right;
+  margin-right: 2em;
+  color: #777;
+}
+
+#article_body {
+  margin-top: 1em;
+}
+
+#comment_number {
+
+  font-size: 80%;
+  color: red;
+}
+
+#show_comments_box {
+  width: 600px;
+
+  td {
+    padding: 2px;
+  }
+  
+}
+
+#write_comment_box {
+    margin: 0;
+}
+
+
+.comment_writer {
+  display: inline-block; 
+  font-weight: bold;
+  margin-right: 1em;
+  
 }

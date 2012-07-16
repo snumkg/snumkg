@@ -19,4 +19,12 @@ class ApplicationController < ActionController::Base
     @current_tab = Tab.find_by_url_name(params[:tab_name])
     @boards = @current_tab.boards if @current_tab
   end
+
+  def signin?
+    !session[:user_id].nil?
+  end
+
+  def check_signin
+    redirect_to signin_path unless signin?
+  end
 end

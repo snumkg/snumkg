@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   validates_length_of :password, :minimum => 4
   
   has_many :articles
+  has_many :comments
 
   def self.authentication(username, password)
     user = User.find_by_username(username)

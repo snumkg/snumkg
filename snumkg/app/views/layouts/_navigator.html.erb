@@ -10,8 +10,8 @@
         <% end %>
       </ul>
       <ul class="nav pull-right">
-        <% if user %>
-          <li><%= link_to user.nickname, user_path(user) %></li>
+        <% if current_user %>
+          <li><%= link_to current_user.nickname, user_path(current_user) %></li>
           <li><%= link_to "로그아웃", signout_path %></li>
         <% else %>
           <li><%= link_to "로그인", signin_path %></li>

@@ -1,0 +1,7 @@
+<%= form_for(@comment, id: "write_comment_box") do |f| %>
+  <%= current_user.nickname %>
+  <%= f.text_field :content, class: "span5" %>
+  <%= f.hidden_field :article_id, :value => @article.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.submit "댓글달기", class: "btn" %>
+<% end %>
