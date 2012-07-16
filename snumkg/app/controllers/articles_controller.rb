@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(params[:article])
 
     @article.user_id = session[:user_id]
-    @article.board_id = Board.find_by_url_name(params[:board_name]).id
+    @article.board_id = @boards.find_by_url_name(params[:board_name]).id
 
     if @article.save
       redirect_to articles_path(:tab_name => params[:tab_name], :board_name => params[:board_name])
