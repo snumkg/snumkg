@@ -6,4 +6,9 @@ class Article < ActiveRecord::Base
   belongs_to :user
 
   has_many :comments
+  has_many :like_articles
+
+  def liked_by?(user_id)
+    !LikeArticle.where(:article_id => self.id, :user_id => user_id).limit(1).first.nil?
+  end
 end

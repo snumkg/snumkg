@@ -55,6 +55,9 @@ Snumkg::Application.routes.draw do
   get '/signup', :to => 'users#new'
   get '/signout', :to => 'auth#signout'
 
+  get '/like_article/:article_id(.:format)', :to => 'like_articles#like', :as => 'like_article'
+  get '/unlike_article/:article_id', :to => 'like_articles#unlike', :as => 'unlike_article'
+
   resources :users
   resources :comments, only:[:create, :destroy]
 

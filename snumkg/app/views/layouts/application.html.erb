@@ -2,8 +2,10 @@
 <html>
 <head>
   <title>Snumkg</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "home", controller_path, :media => "all" %>
+  <%= javascript_include_tag "jquery", "jquery_ujs" %>
+  <%= javascript_include_tag "home", controller_path %>
+  <%= javascript_include_tag "bootstrap-modal" %>
   <%= csrf_meta_tags %>
   <%= yield :head %>
 </head>
