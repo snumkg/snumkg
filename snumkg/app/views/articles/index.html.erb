@@ -1,18 +1,20 @@
 
 <div id="article_wrapper">
   <table class="table">
-    <% for article in @articles %>
+    <% for @article in @articles %>
       <tr>
-        <td>
-          <%= link_to article.title, article_path(:tab_name => params[:tab_name], :board_name => params[:board_name], :id => article) %>
+        <td class="span7">
+          <%= link_to @article.title, article_path(:tab_name => params[:tab_name], :board_name => params[:board_name], :id => @article) %>
           <span id="comment_number">
-              [<%= article.comments.count %>]
-          </span> 
-          <span class="article_writer"> 
-            작성자: <%= article.user.nickname %>
-        </span>
-      </td>
-
+            [<%= @article.comments.count %>]
+          </span>
+        </td>
+        <td>
+          <%= render 'articles/delete_btn', :locals => {:@article => @article} %>
+        </td>
+        <td class="span2">
+          작성자: <%= @article.user.nickname %>
+        </td>
       </tr>
     <% end %>
   </table>

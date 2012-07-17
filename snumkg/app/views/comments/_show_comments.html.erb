@@ -10,6 +10,9 @@
                   <%= comment.user.nickname %> 
                 </span>
                 <%= comment.content %>  
+                <% if current_user == comment.user %>
+                  <%= link_to "삭제", comment_path(comment), method: "delete", confirm: "댓글을 삭제하시겠습니까?", class: "delete_btn right" %>
+                <% end %>
               </td>
             </tr>
           <% end %>

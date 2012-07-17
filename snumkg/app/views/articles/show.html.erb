@@ -1,7 +1,11 @@
 
 <table id="article_box">
   <tr>
-    <td><span id="article_title"><%= @article.title %></span> <span class="article_writer">작성자:<%= @article.user.username%> </span></td>
+    <td>
+      <span id="article_title"><%= @article.title %></span>
+      <span class="article_writer">작성자:<%= @article.user.username%> </span>
+      <%= render 'articles/delete_btn', :locals => {:@article => @article} %>
+    </td>
   </tr>
   <tr>
     <td><div id="article_body"><%= @article.body %></div></td>

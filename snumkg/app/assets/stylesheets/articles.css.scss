@@ -9,6 +9,23 @@
   font-weight: bold;
 }
 
+.delete_btn {
+  display: inline-block;
+  width:30px;
+  background:red;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 85%;
+  text-align: center;
+  color:white;
+  margin-right: 1em;
+}
+
+.delete_btn:hover {
+  text-decoration: none;
+  color: #eee;
+}
+
 #article_box {
   width: 700px;  
   border: 1px solid #ddd;

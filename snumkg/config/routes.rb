@@ -56,10 +56,11 @@ Snumkg::Application.routes.draw do
   get '/signout', :to => 'auth#signout'
 
   resources :users
+  resources :comments, only:[:create, :destroy]
+
   scope ':tab_name' do
     scope ':board_name' do
       resources :articles
-      resources :comments, only:[:create, :destroy]
     end
   end
 

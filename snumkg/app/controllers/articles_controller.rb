@@ -27,4 +27,14 @@ class ArticlesController < ApplicationController
       render 'new'
     end
   end
+
+  def destroy
+    @article = Article.find_by_id(params[:id])
+    
+    if @article.destroy
+      redirect_to articles_path(:tab_name => params[:tab_name], :board_name => params[:board_name])
+     else
+      redirect_to articles_path(:tab_name => params[:tab_name], :board_name => params[:board_name])
+    end
+  end
 end
