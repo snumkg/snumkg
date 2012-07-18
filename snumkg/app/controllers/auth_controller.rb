@@ -1,5 +1,6 @@
 #coding: utf-8
 class AuthController < ApplicationController
+
   layout 'main'
   def signout
     session[:user_id] = nil
@@ -8,6 +9,10 @@ class AuthController < ApplicationController
 
   def signin
 
+    if signin?
+      redirect_to root_path
+    end
+
   end
 
   def authorize
@@ -15,8 +20,8 @@ class AuthController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_path
     else
-      flash.now[:error] = "아이디 혹은 비밀번호가 일치하지 않습니다."
-      render 'signin'
+      flash[:error] = "아이디 혹은 비밀번호가 일치하지 않습니다."
+      redirect_to signin_path
     end
   end
 end

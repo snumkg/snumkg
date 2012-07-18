@@ -3,21 +3,25 @@
   <table class="table">
     <% for @article in @articles %>
       <tr>
+        <td>
+          <%= @index %> <% @index = @index - 1 %>
+        </td>
         <td class="span7">
           <%= link_to @article.title, article_path(:tab_name => params[:tab_name], :board_name => params[:board_name], :id => @article) %>
           <span id="comment_number">
             [<%= @article.comments.count %>]
           </span>
+          <span class="article_like_number">추천 <%= @article.like_articles.count %></span>
+
         </td>
         <td>
-          <%= render 'articles/delete_btn', :locals => {:@article => @article} %>
-        </td>
-        <td class="span2">
           작성자: <%= @article.user.nickname %>
         </td>
       </tr>
     <% end %>
   </table>
 
-  <%= link_to "글쓰기", new_article_path(:tab_name => params[:tab_name], :board_name => params[:board_name]) %>
+  <% if current_user %>
+    <%= link_to "글쓰기", new_article_path(:tab_name => params[:tab_name], :board_name => params[:board_name]) %>
+  <% end %>
 </div>

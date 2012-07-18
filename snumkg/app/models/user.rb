@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :articles
   has_many :comments
   has_many :like_articles
+  has_many :like_comments
 
   def self.authentication(username, password)
     user = User.find_by_username(username)

@@ -1,3 +1,9 @@
+<% content_for(:head) do %>
+  <%= javascript_include_tag :comments %>
+  <%= stylesheet_link_tag    :comments %>
+<% end %>
+
+
 <table id="show_comments_box">
   <tr>
     <td class="bold">댓글</td>
@@ -9,7 +15,31 @@
           <span class="comment_writer">
             <%= comment.user.nickname %> 
           </span>
-          <%= comment.content %>  
+          <span>
+            <%= comment.content %>  
+          </span>
+          <span class="comment_like_number">
+            추천 <%= comment.like_comments.count %>
+          </span>
+          <% if signin? %>
+            <span>
+              <% if comment.liked_by?(current_user) %>
+                <%= link_to "추천취소", unlike_comment_path(comment.id) %>
+              <% else %>
+                <%= link_to "추천하기", like_comment_path(comment.id) %>
+              <% end %>
+            </span>
+          <% end %>
+          <span>
+            <%= show_like_user(comment) %>
+          </span>
+          <ul class="like_comment_list" data-id="<%= comment.id%>">
+            <% list = comment.like_comments.map {|like| like.user.nickname} %>
+            <% list.shift %>
+           <% for name in list %>
+              <li><%= name %></li>
+            <% end %>
+          </ul>
           <% if current_user == comment.user %>
             <%= link_to "삭제", comment_path(comment), method: "delete", confirm: "댓글을 삭제하시겠습니까?", class: "delete_btn right" %>
           <% end %>

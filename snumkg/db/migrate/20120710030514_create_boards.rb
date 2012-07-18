@@ -3,7 +3,6 @@ class CreateBoards < ActiveRecord::Migration
     create_table :boards do |t|
       t.integer :tab_id
       t.string  :name
-      t.string  :url_name
       t.integer :admin_id
 
 

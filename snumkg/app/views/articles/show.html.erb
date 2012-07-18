@@ -3,21 +3,33 @@
   <tr>
     <td>
       <span id="article_title"><%= @article.title %></span>
+      <span class="article_like_number">추천 <%= @article.like_articles.count %></span>
       <span class="article_writer">작성자:<%= @article.user.username%> </span>
-      <%= render 'articles/delete_btn', :locals => {:@article => @article} %>
     </td>
   </tr>
   <tr>
     <td><div id="article_body"><%= @article.body %></div></td>
   </tr>
-  <% if @article.liked_by?(session[:user_id]) %>
+  <% if signin? %>
     <tr>
-      <td><%= link_to "추천 취소", unlike_article_path(@article), :class => "unlike_article_btn" %></td>
+      <td>
+        <% if @article.liked_by?(current_user) %>
+          <%= link_to "추천 취소", unlike_article_path(@article), :class => "unlike_article_btn" %>
+        <% else %>
+          <%= link_to "추천하기", like_article_path(@article), :class => "like_article_btn" %>
+        <% end %>
+        <% if current_user == @article.user %>
+          <span>
+            <%= link_to "수정하기", edit_article_path(tab_name: params[:tab_name], board_name: params[:board_name], id: @article) %>
+          </span>
+          <span>
+            <%= render 'articles/delete_btn', :locals => {:@article => @article} %>
+          </span>
+        <% end %>
+
+      </td>
     </tr>
-  <% else %>
-    <tr>
-      <td> <%= link_to "추천하기", like_article_path(@article), :class => "like_article_btn" %></td>
-    </tr>
+
   <% end %>
   <tr>
     <td>

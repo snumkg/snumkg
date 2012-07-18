@@ -57,14 +57,15 @@ Snumkg::Application.routes.draw do
 
   get '/like_article/:article_id(.:format)', :to => 'like_articles#like', :as => 'like_article'
   get '/unlike_article/:article_id', :to => 'like_articles#unlike', :as => 'unlike_article'
+  get 'like_comment/:comment_id', :to => 'like_comments#like', :as => 'like_comment'
+  get 'unlike_comment/:comment_id', :to => 'like_comments#unlike', :as => 'unlike_comment'
+  get 'like_comment_memeber/:comment_id', :to => 'like_comments#show', :as => 'like_comment_member'
 
   resources :users
   resources :comments, only:[:create, :destroy]
 
   scope ':tab_name' do
-    scope ':board_name' do
-      resources :articles
-    end
+      resources ':board_name', :as => 'articles', :controller => 'articles'
   end
 
   get ':tab_name', :to => 'home#tab'
