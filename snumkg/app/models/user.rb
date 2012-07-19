@@ -26,4 +26,28 @@ class User < ActiveRecord::Base
     self.password_salt, self.password_hash = salt, Digest::SHA256.hexdigest(pass.to_s + salt)
   end
 
-end
+  private
+  def set_count_diff(after,before)
+    if after > before
+      after - before
+    else
+      0
+    end
+  end
+
+  public
+  def occured_alarm_count
+    cnt = Alarm.where(acceptor_id: self.id).count
+
+    if cnt != 0
+      cnt - self.alarm_counts
+    else
+      0
+    end
+  end
+
+  def alarms
+    Alarm.where(acceptor_id: self.id)
+  end
+
+ end

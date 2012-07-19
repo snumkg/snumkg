@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  article_id: 1
+  acceptor_id: 1
+  alarmer_id: 1
+
+two:
+  article_id: 1
+  acceptor_id: 1
+  alarmer_id: 1

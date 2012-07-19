@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120718083454) do
+ActiveRecord::Schema.define(:version => 20120719145711) do
+
+  create_table "alarms", :force => true do |t|
+    t.integer  "article_id"
+    t.integer  "comment_id"
+    t.integer  "acceptor_id"
+    t.integer  "alarmer_id"
+    t.integer  "alarm_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "articles", :force => true do |t|
     t.integer  "user_id"
@@ -69,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20120718083454) do
     t.string   "department"
     t.integer  "grade"
     t.string   "email"
+    t.integer  "alarm_counts",  :default => 0
     t.integer  "level",         :default => 1
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false

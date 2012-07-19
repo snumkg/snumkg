@@ -60,6 +60,10 @@ Snumkg::Application.routes.draw do
   get 'like_comment/:comment_id', :to => 'like_comments#like', :as => 'like_comment'
   get 'unlike_comment/:comment_id', :to => 'like_comments#unlike', :as => 'unlike_comment'
   get 'like_comment_memeber/:comment_id', :to => 'like_comments#show', :as => 'like_comment_member'
+  
+  get '/alarms', :to => 'users#alarms', :as => 'user_alarms'
+
+  post '/images', :to => 'users#image', :as => 'images'
 
   resources :users
   resources :comments, only:[:create, :destroy]

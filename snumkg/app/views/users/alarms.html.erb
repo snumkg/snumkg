@@ -1,0 +1,21 @@
+
+<h1>알림 목록</h1>
+
+<ul>
+<% for alarm in @alarms %>
+  <% case alarm.alarm_type %>
+  <% when 0 %>
+    <% article = alarm.article %>
+    <li><%= alarm.alarmer.nickname + "님이 " %><%= link_to "글", article_path(tab_name: article.board.tab.name, board_name: article.board.name, id: article.id)%>을 추천하였습니다.</li>
+  <% when 1 %>
+
+  <% when 2 %>
+
+  <% when 3 %>
+
+  <% end %>
+<% end %>
+
+</ul>
+
+<%= @aa %>

@@ -4,6 +4,13 @@
 
 @import "bootstrap";
 
+.user_alarm {
+
+  span {
+    color: red;
+    font-weight: bold;
+  }
+}
 
 #wrapper {
   width: 1000px;

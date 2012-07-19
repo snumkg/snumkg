@@ -1,4 +1,4 @@
 <% if current_user == @article.user %>
-  <%= link_to "삭제", article_path(board_name: params[:board_name], tab_name: params[:tab_name], id: @article), class: "delete_btn right", method: "delete", confirm: "정말로 삭제하시겠습니까?" %>
+  <%= link_to "삭제", article_path(board_name: params[:board_name], tab_name: params[:tab_name], id: @article), method: "delete", confirm: "정말로 삭제하시겠습니까?" %>
 <% end %>
 

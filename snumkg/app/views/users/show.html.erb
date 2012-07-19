@@ -1,2 +1,10 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+
+<%= form_tag(images_path, multipart: true) do %>
+
+  <%= file_field_tag :image%>
+  <%= submit_tag "이미지 올리기"%>
+
+<% end %>
+
+
+

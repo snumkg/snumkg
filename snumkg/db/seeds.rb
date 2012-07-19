@@ -8,6 +8,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 
+def random_number(min,max)
+  Random.new.rand(min..max)
+end
+
+
 
 #User
 admin = User.new(username: "snumkg", email: "snumkg@gmail.com", nickname: "관리자", password: "asdf", password_confirmation: "asdf")
@@ -38,38 +43,42 @@ Tab.create(name: "09학번",  admin_id: admin.id)
 
 #Board
 
-for tab in Tab.all 
-
-  board1 = Board.create(name: "소꼬지", tab_id: tab.id, admin_id: admin.id)
-  board2 = Board.create(name: "자유게시판", tab_id: tab.id, admin_id: admin.id)
-  board3 = Board.create(name: "공지사항", tab_id: tab.id, admin_id: admin.id)
-  board4 = Board.create(name: "자유게시판", tab_id: tab.id, admin_id: admin.id)
-
-end
+  board1 = Board.create(name: "소꼬지", tab_id: all_tab.id, admin_id: admin.id)
+  board2 = Board.create(name: "자유게시판", tab_id: all_tab.id, admin_id: admin.id)
+  board3 = Board.create(name: "공지사항", tab_id: all_tab.id, admin_id: admin.id)
+  board4 = Board.create(name: "그냥겟판", tab_id: all_tab.id, admin_id: admin.id)
 
 #Article
 body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ첫번재글임"
 
 for board in Board.all
-  Article.create(title: "첫번째 글", user_id: admin.id, board_id: board.id, body: body_content)
-  Article.create(title: "두번째 글", user_id: admin.id, board_id: board.id, body: body_content)
-  Article.create(title: "세번째 글", user_id: admin.id, board_id: board.id, body: body_content)
-  Article.create(title: "네번째 글", user_id: admin.id, board_id: board.id, body: body_content)
-  Article.create(title: "다섯번째 글", user_id: admin.id, board_id: board.id, body: body_content)
-  Article.create(title: "여섯번째 글", user_id: admin.id, board_id: board.id, body: body_content)
+  Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
+  Article.create(title: "두번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
+  Article.create(title: "세번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
 end
-
-def random_number(min,max)
-  Random.new.rand(min..max)
-end
-
 #comments
 Article.all.each do |article|
-  random_number(0,15).times do
+  random_number(0,5).times do
 
     comment = article.comments.new(content:"안녕하세요!!")
     comment.user_id = random_number(1,User.all.count)
     comment.save
 
+  end
+end
+
+Article.all.each do |article|
+  random_number(0,5).times do
+    like = article.like_articles.new
+    like.user_id = random_number(1,User.all.count)
+    like.save
+  end
+end
+
+Comment.all.each do |comment|
+  random_number(0,5).times do
+    like = comment.like_comments.new
+    like.user_id = random_number(1,User.all.count)
+    like.save
   end
 end

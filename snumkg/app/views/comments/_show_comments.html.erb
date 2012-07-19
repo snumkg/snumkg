@@ -40,8 +40,26 @@
               <li><%= name %></li>
             <% end %>
           </ul>
+          <div class="modal hide" data-id="modal<%=comment.id%>">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">×</button>
+              <h3>추천한 사람들</h3>
+            </div>
+            <div class="modal-body">
+              <% list = comment.like_comments.map {|like| like.user.nickname} %>
+              <% list.shift %>
+              <ul>
+                <% for name in list %>
+                  <li><%= name %></li>
+                <% end %>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn" data-dismiss="modal">닫기</a>
+            </div>
+          </div>
           <% if current_user == comment.user %>
-            <%= link_to "삭제", comment_path(comment), method: "delete", confirm: "댓글을 삭제하시겠습니까?", class: "delete_btn right" %>
+            <%= link_to "삭제", comment_path(comment), method: "delete", confirm: "댓글을 삭제하시겠습니까?" %>
           <% end %>
         </td>
       </tr>
