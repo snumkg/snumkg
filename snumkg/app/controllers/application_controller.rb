@@ -14,6 +14,19 @@ class ApplicationController < ActionController::Base
     redirect_to signin_path unless signin?
   end
 
+
+  def save_alarm(alarm, acceptor_id, alarm_type, article_id)
+    if acceptor_id != current_user.id
+      alarm.acceptor_id = acceptor_id
+      alarm.alarmer_id = current_user.id
+      alarm.alarm_type = alarm_type
+      alarm.article_id = article_id
+      alarm.save
+    end
+  end
+
+
+
   private
   def get_tabs
     @tabs = Tab.all
