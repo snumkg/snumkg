@@ -4,12 +4,12 @@ class LikeArticlesController < ApplicationController
   def create_alarm_like_article(article)
     #1. 글쓴이에게  알람 발생
     if current_user != article.user
-      save_alarm(Alarm.new,article.user.id,0, article.id)
+      save_alarm(Alarm.new,article.user.id,0, :article_id => article.id)
     end
     #2. 글을 추천한 사람들에게 알람 발생
     for user in article.liked_by_users
       if article.user != user # 글쓴이와 추천자가 일치할 경우. 알람 제외 (중복 방지)
-        save_alarm(Alarm.new,user.id,0, article.id)
+        save_alarm(Alarm.new,user.id,0, :article_id => article.id)
       end
     end
 
@@ -37,19 +37,12 @@ class LikeArticlesController < ApplicationController
     end
   end
 
-  def destroy_like_article_alarm(alarm)
-    user = alarm.acceptor
-
-    user.update_attribute(:alarm_counts, user.alarm_counts - 1)
-    alarm.destroy unless alarm.nil?
-  end
-
   def unlike
     #추천 알림한 내용 제거
     @alarms = Alarm.where(article_id: params[:article_id], alarmer_id: current_user.id, alarm_type: 0)
 
     for alarm in @alarms
-      destroy_like_article_alarm(alarm)
+      destroy_alarm(alarm)
     end
 
     #추천 제거

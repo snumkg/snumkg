@@ -15,14 +15,26 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def save_alarm(alarm, acceptor_id, alarm_type, article_id)
+  def save_alarm(alarm, acceptor_id, alarm_type, acid ={})
     if acceptor_id != current_user.id
       alarm.acceptor_id = acceptor_id
       alarm.alarmer_id = current_user.id
       alarm.alarm_type = alarm_type
-      alarm.article_id = article_id
+   
+      alarm.article_id = acid[:article_id]
+      alarm.comment_id = acid[:comment_id]
       alarm.save
+      alarm.acceptor.update_attribute(:alarm_counts,alarm.acceptor.alarm_counts + 1)
     end
+  end
+
+  def destroy_alarm(alarm)
+    user = alarm.acceptor
+
+    if user.alarm_counts > 0 
+      user.update_attribute(:alarm_counts, user.alarm_counts - 1)
+    end
+    alarm.destroy unless alarm.nil?
   end
 
 

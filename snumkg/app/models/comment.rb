@@ -11,4 +11,8 @@ class Comment < ActiveRecord::Base
   def liked_by?(user)
     !LikeComment.where(:comment_id => self.id, :user_id => user.id).limit(1).first.nil?
   end
+
+  def liked_by_users
+    LikeComment.where(:comment_id => self.id).map {|c| c.user}
+  end
 end

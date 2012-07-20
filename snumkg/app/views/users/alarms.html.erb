@@ -1,11 +1,17 @@
 
+<% content_for :head do %>
+  <%= javascript_include_tag :user %>
+  <%= javascript_include_tag "jquery.color" %>
+<% end %>
+
 <h1>알림 목록</h1>
 
-<ul>
-  <% for alarm in @alarms %>
-    <li><%= alarm.alarmer.nickname + "님이 " %><%= alarm_messages(alarm) %></li>
+<ul id="alarm_list" data-alarmcounts="<%=session[:alarm_counts]%>">
+  <% @alarms.each_with_index do |alarm, index| %>
+    <li id="alarm<%=index%>"><%= alarm.alarmer.nickname + "님이 " %><%= alarm_messages(alarm) %></li>
   <% end %>
 
 </ul>
 
 <%= @aa %>
+

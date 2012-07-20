@@ -3,13 +3,13 @@ class CommentsController < ApplicationController
   def create_comment_at_article_alarm(article)
     #1. 글쓴이에게 코멘트 알림
     if current_user != article.user
-    save_alarm(Alarm.new,article.user.id,1,article.id)
+    save_alarm(Alarm.new,article.user.id,1,:article_id => article.id)
     end
     #2. 글에 댓글 단 사람들에게 코멘트 알림
     users = article.comments.map {|comment| comment.user}
     for user in users.uniq # 여러 댓글을 단 사람들 중복 제거
       if current_user != user && article.user != user
-      save_alarm(Alarm.new,user.id,1,article.id)
+      save_alarm(Alarm.new,user.id,1,:article_id => article.id)
       end
     end
     #3. 글 추천한 사람에게 코멘트 알림(?)
@@ -36,14 +36,6 @@ class CommentsController < ApplicationController
     end
   end
 
-
-  def destroy_comment_at_article_alarm(alarm)
-    user = alarm.acceptor
-
-    user.update_attribute(:alarm_counts, user.alarm_counts - 1)
-    alarm.destroy unless alarm.nil?
-  end
-
   def destroy
     comment = Comment.find_by_id(params[:id])
 
@@ -55,7 +47,7 @@ class CommentsController < ApplicationController
     @alarms = Alarm.where(article_id: comment.article.id, alarmer_id: current_user.id, alarm_type: 1)
 
     for alarm in @alarms
-      destroy_comment_at_article_alarm(alarm) 
+      destroy_alarm(alarm)
     end
 
     if comment.destroy

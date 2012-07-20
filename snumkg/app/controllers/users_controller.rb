@@ -34,8 +34,9 @@ class UsersController < ApplicationController
   end
 
   def alarms
-    @alarms = current_user.alarms
-    current_user.update_attribute(:alarm_counts, Alarm.where(acceptor_id: current_user.id).count)
+    @alarms = current_user.alarms.order("created_at desc")
+    session[:alarm_counts] = current_user.alarm_counts
+    current_user.update_attribute(:alarm_counts, 0)
 
     
   end
