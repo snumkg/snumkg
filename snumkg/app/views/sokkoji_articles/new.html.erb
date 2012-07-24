@@ -1,0 +1,25 @@
+<% content_for(:head) do %>
+  <%= javascript_include_tag "fullcalendar" %>
+  <%= stylesheet_link_tag    "fullcalendar" %>
+
+  <%= stylesheet_link_tag "jquery-ui-1.8.21.custom" %>
+  <%= javascript_include_tag "jquery-ui-1.8.21.custom.min" %>
+  <%= javascript_include_tag "jquery-ui-timepicker-addon" %>
+<% end %>
+
+<%= form_for(@sokkoji_article) do |f| %>
+
+  작성자 : <%= current_user.username %>
+  <%= f.label :title, '제목' %>
+  <%= f.text_field :title %>
+
+  <%= f.label :day %>
+  <%= f.text_field :day, id: "sokkoji_date" %>
+
+  <%= f.label :body, '내용' %>
+  <%= f.text_area :body %>
+
+  <br />
+  <%= f.submit "글쓰기", class:"btn" %>
+
+<% end %>

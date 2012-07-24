@@ -1,4 +1,9 @@
+#encoding: utf-8
 Snumkg::Application.routes.draw do
+  get "sokkoji_articles/index"
+
+  get "sokkoji_articles/show"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -61,14 +66,22 @@ Snumkg::Application.routes.draw do
   get 'unlike_comment/:comment_id', :to => 'like_comments#unlike', :as => 'unlike_comment'
   get 'like_comment_memeber/:comment_id', :to => 'like_comments#show', :as => 'like_comment_member'
   
+  get '/attendance/:sokkoji_article_id', :to => 'attendances#create', :as => 'create_attendance'
+  get '/cancel_attendance/:sokkoji_article_id', :to => 'attendance#destroy', :as => 'destroy_attendance'
+
   get '/alarms', :to => 'users#alarms', :as => 'user_alarms'
 
+
+  get '/profile_image/:id', :to => 'users#get_profile_image', :as => 'profile_image'
   post '/images', :to => 'users#image', :as => 'images'
 
   resources :users
   resources :comments, only:[:create, :destroy]
+  resources :profile_comments, only:[:create, :destroy]
 
   scope ':tab_name' do
+
+      resources 'sokkoji', :as => 'sokkoji_articles', :controller => 'sokkoji_articles'
       resources ':board_name', :as => 'articles', :controller => 'articles'
   end
 

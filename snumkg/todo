@@ -2,4 +2,7 @@
 1. redirect_to :back 수정? 
 2. 로그인 할때 friendly forwarding 하기.
 3. 로그인도 안했는데 session[:user_id]가 nil이 아니다?!
+4. jquery plugin conflict (datepicker, fullcalendar)
+5. 프로필페이지 댓글 삭제 기능 추가하기.
+6. 
 

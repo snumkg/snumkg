@@ -1,0 +1,2 @@
+module SokkojiArticlesHelper
+end

@@ -3,6 +3,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :article
   belongs_to :user
+  belongs_to :sokkoji_article
 
   has_many :like_comments
 

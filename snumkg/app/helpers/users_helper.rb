@@ -8,10 +8,16 @@ module UsersHelper
     link_to string, to_article_path(tab_name, board_name, article_id) 
   end
 
+  def create_profile_link(string,user_id)
+    link_to string, user_path(user_id)
+  end
+
   def alarm_messages(alarm)
-    article = alarm.article
-    tab_name = article.board.tab.name
-    board_name = article.board.name
+    if alarm.alarm_type != 3
+      article = alarm.article
+      tab_name = article.board.tab.name
+      board_name = article.board.name
+    end
 
     case alarm.alarm_type
     when 0
@@ -21,7 +27,7 @@ module UsersHelper
     when 2
       create_article_link("댓글을 추천하였습니다.",tab_name,board_name,article.id)
     when 3
-      create_article_link("댓글에 댓글을 달았습니다.",tab_name,board_name,article.id)
+      create_profile_link("#{alarm.acceptor.nickname}님의 프로필에 댓글을 달았습니다.",alarm.acceptor.id)
     end
    end
 end

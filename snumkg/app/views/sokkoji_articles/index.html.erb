@@ -1,0 +1,44 @@
+<%= content_for(:head) do %>
+  <%= javascript_include_tag "fullcalendar" %>
+  <%= stylesheet_link_tag    "fullcalendar" %>
+
+  <%= stylesheet_link_tag "jquery-ui-1.8.21.custom" %>
+  <%= javascript_include_tag "jquery-ui-1.8.21.custom.min" %>
+  <%= javascript_include_tag "jquery-ui-timepicker-addon" %>
+
+<% end %>
+
+<div id="calendar"></div>
+
+<% if current_user %>
+  <%= link_to "글쓰기", new_sokkoji_article_path(:tab_name => params[:tab_name]) %>
+<% end %>
+
+
+<table id="sokkoji_article">
+  <tbody>
+  <% for sokkoji_article in @sokkoji_articles %>
+    <tr title="<%= sokkoji_article.title%>" writer="<%= sokkoji_article.user.nickname%>" date="<%= sokkoji_article.day %>">
+      <td><%= @index %><% @index = @index - 1%></td>
+      <td class="span2">
+        <%= link_to sokkoji_article.title, sokkoji_article_path(:tab_name => params[:tab_name], :id => sokkoji_article) %>
+        <span class="comment_number">
+          [<%= sokkoji_article.comments.count %>]
+        </span>
+        <span class="sokkoji_attendance_number">
+          참석 <%= sokkoji_article.attendances.count %>
+        </span>
+      </td>
+      <td class="span7">
+        날짜:<span class="sokkoji_day<%=@index%>"><%= sokkoji_article.day %></span>
+      </td>
+      <td>
+        작성자:<span class="sokkoji_writer<%=@index%>"> <%= sokkoji_article.user.nickname %></span>
+      </td>
+    </tr>
+
+  <% end %>
+</tbody>
+</table>
+
+

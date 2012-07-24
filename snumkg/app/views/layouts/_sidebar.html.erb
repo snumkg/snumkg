@@ -1,7 +1,11 @@
 <div id="tab_sidebar">
   <ul>
     <% for board in @boards %>
-      <li><%= link_to board.name, articles_path(:tab_name => params[:tab_name], :board_name => board.name) %></li>
+      <% if board.article_type == 1 %>
+        <li><%= link_to board.name, sokkoji_articles_path(:tab_name => params[:tab_name]) %></li>
+      <% else %>
+        <li><%= link_to board.name, articles_path(:tab_name => params[:tab_name], :board_name => board.name) %></li>
+      <% end %>
     <% end %>
   </ul>
 </div>

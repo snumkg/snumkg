@@ -1,0 +1,105 @@
+// Place all the styles related to the sokkoji_articles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.right {
+  float: right;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.delete_btn {
+  display: inline-block;
+  width:30px;
+  background:red;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 85%;
+  text-align: center;
+  color:white;
+  margin-right: 1em;
+}
+
+.delete_btn:hover {
+  text-decoration: none;
+  color: #eee;
+}
+
+#article_box {
+  width: 700px;  
+  border: 1px solid #ddd;
+  
+  td {
+    padding: 1em;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+#article_title {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 130%;
+}
+
+.article_writer {
+  display: inline-block;
+  float: right;
+  margin-right: 2em;
+  color: #777;
+}
+
+#article_body {
+  margin-top: 1em;
+}
+
+.comment_number {
+
+  font-size: 80%;
+  color: red;
+}
+
+#show_comments_box {
+  width: 600px;
+
+  td {
+    padding: 2px;
+  }
+  
+}
+
+#write_comment_box {
+    margin: 0;
+}
+
+
+.comment_writer {
+  display: inline-block; 
+  font-weight: bold;
+  margin-right: 1em;
+  
+}
+
+
+.article_like_number {
+  display: inline-block;
+  width: 40px;
+  
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  background: #ffe4e1;
+  color: gray;
+  text-align: center;
+  font-weight: bold;
+  font-size: 85%;
+}
