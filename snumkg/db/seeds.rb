@@ -43,10 +43,12 @@ Tab.create(name: "09학번",  admin_id: admin.id)
 
 #Board
 
-  board1 = Board.create(name: "소꼬지", tab_id: all_tab.id, admin_id: admin.id)
+  board1 = Board.create(name: "암거나", tab_id: all_tab.id, admin_id: admin.id)
   board2 = Board.create(name: "자유게시판", tab_id: all_tab.id, admin_id: admin.id)
   board3 = Board.create(name: "공지사항", tab_id: all_tab.id, admin_id: admin.id)
   board4 = Board.create(name: "그냥겟판", tab_id: all_tab.id, admin_id: admin.id)
+
+  Board.create(name: "소꼬지게시판", tab_id: all_tab.id, admin_id: admin.id, board_type: 1)
 
 #Article
 body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ첫번재글임"

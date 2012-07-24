@@ -19,7 +19,7 @@
 <table id="sokkoji_article">
   <tbody>
   <% for sokkoji_article in @sokkoji_articles %>
-    <tr title="<%= sokkoji_article.title%>" writer="<%= sokkoji_article.user.nickname%>" date="<%= sokkoji_article.day %>">
+    <tr title="<%= sokkoji_article.title%>" writer="<%= sokkoji_article.user.nickname%>" day="<%= sokkoji_article.day %>">
       <td><%= @index %><% @index = @index - 1%></td>
       <td class="span2">
         <%= link_to sokkoji_article.title, sokkoji_article_path(:tab_name => params[:tab_name], :id => sokkoji_article) %>

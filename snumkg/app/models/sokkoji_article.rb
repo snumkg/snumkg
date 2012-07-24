@@ -1,5 +1,5 @@
 class SokkojiArticle < ActiveRecord::Base
-  attr_accessible :body, :title
+  attr_accessible :body, :title, :day
 
   has_many :comments
   has_many :attendances
