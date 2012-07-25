@@ -14,6 +14,9 @@ class ApplicationController < ActionController::Base
     redirect_to signin_path unless signin?
   end
 
+  def check_admin
+    redirect_to root_path unless (signin? && current_user.admin?)
+  end
 
   def save_alarm(alarm, acceptor_id, alarm_type, acid ={})
     if acceptor_id != current_user.id

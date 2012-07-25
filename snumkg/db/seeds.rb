@@ -51,6 +51,7 @@ Tab.create(name: "09학번",  admin_id: admin.id)
   Board.create(name: "소꼬지게시판", tab_id: all_tab.id, admin_id: admin.id, board_type: 1)
 
 #Article
+# article_type 0: 일반게시물, 1: 소꼬지게시물 
 body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ첫번재글임"
 
 for board in Board.all

@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(:version => 20120725154443) do
     t.integer  "alarm_type"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.integer  "sokkoji_article_id"
   end
 
   create_table "articles", :force => true do |t|
@@ -32,11 +31,13 @@ ActiveRecord::Schema.define(:version => 20120725154443) do
     t.integer  "view_count", :default => 0
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+    t.string   "date"
+    t.integer  "article_type", :default => 0
   end
 
   create_table "attendances", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "sokkoji_article_id"
+    t.integer  "article_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
@@ -53,10 +54,11 @@ ActiveRecord::Schema.define(:version => 20120725154443) do
   create_table "comments", :force => true do |t|
     t.integer  "article_id"
     t.integer  "user_id"
+    t.integer  "profile_user_id"
     t.string   "content"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.integer  "sokkoji_article_id"
+    t.integer  "comment_type", :default => 0
   end
 
   create_table "like_articles", :force => true do |t|
@@ -110,10 +112,10 @@ ActiveRecord::Schema.define(:version => 20120725154443) do
     t.string   "email"
     t.integer  "alarm_counts",  :default => 0
     t.integer  "level",         :default => 1
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "profile_url"
-    t.boolean  "admin"
+    t.boolean  "admin",         :default => false
   end
 
 end
