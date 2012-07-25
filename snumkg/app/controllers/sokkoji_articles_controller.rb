@@ -14,22 +14,6 @@ class SokkojiArticlesController < ApplicationController
     @sokkoji_article = SokkojiArticle.find_by_id(params[:id])
   end
 
-  def parseDay(string)
-    arr = string.split("년")
-    year = arr.first
-    arr = arr.last.split("월")
-    month = arr.first
-    arr = arr.last.split("일")
-    day = arr.first
-    
-    arr.last.strip!
-    hour = arr.split("시").first
-    arr = arr.last.split("분")
-    minute = arr.first
-
-    return {year: year, month: month, day: day, hour: hour, minute: minute}
-  end
-
   def create
     @sokkoji_article = SokkojiArticle.new(params[:sokkoji_article])
     
@@ -40,5 +24,13 @@ class SokkojiArticlesController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def destroy
+    @sokkoji_article = SokkojiArticle.find(params[:id])
+
+    @sokkoji_article.destroy
+
+    redirect_to sokkoji_articles_path(tab_name: params[:tab_name])
   end
 end

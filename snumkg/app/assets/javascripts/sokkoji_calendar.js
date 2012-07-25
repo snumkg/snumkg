@@ -23,23 +23,46 @@ $(function(){
 	}
 
 	var c = 10;
-	var articles = $('#sokkoji_article tbody tr').map(function(i,e){
-		var article = $(this);
-		
-		var day = article.attr('day');
-
+	
+/*	
+	 // 왜 안될까 ?????????????????????????
+	var e = $('#sokkoji_article tbody tr').map(function(i,e){
+	
 		return {
-			title: article.attr('title'),
-			start: parseDay(day),
+			title: $(this).attr('title'),
+			start: parseDay($(this).attr('day')),
+			allDay: false
+		};
+
+
+	});
+	console.log(e);
+	
+*/
+	
+	var articles = $('#sokkoji_article tbody tr');
+
+	var c = [];
+	articles.each(function(){
+		var d = {
+			title: $(this).attr('title'),
+			start: parseDay($(this).attr('day')),
+			url: $(this).attr('url'),
 			allDay: false
 		}
+		//console.log(d);
+		c.push(d);
+		
 	});
 
-
-	console.log(articles);
-	
-
-
+/*
+	var a = [{
+			title: "하하하하",
+			start: "2012-07-25 12:30:00",
+			allDay: false
+		
+		}];
+*/
 	$('#calendar').fullCalendar({
 
 		header:{
@@ -47,7 +70,8 @@ $(function(){
 			center: '',
 			right: 'today prev,next'
 		},
-		events: articles
+		events: c,
+		timeFormat: 'TTh:mm'
 	
 	});
 

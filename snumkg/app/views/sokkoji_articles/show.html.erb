@@ -22,6 +22,7 @@
             <%= link_to "수정하기", edit_sokkoji_article_path(tab_name: params[:tab_name], id: @sokkoji_article) %>
           </span>
           <span>
+            <%= link_to "삭제하기", sokkoji_article_path(tab_name: params[:tab_name], id: @sokkoji_article), method: "delete", confirm: "정말로 삭제하시겠습니까?" %>
           </span>
         <% end %>
 

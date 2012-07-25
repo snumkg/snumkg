@@ -19,9 +19,9 @@
 <table id="sokkoji_article">
   <tbody>
   <% for sokkoji_article in @sokkoji_articles %>
-    <tr title="<%= sokkoji_article.title%>" writer="<%= sokkoji_article.user.nickname%>" day="<%= sokkoji_article.day %>">
+    <tr title="<%= sokkoji_article.title%>" writer="<%= sokkoji_article.user.nickname%>" day="<%= sokkoji_article.day %>" url="<%=sokkoji_article_path(tab_name: params[:tab_name], id: sokkoji_article) %>">
       <td><%= @index %><% @index = @index - 1%></td>
-      <td class="span2">
+      <td class="span3">
         <%= link_to sokkoji_article.title, sokkoji_article_path(:tab_name => params[:tab_name], :id => sokkoji_article) %>
         <span class="comment_number">
           [<%= sokkoji_article.comments.count %>]
@@ -30,7 +30,7 @@
           참석 <%= sokkoji_article.attendances.count %>
         </span>
       </td>
-      <td class="span7">
+      <td class="span6">
         날짜:<span class="sokkoji_day<%=@index%>"><%= sokkoji_article.day %></span>
       </td>
       <td>
