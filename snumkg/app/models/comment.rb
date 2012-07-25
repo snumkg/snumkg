@@ -5,7 +5,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :sokkoji_article
 
-  has_many :like_comments
+  has_many :like_comments, :dependent => :destroy
 
   validates_presence_of :content, :article_id, :user_id
 

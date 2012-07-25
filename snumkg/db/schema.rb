@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120724122315) do
+ActiveRecord::Schema.define(:version => 20120725154443) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(:version => 20120724122315) do
     t.integer  "acceptor_id"
     t.integer  "alarmer_id"
     t.integer  "alarm_type"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "sokkoji_article_id"
   end
 
   create_table "articles", :force => true do |t|
@@ -112,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20120724122315) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.string   "profile_url"
+    t.boolean  "admin"
   end
 
 end

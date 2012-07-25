@@ -57,8 +57,11 @@ class UsersController < ApplicationController
   end
 
   def alarms
+    new_alarm_count = current_user.alarm_counts
     @alarms = current_user.alarms.order("created_at desc")
-    session[:alarm_counts] = current_user.alarm_counts
+    @new_alarms = new_alarm_count == 0 ? [] : @alarms[0..(new_alarm_count-1)]
+    @old_alarms = @alarms[new_alarm_count..(@alarms.count)]
+    session[:alarm_counts] = current_user.alarm_counts # 새로운 알람을 표시하기 위해 세션에 알림숫자를 저장해둠.
     current_user.update_attribute(:alarm_counts, 0)
   end
 

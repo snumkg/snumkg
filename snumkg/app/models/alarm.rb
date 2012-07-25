@@ -5,4 +5,5 @@ class Alarm < ActiveRecord::Base
   belongs_to :acceptor, :class_name => 'User', :foreign_key => :acceptor_id
   belongs_to :article
   belongs_to :comment
+  belongs_to :sokkoji_article
 end

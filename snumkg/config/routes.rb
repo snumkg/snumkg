@@ -67,7 +67,7 @@ Snumkg::Application.routes.draw do
   get 'like_comment_memeber/:comment_id', :to => 'like_comments#show', :as => 'like_comment_member'
   
   get '/attendance/:sokkoji_article_id', :to => 'attendances#create', :as => 'create_attendance'
-  get '/cancel_attendance/:sokkoji_article_id', :to => 'attendance#destroy', :as => 'destroy_attendance'
+  get '/cancel_attendance/:sokkoji_article_id', :to => 'attendances#destroy', :as => 'destroy_attendance'
 
   get '/alarms', :to => 'users#alarms', :as => 'user_alarms'
 

@@ -11,17 +11,20 @@
 
 <div id="calendar"></div>
 
-<% if current_user %>
-  <%= link_to "글쓰기", new_sokkoji_article_path(:tab_name => params[:tab_name]) %>
-<% end %>
-
-
-<table id="sokkoji_article">
+<table id="sokkoji_article" class="table table-striped">
+  <thead>
+    <tr>
+      <th class="span1">번호</th>
+      <th class="span4">제목</th>
+      <th>소꼬지날짜</th>
+      <th class="span1">작성자</th>
+    </tr>
+  </thead>
   <tbody>
   <% for sokkoji_article in @sokkoji_articles %>
     <tr title="<%= sokkoji_article.title%>" writer="<%= sokkoji_article.user.nickname%>" day="<%= sokkoji_article.day %>" url="<%=sokkoji_article_path(tab_name: params[:tab_name], id: sokkoji_article) %>">
       <td><%= @index %><% @index = @index - 1%></td>
-      <td class="span3">
+      <td>
         <%= link_to sokkoji_article.title, sokkoji_article_path(:tab_name => params[:tab_name], :id => sokkoji_article) %>
         <span class="comment_number">
           [<%= sokkoji_article.comments.count %>]
@@ -30,16 +33,21 @@
           참석 <%= sokkoji_article.attendances.count %>
         </span>
       </td>
-      <td class="span6">
-        날짜:<span class="sokkoji_day<%=@index%>"><%= sokkoji_article.day %></span>
+      <td>
+        <span class="sokkoji_day<%=@index%>"><%= sokkoji_article.day %></span>
       </td>
       <td>
-        작성자:<span class="sokkoji_writer<%=@index%>"> <%= sokkoji_article.user.nickname %></span>
+         <span class="sokkoji_writer<%=@index%>"> <%= sokkoji_article.user.nickname %></span>
       </td>
     </tr>
 
   <% end %>
 </tbody>
 </table>
+
+
+<% if current_user %>
+  <%= link_to "글쓰기", new_sokkoji_article_path(:tab_name => params[:tab_name]) %>
+<% end %>
 
 

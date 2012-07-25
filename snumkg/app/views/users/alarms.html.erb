@@ -7,8 +7,11 @@
 <h1>알림 목록</h1>
 
 <ul id="alarm_list" data-alarmcounts="<%=session[:alarm_counts]%>">
-  <% @alarms.each_with_index do |alarm, index| %>
+  <% @new_alarms.each_with_index do |alarm, index| %>
     <li id="alarm<%=index%>"><%= alarm.alarmer.nickname + "님이 " %><%= alarm_messages(alarm) %></li>
+  <% end %>
+  <% @old_alarms.each do |alarm|%>
+    <li><%= alarm.alarmer.nickname + "님이 " %><%= alarm_messages(alarm)%></li>
   <% end %>
 
 </ul>

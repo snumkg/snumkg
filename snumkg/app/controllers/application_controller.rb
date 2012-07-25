@@ -23,8 +23,16 @@ class ApplicationController < ActionController::Base
    
       alarm.article_id = acid[:article_id]
       alarm.comment_id = acid[:comment_id]
+      alarm.sokkoji_article_id = acid[:sokkoji_article_id]
       alarm.save
       alarm.acceptor.update_attribute(:alarm_counts,alarm.acceptor.alarm_counts + 1)
+
+   ##   new_alarms = alarm.acceptor.alarms[0..(alarm.acceptor.alarm_counts-1)]
+
+   ##   new_alarms.group_by(&:
+      # 새로운 알림 숫자를 저장할 때, 같은 것끼리 모아서 보여주기.
+      # 엄태건님 외 3명이 글에 댓글을 남겼습니다.
+
     end
   end
 

@@ -1,6 +1,13 @@
 
 <div id="article_wrapper">
   <table class="table">
+    <thead>
+      <th class="span1">번호</th>
+      <th class="span5">제목</th>
+      <th class="span2">작성일</th>
+      <th class="span1">작성자</th>
+    </thead>
+    <tbody>
     <% for @article in @articles %>
       <tr>
         <td>
@@ -15,10 +22,14 @@
 
         </td>
         <td>
-          작성자: <%= @article.user.nickname %>
+          <%= @article.created_at %>
+        </td>
+        <td>
+          <%= @article.user.nickname %>
         </td>
       </tr>
     <% end %>
+  </tbody>
   </table>
 
   <% if current_user %>
