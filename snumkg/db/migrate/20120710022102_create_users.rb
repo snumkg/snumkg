@@ -11,6 +11,8 @@ class CreateUsers < ActiveRecord::Migration
 			t.string :email
       t.integer :alarm_counts, default: 0
       t.integer :level, default: 1
+      t.string  :profile_url
+      t.boolean :admin, :default => false
 
       t.timestamps
     end

@@ -60,11 +60,10 @@ Snumkg::Application.routes.draw do
   get '/signup', :to => 'users#new'
   get '/signout', :to => 'auth#signout'
 
-  get '/like_article/:article_id(.:format)', :to => 'like_articles#like', :as => 'like_article'
-  get '/unlike_article/:article_id', :to => 'like_articles#unlike', :as => 'unlike_article'
-  get 'like_comment/:comment_id', :to => 'like_comments#like', :as => 'like_comment'
-  get 'unlike_comment/:comment_id', :to => 'like_comments#unlike', :as => 'unlike_comment'
-  get 'like_comment_memeber/:comment_id', :to => 'like_comments#show', :as => 'like_comment_member'
+  get '/like_article/:article_id(.:format)', :to => 'likes#article', :as => 'like_article'
+  get '/unlike_article/:article_id', :to => 'unlikes#article', :as => 'unlike_article'
+  get 'like_comment/:comment_id', :to => 'likes#comment', :as => 'like_comment'
+  get 'unlike_comment/:comment_id', :to => 'unlikes#comment', :as => 'unlike_comment'
   
   get '/attendance/:sokkoji_article_id', :to => 'attendances#create', :as => 'create_attendance'
   get '/cancel_attendance/:sokkoji_article_id', :to => 'attendances#destroy', :as => 'destroy_attendance'
@@ -72,20 +71,23 @@ Snumkg::Application.routes.draw do
   get '/alarms', :to => 'users#alarms', :as => 'user_alarms'
 
 
-  get '/profile_image/:id', :to => 'users#get_profile_image', :as => 'profile_image'
-  post '/images', :to => 'users#image', :as => 'images'
+  get '/profile/:id', :to => 'profiles#show', :as => 'profile'
+  get '/profile_image/:id', :to => 'profiles#get_profile_image', :as => 'profile_image'
+  post '/images', :to => 'profiles#image', :as => 'images'
+
+  post 'profile/create_comment', :to => 'profiles#create_comment', :as => 'profile_comment'
 
   resources :users
   resources :comments, only:[:create, :destroy]
-  resources :profile_comments, only:[:create, :destroy]
+  #resources :profile_comments, only:[:create, :destroy]
 
-  scope ':tab_name' do
+  scope ':group_name' do
 
       resources 'sokkoji', :as => 'sokkoji_articles', :controller => 'sokkoji_articles'
       resources ':board_name', :as => 'articles', :controller => 'articles'
   end
 
-  get ':tab_name', :to => 'home#tab'
+  get ':group_name', :to => 'home#group'
 
   # See how all your routes lay out with "rake routes"
 

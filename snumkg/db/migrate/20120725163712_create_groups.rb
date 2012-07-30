@@ -1,6 +1,6 @@
-class CreateTabs < ActiveRecord::Migration
+class CreateGroups < ActiveRecord::Migration
   def change
-    create_table :tabs do |t|
+    create_table :groups do |t|
       t.string  :name
       t.integer :admin_id
 

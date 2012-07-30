@@ -5,8 +5,8 @@
         <li class="active">
         <%= link_to "MKG", root_path %>
         </li>
-        <% for tab in @tabs %>
-          <li><%= link_to tab.name, "/#{tab.name}" %></li>
+        <% for group in @groups %>
+          <li><%= link_to group.name, "/#{group.name}" %></li>
         <% end %>
       </ul>
       <ul class="nav pull-right">
@@ -15,7 +15,7 @@
             <%= link_to "알림[#{current_user.alarm_counts}]",user_alarms_path %>
           </li>
           <li>
-          <%= link_to current_user.nickname, user_path(current_user) %>
+          <%= link_to current_user.nickname, profile_path(current_user) %>
           </li>
           <li><%= link_to "로그아웃", signout_path %></li>
         <% else %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120725154443) do
+ActiveRecord::Schema.define(:version => 20120726045611) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(:version => 20120725154443) do
     t.integer  "acceptor_id"
     t.integer  "alarmer_id"
     t.integer  "alarm_type"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.boolean  "new",         :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "articles", :force => true do |t|
@@ -28,27 +29,27 @@ ActiveRecord::Schema.define(:version => 20120725154443) do
     t.integer  "board_id"
     t.string   "title"
     t.text     "body"
-    t.integer  "view_count", :default => 0
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.integer  "view_count",   :default => 0
     t.string   "date"
     t.integer  "article_type", :default => 0
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "attendances", :force => true do |t|
     t.integer  "user_id"
     t.integer  "article_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "boards", :force => true do |t|
-    t.integer  "tab_id"
+    t.integer  "group_id"
     t.string   "name"
     t.integer  "admin_id"
+    t.integer  "board_type", :default => 0
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
-    t.integer  "board_type", :default => 0
   end
 
   create_table "comments", :force => true do |t|
@@ -56,47 +57,29 @@ ActiveRecord::Schema.define(:version => 20120725154443) do
     t.integer  "user_id"
     t.integer  "profile_user_id"
     t.string   "content"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.integer  "comment_type", :default => 0
+    t.integer  "comment_type",    :default => 0
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
-  create_table "like_articles", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "article_id"
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "admin_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "like_comments", :force => true do |t|
+  create_table "likes", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "article_id"
     t.integer  "comment_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "profile_comments", :force => true do |t|
+  create_table "profiles", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "writer_id"
-    t.string   "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "sokkoji_articles", :force => true do |t|
-    t.string   "title"
-    t.integer  "user_id"
-    t.integer  "board_id"
-    t.text     "body"
-    t.integer  "view_count", :default => 0
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-    t.string   "day"
-  end
-
-  create_table "tabs", :force => true do |t|
-    t.string   "name"
-    t.integer  "admin_id"
+    t.integer  "comment_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -112,10 +95,10 @@ ActiveRecord::Schema.define(:version => 20120725154443) do
     t.string   "email"
     t.integer  "alarm_counts",  :default => 0
     t.integer  "level",         :default => 1
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
     t.string   "profile_url"
     t.boolean  "admin",         :default => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
 end

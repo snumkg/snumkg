@@ -1,0 +1,35 @@
+
+<h1><%=@user.nickname%> 님의 프로필</h1>
+
+<%= image_tag profile_image_path(params[:id]) %>
+
+<% if current_user == User.find(params[:id]) %>
+  <%= form_tag(images_path, multipart: true) do %>
+
+    <%= file_field_tag :image%>
+    <%= submit_tag "이미지 올리기"%>
+
+  <% end %>
+<% end %>
+
+
+<hr />
+<h2>댓글</h2>
+<table class="table">
+  <% for profile_comment in @profile_comments %>
+    <tr>
+      <td class="span2"><%= profile_comment.writer.nickname %></td>
+      <td><%= profile_comment.content %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= form_tag(profile_comment_path) do |f| %>
+  <%= current_user.nickname %>
+  <%= text_field_tag :content, nil, class: "span5" %>
+  <%= hidden_field_tag :profile_user_id, params[:id] %>
+  <%= submit_tag "댓글달기", class: "btn" %>
+<% end %>
+<%= link_to "프로필 수정", edit_user_path(@user) %>
+
+

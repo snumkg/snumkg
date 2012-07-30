@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   include AuthHelper
 
   protect_from_forgery
-  before_filter :get_tabs
-  before_filter :set_tab_boards
+  before_filter :get_groups
+  before_filter :set_group_boards
 
   def user
     User.find_by_id(session[:user_id])
@@ -26,7 +26,6 @@ class ApplicationController < ActionController::Base
    
       alarm.article_id = acid[:article_id]
       alarm.comment_id = acid[:comment_id]
-      alarm.sokkoji_article_id = acid[:sokkoji_article_id]
       alarm.save
       alarm.acceptor.update_attribute(:alarm_counts,alarm.acceptor.alarm_counts + 1)
 
@@ -51,15 +50,15 @@ class ApplicationController < ActionController::Base
 
 
   private
-  def get_tabs
-    @tabs = Tab.all
+  def get_groups
+    @groups = Group.all
   end
 
   def set_user
   end
 
-  def set_tab_boards
-    @current_tab = Tab.find_by_name(params[:tab_name])
-    @boards = @current_tab.boards if @current_tab
+  def set_group_boards
+    @current_group = Group.find_by_name(params[:group_name])
+    @boards = @current_group.boards if @current_group
   end
 end

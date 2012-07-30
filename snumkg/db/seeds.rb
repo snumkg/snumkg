@@ -1,5 +1,5 @@
 #coding: utf-8
-# This file should contain all the record creation needed to seed the database with its default values.
+# This file should contain all the record creation needed to seed the dagroupase with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
@@ -15,7 +15,7 @@ end
 
 
 #User
-admin = User.new(username: "snumkg", email: "snumkg@gmail.com", nickname: "관리자", password: "asdf", password_confirmation: "asdf")
+admin = User.new(username: "snumkg", email: "snumkg@gmail.com", nickname: "관리자", password: "asdf", password_confirmation: "asdf", admin: true)
 admin.set_password("asdf")
 tg = User.new(username: "xovsxo", email: "taegeonum@gmail.com", nickname: "엄태건", password: "asdf", password_confirmation: "asdf")
 tg.set_password("asdf")
@@ -33,22 +33,21 @@ d.save
 e.save
 
 
-#Tab
-all_tab = Tab.create(name: "전체", admin_id: admin.id)
-tab12 =   Tab.create(name: "12학번", admin_id: admin.id)
-Tab.create(name: "11학번",  admin_id: admin.id)
-Tab.create(name: "10학번",  admin_id: admin.id)
-Tab.create(name: "09학번",  admin_id: admin.id)
+#Group
+all_group = Group.create(name: "전체", admin_id: admin.id)
+group12 =   Group.create(name: "12학번", admin_id: admin.id)
+Group.create(name: "11학번",  admin_id: admin.id)
+Group.create(name: "10학번",  admin_id: admin.id)
+Group.create(name: "09학번",  admin_id: admin.id)
 
 
 #Board
 
-  board1 = Board.create(name: "암거나", tab_id: all_tab.id, admin_id: admin.id)
-  board2 = Board.create(name: "자유게시판", tab_id: all_tab.id, admin_id: admin.id)
-  board3 = Board.create(name: "공지사항", tab_id: all_tab.id, admin_id: admin.id)
-  board4 = Board.create(name: "그냥겟판", tab_id: all_tab.id, admin_id: admin.id)
+  board2 = Board.create(name: "자유게시판", group_id: all_group.id, admin_id: admin.id)
+  board3 = Board.create(name: "공지사항", group_id: all_group.id, admin_id: admin.id)
+  board4 = Board.create(name: "그냥겟판", group_id: all_group.id, admin_id: admin.id)
 
-  Board.create(name: "소꼬지게시판", tab_id: all_tab.id, admin_id: admin.id, board_type: 1)
+  Board.create(name: "소꼬지게시판", group_id: all_group.id, admin_id: admin.id, board_type: 1)
 
 #Article
 # article_type 0: 일반게시물, 1: 소꼬지게시물 
@@ -60,6 +59,8 @@ for board in Board.all
   Article.create(title: "세번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
 end
 #comments
+
+=begin
 Article.all.each do |article|
   random_number(0,5).times do
 
@@ -69,7 +70,6 @@ Article.all.each do |article|
 
   end
 end
-
 Article.all.each do |article|
   random_number(0,5).times do
     like = article.like_articles.new
@@ -85,3 +85,4 @@ Comment.all.each do |comment|
     like.save
   end
 end
+=end

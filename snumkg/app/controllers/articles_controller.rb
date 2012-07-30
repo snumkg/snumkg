@@ -31,9 +31,10 @@ class ArticlesController < ApplicationController
 
     @article.user_id = session[:user_id]
     @article.board_id = @boards.find_by_name(params[:board_name]).id
+    @article.article_type = 0
 
     if @article.save
-      redirect_to articles_path(:tab_name => params[:tab_name], :board_name => params[:board_name])
+      redirect_to articles_path(:group_name => params[:group_name], :board_name => params[:board_name])
     else
       render 'new'
     end
@@ -43,9 +44,9 @@ class ArticlesController < ApplicationController
     @article = Article.find_by_id(params[:id])
     
     if @article.destroy
-      redirect_to articles_path(:tab_name => params[:tab_name], :board_name => params[:board_name])
+      redirect_to articles_path(:group_name => params[:group_name], :board_name => params[:board_name])
      else
-      redirect_to articles_path(:tab_name => params[:tab_name], :board_name => params[:board_name])
+      redirect_to articles_path(:group_name => params[:group_name], :board_name => params[:board_name])
     end
   end
 end

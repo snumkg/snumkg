@@ -3,7 +3,7 @@
     <td>
       <span id="article_title"><%= @sokkoji_article.title %></span>
       <span class="article_like_number">참석 <%= @sokkoji_article.attendances.count %></span>
-      <span class="article_writer">작성자:<%= @sokkoji_article.user.nickname%> </span>
+      <span class="article_writer">작성자:<%= @sokkoji_article.writer.nickname%> </span>
     </td>
   </tr>
   <tr>
@@ -17,7 +17,7 @@
     <% else %>
       <%= link_to "참석하기", create_attendance_path(@sokkoji_article), :class => "like_article_btn" %>
     <% end %>
-    <% if current_user == @sokkoji_article.user %>
+    <% if current_user == @sokkoji_article.writer %>
       <span>
       <%= link_to "수정하기", edit_sokkoji_article_path(tab_name: params[:tab_name], id: @sokkoji_article) %>
       </span>

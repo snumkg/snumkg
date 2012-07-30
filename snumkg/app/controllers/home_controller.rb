@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     render :layout => 'main'
   end
 
-  def tab
+  def group
   end
 
 end

@@ -2,17 +2,17 @@
 class SokkojiArticlesController < ApplicationController
   before_filter :check_signin, :except => [:index, :show]
   def index
-    @sokkoji_articles = SokkojiArticle.order("created_at desc")
+    @sokkoji_articles = Article.where(:article_type => 1).order("created_at desc")
     @index = @sokkoji_articles.count
   end
 
   def new
     @board = Board.find_by_board_type(1)
-    @sokkoji_article = @board.sokkoji_articles.new
+    @sokkoji_article = @board.articles.new
   end
 
   def show
-    @sokkoji_article = SokkojiArticle.find_by_id(params[:id])
+    @sokkoji_article = Article.find_by_id(params[:id])
   end
 
   def edit
@@ -25,17 +25,18 @@ class SokkojiArticlesController < ApplicationController
                                        day:params[:sokkoji_article][:day],
                                        body:params[:sokkoji_article][:body])
 
-    redirect_to sokkoji_article_path(tab_name: @sokkoji_article.board.tab.name, id: params[:id])
+    redirect_to sokkoji_article_path(group_name: @sokkoji_article.board.group.name, id: params[:id])
   end
 
   def create
-    @sokkoji_article = SokkojiArticle.new(params[:sokkoji_article])
+    @sokkoji_article = Article.new(params[:article])
     
     @sokkoji_article.user_id = current_user.id
     @sokkoji_article.board_id = Board.find_by_board_type(1)
+    @sokkoji_article.article_type = 1
 
     if @sokkoji_article.save
-      redirect_to sokkoji_articles_path(tab_name: params[:tab_name])
+      redirect_to sokkoji_articles_path(group_name: params[:group_name])
     else
       render 'new'
     end
@@ -46,6 +47,6 @@ class SokkojiArticlesController < ApplicationController
 
     @sokkoji_article.destroy
 
-    redirect_to sokkoji_articles_path(tab_name: params[:tab_name])
+    redirect_to sokkoji_articles_path(group_name: params[:group_name])
   end
 end

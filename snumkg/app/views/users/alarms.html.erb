@@ -5,16 +5,22 @@
 <% end %>
 
 <h1>알림 목록</h1>
-
 <ul id="alarm_list" data-alarmcounts="<%=session[:alarm_counts]%>">
-  <% @new_alarms.each_with_index do |alarm, index| %>
-    <li id="alarm<%=index%>"><%= alarm.alarmer.nickname + "님이 " %><%= alarm_messages(alarm) %></li>
+  <% @new_alarms.each_with_index do |alarms, index| %>
+    <li id="alarm<%=index%>">
+    <%= show_alarm_messages(alarms) %>
+    <%= alarm_messages_link(alarms[0])%>
+    </li>
   <% end %>
-  <% @old_alarms.each do |alarm|%>
-    <li><%= alarm.alarmer.nickname + "님이 " %><%= alarm_messages(alarm)%></li>
+  <% @old_alarms.each do |alarms| %>
+    <li>
+    <%= show_alarm_messages(alarms) %>
+    <%= alarm_messages_link(alarms[0])%>
+    </li>
   <% end %>
+
+
 
 </ul>
 
-<%= @aa %>
 
