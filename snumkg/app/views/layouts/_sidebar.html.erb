@@ -1,8 +1,11 @@
 <div id="tab_sidebar">
+  <% if current_user && current_user.admin? %>
+    <%= link_to "게시판 관리", boards_path({group_name: params[:group_name]}) %>
+  <% end %>
   <ul>
     <% for board in @boards %>
       <% if board.board_type == 1 %>
-        <li><%= link_to board.name, sokkoji_articles_path(group_name: params[:group_name]) %></li>
+        <li><%= link_to board.name, sokkoji_articles_path(group_name: params[:group_name], board_name: board.name) %></li>
       <% else %>
         <li><%= link_to board.name, articles_path(group_name: params[:group_name], :board_name => board.name) %></li>
       <% end %>

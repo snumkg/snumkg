@@ -21,33 +21,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def image
-    name = params[:image].original_filename
-    directory = File.join(Rails.root,'app/assets/images/profile/'+current_user.username)
-    full_path = File.join(directory,name)
-    
-
-    if !File.directory?(directory)
-      Dir.mkdir(directory)
-    end
-
-    if File.exist?(full_path)
-      File.delete(full_path)
-    end
-
-    File.open(full_path,"wb") {|f| f.write(params[:image].read)}
-    current_user.update_attribute(:profile_url,full_path)
-
-    flash[:success] = "프로필 사진이 성공적으로 등록되었습니다."
-    redirect_to user_path(current_user)
-
-  end
-
-  def get_profile_image
-
-    send_file(User.find(params[:id]).profile_url, :type => 'image/png', :disposition => 'inline')
-  end
-
   def show
     @user = User.find(params[:id])
 
@@ -57,14 +30,7 @@ class UsersController < ApplicationController
   end
 
   def alarms
-=begin
-    new_alarm_count = current_user.alarm_counts
-    @alarms = current_user.alarms.where(:new => true).order("created_at desc")
-    @new_alarms = new_alarm_count == 0 ? [] : @alarms[0..(new_alarm_count-1)]
-    @old_alarms = @alarms[new_alarm_count..(@alarms.count)]
-    session[:alarm_counts] = cucd 3	rrent_user.alarm_counts # 새로운 알람을 표시하기 위해 세션에 알림숫자를 저장해둠.
-    current_user.update_attribute(:alarm_counts, 0)
-=end
+    # Hash 배열을 리턴함
     def select_alarm(type)
       case type
       when 0, 1, 3, 4 
@@ -100,6 +66,7 @@ class UsersController < ApplicationController
     end
 
     # new_alarms는 hash 배열. 
+    # new 값이 true를 가진 값들은 new_alarms에 삽입됨
     # hash key: true/false, value: 알람 배열
     @new_alarms.map! do |alarms|
       for alarm in alarms[true]
@@ -116,13 +83,9 @@ class UsersController < ApplicationController
       alarms[false].uniq {|alarm| alarm.alarmer}
     end
 
-    #old_alarms 순서대로 정렬
+    #old_alarms 최근 순서대로 정렬
     @old_alarms.sort! do |a,b|
-      if a[0].created_at < b[0].created_at 
-        1
-      else
-        -1
-      end
+      a[0].created_at < b[0].created_at ? 1 : -1
     end
     session[:alarm_counts] = current_user.alarm_counts # 새로운 알림이 오면 배경색을 바꿔주기 위해 세선에 정보를 저장헤둠
     current_user.update_attribute(:alarm_counts, 0)

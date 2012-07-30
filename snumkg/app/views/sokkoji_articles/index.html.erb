@@ -25,7 +25,7 @@
     <tr title="<%= sokkoji_article.title%>" writer="<%= sokkoji_article.writer.nickname%>" day="<%= sokkoji_article.date %>" url="<%=sokkoji_article_path(group_name: params[:group_name], id: sokkoji_article) %>">
       <td><%= @index %><% @index = @index - 1%></td>
       <td>
-        <%= link_to sokkoji_article.title, sokkoji_article_path(:group_name => params[:group_name], :id => sokkoji_article) %>
+        <%= link_to sokkoji_article.title, sokkoji_article_path(:group_name => params[:group_name], board_name: params[:board_name], :id => sokkoji_article) %>
         <span class="comment_number">
           [<%= sokkoji_article.comments.count %>]
         </span>

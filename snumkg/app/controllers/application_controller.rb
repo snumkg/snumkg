@@ -1,3 +1,4 @@
+#encoding: utf-8
 class ApplicationController < ActionController::Base
 
   include AuthHelper
@@ -15,7 +16,10 @@ class ApplicationController < ActionController::Base
   end
 
   def check_admin
-    redirect_to root_path unless (signin? && current_user.admin?)
+    unless signin? && current_user.admin?
+      flash[:error] = "관리자만 접근할 수 있습니다."
+      redirect_to root_path
+    end
   end
 
   def save_alarm(alarm, acceptor_id, alarm_type, acid ={})

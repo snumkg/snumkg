@@ -1,0 +1,11 @@
+
+<ul>
+<% for group in @groups %>
+  <li>
+  <%= group.name %> | <%= link_to "그룹 수정", edit_group_path(group) %> | <%= link_to "그룹 삭제", group_path(group), method: "delete", confirm: "그룹을 삭제하시겠습니까?" %>
+  </li>
+<% end %>
+
+</ul>
+
+<%= link_to "새 그룹 만들기", new_group_path %>

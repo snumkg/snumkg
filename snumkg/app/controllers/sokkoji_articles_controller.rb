@@ -25,7 +25,7 @@ class SokkojiArticlesController < ApplicationController
                                        day:params[:sokkoji_article][:day],
                                        body:params[:sokkoji_article][:body])
 
-    redirect_to sokkoji_article_path(group_name: @sokkoji_article.board.group.name, id: params[:id])
+    redirect_to sokkoji_article_path(group_name: @sokkoji_article.board.group.name, board_name: params[:board_name], id: params[:id])
   end
 
   def create
@@ -36,7 +36,7 @@ class SokkojiArticlesController < ApplicationController
     @sokkoji_article.article_type = 1
 
     if @sokkoji_article.save
-      redirect_to sokkoji_articles_path(group_name: params[:group_name])
+      redirect_to sokkoji_articles_path(group_name: params[:group_name], board_name: params[:board_name])
     else
       render 'new'
     end
@@ -47,6 +47,6 @@ class SokkojiArticlesController < ApplicationController
 
     @sokkoji_article.destroy
 
-    redirect_to sokkoji_articles_path(group_name: params[:group_name])
+    redirect_to sokkoji_articles_path(group_name: params[:group_name], board_name: params[:board_name])
   end
 end

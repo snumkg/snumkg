@@ -1,5 +1,13 @@
 #encoding: utf-8
 Snumkg::Application.routes.draw do
+  get "boards/index"
+
+  get "boards/new"
+
+  get "boards/edit"
+
+  get "boards/show"
+
   get "sokkoji_articles/index"
 
   get "sokkoji_articles/show"
@@ -75,15 +83,18 @@ Snumkg::Application.routes.draw do
   get '/profile_image/:id', :to => 'profiles#get_profile_image', :as => 'profile_image'
   post '/images', :to => 'profiles#image', :as => 'images'
 
-  post 'profile/create_comment', :to => 'profiles#create_comment', :as => 'profile_comment'
+  post 'profile/create_comment', :to => 'comments#create_profile_comment', :as => 'profile_comment'
 
   resources :users
   resources :comments, only:[:create, :destroy]
+  resources :groups
+
+  resources :boards
   #resources :profile_comments, only:[:create, :destroy]
 
   scope ':group_name' do
 
-      resources 'sokkoji', :as => 'sokkoji_articles', :controller => 'sokkoji_articles'
+      resources ':board_name/1', :as => 'sokkoji_articles', :controller => 'sokkoji_articles'
       resources ':board_name', :as => 'articles', :controller => 'articles'
   end
 

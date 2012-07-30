@@ -1,0 +1,9 @@
+
+<ul>
+<% for board in @boards %>
+  <li>
+  <%= board.name %> | <%= link_to "수정하기", edit_board_path(board) %> | <%= link_to "삭제하기", board_path(board), method: "delete", confirm: "게시판을 삭제하시겠습니까?" %>
+  </li>
+<% end %>
+
+</ul>

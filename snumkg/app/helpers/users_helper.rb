@@ -9,7 +9,7 @@ module UsersHelper
   end
 
   def create_profile_link(string,user_id)
-    link_to string, user_path(user_id)
+    link_to string, profile_path(user_id)
   end
 
   def show_alarm_messages(alarms)
@@ -36,7 +36,7 @@ module UsersHelper
    
   end
   def alarm_messages_link(alarm)
-    if alarm.alarm_type == 0 || alarm.alarm_type == 1 || alarm.alarm_type == 2
+    if alarm.alarm_type == 0 || alarm.alarm_type == 1 || alarm.alarm_type == 2 || alarm.alarm_type == 4
       article = alarm.article
       group_name = article.board.group.name
       board_name = article.board.name
@@ -52,7 +52,7 @@ module UsersHelper
     when 3
       create_profile_link("#{alarm.acceptor.nickname}님의 프로필에 댓글을 달았습니다.",alarm.acceptor.id)
     when 4
-      link_to "소꼬지에 참석합니다.", sokkoji_article_path(group_name: "전체", id: alarm.article.id)
+      link_to "소꼬지에 참석합니다.", sokkoji_article_path(group_name: group_name , board_name: board_name, id: alarm.article.id)
     end
    end
 end
