@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726045611) do
+ActiveRecord::Schema.define(:version => 20120731113003) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -93,12 +93,13 @@ ActiveRecord::Schema.define(:version => 20120726045611) do
     t.string   "department"
     t.integer  "grade"
     t.string   "email"
-    t.integer  "alarm_counts",  :default => 0
-    t.integer  "level",         :default => 1
+    t.integer  "alarm_counts",           :default => 0
+    t.integer  "level",                  :default => 1
     t.string   "profile_url"
-    t.boolean  "admin",         :default => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.boolean  "admin",                  :default => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.boolean  "is_phone_number_public", :default => true
   end
 
 end

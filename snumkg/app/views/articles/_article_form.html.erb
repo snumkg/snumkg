@@ -1,4 +1,8 @@
 
+<% content_for(:head) do %>
+  <%= javascript_include_tag "ckeditor" %>
+  <%= stylesheet_link_tag "editor" %>
+<% end %>
 <%= form_for(@article) do |f| %>
 
   작성자 : <%= current_user.username %>
@@ -6,7 +10,10 @@
   <%= f.text_field :title %>
 
   <%= f.label :body, '내용' %>
-  <%= f.text_area :body %>
+  <%= f.text_area :body, id: "ckeditor" %>
+  <script>
+    CKEDITOR.replace('ckeditor');
+  </script>
 
   <br />
   <%= f.submit "글쓰기", class:"btn" %>

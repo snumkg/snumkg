@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Snumkg</title>
+  <title>Snumkg<%="[#{current_user.alarm_counts if current_user}]" %></title>
   <%= stylesheet_link_tag    "home", controller_path, :media => "all" %>
   <%= javascript_include_tag "jquery", "jquery_ujs" %>
   <%= javascript_include_tag "home", controller_path %>

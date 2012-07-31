@@ -1,6 +1,7 @@
 #encoding: utf-8
 
 require 'RMagick'
+include Magick
 class ProfilesController < ApplicationController
   before_filter :check_signin
   layout 'main'
@@ -28,13 +29,14 @@ class ProfilesController < ApplicationController
   end
 
   def get_profile_image
-    url = User.find(params[:id]).profile_url
-    img = Magick::Image.read(url).first
-    thumb = img.resize(100,100)
+    #url = User.find(params[:id]).profile_url
+    #img = Magick::Image.read(url).first
+    #thumb = img.resize(100,100)
 
-    send_data(thumb.to_blob, :disposition => 'inline', 
-                              :type => 'image/png')
+    #thumb.display
+    #send_data(url, :disposition => 'inline',:type => 'image/png')
     #send_file(User.find(params[:id]).profile_url, :type => 'image/png', :disposition => 'inline')
+    
   end
 
   def show
