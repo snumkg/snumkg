@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731113003) do
+ActiveRecord::Schema.define(:version => 20120731114006) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -29,11 +29,13 @@ ActiveRecord::Schema.define(:version => 20120731113003) do
     t.integer  "board_id"
     t.string   "title"
     t.text     "body"
-    t.integer  "view_count",   :default => 0
+    t.integer  "view_count",    :default => 0
     t.string   "date"
-    t.integer  "article_type", :default => 0
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.integer  "article_type",  :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.string   "password_salt"
+    t.string   "password_hash"
   end
 
   create_table "attendances", :force => true do |t|
