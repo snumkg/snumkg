@@ -1,6 +1,6 @@
 #encoding: utf-8
 class UsersController < ApplicationController
-  before_filter :check_signin, :except => [:create,:update ]
+  before_filter :check_signin, :except => [:create, :new ]
   layout 'main'
   def index
   end
@@ -11,6 +11,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    phone_number = params[:phone_number_1] + params[:phone_number_2] + params[:phone_number_3]
+    @user.phone_number = phone_number
     @user.set_password(@user.password)
 
     if @user.save
@@ -38,11 +40,17 @@ class UsersController < ApplicationController
         # 글에 댓글이 달렸을때
         # 내 프로필에 댓글이 달릴 때
         # 소꼬지 게시글에 참석한다고 할때
-        Alarm.where(:alarm_type => type, :acceptor_id => current_user.id).order("CREATED_AT DESC").group_by(&:article_id).map {|article_id,alarms| alarms.group_by(&:new)}
+        Alarm.where(:alarm_type => type, :acceptor_id => current_user.id)
+              .order("CREATED_AT DESC")
+              .group_by(&:article_id)
+              .map {|article_id,alarms| alarms.group_by(&:new)}
 
       when 2
         # 내 댓글이 추천받을 때
-        Alarm.where(:alarm_type => type, :acceptor_id => current_user.id).order("CREATED_AT DESC").group_by(&:comment_id).map {|a,alarms| alarms.group_by(&:new)}
+        Alarm.where(:alarm_type => type, :acceptor_id => current_user.id)
+              .order("CREATED_AT DESC")
+              .group_by(&:comment_id)
+              .map {|a,alarms| alarms.group_by(&:new)}
       end
     end
 
