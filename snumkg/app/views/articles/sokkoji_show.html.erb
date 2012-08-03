@@ -32,10 +32,10 @@
   <% end %>
   <tr>
     <td>
-       <% for attendance in @sokkoji_article.attendances %>
+       <% for attendance in @article.attendances %>
           <%= attendance.user.nickname %> 
        <% end %>
-       <%= "님이 참석합니다." unless @sokkoji_article.attendances.count == 0%>
+       <%= "님이 참석합니다." unless @article.attendances.count == 0%>
     </td>
   </tr>
   <tr>
