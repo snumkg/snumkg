@@ -7,6 +7,9 @@ $(function(){
 
 	
 	function parseDay(string){
+
+		if( string === "" || (typeof string != 'string'))
+			return;
 		arr = string.split("년");
 		year = arr[0];
 		arr = arr[1].split("월");

@@ -4,11 +4,7 @@
   <% end %>
   <ul>
     <% for board in @boards %>
-      <% if board.board_type == 1 %>
-        <li><%= link_to board.name, sokkoji_articles_path(group_name: params[:group_name], board_name: board.name) %></li>
-      <% else %>
-        <li><%= link_to board.name, articles_path(group_name: params[:group_name], :board_name => board.name) %></li>
-      <% end %>
+      <li><%= link_to board.name, articles_path(group_name: params[:group_name], :board_name => board.name) %></li>
     <% end %>
   </ul>
 </div>
