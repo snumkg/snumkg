@@ -23,5 +23,15 @@
     <tr>
       <td><%= link_to "삭제하기", article_password_confirmation_path(group_name: params[:group_name], board_name: params[:board_name], id: @article.id) %></td>
     </tr>
+    <tr>
+      <td>
+        <%= render 'comments/show_anonymous_comments', :locals => {:@comments => @comments} %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= render 'comments/write_anonymous_comment', :locals => {:@comment => @comment} %>
+      </td>
+    </tr>
   <% end %>
 </table>

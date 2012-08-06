@@ -29,23 +29,27 @@ class Comment < ActiveRecord::Base
       # profile_user_id가 nil 일 때
       # 게시물에다 코멘트를 다는 경우
       # 게시물 작성자에게 알림
-      save_alarm_helper(acceptor_id: self.article.writer.id, 
-                        article_id: self.article_id,
-                        comment_id: self.id,
-                        alarmer_id: self.writer.id,
-                        alarm_type: 1)
-      #게시물에 댓글을 단 사람들에게 알림
-      comment_writers = self.article.comments.map {|c| c.writer}
 
-      for comment_writer in comment_writers
-        if comment_writer != self.writer
-          save_alarm_helper(acceptor_id: comment_writer.id,
-                            article_id: self.article_id,
-                            comment_id: self.id,
-                            alarmer_id: self.writer.id,
-                            alarm_type:  1)
-        end
-      end    
+      if self.article.article_type != 2
+        save_alarm_helper(acceptor_id: self.article.writer.id, 
+                          article_id: self.article_id,
+                          comment_id: self.id,
+                          alarmer_id: self.writer.id,
+                          alarm_type: 1)
+
+        #게시물에 댓글을 단 사람들에게 알림
+        comment_writers = self.article.comments.map {|c| c.writer}
+
+        for comment_writer in comment_writers
+          if comment_writer != self.writer
+            save_alarm_helper(acceptor_id: comment_writer.id,
+                              article_id: self.article_id,
+                              comment_id: self.id,
+                              alarmer_id: self.writer.id,
+                              alarm_type:  1)
+          end
+        end    
+      end
     else
       # profile_user_id의 값이 존재할 때
       # 프로필 페이지에다 코멘트를 다는 경우  
