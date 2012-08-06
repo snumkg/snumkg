@@ -94,6 +94,7 @@ Snumkg::Application.routes.draw do
   resources :users
   resources :comments, only:[:create, :destroy]
   resources :groups
+  resources :messages
 
   resources :boards
   #resources :profile_comments, only:[:create, :destroy]

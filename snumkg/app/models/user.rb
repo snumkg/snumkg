@@ -11,9 +11,8 @@ class User < ActiveRecord::Base
   
   has_many :articles
   has_many :comments
-  has_many :like_articles
-  has_many :like_comments
-  has_many :profile_comments
+  has_many :send_messages, :class_name => 'Message', :foreign_key => 'sender_id'
+  has_many :receive_messages, :class_name => 'Message', :foreign_key => 'receiver_id'
 
   def self.authentication(username, password)
     user = User.find_by_username(username)
@@ -26,6 +25,10 @@ class User < ActiveRecord::Base
   def set_password(pass)
     salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
     self.password_salt, self.password_hash = salt, Digest::SHA256.hexdigest(pass.to_s + salt)
+  end
+
+  def message_count
+    self.receive_messages.where(:read => false).count
   end
 
   private

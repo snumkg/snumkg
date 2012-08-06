@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731114006) do
+ActiveRecord::Schema.define(:version => 20120806135857) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -77,6 +77,16 @@ ActiveRecord::Schema.define(:version => 20120731114006) do
     t.integer  "comment_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "title"
+    t.text     "content"
+    t.boolean  "read",        :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "profiles", :force => true do |t|
