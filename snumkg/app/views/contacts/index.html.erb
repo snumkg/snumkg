@@ -1,0 +1,28 @@
+
+<% if session[:authorized_contact_user] != true %>
+
+<%= form_tag '/check_password' do  %>
+  
+  <%= label_tag :password, "password confirmation" %>
+  <%= password_field_tag :password %>
+  <%= submit_tag  "submit"%>
+<% end %>
+
+<% else %>
+
+  <table class="table">
+      <thead>
+        <tr>
+          <td>이름</td><td>연락처</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for user in @users %>
+          <tr>
+            <td><%= user.nickname%></td><td><%= user.phone_number if user.is_phone_number_public %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+<% end %>
+

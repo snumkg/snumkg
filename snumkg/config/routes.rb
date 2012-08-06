@@ -1,5 +1,7 @@
 #encoding: utf-8
 Snumkg::Application.routes.draw do
+  get "contacts/index"
+
   get "boards/index"
 
   get "boards/new"
@@ -65,8 +67,10 @@ Snumkg::Application.routes.draw do
 
   get '/signin', :to => 'auth#signin'
   post '/authorize', :to => 'auth#authorize'
+  post '/check_password', :to => 'contacts#check_password'
   get '/signup', :to => 'users#new'
   get '/signout', :to => 'auth#signout'
+  get '/contacts', :to => 'contacts#index'
 
   get '/like_article/:article_id(.:format)', :to => 'likes#article', :as => 'like_article'
   get '/unlike_article/:article_id', :to => 'unlikes#article', :as => 'unlike_article'
