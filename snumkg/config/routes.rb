@@ -71,6 +71,7 @@ Snumkg::Application.routes.draw do
   get '/signup', :to => 'users#new'
   get '/signout', :to => 'auth#signout'
   get '/contacts', :to => 'contacts#index'
+  get '/articles/password_confirmation/:group_name/:board_name/:id', :to => 'articles#password_confirmation', :as => 'article_password_confirmation'
 
   get '/like_article/:article_id(.:format)', :to => 'likes#article', :as => 'like_article'
   get '/unlike_article/:article_id', :to => 'unlikes#article', :as => 'unlike_article'
