@@ -97,7 +97,8 @@ ActiveRecord::Schema.define(:version => 20120731114006) do
     t.string   "email"
     t.integer  "alarm_counts",           :default => 0
     t.integer  "level",                  :default => 1
-    t.string   "profile_url"
+    t.string   "profile_image_path"
+    t.string   "thumbnail_image_path"
     t.boolean  "admin",                  :default => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false

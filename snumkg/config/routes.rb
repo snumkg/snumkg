@@ -81,6 +81,7 @@ Snumkg::Application.routes.draw do
 
   get '/profile/:id', :to => 'profiles#show', :as => 'profile'
   get '/profile_image/:id', :to => 'profiles#get_profile_image', :as => 'profile_image'
+  get '/thumbnail/:id', :to => 'profiles#get_thumbnail', :as => 'thumbnail_image'
   post '/images', :to => 'profiles#image', :as => 'images'
 
   post 'profile/create_comment', :to => 'comments#create_profile_comment', :as => 'profile_comment'
@@ -94,7 +95,6 @@ Snumkg::Application.routes.draw do
 
   scope ':group_name' do
 
-      resources ':board_name/1', :as => 'sokkoji_articles', :controller => 'sokkoji_articles'
       resources ':board_name', :as => 'articles', :controller => 'articles'
   end
 
