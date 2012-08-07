@@ -1,17 +1,16 @@
 
-<%= link_to "보낸쪽지함", "#" %> | <%= link_to "받은쪽지함", "#" %>
 <table class="table">
   <thead>
     <tr>
-      <td class="span2">읽음확인</td><td class="span7">내용</td><td>보낸이</td>
+      <td class="span2">읽음확인</td><td class="span7">내용</td><td><%= params[:type] == "receive" ? "보낸이" : "받는이" %></td>
     </tr>
   </thead>
   <tbody>
-    <% for msg in @receive_messages %>
+    <% for msg in @messages %>
       <tr> 
         <td><%= msg.read? ? "읽음" : "안읽음"%></td>
         <td><%= link_to  msg.content , message_path(msg) %></td>
-        <td><%= msg.sender.nickname %></td>
+        <td><%= params[:type] == "receive" ?  msg.sender.nickname : msg.receiver.nickname %></td>
       </tr>
     <% end %>
   </tbody>

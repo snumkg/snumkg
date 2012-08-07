@@ -1,6 +1,7 @@
 #encoding: utf-8
 Snumkg::Application.routes.draw do
   get "contacts/index"
+  get "contacts/password_confirmation"
 
   get "boards/index"
 

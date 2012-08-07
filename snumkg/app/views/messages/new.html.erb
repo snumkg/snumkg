@@ -1,0 +1,13 @@
+<%= form_for(@message) do |f| %>
+
+  보낸이 : <%= current_user.username %>
+  받는이 : 
+  <%= f.label :title, '제목' %>
+  <%= f.text_field :title %>
+
+  <%= f.label :content, '내용' %>
+  <%= f.text_area :content %>
+  <br />
+  <%= f.submit "쪽지 보내기", class:"btn" %>
+
+<% end %>

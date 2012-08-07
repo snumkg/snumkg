@@ -17,6 +17,7 @@
     <%= render 'layouts/success_message' %>
     <div id="content_wrapper">
       <div id="content">
+<%= link_to "보낸쪽지함", messages_path(type: "send") %> | <%= link_to "받은쪽지함", messages_path(type: "receive") %>
         <%= yield %>
       </div>
     </div>
