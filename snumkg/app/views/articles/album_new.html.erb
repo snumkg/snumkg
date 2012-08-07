@@ -1,0 +1,17 @@
+<%= content_for(:head) do %>
+  <%= javascript_include_tag 'jquery.MultiFile' %>
+<% end %>
+<%= form_for(@article) do |f| %>
+
+  작성자 : <%= current_user.username %>
+  <%= f.label :title, '제목' %>
+  <%= f.text_field :title %>
+
+  <%= hidden_field_tag :article_type, 3 %>
+  <%= f.label :body, '내용' %>
+  <%= f.text_area :body %>
+
+  <br />
+  <%= f.submit @article.new_record? ? "글쓰기" : "수정", class:"btn" %>
+
+<% end %>

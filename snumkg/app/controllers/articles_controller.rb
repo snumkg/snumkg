@@ -15,6 +15,8 @@ class ArticlesController < ApplicationController
       render 'sokkoji_index'
     when 2 # 익명게시판
       render 'anonymous_index'
+    when 3 # 앨범게시판
+      render 'album_index'
     end
   end
 
@@ -28,6 +30,8 @@ class ArticlesController < ApplicationController
       render 'sokkoji_new'
     when 2 # 익명게시판
       render 'anonymous_new'
+    when 3 # 앨범게시판
+      render 'album_new'
     end
   end
 
