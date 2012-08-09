@@ -4,7 +4,7 @@
 <%= image_tag profile_image_path(params[:id]) %>
 
 <% if current_user == User.find(params[:id]) %>
-  <%= form_tag(images_path, multipart: true) do %>
+  <%= form_tag(upload_profile_image_path, multipart: true) do %>
 
     <%= file_field_tag :image%>
     <%= submit_tag "이미지 올리기"%>

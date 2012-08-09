@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807115410) do
+ActiveRecord::Schema.define(:version => 20120808120635) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20120807115410) do
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.boolean  "is_phone_number_public", :default => true
+    t.boolean  "contact",                :default => false
   end
 
 end

@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
   before_filter :check_signin
   layout 'main'
 
-  def image
+  def upload_profile_image
     name = params[:image].original_filename
     directory = File.join(Rails.root,'app/assets/images/profile/'+current_user.username)
     full_path = File.join(directory,name)
@@ -50,13 +50,12 @@ class ProfilesController < ApplicationController
 
     #thumb.display
     #send_data(url, :disposition => 'inline',:type => 'image/png')
-    send_file(User.find(params[:id]).profile_image_path, :type => 'image/png', :disposition => 'inline')
+    if params[:thumb].nil?
+      send_file(User.find(params[:id]).profile_image_path, :type => 'image/png', :disposition => 'inline')
+    else
+      send_file(User.find(params[:id]).thumbnail_image_path, :type => 'image/png', :disposition => 'inline')
+    end
     
-  end
-
-  def get_thumbnail
-
-    send_file(User.find(params[:id]).thumbnail_image_path, :type => 'image/png', :disposition => 'inline')
   end
 
   def show

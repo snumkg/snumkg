@@ -1,20 +1,5 @@
 #encoding: utf-8
 Snumkg::Application.routes.draw do
-  get "contacts/index"
-  get "contacts/password_confirmation"
-
-  get "boards/index"
-
-  get "boards/new"
-
-  get "boards/edit"
-
-  get "boards/show"
-
-  get "sokkoji_articles/index"
-
-  get "sokkoji_articles/show"
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -66,45 +51,57 @@ Snumkg::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'home#index'
 
+  #admin routes
+  get 'admin', :to => 'admin#index'
+  namespace :admin do
+    resources :users
+  end
+
+  get "contacts/index"
+  get "contacts/password_confirmation"
+
+  #login, logout
   get '/signin', :to => 'auth#signin'
   post '/authorize', :to => 'auth#authorize'
   post '/check_password', :to => 'contacts#check_password'
   get '/signup', :to => 'users#new'
   get '/signout', :to => 'auth#signout'
+
+  #contacts
   get '/contacts', :to => 'contacts#index'
   get '/articles/password_confirmation/:group_name/:board_name/:id', :to => 'articles#password_confirmation', :as => 'article_password_confirmation'
 
+  #like, unlike
   get '/like_article/:article_id(.:format)', :to => 'likes#article', :as => 'like_article'
   get '/unlike_article/:article_id', :to => 'unlikes#article', :as => 'unlike_article'
   get 'like_comment/:comment_id', :to => 'likes#comment', :as => 'like_comment'
   get 'unlike_comment/:comment_id', :to => 'unlikes#comment', :as => 'unlike_comment'
-  
+
+  #sokkogi attendance
   get '/attendance/:sokkoji_article_id', :to => 'attendances#create', :as => 'create_attendance'
   get '/cancel_attendance/:sokkoji_article_id', :to => 'attendances#destroy', :as => 'destroy_attendance'
 
   get '/alarms', :to => 'users#alarms', :as => 'user_alarms'
 
-
+  #user profile
   get '/profile/:id', :to => 'profiles#show', :as => 'profile'
-  get '/profile_image/:id', :to => 'profiles#get_profile_image', :as => 'profile_image'
-  get '/thumbnail/:id', :to => 'profiles#get_thumbnail', :as => 'thumbnail_image'
-  post '/images', :to => 'profiles#image', :as => 'images'
+  get '/profile_image/:id(.:thumb)', :to => 'profiles#get_profile_image', :as => 'profile_image'
+  post '/upload_profile_image', :to => 'profiles#upload_profile_image', :as => 'upload_profile_image'
 
+  #profile comment 
   post 'profile/create_comment', :to => 'comments#create_profile_comment', :as => 'profile_comment'
 
   resources :users
   resources :comments, only:[:create, :destroy]
   resources :groups
   resources :messages
-
   resources :boards
+
   #resources :profile_comments, only:[:create, :destroy]
 
   scope ':group_name' do
-
-      resources ':board_name', :as => 'articles', :controller => 'articles'
+    resources ':board_name', :as => 'articles', :controller => 'articles'
   end
-
   get ':group_name', :to => 'home#group'
 
   # See how all your routes lay out with "rake routes"

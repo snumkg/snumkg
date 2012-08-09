@@ -23,7 +23,7 @@
           <%= link_to "알림[#{current_user.alarm_counts}]",user_alarms_path %>
           </li>
           <li>
-          <%= link_to image_tag thumbnail_image_path(current_user.id) %>
+          <%= link_to image_tag profile_image_path(current_user.id, :thumb => "thumb") %>
           </li>
           <li>
           <%= link_to current_user.nickname, profile_path(current_user) %>

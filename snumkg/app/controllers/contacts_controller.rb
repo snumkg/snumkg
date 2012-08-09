@@ -5,11 +5,12 @@ class ContactsController < ApplicationController
 
 
   def index
+    flash[:contact] = true
     if !current_user.admin?
       flash[:error] = "접근가능한 사용자가 아닙니다."
       redirect_to root_path
     else
-      if session[:authorized_contact_user] != true
+      if flash[:contact] != true
         redirect_to '/contacts/password_confirmation'
       else
         @users = User.all
@@ -25,7 +26,7 @@ class ContactsController < ApplicationController
   def check_password
     
     if user = User.authentication(current_user.username, params[:password]) && current_user.admin?
-      session[:authorized_contact_user] = true
+      flash[:contact] = true
       redirect_to contacts_path
     else
       flash[:error] = "비밀번호가 잘못되었습니다."
