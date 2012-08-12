@@ -1,7 +1,5 @@
 #encoding: utf-8
 class GroupsController < ApplicationController
-  before_filter :check_admin
-  layout 'main'
 
 
   def index
@@ -11,6 +9,11 @@ class GroupsController < ApplicationController
   def new
    @group = Group.new 
     
+  end
+
+  def show
+    @group = Group.find_by_id(params[:id])
+    @boards = @group.boards
   end
 
   def create

@@ -1,11 +1,11 @@
 #encoding: utf-8
 module UsersHelper
-  def to_article_path(group_name,board_name,article_id)
-    article_path(group_name: group_name, board_name: board_name, id: article_id)
+  def to_article_path(group_id,board_id,article_id)
+    article_path(group_id: group_id, board_id: board_id, id: article_id)
   end
 
-  def create_article_link(string,group_name,board_name,article_id)
-    link_to string, to_article_path(group_name, board_name, article_id) 
+  def create_article_link(string,group_id,board_id,article_id)
+    link_to string, to_article_path(group_id, board_id, article_id) 
   end
 
   def create_profile_link(string,user_id)
@@ -38,21 +38,21 @@ module UsersHelper
   def alarm_messages_link(alarm)
     if alarm.alarm_type == 0 || alarm.alarm_type == 1 || alarm.alarm_type == 2 || alarm.alarm_type == 4
       article = alarm.article
-      group_name = article.board.group.name
-      board_name = article.board.name
+      group_id = article.board.group.id
+      board_id = article.board.id
     end
 
     case alarm.alarm_type
     when 0
-      create_article_link("글을 추천하였습니다.",group_name,board_name,article.id)
+      create_article_link("글을 추천하였습니다.",group_id,board_id,article.id)
     when 1
-      create_article_link("글에 댓글을 달았습니다.",group_name,board_name,article.id)
+      create_article_link("글에 댓글을 달았습니다.",group_id,board_id,article.id)
     when 2
-      create_article_link("댓글을 추천하였습니다.",group_name,board_name,article.id)
+      create_article_link("댓글을 추천하였습니다.",group_id,board_id,article.id)
     when 3
       create_profile_link("#{alarm.acceptor.nickname}님의 프로필에 댓글을 달았습니다.",alarm.acceptor.id)
     when 4
-      link_to "소꼬지에 참석합니다.", sokkoji_article_path(group_name: group_name , board_name: board_name, id: alarm.article.id)
+      link_to "소꼬지에 참석합니다.", sokkoji_article_path(group_id: group_id , board_id: board_id, id: alarm.article.id)
     end
    end
 end

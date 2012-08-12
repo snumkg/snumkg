@@ -13,7 +13,7 @@
           <%= @index %> <% @index = @index - 1 %>
         </td>
         <td class="span7">
-          <%= link_to @article.title, article_path(:tab_name => params[:tab_name], :board_name => params[:board_name], :id => @article) %>
+          <%= link_to @article.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => @article) %>
           <span class="comment_number">
             [<%= @article.comments.count %>]
           </span>
@@ -32,6 +32,6 @@
   </table>
 
   <% if current_user %>
-    <%= link_to "글쓰기", new_article_path(:group_name => params[:group_name], :board_name => params[:board_name]) %>
+    <%= link_to "글쓰기", new_article_path(:group_id => params[:group_id], :board_id => params[:board_id]) %>
   <% end %>
 </div>

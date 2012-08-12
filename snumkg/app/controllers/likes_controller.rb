@@ -27,7 +27,7 @@ class LikesController < ApplicationController
 
     respond_to do |format|
       format.json {render :json => @result}
-      format.html {redirect_to article_path(group_name: @like.article.board.group.name, board_name: @like.article.board.name, id: @like.article.id)}
+      format.html {redirect_to article_path(group_id: @like.article.board.group.id, board_id: @like.article.board.id, id: @like.article.id)}
     end
    
   end
@@ -41,7 +41,7 @@ class LikesController < ApplicationController
     save_alarm(Alarm.new, @comment.writer.id, 2, :article_id => @comment.article.id, :comment_id => params[:comment_id])
 =end
     if @like.save
-      redirect_to article_path(group_name: @like.comment.article.board.group.name, board_name: @like.comment.article.board.name, id: @like.comment.article.id)
+      redirect_to article_path(group_id: @like.comment.article.board.group.id, board_id: @like.comment.article.board.id, id: @like.comment.article.id)
     else
       flash[:error] = "잘못된 접근입니다."
       redirect_to root_path

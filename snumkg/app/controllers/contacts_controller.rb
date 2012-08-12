@@ -5,7 +5,6 @@ class ContactsController < ApplicationController
 
 
   def index
-    flash[:contact] = true
     if !current_user.admin?
       flash[:error] = "접근가능한 사용자가 아닙니다."
       redirect_to root_path

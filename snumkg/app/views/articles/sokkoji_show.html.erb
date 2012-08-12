@@ -19,10 +19,10 @@
     <% end %>
     <% if current_user == @article.writer %>
       <span>
-      <%= link_to "수정하기", edit_article_path(group_name: params[:group_name], board_name: params[:board_name], id: @article) %>
+      <%= link_to "수정하기", edit_article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article) %>
       </span>
       <span>
-      <%= link_to "삭제하기", article_path(group_name: params[:group_name], board_name: params[:board_name], id: @article), method: "delete", confirm: "정말로 삭제하시겠습니까?" %>
+      <%= link_to "삭제하기", article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article), method: "delete", confirm: "정말로 삭제하시겠습니까?" %>
       </span>
     <% end %>
 

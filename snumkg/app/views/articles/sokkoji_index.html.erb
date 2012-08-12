@@ -22,10 +22,10 @@
   </thead>
   <tbody>
   <% for article in @articles %>
-    <tr title="<%= article.title%>" writer="<%= article.writer.nickname%>" day="<%= article.date %>" url="<%= article_path(group_name: params[:group_name], id: article) %>">
+    <tr title="<%= article.title%>" writer="<%= article.writer.nickname%>" day="<%= article.date %>" url="<%= article_path(group_id: params[:group_id], id: article) %>">
       <td><%= @index %><% @index = @index - 1%></td>
       <td>
-        <%= link_to article.title, article_path(:group_name => params[:group_name], board_name: params[:board_name], :id => article) %>
+        <%= link_to article.title, article_path(:group_id => params[:group_id], board_id: params[:board_id], :id => article) %>
         <span class="comment_number">
           [<%= article.comments.count %>]
         </span>
@@ -47,5 +47,5 @@
 
 
 <% if current_user %>
-  <%= link_to "글쓰기", new_article_path(board_name: params[:board_name], group_name: params[:group_name]) %>
+  <%= link_to "글쓰기", new_article_path(board_id: params[:board_id], group_id: params[:group_id]) %>
 <% end %>

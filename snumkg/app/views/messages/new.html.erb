@@ -1,7 +1,10 @@
 <%= form_for(@message) do |f| %>
 
   보낸이 : <%= current_user.username %>
-  받는이 : 
+  <br />
+  받는이 : <%= f.text_field :receiver_id %> 
+
+  <%= f.hidden_field :sender_id, value: current_user.id %>
   <%= f.label :title, '제목' %>
   <%= f.text_field :title %>
 

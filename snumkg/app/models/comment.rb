@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   include AlarmHelper
 
   before_create :save_alarm
-  #before_destroy :destroy_alarm
+  before_destroy :destroy_alarm
 
   attr_accessible :content
 
@@ -59,6 +59,19 @@ class Comment < ActiveRecord::Base
                         alarm_type: 3)
     end
   end
+
+  def destroy_alarm
+    if !self.article_id.nil? # 게시판 댓글
+      if self.article.article_type != 2 # 익명게시판이 아닐 경우
+        alarms = Alarm.where(:alarmer_id => self.writer.id, :article_id => self.article.id, :alarm_type => 1)
+        for alarm in alarms
+          alarm.destroy
+        end
+      end
+    else  # 프로필 댓글
+    end
+  end
+
 
 =begin
   def destroy_alarm

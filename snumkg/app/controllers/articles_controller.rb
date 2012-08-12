@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_filter :check_signin, except: [:index, :show]
   def index
 
-    @board = @boards.find_by_name(params[:board_name])
+    @board = @boards.find_by_id(params[:board_id])
     @articles = @board.articles.order("created_at desc")
 
     @index = @articles.count
@@ -21,7 +21,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @board = Board.find_by_name(params[:board_name])
+    @board = Board.find_by_id(params[:board_id])
     @article = Article.new
     case @board.board_type
     when 0 # 일반게시판
@@ -56,7 +56,7 @@ class ArticlesController < ApplicationController
     @article.article_type = params[:article_type]
 
     if @article.save
-      redirect_to article_path(group_name: params[:group_name], board_name: params[:board_name], id: params[:id])
+      redirect_to article_path(group_id: params[:group_id], board_id: params[:board_id], id: params[:id])
     end
 
   end
@@ -78,7 +78,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @board = Board.find_by_name(params[:board_name])
+    @board = Board.find_by_id(params[:board_id])
 
     @article = Article.new(params[:article])
     @article.board_id = @board.id
@@ -92,7 +92,7 @@ class ArticlesController < ApplicationController
     end
 
     if @article.save
-      redirect_to articles_path(:group_name => params[:group_name], :board_name => params[:board_name])
+      redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id])
     else
       case params[:article_type]
       when 0
@@ -112,16 +112,13 @@ class ArticlesController < ApplicationController
     if @article.article_type == 2
       if !@article.authentication(params[:password])
         flash[:error] = "비밀번호가 일치하지 않습니다."
-        redirect_to article_path(:group_name => params[:group_name], :board_name => params[:board_name], id: params[:id])
+        redirect_to article_path(:group_id => params[:group_id], :board_id => params[:board_id], id: params[:id])
         return
       end
     end
     
-    if @article.destroy
-      redirect_to articles_path(:group_name => params[:group_name], :board_name => params[:board_name])
-     else
-      redirect_to article_path(:group_name => params[:group_name], :board_name => params[:board_name], id: params[:id])
-    end
+    @article.destroy
+    redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id])
   end
 
   def password_confirmation

@@ -2,8 +2,8 @@
   <%= form_for(@comment, id: "write_comment_box") do |f| %>
     <%= f.text_field :content, class: "span5" %>
     <%= f.hidden_field :article_id, :value => @article.id %>
-    <%= f.hidden_field :group_name, :value => params[:group_name] %>
-    <%= f.hidden_field :board_name, :value => params[:board_name] %>
+    <%= f.hidden_field :group_id, :value => params[:group_id] %>
+    <%= f.hidden_field :board_id, :value => params[:board_id] %>
     <%= f.submit "댓글달기", class: "btn" %>
   <% end %>
 <% end %>

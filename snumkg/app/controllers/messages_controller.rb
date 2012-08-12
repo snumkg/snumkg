@@ -5,9 +5,9 @@ class MessagesController < ApplicationController
 
   def index
     if params[:type] == "receive"
-      @messages = current_user.receive_messages
+      @messages = current_user.receive_messages.order("created_at desc")
     else
-      @messages = current_user.send_messages
+      @messages = current_user.send_messages.order("created_at desc")
     end
   end
 
@@ -18,6 +18,13 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
+  end
+
+  def create
+    @message = Message.new(params[:message])
+
+    @message.save
+    redirect_to messages_path(type: "receive")
   end
 
   def destroy

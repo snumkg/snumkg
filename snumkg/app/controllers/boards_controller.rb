@@ -1,7 +1,7 @@
 class BoardsController < ApplicationController
   layout 'main'
   def index
-    @boards = Group.find_by_name(params[:group_name]).boards
+    @boards = Group.find_by_id(params[:group_id]).boards
   end
 
   def new

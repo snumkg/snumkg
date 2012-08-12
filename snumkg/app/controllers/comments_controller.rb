@@ -2,9 +2,7 @@ class CommentsController < ApplicationController
 
   def create
     #게시물에 코멘트가 달렸을 때
-    group_name = params[:comment][:group_name]
-    board_name = params[:comment][:board_name]
-
+    article = Article.find_by_id(params[:comment][:article_id])
     @comment = Comment.new
     @comment.content = params[:comment][:content]
     @comment.article_id = params[:comment][:article_id]
@@ -12,21 +10,21 @@ class CommentsController < ApplicationController
     @comment.comment_type = 0
 
     if @comment.save
-      redirect_to article_path(group_name: group_name, board_name: board_name, id: params[:comment][:article_id])
-
+      redirect_to article_path(group_id: article.board.group.id, board_id: article.board.id, id: params[:comment][:article_id])
     else
-      redirect_to article_path(group_name: group_name, board_name: board_name, id: params[:comment][:article_id])  
+      flash[:error] = "comment error"
+      redirect_to article_path(group_id: article.board.group.id, board_id: article.board.id, id: params[:comment][:article_id])
     end
   end
 
   def destroy
     comment = Comment.find_by_id(params[:id])
-    group_name = comment.article.board.group.name
-    board_name = comment.article.board.name
+    group_id = comment.article.board.group.id
+    board_id = comment.article.board.id
     article_id = comment.article.id
 
     if comment.destroy
-      redirect_to article_path(group_name: group_name, board_name: board_name, id: article_id)
+      redirect_to article_path(group_id: group_id, board_id: board_id, id: article_id)
     else
       redirect_to root_path
     end

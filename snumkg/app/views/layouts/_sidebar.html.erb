@@ -1,10 +1,7 @@
 <div id="tab_sidebar">
-  <% if current_user && current_user.admin? %>
-    <%= link_to "게시판 관리", boards_path({group_name: params[:group_name]}) %>
-  <% end %>
   <ul>
     <% for board in @boards %>
-      <li><%= link_to board.name, articles_path(group_name: params[:group_name], :board_name => board.name) %></li>
+      <li><%= link_to board.name, articles_path(group_id: board.group.id, board_id: board.id) %></li>
     <% end %>
   </ul>
 </div>

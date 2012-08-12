@@ -6,7 +6,7 @@
         <%= link_to "MKG", root_path %>
         </li>
         <% for group in @groups %>
-          <li><%= link_to group.name, "/#{group.name}" %></li>
+          <li><%= link_to group.name, group_path(group) %></li>
         <% end %>
       </ul>
       <ul class="nav pull-right">

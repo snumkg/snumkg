@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_group_boards
-    @current_group = Group.find_by_name(params[:group_name])
+    @current_group = Group.find_by_id(params[:group_id])
     @boards = @current_group.boards if @current_group
   end
 end

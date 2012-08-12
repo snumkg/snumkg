@@ -69,7 +69,7 @@ Snumkg::Application.routes.draw do
 
   #contacts
   get '/contacts', :to => 'contacts#index'
-  get '/articles/password_confirmation/:group_name/:board_name/:id', :to => 'articles#password_confirmation', :as => 'article_password_confirmation'
+  get '/articles/password_confirmation/:group_id/:board_id/:id', :to => 'articles#password_confirmation', :as => 'article_password_confirmation'
 
   #like, unlike
   get '/like_article/:article_id(.:format)', :to => 'likes#article', :as => 'like_article'
@@ -95,14 +95,14 @@ Snumkg::Application.routes.draw do
   resources :comments, only:[:create, :destroy]
   resources :groups
   resources :messages
-  resources :boards
 
   #resources :profile_comments, only:[:create, :destroy]
 
-  scope ':group_name' do
-    resources ':board_name', :as => 'articles', :controller => 'articles'
+  scope 'group/:group_id/board' do
+    resources ':board_id', :as => 'articles', :controller => 'articles'
   end
-  get ':group_name', :to => 'home#group'
+      
+  get 'groups/:id', :to => 'home#group'
 
   # See how all your routes lay out with "rake routes"
 
