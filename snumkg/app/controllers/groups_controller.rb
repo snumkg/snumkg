@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find_by_id(params[:id])
-    @boards = @group.boards
+    @boards = @group.boards.where(:hide => false)
   end
 
   def create

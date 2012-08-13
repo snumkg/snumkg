@@ -34,6 +34,17 @@ class Admin::BoardsController < AdminController
    
   end
 
+  def hide
+    @board = Board.find_by_id(params[:id])
+
+    if params[:hide] == "false"
+      @board.update_attribute(:hide, false)
+    else
+      @board.update_attribute(:hide, true)
+    end
+    redirect_to admin_path
+  end
+
   def destroy
    
     @board = Board.find_by_id(params[:id])

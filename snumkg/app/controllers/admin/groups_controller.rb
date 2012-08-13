@@ -27,6 +27,17 @@ class Admin::GroupsController < AdminController
     @group = Group.find_by_id(params[:id])
   end
 
+  def hide
+    @group = Group.find_by_id(params[:id])
+
+    if params[:hide] == "false"
+      @group.update_attribute(:hide, false)
+    else
+      @group.update_attribute(:hide, true)
+    end
+    redirect_to admin_path
+  end
+
   def destroy
     @group = Group.find_by_id(params[:id])
 

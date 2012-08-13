@@ -57,8 +57,9 @@ ActiveRecord::Schema.define(:version => 20120808120635) do
     t.string   "name"
     t.integer  "admin_id"
     t.integer  "board_type", :default => 0
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.boolean  "hide",       :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -74,8 +75,9 @@ ActiveRecord::Schema.define(:version => 20120808120635) do
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.integer  "admin_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "hide",       :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "likes", :force => true do |t|

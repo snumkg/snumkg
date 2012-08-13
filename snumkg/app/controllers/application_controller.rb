@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
   private
   def get_groups
-    @groups = Group.all
+    @groups = Group.where(:hide => false)
   end
 
   def set_user
@@ -63,6 +63,6 @@ class ApplicationController < ActionController::Base
 
   def set_group_boards
     @current_group = Group.find_by_id(params[:group_id])
-    @boards = @current_group.boards if @current_group
+    @boards = @current_group.boards.where(:hide => false) if @current_group
   end
 end

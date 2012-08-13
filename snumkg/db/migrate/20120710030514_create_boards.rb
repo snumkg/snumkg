@@ -5,6 +5,7 @@ class CreateBoards < ActiveRecord::Migration
       t.string  :name
       t.integer :admin_id
       t.integer :board_type, :default => 0
+      t.boolean :hide, :default => false
 
 
       t.timestamps

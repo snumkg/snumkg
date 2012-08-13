@@ -53,6 +53,8 @@ Snumkg::Application.routes.draw do
 
   #admin routes
   get 'admin', :to => 'admin#index'
+  get 'admin/groups/hide/:id', :to => 'admin/groups#hide', :as => 'hide_admin_group'
+  get 'admin/boards/hide/:id', :to => 'admin/boards#hide', :as => 'hide_admin_board'
   namespace :admin do
     resources :users
     resources :groups
