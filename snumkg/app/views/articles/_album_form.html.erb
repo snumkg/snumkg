@@ -1,0 +1,49 @@
+<%= content_for(:head) do %>
+  <%= javascript_include_tag 'jquery.MultiFile' %>
+<% end %>
+
+<%= render 'new_js_css_tag' %>
+
+<%= form_for(@article, :html => {multipart: true}) do |f| %>
+
+  작성자 : <%= current_user.username %>
+  <%= f.label :title, '제목' %>
+  <%= f.text_field :title %>
+
+  <%= hidden_field_tag :article_type, 3 %>
+  <%= f.label :body, '내용' %>
+  <%= f.text_area :body, class: "redactor_content" %>
+
+  <%= link_to "파일 추가", "#", class: "btn file-btn" %>
+  <div id="file_field">
+
+    <% for img in @article.album_images %>
+      <%= image_tag album_image_path(img.id), height: 30, width: 30 %> |<%= img.file_name %> | <%= link_to "삭제", album_image_path(img.id), method: :delete %><br />
+    <% end %>
+
+    <% cnt = @article.album_images.count + 1 %>
+
+      <%= file_field_tag "file["+cnt.to_s+"]", id: "file_cnt", count: cnt %><br/>
+  </div>
+
+  <br />
+  <%= f.submit @article.new_record? ? "글쓰기" : "수정", class:"btn" %>
+<% end %>
+
+
+<script>
+  var cnt = Number($("#file_cnt").attr('count'));
+
+  $('.file-btn').click(function(){
+    cnt = cnt + 1;
+    var f = $("<input/>");
+    f.attr({"id":"file_"+cnt,
+            "name": "file["+cnt+"]",
+            "type": "file"
+    })
+    var br = $("<br />");
+
+    $('#file_field').append(f).append(br);
+
+  });
+</script>

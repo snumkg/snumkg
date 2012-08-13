@@ -81,6 +81,11 @@ Snumkg::Application.routes.draw do
   get 'like_comment/:comment_id', :to => 'likes#comment', :as => 'like_comment'
   get 'unlike_comment/:comment_id', :to => 'unlikes#comment', :as => 'unlike_comment'
 
+
+  #album image
+  get '/album_image/:id', :to => 'album_images#get_image', :as => 'album_image'
+  delete '/album_image/:id', :to => 'album_images#destroy', :as => 'album_image'
+
   #sokkogi attendance
   get '/attendance/:sokkoji_article_id', :to => 'attendances#create', :as => 'create_attendance'
   get '/cancel_attendance/:sokkoji_article_id', :to => 'attendances#destroy', :as => 'destroy_attendance'

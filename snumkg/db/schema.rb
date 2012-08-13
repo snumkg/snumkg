@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808120635) do
+ActiveRecord::Schema.define(:version => 20120813123630) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20120808120635) do
     t.string   "full_path"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "file_name"
   end
 
   create_table "articles", :force => true do |t|

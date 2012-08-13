@@ -1,0 +1,56 @@
+
+<table id="article_box">
+  <tr>
+    <td>
+      <span id="article_title"><%= @article.title %></span>
+      <span class="article_like_number">추천 <%= @article.likes.count %></span>
+      <span class="article_writer">작성자:<%= @article.writer.nickname%> </span>
+    </td>
+  </tr>
+  <tr>
+    <td><div id="article_body"><%= @article.body.html_safe %></div></td>
+  </tr>
+  <% for img in @images %>
+    <tr>
+      <td><%= image_tag album_image_path(img.id) %></td> 
+    </tr>
+  <% end %>
+  <% if signin? %>
+    <tr>
+      <td>
+        <% if @article.liked_by?(current_user) %>
+          <%= link_to "추천 취소", unlike_article_path(@article), :class => "unlike_article_btn" %>
+        <% else %>
+          <%= link_to "추천하기", like_article_path(@article), :class => "like_article_btn" %>
+        <% end %>
+        <% if current_user == @article.writer %>
+          <span>
+            <%= link_to "수정하기", edit_article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article) %>
+          </span>
+          <span>
+            <%= render 'articles/delete_btn', :locals => {:@article => @article} %>
+          </span>
+        <% end %>
+
+      </td>
+    </tr>
+
+  <% end %>
+  <tr>
+    <td>
+      <% for like in @article.likes %>
+        <%= like.user.nickname %> 
+      <% end %>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <%= render 'comments/show_comments', :locals => {:@comments => @comments}%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= render 'comments/write_comment', :locals => {:@comment => @comment, :@article => @article} %>
+    </td>
+  </tr>
+</table>
