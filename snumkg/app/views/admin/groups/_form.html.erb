@@ -1,0 +1,6 @@
+
+<%= form_for [:admin, @group] do |f| %>
+  <%= f.label :name, "그룹명" %>
+  <%= f.text_field :name %>
+  <%= f.submit @group.new_record? ? "만들기" : "수정"  %>
+<% end %>

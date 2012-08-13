@@ -55,6 +55,8 @@ Snumkg::Application.routes.draw do
   get 'admin', :to => 'admin#index'
   namespace :admin do
     resources :users
+    resources :groups
+    resources :boards
   end
 
   get "contacts/index"
@@ -93,16 +95,16 @@ Snumkg::Application.routes.draw do
 
   resources :users
   resources :comments, only:[:create, :destroy]
-  resources :groups
   resources :messages
 
   #resources :profile_comments, only:[:create, :destroy]
+
+  get '/group/:id', :to => 'groups#show', :as => 'group'
 
   scope 'group/:group_id/board' do
     resources ':board_id', :as => 'articles', :controller => 'articles'
   end
       
-  get 'groups/:id', :to => 'home#group'
 
   # See how all your routes lay out with "rake routes"
 

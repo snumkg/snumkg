@@ -109,20 +109,20 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find_by_id(params[:id])
 
-    if @article.article_type == 2
+    if @article.article_type == 2 # 익명게시물 삭제시
       if !@article.authentication(params[:password])
         flash[:error] = "비밀번호가 일치하지 않습니다."
         redirect_to article_path(:group_id => params[:group_id], :board_id => params[:board_id], id: params[:id])
         return
       end
+      @article.destroy
     end
-    
-    @article.destroy
+
     redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id])
   end
 
   def password_confirmation
-    
+
   end
 
 end

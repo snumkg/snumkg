@@ -1,0 +1,9 @@
+
+<ul>
+  게시판관리
+  <% for board in @boards %>
+  <li>
+    <%= board.name %> | <%= link_to "수정", edit_admin_board_path(board) %> | <%= link_to "삭제", admin_board_path(board), method: :delete %>
+  </li>
+<% end %>
+</ul>

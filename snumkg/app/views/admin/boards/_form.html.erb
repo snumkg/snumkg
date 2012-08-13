@@ -1,0 +1,11 @@
+<%= form_for [:admin, @board] do |f| %>
+
+<%= f.label :group_id, "그룹" %>
+<%= f.select :group_id, @select_groups %>
+  
+<%= f.label :name, '게시판 이름' %>
+<%= f.text_field :name %>
+<%= f.select :board_type, [['일반게시판', 0], ['소꼬지게시판', 1], ['익명게시판', 2], ['앨범게시판', 3]] %>
+
+<%= f.submit @board.new_record? ? "만들기" : "수정" %>
+<% end %>

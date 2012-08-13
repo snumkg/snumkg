@@ -1,1 +1,29 @@
-admin
+<ul>
+  <li>
+  그룹관리 | <%= link_to "그룹만들기", new_admin_group_path %>
+  <ul>
+    <% for group in @groups %>
+      <li>
+      <%= link_to group.name, admin_group_path(group) %> | <%= link_to "수정", edit_admin_group_path(group) %> | <%= link_to "삭제", admin_group_path(group), method: :delete, confirm: "정말로 삭제하시겠습니까?" %>
+      </li>
+    <% end %>
+  </ul>
+  </li>
+  <li>
+  게시판관리 | <%= link_to "게시판만들기", new_admin_board_path %>
+  <% for group in @groups %>
+    <ul>
+      <%= group.name %>
+      <% for board in group.boards %>
+        <li>
+        <%= board.name %> | <%= link_to "수정", edit_admin_board_path(board) %> | <%= link_to "삭제", admin_board_path(board), method: :delete, confirm: "정말로 삭제하시겠습니까?" %>
+        </li>
+      <% end %>
+    </ul>
+
+  <% end %>
+  </li>
+  <li>
+    <%= link_to "연락처 관리", contacts_path %>
+  </li>
+</ul>

@@ -8,4 +8,6 @@ class Board < ActiveRecord::Base
   # 3 : 앨범게시판
   has_many :articles
   belongs_to :group
+
+  private
 end

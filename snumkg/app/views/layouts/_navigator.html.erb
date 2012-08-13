@@ -13,7 +13,7 @@
         <% if current_user %>
           <% if current_user.admin? %>
             <li>
-            <%= link_to "그룹관리", groups_path %>
+            <%= link_to "관리자페이지", admin_path %>
             </li>
           <% end %>
           <li>

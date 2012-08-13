@@ -10,4 +10,8 @@ class AdminController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def index
+    @groups = Group.all
+  end
 end

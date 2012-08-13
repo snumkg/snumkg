@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Snumkg</title>
+  <title>Snumkg<%="[#{current_user.alarm_counts if current_user}]" %></title>
   <%= stylesheet_link_tag    "home", controller_path, :media => "all" %>
   <%= javascript_include_tag "jquery", "jquery_ujs" %>
   <%= javascript_include_tag "home", controller_path %>
@@ -11,7 +11,17 @@
 </head>
 <body>
   <div id="wrapper">
-    <%= yield %>
+    <%= render 'layouts/navigator' %>
+
+    <%= render 'shared/error_messages' %>
+    <%= render 'layouts/success_message' %>
+    <div id="content_wrapper">
+      <div id="content">
+        <%= yield %>
+      </div>
+    </div>
+
+    <%= render 'layouts/footer' %>
   </div>
 </body>
 </html>
