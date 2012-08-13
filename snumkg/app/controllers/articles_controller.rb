@@ -5,8 +5,10 @@ class ArticlesController < ApplicationController
 
     @board = @boards.find_by_id(params[:board_id])
     @articles = @board.articles.order("created_at desc")
+    @notices = @board.articles.where(:notice => true).order("created_at desc")
 
     @index = @articles.count
+    @notice_index = @notices.count
 
     case @board.board_type
     when 0 # 일반게시판

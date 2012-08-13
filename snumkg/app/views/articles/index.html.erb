@@ -7,6 +7,27 @@
       <th class="span1">작성자</th>
     </thead>
     <tbody>
+      <% for @notice in @notices %>
+        <tr class="notice">
+          <td>
+            공지<%= @notice_index %> <% @notice_index = @notice_index - 1 %>
+          </td>
+          <td class="span7">
+            <%= link_to @notice.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => @notice) %>
+            <span class="comment_number">
+              [<%= @notice.comments.count %>]
+            </span>
+            <span class="article_like_number">추천 <%= @notice.likes.count %></span>
+
+          </td>
+          <td>
+            <%= @notice.created_at.strftime("%Y-%m-%d %H:%M%S") %>
+          </td>
+          <td>
+            <%= @notice.writer.nickname %>
+          </td>
+        </tr>
+      <% end %>
     <% for @article in @articles %>
       <tr>
         <td>
