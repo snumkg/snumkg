@@ -56,7 +56,7 @@ class ArticlesController < ApplicationController
     @article.article_type = params[:article_type]
 
     if @article.save
-      redirect_to article_path(group_id: params[:group_id], board_id: params[:board_id], id: params[:id])
+      redirect_to article_path(group_id: @article.board.group.id, board_id: @article.board.id, id: params[:id])
     end
 
   end

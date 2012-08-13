@@ -7,7 +7,7 @@
     </td>
   </tr>
   <tr>
-    <td><div id="article_body"><%= @article.body %></div></td>
+    <td><div id="article_body"><%= @article.body.html_safe %></div></td>
   </tr>
   <% if signin? %>
     <tr>

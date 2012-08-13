@@ -1,8 +1,4 @@
-
-<% content_for(:head) do %>
-  <%= javascript_include_tag "ckeditor" %>
-  <%= stylesheet_link_tag "editor" %>
-<% end %>
+<%= render 'new_js_css_tag' %>
 
 <%= form_for(@article) do |f| %>
 
@@ -12,12 +8,9 @@
 
   <%= hidden_field_tag :article_type, 0 %>
   <%= f.label :body, '내용' %>
-  <%= f.text_area :body, id: "ckeditor" %>
-  <script>
-    CKEDITOR.replace('ckeditor');
-  </script>
-
+  <%= f.text_area :body, class: "redactor_content" %>
   <br />
   <%= f.submit @article.new_record? ? "글쓰기" : "수정", class:"btn" %>
 
 <% end %>
+

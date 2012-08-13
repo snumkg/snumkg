@@ -8,6 +8,8 @@
   <%= javascript_include_tag "datepicker" %>
 <% end %>
 
+<%= render 'new_js_css_tag' %>
+
 <%= form_for(@article, url:articles_path(group_id: params[:group_id], board_id: params[:board_id])) do |f| %>
 
   작성자 : <%= current_user.username %>
@@ -18,7 +20,7 @@
   <%= f.text_field :date, id: "sokkoji_date" %>
 
   <%= f.label :body, '내용' %>
-  <%= f.text_area :body %>
+  <%= f.text_area :body, class: "redactor_content" %>
 
   <%= hidden_field_tag :article_type, 1 %>
   <br />
