@@ -68,6 +68,9 @@ ActiveRecord::Schema.define(:version => 20120808120635) do
     t.integer  "profile_user_id"
     t.string   "content"
     t.integer  "comment_type",    :default => 0
+    t.string   "username"
+    t.string   "password_salt"
+    t.string   "password_hash"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end

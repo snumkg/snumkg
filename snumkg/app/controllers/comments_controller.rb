@@ -1,3 +1,4 @@
+#encoding: utf-8
 class CommentsController < ApplicationController
 
   def create
@@ -6,7 +7,12 @@ class CommentsController < ApplicationController
     @comment = Comment.new
     @comment.content = params[:comment][:content]
     @comment.article_id = params[:comment][:article_id]
-    @comment.user_id = params[:comment][:user_id]
+
+    if article.article_type != 2 # 익명게시판이 아닐때
+      @comment.user_id = params[:comment][:user_id]
+    else
+      @comment.set_password(params[:comment][:password])
+    end
     @comment.comment_type = 0
 
     if @comment.save
@@ -22,13 +28,18 @@ class CommentsController < ApplicationController
     group_id = comment.article.board.group.id
     board_id = comment.article.board.id
     article_id = comment.article.id
-
-    if comment.destroy
-      redirect_to article_path(group_id: group_id, board_id: board_id, id: article_id)
-    else
-      redirect_to root_path
-    end
     
+    if comment.article.article_type == 2
+      if !comment.authentication(params[:password])
+        flash[:error] = "비밀번호가 일치하지 않습니다."
+      else
+        comment.destroy
+      end
+    else
+      comment.destroy
+    end
+
+    redirect_to article_path(group_id: group_id, board_id: board_id, id: article_id)
   end
 
   def create_profile_comment

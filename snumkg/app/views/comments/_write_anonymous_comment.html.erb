@@ -1,6 +1,8 @@
 <% if current_user %>
   <%= form_for(@comment, id: "write_comment_box") do |f| %>
-    <%= f.text_field :content, class: "span5" %>
+    <%= f.text_field :username, placeholder: "이름", class: "span2" %>
+    <%= f.text_field :content, placeholder: "내용", class: "span5" %>
+    <%= f.password_field :password, placeholder: "비밀번호", class: "span1" %>
     <%= f.hidden_field :article_id, :value => @article.id %>
     <%= f.hidden_field :group_id, :value => params[:group_id] %>
     <%= f.hidden_field :board_id, :value => params[:board_id] %>

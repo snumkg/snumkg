@@ -13,7 +13,9 @@ class Comment < ActiveRecord::Base
   has_many :likes, :dependent => :destroy
   has_many :alarms, :dependent => :destroy
 
-  validates_presence_of :content, :user_id
+  validates_presence_of :content
+  validates_presence_of :user_id, :unless => Proc.new {|comment| comment.article.article_type == 2}
+
 
   def liked_by?(user)
     !Like.where(:comment_id => self.id, :user_id => user.id).limit(1).first.nil?
@@ -22,6 +24,20 @@ class Comment < ActiveRecord::Base
   def liked_by_users
     Like.where(:comment_id => self.id).map {|c| c.user}
   end
+
+  def authentication(password)
+     if Digest::SHA256.hexdigest(password + self.password_salt) != self.password_hash
+      false
+    else
+      true
+    end
+  end
+
+  def set_password(pass)
+    salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
+    self.password_salt, self.password_hash = salt, Digest::SHA256.hexdigest(pass.to_s + salt)
+  end
+
 
   private
   def save_alarm
@@ -72,18 +88,4 @@ class Comment < ActiveRecord::Base
     end
   end
 
-
-=begin
-  def destroy_alarm
-    if self.profile_user_id.nil?
-      destroy_alarm_helper(:article_id => self.article_id,
-                           :alarmer_id => self.writer.id,
-                           :alarm_type => 1)
-    else
-      destroy_alarm_helper(:alarmer_id => self.writer.id,
-                           :alarm_type => 3)
-    end
-
-  end
-=end
 end
