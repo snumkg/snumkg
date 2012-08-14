@@ -1,7 +1,7 @@
 <div id="tab_sidebar">
   <ul>
     <% for board in @boards %>
-      <li><%= link_to board.name, articles_path(group_id: board.group.id, board_id: board.id) %></li>
+      <li><%= link_to board.name, articles_path(group_id: board.group.id, board_id: board.id) %><% if board.new_article? %><span class="new">new</span><% end %></li>
     <% end %>
   </ul>
 </div>

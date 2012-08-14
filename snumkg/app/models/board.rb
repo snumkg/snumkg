@@ -9,5 +9,15 @@ class Board < ActiveRecord::Base
   has_many :articles
   belongs_to :group
 
+
+  def new_article?
+
+    if !self.articles.where("created_at >= ?", Time.now.yesterday.yesterday).limit(1).empty?
+      true
+    else
+      false
+    end
+  end
+
   private
 end

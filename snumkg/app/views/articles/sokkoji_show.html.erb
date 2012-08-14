@@ -7,7 +7,7 @@
     </td>
   </tr>
   <tr>
-    <td><div id="article_body"><%= @article.html_safe %></div></td>
+    <td><div id="article_body"><%= @article.body.html_safe %></div></td>
   </tr>
   <% if signin? %>
     <tr>
@@ -40,12 +40,12 @@
   </tr>
   <tr>
   <td>
-  <!--   render 'comments/show_comments', :locals => {:@comments => @comments}%>-->
+    <%= render 'comments/show_comments', :locals => {:@comments => @comments}%>
   </td>
   </tr>
   <tr>
   <td>
-  <!--  render 'comments/write_comment', :locals => {:@comment => @comment, :@article => @soarticle} %>-->
+    <%= render 'comments/write_comment', :locals => {:@comment => @comment, :@article => @article} %>
 </td>
   </tr>
 </table>
