@@ -4,7 +4,7 @@
       <th class="span1">번호</th>
       <th class="span5">제목</th>
       <th class="span2">작성일</th>
-      <th class="span1">작성자</th>
+      <th class="span2">작성자</th>
     </thead>
     <tbody>
       <% for @notice in @notices %>
@@ -24,7 +24,7 @@
             <%= @notice.created_at.strftime("%Y-%m-%d %H:%M%S") %>
           </td>
           <td>
-            <%= @notice.writer.nickname %>
+            <%= render :partial => 'shared/article_writer', :locals => {:writer => @notice.writer} %>
           </td>
         </tr>
       <% end %>
@@ -45,7 +45,7 @@
           <%= @article.created_at.strftime("%Y-%m-%d %H:%M%S") %>
         </td>
         <td>
-          <%= @article.writer.nickname %>
+          <%= render :partial => 'shared/article_writer', :locals => {:writer => @article.writer} %>
         </td>
       </tr>
     <% end %>

@@ -45,15 +45,17 @@ class ProfilesController < ApplicationController
   end
 
   def get_profile_image
-    #img = Magick::Image.read(url).first
-    #thumb = img.resize(100,100)
+    default_path = "#{Rails.root}/app/assets/images/default_profile_thumbnail.png"
+    user = User.find_by_id(params[:id])
 
-    #thumb.display
-    #send_data(url, :disposition => 'inline',:type => 'image/png')
     if params[:thumb].nil?
       send_file(User.find(params[:id]).profile_image_path, :type => 'image/png', :disposition => 'inline')
     else
-      send_file(User.find(params[:id]).thumbnail_image_path, :type => 'image/png', :disposition => 'inline')
+      if user.thumbnail_image_path.nil?
+        send_file(default_path, :type => 'image/png', :disposition => 'inline')
+      else
+        send_file(User.find(params[:id]).thumbnail_image_path, :type => 'image/png', :disposition => 'inline')
+      end
     end
     
   end
