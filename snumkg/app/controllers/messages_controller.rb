@@ -18,6 +18,8 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
+
+    @receiver = Message.find_by_id(params[:receiver_id])
   end
 
   def create

@@ -55,3 +55,20 @@
 #footer {
   clear: both;
 }
+
+
+.name {
+  cursor: pointer;
+
+}
+
+.name_info {
+ visibility: hidden;
+ position: absolute;
+ z-index: 2;
+ background: white;
+
+ li {
+  list-style: none;
+ }
+}

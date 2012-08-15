@@ -1,2 +1,18 @@
 
-<%= image_tag profile_image_path(id: writer.id, thumb:true), size: "25x25" %><%= writer.nickname%>
+<%= image_tag profile_image_path(id: writer.id, thumb:true), size: "25x25" %><span class="name" id="<%=writer.id%>"><%= writer.nickname%></span>
+
+<ul class="name_info" id="<%= writer.id%>">
+  <li><%= link_to "프로필 페이지",profile_path(writer.id) %></li>
+  <li><%= link_to "쪽지보내기", new_message_path(receiver_id: writer.id) %></li>
+</ul>
+
+<script>
+  $('.name').click(function(){
+
+    console.log($(this).next());
+
+    
+    
+  });
+
+</script>
