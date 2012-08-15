@@ -2,6 +2,15 @@ class HomeController < ApplicationController
   layout 'main'
 
   def index
+    if params[:guest]
+      session[:guest] = true
+    end
+
+    if session[:guest].nil? && current_user.nil?
+      redirect_to signin_path
+    else
+
+    end
   end
 
   def group

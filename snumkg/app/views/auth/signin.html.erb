@@ -1,9 +1,16 @@
+<%= javascript_include_tag "signin" %>
 
-<div class="offset3">
-<h1>로그인</h1>
-<%= form_tag authorize_path do %>
-  아이디: <%= text_field_tag :username %> <br />
-  비밀번호: <%= password_field_tag :password %><br />
-  <%= submit_tag "login", class: "btn" %>
-<% end %>
+<div id="#main_login_box">
+  <h1>로그인</h1>
+  <%= form_tag authorize_path do %>
+    <%= text_field_tag :username, nil, placeholder: "아이디" %> 
+    <%= check_box_tag :idsave %><span class="">ID저장</span>
+    <br />
+    <%= password_field_tag :password, nil, placeholder: "비밀번호" %>
+    <%= submit_tag "로그인", class: "btn", id: "login_submit" %>
+    <br />
+    <%= link_to "가입하기", new_user_path %>
+  <% end %>
+  <%= link_to "게스트로 입장하기", root_path(guest: true) %>
 </div>
+

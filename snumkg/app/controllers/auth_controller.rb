@@ -9,6 +9,7 @@ class AuthController < ApplicationController
   end
 
   def signin
+    render layout: "default"
 
     if signin?
       redirect_to root_path

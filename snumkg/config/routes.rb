@@ -70,7 +70,7 @@ Snumkg::Application.routes.draw do
   get "contacts/password_confirmation"
 
   #login, logout
-  get '/signin', :to => 'auth#signin'
+  get '/signin', :to => 'auth#signin', :as => 'signin'
   post '/authorize', :to => 'auth#authorize'
   post '/check_password', :to => 'contacts#check_password'
   get '/signup', :to => 'users#new'

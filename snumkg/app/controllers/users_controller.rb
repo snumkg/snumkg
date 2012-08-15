@@ -6,7 +6,9 @@ class UsersController < ApplicationController
   end
 
   def new
+
     @user = User.new
+    render :layout => 'default'
   end
 
   def create
