@@ -13,13 +13,17 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.find(params[:id])
-    @message.update_attribute(:read, true)
+    
+    # 쪽지를 받은 사람이 읽었을 때
+    if @message.receiver == current_user
+      @message.update_attribute(:read, true)
+    end
   end
 
   def new
     @message = Message.new
 
-    @receiver = Message.find_by_id(params[:receiver_id])
+    @receiver = User.find_by_id(params[:receiver_id])
   end
 
   def create

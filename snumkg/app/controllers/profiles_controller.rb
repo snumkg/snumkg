@@ -3,7 +3,7 @@
 require 'RMagick'
 include Magick
 class ProfilesController < ApplicationController
-  before_filter :check_signin
+  before_filter :check_signin, :except => [:get_profile_image]
   layout 'main'
 
   def upload_profile_image

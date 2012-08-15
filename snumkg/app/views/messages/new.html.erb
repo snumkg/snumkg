@@ -2,7 +2,7 @@
 
   보낸이 : <%= current_user.nickname %>
   <br />
-  받는이 : <%= @receiver.nickname %>
+  받는이 : <%= @receiver.nickname unless @receiver.nil? %>
  
   <%= f.hidden_field :receiver_id, value: @receiver.id %> 
   <%= f.hidden_field :sender_id, value: current_user.id %>
