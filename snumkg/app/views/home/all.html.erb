@@ -1,0 +1,20 @@
+<ul>
+<% for a in @all %>
+  <% case a.class.to_s %>
+  <% when "Article" %>
+    <li>
+    <%= a.writer.nickname unless a.writer.nil?%>님이 <%=link_to  a.title, article_path(group_id: a.board.group.id, board_id: a.board.id, id: a.id) %> 글을 작성하셨습니다.
+    </li>
+  <% when "Comment" %>
+    <% case a.comment_type %>
+    <% when 0 # 게시물 댓글%>
+      <li>
+      <%= a.writer.nickname unless a.writer.nil? %>님이 <%= link_to a.article.title, article_path(group_id: a.article.board.group.id, board_id: a.article.board.id, id:a.article.id) %> 글에 댓글을 작성하셨습니다.
+      </li>
+    <% when 1 # 프로필 댓글 %>
+    <% end %>
+  <% when "Like" %>
+  <% when "Attendance" %>
+  <% end %>
+<% end %>
+</ul>
