@@ -5,6 +5,7 @@ class AuthController < ApplicationController
   def signout
     session[:user_id] = nil
     session[:authorized_contact_user] = nil
+    session[:guest] = nil
     redirect_to root_path
   end
 

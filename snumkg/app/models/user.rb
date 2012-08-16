@@ -4,10 +4,16 @@ class User < ActiveRecord::Base
 
   validates_presence_of :username, :password, :password_confirmation, :nickname
   validates_uniqueness_of :username
+
   validates_confirmation_of :password
-  #validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+
+  validates_length_of :password, :minimum => 6
+  validates_length_of :username, :minimum => 6
+
+  
+  validates_format_of :username, :with => /^[a-zA-Z](\d|\w)*/
   validates_format_of :phone_number, :with => /01\d(\d{4}|\d{3})\d{4}/, :allow_blank => true
-  validates_length_of :password, :minimum => 4
+  validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   
   has_many :articles
   has_many :comments

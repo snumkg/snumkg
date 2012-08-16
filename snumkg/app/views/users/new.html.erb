@@ -1,3 +1,15 @@
+<%= content_for(:head) do %>
+  <%= javascript_include_tag  "join" %>
+
+<% end %>
+
+<style>
+  input {
+    margin-right: 5px;
+  }
+</style>
+
+
 <h1>회원가입</h1>
 
 <% if @user.errors.any? %>
@@ -11,24 +23,32 @@
   </div>
 <% end %>
 
+* 표시는 필수항목입니다.
+
+
 <%= form_for(@user) do |f| %>
 
-  <%= f.label :username, '아이디' %>
-  <%= f.text_field :username %>
+  <%= f.label :username, '*아이디' %>
+  <%= f.text_field :username, class: "error" %><span class="red small"></span>
+  
 
-  <%= f.label :password, '비밀번호' %>
-  <%= f.password_field :password %>
+  <%= f.label :password, '*비밀번호' %>  
+  <%= f.password_field :password %><span class="red small"></span>
 
-  <%= f.label :password_confirmation, '비밀번호 확인' %>
-  <%= f.password_field :password_confirmation %>
+  <%= f.label :password_confirmation, '*비밀번호 확인' %>
+  <%= f.password_field :password_confirmation %><span class="red small"></span>
 
   <%= label_tag :phone_number_1, '연락처' %>
   <%= select_tag :phone_number_1, options_for_select([['010','010'],['011','011'],['016','016'],['017','017'],['019','019']]), class: "span1" %>
   <%= text_field_tag :phone_number_2, nil, class: "span1" %> <%= text_field_tag :phone_number_3, nil, class: "span1"%>
-  연락처 공개<%= f.check_box :is_phone_number_public, {}, true, false %>
+  <%= f.check_box :is_phone_number_public, {}, true, false %>연락처 공개
 
-  <%= f.label :nickname, '이름' %>
-  <%= f.text_field :nickname %>
+  <%= f.label :nickname, '*이름' %>
+  <%= f.text_field :nickname %><span class="red small"></span>
+
+  <%= f.label :email, "이메일" %>
+  <%= f.text_field :email %><span class="red small"></span>
+
   <br />
 
   <%= f.submit "가입하기", class: "btn" %>

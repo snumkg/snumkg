@@ -1,14 +1,14 @@
 #encoding: utf-8
 class UsersController < ApplicationController
   before_filter :check_signin, :except => [:create, :new ]
-  layout 'main'
+  layout 'main', :except => [:new, :create]
+  layout 'default', :only => [:new, :create]
   def index
   end
 
   def new
 
     @user = User.new
-    render :layout => 'default'
   end
 
   def create
@@ -21,7 +21,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path
     else
-      render 'new'
+      flash[:error] = "회원가입 할 수 없습니다. 회원정보를 다시 입력해주세요."
+      redirect_to new_user_path
     end
   end
 

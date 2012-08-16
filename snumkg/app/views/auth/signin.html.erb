@@ -13,7 +13,8 @@
         <%= password_field_tag :password, nil, placeholder: "비밀번호" %>
         <%= submit_tag "로그인", class: "btn", id: "login_submit" %>
         <br />
-        <%= link_to "가입하기", new_user_path %>
+        <%= link_to "가입하기", new_user_path %> | 
+        <%= link_to "아이디/비밀번호 찾기", "#" %>
       <% end %>
     </div>
   </div>
