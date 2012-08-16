@@ -1,3 +1,39 @@
 // Place all the styles related to the auth controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#main_login_box {
+  position: relative;
+  top: 300px;
+  left: 580px;
+
+  width: 300px;
+  padding: 2em;
+  background: #0EF5CF;
+
+  border-radius: 50px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+   
+  h1 {
+    margin-bottom: 5px;
+  }
+
+  a {
+    color: black;
+  }
+}
+
+#guest_enter {
+  position: relative;
+  top: 270px;
+  left: 600px;
+  font-size: 210%;
+  font-weight: bold;
+
+}
+
+#guest_enter:hover {
+  text-decoration: none;
+}

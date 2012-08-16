@@ -1,0 +1,64 @@
+
+<div id="nav_container">
+  <div id="my_info">
+    <ul>
+      <% if current_user %>
+        <% if current_user.admin? %>
+          <li>
+          <%= link_to "관리자페이지", admin_path %>
+          </li>
+        <% end %>
+        <li>
+        <%= link_to "쪽지[#{current_user.message_count}]", messages_path(type: "receive") %>
+        </li>
+        <li>
+        <%= link_to "알림[#{current_user.alarm_counts}]",user_alarms_path %>
+        </li>
+        <li>
+        <%= image_tag profile_image_path(current_user.id, :thumb => "thumb") %><%= link_to current_user.nickname, profile_path(current_user), class: "up" %>
+        </li>
+        <li><%= link_to "로그아웃", signout_path %></li>
+      <% else %>
+        <li>
+        <ul>
+          <%= link_to "로그인", "#", class: "login" %>
+          <li class="login_box">
+          <%= render 'shared/login_box' %>
+          </li>
+        </ul>
+        </li>
+        <li><%= link_to "회원가입", signup_path %></li>
+      <% end %>
+
+    </ul>
+  </div>
+  <div id="menu">
+    <ul>
+      <li>
+      <%= link_to "누구나", "#" %>
+      </li>
+      <li>
+      <%= link_to "학번별 게시판", "#" %>
+      <ul class="sub_menu">
+        <li>
+        <%= link_to "모아보기", '/all' %>
+        </li>
+        <% for group in @groups %>
+          <li>
+          <%= link_to group.name, group_path(group) %>
+          </li>
+        <% end %>
+      </ul>
+      </li>
+      <li>
+      <%= link_to "소꼬지", "#" %>
+      </li>
+      <li>
+      <%= link_to "매일매일", "#" %>
+      </li>
+      <li>
+      <%= link_to "채팅", "#" %>
+      </li>
+    </ul>
+  </div>
+</div>

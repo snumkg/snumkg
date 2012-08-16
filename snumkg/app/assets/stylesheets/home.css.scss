@@ -4,6 +4,17 @@
 
 @import "bootstrap";
 
+@mixin border($px) {
+
+  border-radius: $px;
+  -moz-border-radius: $px;
+  -webkit-border-radius: $px;
+}
+
+.clear {
+  clear: both;
+}
+
 .user_alarm {
 
   span {
@@ -47,6 +58,90 @@
 
 }
 
+//navigation menu
+//
+
+#nav_container {
+  position: relative;
+  top: 10px;
+}
+
+#nav_container ul {
+
+  li {
+    list-style: none;
+    display: inline-block;
+    float: left;
+
+  }
+}
+
+#my_info {
+  height: 40px;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    background: #FEF3FC;
+    float: right;
+    text-align: center;
+    @include border(10px);
+
+    li {
+      width: 80px;
+      height: 34px;
+
+      a {
+        position: relative;
+        top: 13px;
+      }
+
+      a.up {
+        top: -2px;
+      }
+    }
+  }
+}
+
+
+#menu {
+  position: relative;
+  width: 1000px;
+  height: 43px;
+  text-align: center;
+  margin-bottom: 1em;
+  background: #F5FDF6;
+  @include border(10px);
+
+  ul li {
+    width: 20%;    
+    padding: 1em 0;
+    a {
+      position: relative;
+      top: 25%;
+    }
+    ul.sub_menu {
+      margin: 0;
+      width: 195px;
+      position: absolute;
+      top: 43px;
+      background: #F5FDF6;
+      display: none;
+      border-radius: 0 0 10px 10px;
+      -moz-border-radius: 0 0 10px 10px;
+      -webkit-border-radius: 0 0 10px 10px;
+
+      li {
+        padding: 0 0 1em 0;
+        width: 195px;
+      }
+    }
+  }
+}
+
+
+//content
+//
 #content {
   float: left;
   width: 760px;
@@ -57,12 +152,12 @@
 }
 
 
-.name {
+// user menu 
+.user {
   cursor: pointer;
-
 }
 
-.name_info {
+.user_menu {
  visibility: hidden;
  position: absolute;
  z-index: 2;
@@ -71,4 +166,16 @@
  li {
   list-style: none;
  }
+}
+
+
+// hidden login_box
+ul li ul {
+  list-style: none;
+}
+
+.login_box {
+  position: absolute;
+  visibility: hidden;
+  background: white;
 }

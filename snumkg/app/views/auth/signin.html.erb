@@ -1,6 +1,8 @@
 <%= javascript_include_tag "signin" %>
 
-<div id="#main_login_box">
+
+<%= link_to "게스트로 입장하기", root_path(guest: true), id: "guest_enter" %>
+<div id="main_login_box">
   <h1>로그인</h1>
   <%= form_tag authorize_path do %>
     <%= text_field_tag :username, nil, placeholder: "아이디" %> 
@@ -11,6 +13,5 @@
     <br />
     <%= link_to "가입하기", new_user_path %>
   <% end %>
-  <%= link_to "게스트로 입장하기", root_path(guest: true) %>
 </div>
 

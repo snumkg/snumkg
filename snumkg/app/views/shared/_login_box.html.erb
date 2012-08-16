@@ -1,0 +1,11 @@
+<div>
+  <%= form_tag authorize_path do %>
+    <%= text_field_tag :username, nil, placeholder: "아이디" %> 
+    <br />
+    <%= password_field_tag :password, nil, placeholder: "비밀번호" %>
+    <%= submit_tag "로그인", class: "btn" %>
+    <br />
+    <%= link_to "가입하기", new_user_path %>
+  <% end %>
+</div>
+

@@ -24,7 +24,7 @@
             <%= @notice.created_at.strftime("%Y-%m-%d %H:%M%S") %>
           </td>
           <td>
-            <%= render :partial => 'shared/article_writer', :locals => {:writer => @notice.writer} %>
+            <%= render :partial => 'shared/user_menu', :locals => {:writer => @notice.writer} %>
           </td>
         </tr>
       <% end %>
@@ -45,7 +45,7 @@
           <%= @article.created_at.strftime("%Y-%m-%d %H:%M%S") %>
         </td>
         <td>
-          <%= render :partial => 'shared/article_writer', :locals => {:writer => @article.writer} %>
+          <%= render :partial => 'shared/user_menu', :locals => {:writer => @article.writer} %>
         </td>
       </tr>
     <% end %>
