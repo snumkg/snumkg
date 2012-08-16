@@ -4,7 +4,7 @@ class CreateGroups < ActiveRecord::Migration
       t.string  :name
       t.integer :admin_id
       t.boolean :hide, :default => false
-      t.string  :type
+      t.string  :group_type
 
       t.timestamps
     end

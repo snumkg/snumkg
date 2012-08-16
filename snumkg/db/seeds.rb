@@ -35,10 +35,10 @@ e.save
 
 #Group
 all_group = Group.create(name: "전체", admin_id: admin.id)
-group12 =   Group.create(name: "12학번", admin_id: admin.id)
-Group.create(name: "11학번",  admin_id: admin.id)
-Group.create(name: "10학번",  admin_id: admin.id)
-Group.create(name: "09학번",  admin_id: admin.id)
+group12 =   Group.create(name: "12학번", admin_id: admin.id, group_type: "학번")
+Group.create(name: "11학번",  admin_id: admin.id, group_type: "학번")
+Group.create(name: "10학번",  admin_id: admin.id, group_type: "학번")
+Group.create(name: "09학번",  admin_id: admin.id, group_type: "학번")
 
 
 #Board

@@ -3,32 +3,54 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+#main_login_wrapper {
+  background-image: url('main_login.jpg');
+  width: 1000px;
+  height: 684px;
+} 
+
 #main_login_box {
   position: relative;
-  top: 300px;
-  left: 580px;
+  top: 345px;
+  left: 700px;
 
-  width: 300px;
+  width: 230px;
+  height: 195px;
   padding: 2em;
   background: #0EF5CF;
 
-  border-radius: 50px;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
+  border-radius: 100px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
    
   h1 {
+    position: relative;
     margin-bottom: 5px;
+
   }
 
   a {
     color: black;
   }
+
+  #username {
+    width: 150px;
+  }
+
+  #password {
+    width: 150px;
+  }
+}
+
+#main_login_box_inner {
+  position: relative;
+  top: 13%;
 }
 
 #guest_enter {
   position: relative;
-  top: 270px;
-  left: 600px;
+  top: 330px;
+  left: 710px;
   font-size: 210%;
   font-weight: bold;
 

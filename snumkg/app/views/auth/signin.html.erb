@@ -1,17 +1,20 @@
 <%= javascript_include_tag "signin" %>
 
 
-<%= link_to "게스트로 입장하기", root_path(guest: true), id: "guest_enter" %>
-<div id="main_login_box">
-  <h1>로그인</h1>
-  <%= form_tag authorize_path do %>
-    <%= text_field_tag :username, nil, placeholder: "아이디" %> 
-    <%= check_box_tag :idsave %><span class="">ID저장</span>
-    <br />
-    <%= password_field_tag :password, nil, placeholder: "비밀번호" %>
-    <%= submit_tag "로그인", class: "btn", id: "login_submit" %>
-    <br />
-    <%= link_to "가입하기", new_user_path %>
-  <% end %>
+<div id="main_login_wrapper">
+  <%= link_to "게스트로 입장하기", root_path(guest: true), id: "guest_enter" %>
+  <div id="main_login_box">
+    <div id="main_login_box_inner">
+      <h1>로그인</h1>
+      <%= form_tag authorize_path do %>
+        <%= text_field_tag :username, nil, placeholder: "아이디" %> 
+        <%= check_box_tag :idsave %><span class="">ID저장</span>
+        <br />
+        <%= password_field_tag :password, nil, placeholder: "비밀번호" %>
+        <%= submit_tag "로그인", class: "btn", id: "login_submit" %>
+        <br />
+        <%= link_to "가입하기", new_user_path %>
+      <% end %>
+    </div>
+  </div>
 </div>
-
