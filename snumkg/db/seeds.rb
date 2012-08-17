@@ -49,7 +49,8 @@ Group.create(name: "09학번",  admin_id: admin.id, group_type: "학번")
 
   Board.create(name: "소꼬지게시판", group_id: all_group.id, admin_id: admin.id, board_type: 1)
 
-#Article
+
+  #Article
 # article_type 0: 일반게시물, 1: 소꼬지게시물 
 body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ첫번재글임"
 

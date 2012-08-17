@@ -6,6 +6,7 @@
   <%= javascript_include_tag "jquery", "jquery_ujs" %>
   <%= javascript_include_tag "home", controller_path %>
   <%= javascript_include_tag "bootstrap-modal" %>
+  <%= javascript_include_tag "signup" %>
   <%= csrf_meta_tags %>
   <%= yield :head %>
 </head>
@@ -22,6 +23,7 @@
     </div>
 
     <%= render 'layouts/footer' %>
+    <%= render :partial => 'shared/signup', :locals => {:@user => @new_user} %>
   </div>
 </body>
 </html>

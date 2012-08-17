@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    phone_number = params[:phone_number_1] + params[:phone_number_2] + params[:phone_number_3]
+    phone_number = params[:phone_number_1] + "-" + params[:phone_number_2] + "-" + params[:phone_number_3]
     @user.phone_number = phone_number
     @user.set_password(@user.password)
 
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       flash[:error] = "회원가입 할 수 없습니다. 회원정보를 다시 입력해주세요."
-      redirect_to new_user_path
+      redirect_to :back
     end
   end
 
@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   end
 
   def alarms
+    render :layout => 'main'
     # Hash 배열을 리턴함
     def select_alarm(type)
       case type

@@ -10,6 +10,7 @@ class AuthController < ApplicationController
   end
 
   def signin
+    @user = User.new
     render layout: "default"
 
     if signin?

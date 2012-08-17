@@ -1,10 +1,10 @@
 
 <h1><%=@user.nickname%> 님의 프로필</h1>
 
-<%= image_tag profile_image_path(params[:id]) %>
+<%= image_tag picture_path(type: "profile", id: params[:id]) %>
 
 <% if current_user == User.find(params[:id]) %>
-  <%= form_tag(upload_profile_image_path, multipart: true) do %>
+  <%= form_tag(pictures_path(type: "profile"), multipart: true) do %>
 
     <%= file_field_tag :image%>
     <%= submit_tag "이미지 올리기"%>

@@ -9,7 +9,7 @@ class Article < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :attendances, :dependent => :destroy
-  has_many :album_images, :dependent => :destroy
+  #has_many :album_images, :dependent => :destroy
 
   def liked_by?(user_id)
     !Like.where(:article_id => self.id, :user_id => user_id).limit(1).first.nil?

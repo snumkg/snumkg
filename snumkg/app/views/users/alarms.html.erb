@@ -6,17 +6,21 @@
 
 <h1>알림 목록</h1>
 <ul id="alarm_list" data-alarmcounts="<%=session[:alarm_counts]%>">
-  <% @new_alarms.each_with_index do |alarms, index| %>
-    <li id="alarm<%=index%>">
-    <%= show_alarm_messages(alarms) %>
-    <%= alarm_messages_link(alarms[0])%>
-    </li>
+  <% unless @new_alarms.nil? %>
+    <% @new_alarms.each_with_index do |alarms, index| %>
+      <li id="alarm<%=index%>">
+      <%= show_alarm_messages(alarms) %>
+      <%= alarm_messages_link(alarms[0])%>
+      </li>
+    <% end %>
   <% end %>
-  <% @old_alarms.each do |alarms| %>
-    <li>
-    <%= show_alarm_messages(alarms) %>
-    <%= alarm_messages_link(alarms[0])%>
-    </li>
+  <% unless @old_alarms.nil? %>
+    <% @old_alarms.each do |alarms| %>
+      <li>
+      <%= show_alarm_messages(alarms) %>
+      <%= alarm_messages_link(alarms[0])%>
+      </li>
+    <% end %>
   <% end %>
 
 

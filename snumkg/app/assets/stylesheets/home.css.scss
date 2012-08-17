@@ -88,8 +88,16 @@
   text-align: center;
 }
 
+#wrapper {
+  position: relative;
+  top: 27px;
+}
+
 #nav_container {
   position: relative;
+  height: 35px;
+  border: 1px solid #E0DADA;
+  margin-bottom: 10px;
 }
 
 #nav_container ul {
@@ -147,21 +155,17 @@
 
 #menu {
   position: relative;
-  height: 37px;
   left: 150px;
-  width: 857px;
   text-align: center;
-  margin-top: 27px;
-  margin-bottom: 1em;
-  background: #8F8F8F;
+  background: white;
 
   ul li {
     width: 150px;    
-    padding: 10px 0;
+    height: 30px;
     a {
       position: relative;
-      font-size: 120%;
-      color: #F1F1F1;
+      font-size: 97%;
+      color: #black;
       letter-spacing: 3px;
       font-weight: bold;
     }
@@ -174,24 +178,29 @@
       margin: 0;
       width: 150px;
       position: absolute;
-      top: 37px;
-      background: #A9A9A9;
+      top: 27px;
+      background: white;
       display: none;
       border-radius: 0 0 10px 10px;
       -moz-border-radius: 0 0 10px 10px;
       -webkit-border-radius: 0 0 10px 10px;
 
       li {
-        padding: 0 0 1em 0;
+        height: 27px;
+        padding: 0 0 3px 0;
+        border-right: 1px solid #E0DADA;
+        border-bottom: 1px solid #E0DADA;
+        border-left: 1px solid #E0DADA;
+        border-collapse: collapse;
 
         a {
-          font-size: 110%;
+          font-size: 95%;
         } 
       }
 
       :first-child {
-        padding: 1em 0;
       }
+
     }
   }
 }

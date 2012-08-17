@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120813131239) do
+ActiveRecord::Schema.define(:version => 20120817064343) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -102,6 +102,16 @@ ActiveRecord::Schema.define(:version => 20120813131239) do
     t.boolean  "read",        :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "pictures", :force => true do |t|
+    t.string   "full_path"
+    t.string   "size"
+    t.string   "url"
+    t.string   "name"
+    t.string   "thumb_path"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "profiles", :force => true do |t|

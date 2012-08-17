@@ -1,5 +1,14 @@
-<%= javascript_include_tag "signin" %>
+<%= content_for(:head) do %>
+  <%= javascript_include_tag "signin" %>
+<% end %>
 
+<style>
+  #main_login_wrapper {
+    
+    position:relative;
+    top: -27px;
+    }
+</style>
 
 <div id="main_login_wrapper">
   <%= link_to "게스트로 입장하기", root_path(guest: true), id: "guest_enter" %>
@@ -13,9 +22,11 @@
         <%= password_field_tag :password, nil, placeholder: "비밀번호" %>
         <%= submit_tag "로그인", class: "btn", id: "login_submit" %>
         <br />
-        <%= link_to "가입하기", new_user_path %> | 
+        <a href="#myModal" data-toggle="modal">가입하기</a> |
         <%= link_to "아이디/비밀번호 찾기", "#" %>
       <% end %>
     </div>
   </div>
 </div>
+
+

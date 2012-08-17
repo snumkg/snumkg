@@ -57,6 +57,7 @@ class ApplicationController < ActionController::Base
   def get_groups
     @groups = Group.where(:hide => false)
     @hakbun_group = Group.where(:group_type => "학번")
+    @new_user = User.new
   end
 
   def set_user

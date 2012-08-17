@@ -55,6 +55,7 @@ Snumkg::Application.routes.draw do
   root :to => 'home#index'
   get '/all', :to => 'home#all', :as => 'all'
 
+  get '/aa', :to => 'images#aaa'
 
   #admin routes
   get 'admin', :to => 'admin#index'
@@ -87,20 +88,21 @@ Snumkg::Application.routes.draw do
   get 'unlike_comment/:comment_id', :to => 'unlikes#comment', :as => 'unlike_comment'
 
 
-  #album image
-  get '/album_image/:id', :to => 'album_images#get_image', :as => 'album_image'
-  delete '/album_image/:id', :to => 'album_images#destroy', :as => 'album_image'
+  #image
+  resources :pictures, only: [:show, :create, :destroy]
 
   #sokkogi attendance
   get '/attendance/:sokkoji_article_id', :to => 'attendances#create', :as => 'create_attendance'
   get '/cancel_attendance/:sokkoji_article_id', :to => 'attendances#destroy', :as => 'destroy_attendance'
 
+
+  #alarm
   get '/alarms', :to => 'users#alarms', :as => 'user_alarms'
 
   #user profile
   get '/profile/:id', :to => 'profiles#show', :as => 'profile'
-  get '/profile_image/:id(.:thumb)', :to => 'profiles#get_profile_image', :as => 'profile_image'
-  post '/upload_profile_image', :to => 'profiles#upload_profile_image', :as => 'upload_profile_image'
+  #get '/profile_image/:id(.:thumb)', :to => 'profiles#get_profile_image', :as => 'profile_image'
+  #post '/upload_profile_image', :to => 'profiles#upload_profile_image', :as => 'upload_profile_image'
 
   #profile comment 
   post 'profile/create_comment', :to => 'comments#create_profile_comment', :as => 'profile_comment'
