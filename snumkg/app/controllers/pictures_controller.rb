@@ -49,7 +49,7 @@ class PicturesController < ApplicationController
       @picture = Picture.new
       name = p[:file].original_filename
       @picture.name = p[:file].original_filename
-      directory = File.join(Rails.root,'app/assets/images/articles/')
+      directory = File.join(Rails.root,'images/articles/')
       @picture.full_path = full_path = File.join(directory,name)
       @picture.thumb_path = thumbnail_path = File.join(directory,"t_"+name)
 

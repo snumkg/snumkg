@@ -73,7 +73,7 @@ class ArticlesController < ApplicationController
 
     @article = Article.find_by_id(params[:id])
     @comments = @article.comments
-    @comment = @article.comments.new
+    @comment = Comment.new
 
     case @article.article_type
     when 0 # 일반게시물

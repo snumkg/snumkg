@@ -2,13 +2,8 @@
 <html>
 <head>
   <title>Snumkg<%="[#{current_user.alarm_counts if current_user}]" %></title>
-  <%= stylesheet_link_tag    "home", controller_path, :media => "all" %>
-  <%= javascript_include_tag "jquery", "jquery_ujs" %>
-  <%= javascript_include_tag "home", controller_path %>
-  <%= javascript_include_tag "bootstrap-modal" %>
-  <%= javascript_include_tag "signup" %>
-  <%= csrf_meta_tags %>
-  <%= yield :head %>
+
+  <%= render 'layouts/layout_css_js_tag' %>
 </head>
 <body>
   <div id="wrapper">

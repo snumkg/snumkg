@@ -1,6 +1,6 @@
 
 <div class="user_info_block">
-  <span class="user"><%= image_tag profile_image_path(id: writer.id, thumb:true), size: "25x25" %><%= writer.nickname%></span>
+  <span class="user"><%= image_tag picture_path(type: "profile", id: writer.id, thumb:true), size: "25x25" %><%= writer.nickname%></span>
 
   <ul class="user_menu">
     <li><%= link_to "프로필 페이지",profile_path(writer.id) %></li>

@@ -13,27 +13,28 @@
   </div>
   <div class="modal-body">
 
-    * 표시는 필수항목입니다.
+    <span class="red">*</span> 표시는 필수항목입니다.
     <br />
     <%= form_for(@user) do |f| %>
 
-      <%= f.label :username, '*아이디' %>
+      <%= f.label :username, '아이디<span class="red">*</span>'.html_safe %>
       <%= f.text_field :username, class: "error" %><span class="red small"></span>
 
 
-      <%= f.label :password, '*비밀번호' %>  
+      <%= f.label :password, '비밀번호<span class="red">*</span>'.html_safe %>  
       <%= f.password_field :password %><span class="red small"></span>
 
-      <%= f.label :password_confirmation, '*비밀번호 확인' %>
+      <%= f.label :password_confirmation, '비밀번호 확인<span class="red">*</span>'.html_safe %>
       <%= f.password_field :password_confirmation %><span class="red small"></span>
+
+      <%= f.label :nickname, '이름<span class="red">*</span>'.html_safe %>
+      <%= f.text_field :nickname, :placeholder => "ex) 컴공09태건" %><span class="red small"></span>
+
 
       <%= label_tag :phone_number_1, '연락처' %>
       <%= select_tag :phone_number_1, options_for_select([['010','010'],['011','011'],['016','016'],['017','017'],['019','019']]), class: "span1" %>
       <%= text_field_tag :phone_number_2, nil, class: "span1" %> <%= text_field_tag :phone_number_3, nil, class: "span1"%>
       <%= f.check_box :is_phone_number_public, {}, true, false %>연락처 공개
-
-      <%= f.label :nickname, '*이름' %>
-      <%= f.text_field :nickname %><span class="red small"></span>
 
       <%= f.label :email, "이메일" %>
       <%= f.text_field :email %><span class="red small"></span>
