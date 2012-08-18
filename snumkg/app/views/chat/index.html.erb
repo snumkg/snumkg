@@ -1,0 +1,50 @@
+<% content_for :head do %>
+	<script type="text/javascript">
+		var uid = "<%= Digest::SHA1.hexdigest(Random.rand.to_s) %>";
+		var user_id = "<%= @user.id %>";
+		var nickname = "<%= @user.nickname.gsub(/"/, "\"") %>";
+		var profile_thumb_url = "<%= raw picture_path(:id => @user.id, :thumb =>"thumb", :type =>"profile") %>";
+	</script>
+<% end %>
+<h1>채팅</h1>
+
+<div id="lobby_wrapper">
+	<div id="lobby_buttons">
+		<%= link_to "방만들기", "#", :class => "btn btn-large", :id => "create_room_button" %>
+	</div>
+
+	<table id="room_list">
+		<tr>
+			<td>로딩중</td>
+		</tr>
+	</table>
+
+</div>
+
+<div id="room_wrapper">
+	<div id="room_content">
+	</div>
+	<div id="room_user_list">
+	</div>
+</div>
+
+<!-- 모달뷰 -->
+<div class="modal hide" id="create_room_dialog">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>방만들기</h3>
+	</div>
+	<div class="modal-body">
+		<table>
+			<tr>
+				<th>방제목</th>
+				<td><%= text_field_tag "room_title", nil %></td>
+			</tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">취소</a>
+		<a href="#" class="btn btn-primary" id="create_room_submit_button">만들기</a>
+	</div>
+</div>
+

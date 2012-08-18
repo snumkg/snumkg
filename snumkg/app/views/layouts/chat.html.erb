@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snumkg<%="[#{current_user.alarm_counts if current_user}]" %></title>
+  <%= stylesheet_link_tag    "chat", :media => "all" %>
+  <%= javascript_include_tag "jquery", "jquery_ujs" %>
+  <%= javascript_include_tag "bootstrap-modal" %>
+  <%= javascript_include_tag "jquery.placeholder.min" %>
+  <%= javascript_include_tag "chat" %>
+	<%= javascript_include_tag "http://localhost:4000/socket.io/socket.io.js" %>
+  <script type="text/javascript">
+    $(function(){
+      $('input[placeholder], textarea[placeholder]').placeholder();
+    });
+  </script>
+	<%= yield :head %>
+
+</head>
+<body>
+  <div id="wrapper">
+    <div id="content_wrapper">
+      <div id="content">
+        <%= yield %>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

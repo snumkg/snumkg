@@ -118,6 +118,9 @@ Snumkg::Application.routes.draw do
   scope 'group/:group_id/board' do
     resources ':board_id', :as => 'articles', :controller => 'articles'
   end
+
+	#chatting
+	get '/chat', :to => 'chat#index'
       
 
   # See how all your routes lay out with "rake routes"

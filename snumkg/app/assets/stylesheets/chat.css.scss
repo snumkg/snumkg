@@ -1,0 +1,8 @@
+@import "bootstrap";
+
+@mixin border($px) {
+
+  border-radius: $px;
+  -moz-border-radius: $px;
+  -webkit-border-radius: $px;
+}

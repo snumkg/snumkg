@@ -1,0 +1,7 @@
+{
+	"name": "snumkg_chat",
+	"version": "0.0.1",
+	"dependencies": {
+		"socket.io": ""
+	}
+}
