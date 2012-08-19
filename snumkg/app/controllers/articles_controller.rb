@@ -39,6 +39,9 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find_by_id(params[:id])
+    @board = @article.board
+
+    @pictures = @article.pictures
 
     case @article.article_type
     when 0 # 일반게시물
@@ -83,7 +86,7 @@ class ArticlesController < ApplicationController
     when 2 # 익명게시물
       render 'anonymous_show'
     when 3 # 앨범게시물
-      @images = @article.album_images
+      @images = @article.pictures
       render 'album_show'
     end
   end
@@ -105,8 +108,16 @@ class ArticlesController < ApplicationController
     if @article.save
 
       if @article.article_type == 3 # 앨범게시물일 경우.
-        # 이미지 저장
-        upload_images(params[:file], @article)
+        # 이미지와 아티클 연결지어주기 
+        if !params[:picture].nil?
+          pictures = params[:picture]
+          pictures.each do |key, value|
+            pict = Picture.find_by_id(value)
+            pict.update_attribute(:article_id, @article.id)
+          end
+        end
+        
+
       end
 
       redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id])

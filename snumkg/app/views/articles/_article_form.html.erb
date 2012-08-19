@@ -6,11 +6,11 @@
   <%= f.label :title, '제목' %>
   <%= f.text_field :title %>
 
-  <%= hidden_field_tag :article_type, 0 %>
+  <%= hidden_field_tag :article_type, @board.board_type %>
   <%= f.label :body, '내용' %>
   <%= f.text_area :body, class: "redactor_content" %>
   <br />
-  <%= f.submit @article.new_record? ? "글쓰기" : "수정", class:"btn" %>
+  <%= f.submit @article.new_record? ? "글쓰기" : "수정", class:"btn", id: "article_submit" %>
 
 <% end %>
 

@@ -7,6 +7,7 @@ class CreatePictures < ActiveRecord::Migration
       t.string :name
       t.string :thumb_path
       t.string :thumbnail_url
+      t.integer :article_id 
 
       t.timestamps
     end

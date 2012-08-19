@@ -12,7 +12,7 @@
   </tr>
   <% for img in @images %>
     <tr>
-      <td><%= image_tag album_image_path(img.id) %></td> 
+      <td><%= image_tag picture_path(type:"album", id:img.id) %></td> 
     </tr>
   <% end %>
   <% if signin? %>

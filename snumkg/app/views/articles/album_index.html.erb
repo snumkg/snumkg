@@ -13,6 +13,11 @@
           <%= @index %> <% @index = @index - 1 %>
         </td>
         <td class="span7">
+          <% @pictures = @article.pictures %>
+          <% @pictures = @pictures[0..2] %>
+          <% @pictures.each do |picture| %>
+            <%= image_tag picture.url, class: "span1" %>
+          <% end %>
           <%= link_to @article.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => @article) %>
           <span class="comment_number">
             [<%= @article.comments.count %>]

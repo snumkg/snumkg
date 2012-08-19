@@ -110,8 +110,10 @@ ActiveRecord::Schema.define(:version => 20120817064343) do
     t.string   "url"
     t.string   "name"
     t.string   "thumb_path"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "thumbnail_url"
+    t.integer  "article_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "profiles", :force => true do |t|

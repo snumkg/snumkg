@@ -43,17 +43,13 @@ class PicturesController < ApplicationController
       flash[:success] = "프로필 사진이 성공적으로 등록되었습니다."
       redirect_to profile_path(current_user)
     when "album"
-      p = params[:picture]
-      p[:file] = params[:picture][:file].first if params[:picture][:file].class == Array
-
+      p = params[:files].first
       @picture = Picture.new
-      name = p[:file].original_filename
-      @picture.name = p[:file].original_filename
+      name = p.original_filename
+      @picture.name = p.original_filename
       directory = File.join(Rails.root,'images/articles/')
       @picture.full_path = full_path = File.join(directory,name)
       @picture.thumb_path = thumbnail_path = File.join(directory,"t_"+name)
-
-
 
       if !File.directory?(directory)
         Dir.mkdir(directory)
@@ -63,10 +59,11 @@ class PicturesController < ApplicationController
         File.delete(full_path)
       end
 
-      File.open(full_path,"wb") {|f| f.write(p[:file].read)}
+      File.open(full_path,"wb") {|f| f.write(p.read)}
 
       if @picture.save
         @picture.url = picture_path(type: "album", id: @picture.id)
+        @picture.save
         render :json => [@picture.to_jq_upload].to_json
       end
 
