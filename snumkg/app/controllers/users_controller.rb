@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    render :layout => 'default'
     @user = User.new(params[:user])
     phone_number = params[:phone_number_1] + "-" + params[:phone_number_2] + "-" + params[:phone_number_3]
     @user.phone_number = phone_number
@@ -129,6 +128,14 @@ class UsersController < ApplicationController
     end
     session[:alarm_counts] = current_user.alarm_counts # 새로운 알림이 오면 배경색을 바꿔주기 위해 세선에 정보를 저장헤둠
     current_user.update_attribute(:alarm_counts, new_count)
+
+    respond_to do |format|
+      
+      format.html
+      format.json {}
+    end
+
+   
   end
 
   def edit

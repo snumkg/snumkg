@@ -121,7 +121,7 @@
 
   
 
-  ul {
+  > ul {
     margin: 0;
     padding: 0;
     float: right;
@@ -140,6 +140,20 @@
 
       a.up {
         top: -2px;
+      }
+    }
+  }
+
+  //alarm list
+  #alarm_list {
+    position: relative;
+    top: 5px;
+    background: white;
+
+    ul {
+      float: none;
+      li {
+        float: none;
       }
     }
   }
@@ -203,6 +217,7 @@
     }
   }
 }
+
 
 
 //content

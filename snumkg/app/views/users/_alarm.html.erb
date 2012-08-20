@@ -1,4 +1,4 @@
-<ul id="alarm_list_ajax" data-alarmcounts="<%=session[:alarm_counts]%>">
+<ul id="alarm_list" data-alarmcounts="<%=session[:alarm_counts]%>">
   <% unless @all_alarms.nil? %>
     <% @all_alarms.each_with_index do |alarms, index| %>
       <li class="<%= "new" if alarms[:new] %>">

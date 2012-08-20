@@ -10,9 +10,10 @@ $(function(){
 	$(document).click(function(e){
 		var name = $('.user_menu[visibility="visible"]');
 		var login = $('.login_box[visibility="visible"]');
-
+		var alarm_list = $("#alarm_list");
 		$(name).css("visibility","hidden");
 		$(login[0]).css("visibility","hidden");
+		$(alarm_list).css("visibility","hidden");
 
 	});
 
