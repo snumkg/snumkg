@@ -1,4 +1,19 @@
 
+<%= content_for(:head) do %>
+
+  <%= javascript_include_tag "galleria-1.2.8.min" %>
+  <%= javascript_include_tag "galleria.classic.min" %>
+  <%= stylesheet_link_tag "galleria.classic" %>
+
+  <style>
+    #article_image_box {
+      width: 90%;
+      height: 500px;
+
+      }
+  </style>
+<% end %>
+
 <table id="article_box">
   <tr>
     <td>
@@ -10,11 +25,13 @@
   <tr>
     <td><div id="article_body"><%= @article.body.html_safe %></div></td>
   </tr>
-  <% for img in @images %>
     <tr>
-      <td><%= image_tag picture_path(type:"album", id:img.id) %></td> 
+      <div id="article_image_box">
+        <% for img in @images %>
+          <a href="<%=img.url%>"><img src="<%=picture_path(type:"album", id:img.id)%>", data-big: "<%=img.url%>" /></a>
+        <% end %>
+      </div>
     </tr>
-  <% end %>
   <% if signin? %>
     <tr>
       <td>
@@ -54,3 +71,15 @@
     </td>
   </tr>
 </table>
+
+  <script>
+
+    Galleria.configure({
+      lightbox: true
+    });
+
+    Galleria.run("#article_image_box");
+
+
+  </script>
+
