@@ -2,6 +2,19 @@
 var socket;
 var where = "0";
 
+function refresh_room_user_list(users)
+{
+	var list = $('#room_user_list');
+	list.children().remove();
+
+	for (var i=0;i<users.length;i++){
+		var user = users[i];
+		var div = $('<div></div>').appendTo(list);
+		$('<img />').attr('src', user.profile_thumb_url).appendTo(div);
+		$('<span></span').appendTo(div).text(user.nickname);
+	}
+}
+
 function refresh_room_list(rooms)
 {
 	var tbody = $('#room_list tbody');
@@ -10,7 +23,7 @@ function refresh_room_list(rooms)
 		var room = rooms[i];
 		var tr = $('<tr></tr>').appendTo(tbody);
 		$('<td></td>').text(room.title).appendTo(tr).addClass('title');
-		$('<td></td>').text('master').appendTo(tr).addClass('master');
+		$('<td></td>').text(room.master.nickname).appendTo(tr).addClass('master');
 		var button_td = $('<td></td>').appendTo(tr).addClass('button');
 		var enter_button = $('<a href="#">입장</a>').appendTo(button_td).addClass('btn').attr('rid', room.rid);
 
@@ -43,6 +56,12 @@ function change_view(view)
 }
 
 $(function(){
+	//채팅방 서버가 꺼져있으면 error
+	if (typeof io == 'undefined'){
+		$('div').remove();
+		alert('채팅 서버가 꺼져있습니다.');
+		return;
+	}
 	change_view('lobby');
 
 	//방만들기 버튼
@@ -74,6 +93,13 @@ $(function(){
 		return false;
 	});
 
+	//방에서 나가기
+	$('#quit_room_button').click(function(){
+		socket.emit('quit_room', {
+			uid: uid
+		});
+	});
+
 	//최초 연결
 	socket = io.connect(':4000');
 	socket.emit('connect', {
@@ -92,7 +118,6 @@ $(function(){
 	});
 	//접속중인 유저 정보
 	socket.on('online_users', function(data){
-		console.log(data);	
 	});
 
 	//방만들기 완료
@@ -113,7 +138,6 @@ $(function(){
 	socket.on('enter_room_complete', function(data){
 		change_view('room');
 		where = data.room.rid;
-		console.log(data);
 	});
 
 	//메시지 보내기 실패
@@ -127,6 +151,16 @@ $(function(){
 		$('<img />').attr('src', data.user.profile_thumb_url).appendTo(message_div);
 		$('<span></span>').text('(' + data.user.nickname + ') : ').appendTo(message_div);
 		$('<span></span>').text(data.message).appendTo(message_div);
+	});
+
+	//방에서 나가기
+	socket.on('quit_room_complete', function(data){
+		change_view('lobby');
+	});
+
+	//방에 있는 유저들 정보
+	socket.on('room_info', function(data){
+		refresh_room_user_list(data.users);
 	});
 
 });

@@ -6,7 +6,6 @@
 		var profile_thumb_url = "<%= raw picture_path(:id => @user.id, :thumb =>"thumb", :type =>"profile") %>";
 	</script>
 <% end %>
-<h1>채팅</h1>
 
 <div id="lobby_wrapper">
 	<div id="lobby_buttons">
@@ -35,11 +34,14 @@
 			<form id="room_message_form">
 				<%= text_field_tag "room_message_text" %>
 				<%= submit_tag "쓰기" %>
+				<%= link_to "나가기", "#", :id => "quit_room_button"%>
 			</form>
 		</div>
 	</div>
 	<div id="room_right">
 		<h3>참가자</h3>
+		<div id="room_user_list">
+		</div>
 	</div>
 	<div class="clear"></div>
 </div>
@@ -52,7 +54,7 @@
 			<h3>방만들기</h3>
 		</div>
 		<div class="modal-body">
-			<table>
+			<table class="table">
 				<tr>
 					<th>방제목</th>
 					<td><%= text_field_tag "room_title", nil %></td>

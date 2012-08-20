@@ -1,3 +1,24 @@
+//DEFINE ARRAY FUNCTIONALITIES
+Array.prototype.remove = function(ele){
+	var index = this.indexOf(ele);
+	if (index != -1)
+		this.splice(index, 1);
+	return index;
+}
+Array.prototype.removeIndex = function(index){
+	if (index >= 0 && index < this.length){
+		this.splice(index, 1);
+		return true;
+	}
+	return false;
+}
+Array.prototype.find = function(ele){
+	var index = this.indexOf(ele);
+	if (index == -1)
+		return null;
+	return ele;
+}
+
 var io = require('socket.io').listen(4000);
 var utils = require('./utils.js');
 
@@ -38,6 +59,24 @@ function Room(options){
 			user.socket.emit('room_message_complete', params);
 		}
 	};
+
+	this.broadcastRoomInfo = function(){
+		for (var i=0;i<this.users.length;i++){
+			this.users[i].socket.emit('room_info', this.toHash());
+		}
+	};
+
+	this.quitUser = function(user){
+		if (this.users.remove(user) != -1){
+			//room remove!
+			if (this.users.length == 0)
+				rooms.remove(this);
+			//change master
+			else if (!this.users.find(user)){
+				this.master_uid = this.users[0].uid;
+			}
+		}
+	}
 }
 
 function User(options){
@@ -78,7 +117,20 @@ function User(options){
 			this.socket.emit('enter_room_complete', {
 				room: room.toHash()
 			});
+			room.broadcastRoomInfo();
 		}
+	}
+
+	this.quitRoom = function(){
+		console.log('USER.QUIT_ROOM');
+		var room = get_room_by_rid(this.where);
+		if (room)	room.quitUser(this);
+		this.where = "0";
+		this.socket.emit('quit_room_complete', {message:"OK"}); //Room to lobby
+		this.sendRoomList();
+		room.broadcastRoomInfo();
+
+		return room;
 	}
 }
 
@@ -119,6 +171,36 @@ function broadcast_online_users()
 	}
 }
 
+function clean_users()
+{
+	var deleted = false;
+	var flag;
+	do {
+		flag = false;
+		for (var i=0;i<users.length;i++){
+			if (users[i].socket.disconnected){
+				if (users[i].where != "0"){
+					var room = users[i].quitRoom();
+					if (room && !room.users.find(users[i]))
+						users.removeIndex(i);
+				}
+				else {
+					users.removeIndex(i);
+				}
+				flag = true;
+				deleted = true;
+			}
+		}
+	}while(flag);
+
+	if (deleted){
+		broadcast_online_users();
+		broadcast_room_list();
+	}
+}
+
+setInterval(clean_users, 1000);
+
 io.sockets.on('connection', function (socket) {
 	socket.on('connect', function(data){
 		var uid = data.uid;
@@ -139,6 +221,12 @@ io.sockets.on('connection', function (socket) {
 		//broadcast
 		broadcast_room_list();
 		broadcast_online_users();
+	});
+
+	//DISCONNECT
+	socket.on('disconnect', function(){
+		console.log("USER DISCONNECT");
+		clean_users();
 	});
 
 	//방만들기
@@ -184,6 +272,13 @@ io.sockets.on('connection', function (socket) {
 		else {
 			socket.emit('room_message_fail', {message: "메시지 보내기 오류"});
 		}
+	});
+
+	//방에서 나가기
+	socket.on('quit_room', function(data){
+		console.log('===QUIT ROOM!');
+		var user = get_user_by_uid(data.uid);
+		user.quitRoom();
 	});
 });
 
