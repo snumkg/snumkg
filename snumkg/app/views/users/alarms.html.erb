@@ -4,26 +4,16 @@
   <%= javascript_include_tag "jquery.color" %>
 <% end %>
 
-<%= @old_alarms.nil?%><%= @new_alarms.nil? %>
 <h1>알림 목록</h1>
 <ul id="alarm_list" data-alarmcounts="<%=session[:alarm_counts]%>">
-  <% unless @new_alarms.nil? %>
-    <% @new_alarms.each_with_index do |alarms, index| %>
-      <li id="alarm<%=index%>">
-      <%= show_alarm_messages(alarms) %>
-      <%= alarm_messages_link(alarms[0])%>
+  <% unless @all_alarms.nil? %>
+    <% @all_alarms.each_with_index do |alarms, index| %>
+      <li class="<%= "new" if alarms[:new] %>">
+        <%= show_alarm_messages(alarms[:alarms]) %>
+        <%= alarm_messages_link(alarms[:alarms][0]) %>
       </li>
     <% end %>
   <% end %>
-  <% unless @old_alarms.nil? %>
-    <% @old_alarms.each do |alarms| %>
-      <li>
-      <%= show_alarm_messages(alarms) %>
-      <%= alarm_messages_link(alarms[0])%>
-      </li>
-    <% end %>
-  <% end %>
-
 
 </ul>
 

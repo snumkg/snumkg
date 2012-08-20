@@ -1,7 +1,7 @@
 #encoding: utf-8
 module UsersHelper
   def to_article_path(group_id,board_id,article_id)
-    article_path(group_id: group_id, board_id: board_id, id: article_id)
+    article_path(group_id: group_id, board_id: board_id, id: article_id, type: "click_alarm")
   end
 
   def create_article_link(string,group_id,board_id,article_id)

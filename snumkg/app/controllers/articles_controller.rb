@@ -78,6 +78,14 @@ class ArticlesController < ApplicationController
     @comments = @article.comments
     @comment = Comment.new
 
+    if params[:type] == "click_alarm" && @article.alarms.find_by_new(true)
+      for alarm in @article.alarms
+        if alarm.new?
+          alarm.update_attribute(:new, false)
+        end
+      end
+    end
+
     case @article.article_type
     when 0 # 일반게시물
       render 'show'

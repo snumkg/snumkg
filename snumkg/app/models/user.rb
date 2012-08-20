@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password
 
-  validates_length_of :password, :minimum => 4 # 6으로 바꿀것!
+  validates_length_of :password, :minimum => 4 #TODO 6으로 바꿀것!
   validates_length_of :username, :minimum => 6
 
   
@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   
   has_many :articles
   has_many :comments
+  has_many :alarms, :class_name => 'Alarm', :foreign_key => 'acceptor_id'
   has_many :send_messages, :class_name => 'Message', :foreign_key => 'sender_id'
   has_many :receive_messages, :class_name => 'Message', :foreign_key => 'receiver_id'
 
@@ -26,6 +27,17 @@ class User < ActiveRecord::Base
       user = nil
     end
     user
+  end
+
+  def new_alarm
+    alarms = self.alarms
+    count = 0
+    for alarm in alarms
+      if alarm.new?
+        count = count + 1
+      end
+    end
+    count
   end
 
   def set_password(pass)
