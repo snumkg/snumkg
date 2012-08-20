@@ -9,9 +9,6 @@
     top: -27px;
     }
 
-    label {
-      display: inline;
-    }
 </style>
 
 <div id="main_login_wrapper">
@@ -21,7 +18,7 @@
       <h1>로그인</h1>
       <%= form_tag authorize_path do %>
         <%= text_field_tag :username, nil, placeholder: "아이디" %> 
-        <%= check_box_tag :idsave %><%= label_tag :idsave, '<span class="">ID저장</span>'.html_safe %>
+        <%= check_box_tag :idsave %><%= label_tag :idsave, '<span class="">ID저장</span>'.html_safe, style: "display:inline" %>
         <br />
         <%= password_field_tag :password, nil, placeholder: "비밀번호" %>
         <%= submit_tag "로그인", class: "btn", id: "login_submit" %>

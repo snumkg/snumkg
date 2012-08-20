@@ -46,7 +46,8 @@ class Comment < ActiveRecord::Base
       # 게시물에다 코멘트를 다는 경우
       # 게시물 작성자에게 알림
 
-      if self.article.article_type != 2
+      if self.article.article_type != 2 # 익명게시물이 아닐 때
+        # 알람 저장
         save_alarm_helper(acceptor_id: self.article.writer.id, 
                           article_id: self.article_id,
                           comment_id: self.id,
@@ -85,6 +86,8 @@ class Comment < ActiveRecord::Base
         end
       end
     else  # 프로필 댓글
+      alarm = Alar.where(:alarmer_id => self.writer.id, acceptor_id: self.profile_user_id).limit(1).first
+      alarm.destroy
     end
   end
 

@@ -1,42 +1,3 @@
-#encoding: utf-8
-class UsersController < ApplicationController
-  before_filter :check_signin, :except => [:create, :new ]
-  layout 'main', :except => [:new, :create]
-  layout 'default', :only => [:new, :create]
-  def index
-  end
-
-  def new
-
-    @user = User.new
-  end
-
-  def create
-    @user = User.new(params[:user])
-    phone_number = params[:phone_number_1] + "-" + params[:phone_number_2] + "-" + params[:phone_number_3]
-    @user.phone_number = phone_number
-    @user.set_password(@user.password)
-
-    if @user.save
-      session[:user_id] = @user.id
-      redirect_to root_path
-    else
-      flash[:error] = "회원가입 할 수 없습니다. 회원정보를 다시 입력해주세요."
-      redirect_to :back
-    end
-  end
-
-  def show
-    @user = User.find(params[:id])
-
-    @profile_comments = Comment.where(:profile_user_id => params[:id], :comment_type => 1)
-    @profile_comment = Comment.new
-
-  end
-
-  def alarms
-    render :layout => 'main'
-    # Hash 배열을 리턴함
     def select_alarm(type)
       case type
       when 0, 1, 3, 4 
@@ -102,20 +63,4 @@ class UsersController < ApplicationController
     @old_alarms.sort! do |a,b|
       a[0].created_at < b[0].created_at ? 1 : -1
     end
-    session[:alarm_counts] = current_user.alarm_counts # 새로운 알림이 오면 배경색을 바꿔주기 위해 세선에 정보를 저장헤둠
-    current_user.update_attribute(:alarm_counts, 0)
-  end
 
-  def edit
-    @user = current_user
-  end
-
-  def update
-    raise
-  end
-
-  def destroy
-  end 
-
-
-end
