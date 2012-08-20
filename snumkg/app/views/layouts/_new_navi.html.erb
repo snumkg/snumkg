@@ -27,6 +27,12 @@
       <li>
       <%= image_tag picture_path(type: "profile", id: current_user.id, :thumb => "thumb"), :size => "25x25" %><%= link_to current_user.nickname, profile_path(current_user), class: "up" %>
       </li>
+      <li id="search_box">
+      <%= form_tag search_path, method: :get, remote: true do %>
+        <%= text_field_tag :search_name, nil, class: "span2", :placeholder => "이름을 입력하세요.." %><%= submit_tag "검색", class: "btn-mini", id: "search_name_submit" %>
+        <div id="search_list"></div>
+      <% end %>
+      </li>
       <li><%= link_to "로그아웃", signout_path %></li>
     <% else %>
       <li>
@@ -80,6 +86,23 @@
   //alarm ajax
 
   $(function(){
+
+    /*
+    $("#search_name_submit").click(function(){
+      
+      var val = $("#search_name").attr("value");
+
+      $.ajax({
+        url: '/search.json?name="'+val+'"',
+        success: function(data){
+          console.log(data);
+        }
+
+      });
+
+      
+    });
+    */
 
     $("#alarm_link").click(function(){
 

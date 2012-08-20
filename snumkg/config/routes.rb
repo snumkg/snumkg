@@ -111,6 +111,10 @@ Snumkg::Application.routes.draw do
   resources :comments, only:[:create, :destroy]
   resources :messages
 
+  #search
+
+  get '/search', :to => 'search#user_name', :as => 'search'
+
   #resources :profile_comments, only:[:create, :destroy]
 
   get '/group/:id', :to => 'groups#show', :as => 'group'

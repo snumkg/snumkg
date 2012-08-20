@@ -1,0 +1,8 @@
+
+<ul>
+  <% for user in @names %>
+    <li>
+    <a href="<%=profile_path(user)%>"><%= image_tag picture_path(type: "profile", thumb: "true", id: user.id) %><%= user.nickname %></a>
+    </li>
+  <% end %>
+</ul>

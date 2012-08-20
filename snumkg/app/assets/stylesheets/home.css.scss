@@ -116,6 +116,7 @@
   > li {
     list-style: none;
     width: 12%;
+    height: 100%;
     display: inline-block;
     float: left;
     text-align: center;
@@ -135,16 +136,32 @@
     
   }
 
+//search_box
+//
+#search_box {
+  width: 210px;
+  
+  button {
+    margin: 0;
+    position: relative;
+    top: -3px;
+  }
+}
+
+
+
   //alarm list
   #alarm_list {
     position: relative;
     top: 5px;
     background: white;
     width: 300px;
+    height: 220px;
     border: 1px solid black;
     font-size: 90%;
     visibility: hidden;
     text-align: left;
+    overflow: auto;
     > li {
       width: 100%;
       height: 30px;
