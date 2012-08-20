@@ -13,6 +13,31 @@ function Room(options){
 	this.master_uid = options['master_uid'];
 	this.capacity = options['capacity'] || 10;
 	this.users = [];
+
+	this.toHash = function(){
+		var master = get_user_by_uid(this.master_uid);
+		if (master) master = master.toHash();
+		var users = [];
+		for (var i=0;i<this.users.length;i++){
+			var user = this.users[i];
+			users.push(user.toHash());
+		}
+		return {
+			rid: this.rid,
+			title: this.title,
+			capacity: this.capacity,
+			master: master,
+			users: users
+		}
+	};
+
+	this.broadcastRoomMessage = function(params){
+		var room_users = this.users;
+		for (var i=0;i<room_users.length;i++){
+			var user = room_users[i];
+			user.socket.emit('room_message_complete', params);
+		}
+	};
 }
 
 function User(options){
@@ -36,7 +61,7 @@ function User(options){
 
 	this.sendRoomList = function(){
 		this.socket.emit('room_list', {
-			rooms: rooms
+			rooms: rooms.map(function(room){return room.toHash(); })
 		});
 	};
 
@@ -50,6 +75,9 @@ function User(options){
 		if (this.where == '0'){
 			this.where = room.rid;
 			room.users.push(this);
+			this.socket.emit('enter_room_complete', {
+				room: room.toHash()
+			});
 		}
 	}
 }
@@ -118,11 +146,44 @@ io.sockets.on('connection', function (socket) {
 		console.log(data);
 		var room = new Room({
 			title:data.title,
-			master_uid:data.master_uid
+			master_uid: data.master_uid
 		});
 		rooms.push(room);
-		socket.emit('create_room_complete', {rid:room.rid});
+		socket.emit('create_room_complete', {room: room.toHash()});
 		broadcast_room_list();
+	});
+
+	//방 입장하기
+	socket.on('enter_room', function(data){
+		var room = get_room_by_rid(data.rid);
+		var user = get_user_by_uid(data.uid);
+		if (room && user){
+			if (room.users.length < room.capacity){
+				user.enterRoom(room);
+			}
+			else {
+				socket.emit('enter_room_fail', {message: "방이 가득찼습니다."});
+			}
+		}
+		else {
+			console.log(data);
+			socket.emit('enter_room_fail', {message: "방 입장 오류"});
+		}
+	});
+
+	//메시지 보내기
+	socket.on('room_message', function(data){
+		var room = get_room_by_rid(data.rid);
+		var user = get_user_by_uid(data.uid);
+		if (room && user){
+			room.broadcastRoomMessage({
+				user: user.toHash(),
+				message: data.message
+			});
+		}
+		else {
+			socket.emit('room_message_fail', {message: "메시지 보내기 오류"});
+		}
 	});
 });
 

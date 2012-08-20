@@ -1,8 +1,31 @@
 @import "bootstrap";
 
 @mixin border($px) {
-
   border-radius: $px;
   -moz-border-radius: $px;
   -webkit-border-radius: $px;
 }
+
+#lobby_wrapper, #room_wrapper {
+	width:800px;
+	height:600px;
+	border:1px solid red;
+}
+
+#room_list {
+	th {text-align:center;}
+	.title {width:60%}
+	.master {width:20%;text-align:center;}
+	.button {width:20%;text-align:center;}
+}
+
+#room_wrapper {
+	#room_left {
+		float:left;width:600px;height:600px;border:1px solid green;margin-right:3px;
+		#room_messages {width:590px;height:500px;margin:4px;border:1px solid red;}
+		#room_message_wrapper {width:590px;height:80px;margin:4px;border:1px solid red;}
+	}
+	#room_right {float:left;width:190px;height:600px;border:1px solid blue;}
+}
+
+.clear {clear:both;}

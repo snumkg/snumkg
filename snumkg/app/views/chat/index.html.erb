@@ -13,38 +13,56 @@
 		<%= link_to "방만들기", "#", :class => "btn btn-large", :id => "create_room_button" %>
 	</div>
 
-	<table id="room_list">
-		<tr>
-			<td>로딩중</td>
-		</tr>
+	<table id="room_list" class="table">
+		<thead>
+			<tr>
+				<th class="title">방제목</th>
+				<th class="master">방장</th>
+				<th class="button">&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
 	</table>
 
 </div>
 
 <div id="room_wrapper">
-	<div id="room_content">
+	<div id="room_left">
+		<div id="room_messages">
+		</div>
+		<div id="room_message_wrapper">
+			<form id="room_message_form">
+				<%= text_field_tag "room_message_text" %>
+				<%= submit_tag "쓰기" %>
+			</form>
+		</div>
 	</div>
-	<div id="room_user_list">
+	<div id="room_right">
+		<h3>참가자</h3>
 	</div>
+	<div class="clear"></div>
 </div>
 
 <!-- 모달뷰 -->
 <div class="modal hide" id="create_room_dialog">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h3>방만들기</h3>
-	</div>
-	<div class="modal-body">
-		<table>
-			<tr>
-				<th>방제목</th>
-				<td><%= text_field_tag "room_title", nil %></td>
-			</tr>
-		</table>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal">취소</a>
-		<a href="#" class="btn btn-primary" id="create_room_submit_button">만들기</a>
-	</div>
+	<form id="create_room_form">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>방만들기</h3>
+		</div>
+		<div class="modal-body">
+			<table>
+				<tr>
+					<th>방제목</th>
+					<td><%= text_field_tag "room_title", nil %></td>
+				</tr>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<%= link_to "취소", "#", :class => "btn", "data-dismiss" => "modal" %>
+			<%= submit_tag "만들기", :class => "btn btn-primary", :id => "create_room_submit_button" %>
+		</div>
+	</form>
 </div>
 
