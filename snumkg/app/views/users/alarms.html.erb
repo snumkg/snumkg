@@ -3,8 +3,7 @@
     <% @all_alarms.each_with_index do |alarms, index| %>
       <li class="<%= "new" if alarms[:new] %>">
       <%= image_tag picture_path(type: "profile", thumb: "true", id: alarms[:alarms][0].alarmer.id) %>
-        <%= show_alarm_messages(alarms[:alarms]) %>
-        <%= alarm_messages_link(alarms[:alarms][0]) %>
+        <%= alarm_messages_link(alarms[:alarms]) %>
       </li>
     <% end %>
   <% end %>

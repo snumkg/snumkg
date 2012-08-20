@@ -22,6 +22,7 @@ module UsersHelper
         msg = msg + alarm.alarmer.nickname
         msg = msg + "," unless cnt == alarms.count
       end
+      msg.strip!
       msg = msg + "님이 "
     else
       #TODO알림 인원이 3명 이상일땐, ~~외 몇명이 추천하였습니다.-->
@@ -35,7 +36,8 @@ module UsersHelper
     end
    
   end
-  def alarm_messages_link(alarm)
+  def alarm_messages_link(alarms)
+    alarm = alarms[0]
     if alarm.alarm_type == 0 || alarm.alarm_type == 1 || alarm.alarm_type == 2 || alarm.alarm_type == 4
       article = alarm.article
       group_id = article.board.group.id
@@ -44,11 +46,11 @@ module UsersHelper
 
     case alarm.alarm_type
     when 0
-      create_article_link("글을 추천하였습니다.",group_id,board_id,article.id)
+      create_article_link("#{show_alarm_messages(alarms)}글을 추천하였습니다.",group_id,board_id,article.id)
     when 1
-      create_article_link("글에 댓글을 달았습니다.",group_id,board_id,article.id)
+      create_article_link("#{show_alarm_messages(alarms)}글에 댓글을 달았습니다.",group_id,board_id,article.id)
     when 2
-      create_article_link("댓글을 추천하였습니다.",group_id,board_id,article.id)
+      create_article_link("#{show_alarm_messages(alarms)}댓글을 추천하였습니다.",group_id,board_id,article.id)
     when 3
       create_profile_link("#{alarm.acceptor.nickname}님의 프로필에 댓글을 달았습니다.",alarm.acceptor.id)
     when 4

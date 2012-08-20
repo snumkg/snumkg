@@ -67,8 +67,8 @@ class UsersController < ApplicationController
       end
     end
 
-    @new_alarms = Array.new
-    @old_alarms = Array.new
+    #@new_alarms = Array.new
+    #@old_alarms = Array.new
 
     @all_alarms = Array.new
 
@@ -123,12 +123,15 @@ class UsersController < ApplicationController
 =end
     #@all_alarms = @new_alarms + @old_alarms
     #all_alarms 최근 순서대로 정렬
+
     @all_alarms.sort! do |a,b|
       a[:alarms][0].created_at < b[:alarms][0].created_at ? 1 : -1
     end
+    
+=begin
     session[:alarm_counts] = current_user.alarm_counts # 새로운 알림이 오면 배경색을 바꿔주기 위해 세선에 정보를 저장헤둠
     current_user.update_attribute(:alarm_counts, new_count)
-
+=end
     respond_to do |format|
       
       format.html

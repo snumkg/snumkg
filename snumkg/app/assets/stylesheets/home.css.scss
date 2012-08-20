@@ -11,6 +11,8 @@
   -webkit-border-radius: $px;
 }
 
+//global class
+
 .left {
   float:left;
 }
@@ -46,14 +48,18 @@
 }
 
 
+//wrapper
 #wrapper {
+  position: relative;
   width: 1000px;
+  top: 27px;
   margin: auto;
 
 }
 
 
 
+//sidebar
 #tab_sidebar {
   float: left;
   margin-right: 1em;
@@ -87,10 +93,6 @@
   text-align: center;
 }
 
-#wrapper {
-  position: relative;
-  top: 27px;
-}
 
 #nav_container {
   position: relative;
@@ -99,36 +101,24 @@
   margin-bottom: 10px;
 }
 
-#nav_container ul {
-
-  li {
-    list-style: none;
-    display: inline-block;
-    float: left;
-
-  }
-}
 
 #my_info {
 
   background: #333131;
-  height: 27px;
-  margin-bottom: 0;
+  margin: 0;
   position: fixed;
   top: 0;
-  left: 750px;
+  left: 0;
+  width: 100%;
+  height: 27px;
   z-index: 2;
 
-  
-
-  > ul {
-    margin: 0;
-    padding: 0;
-    float: right;
+  > li {
+    list-style: none;
+    width: 12%;
+    display: inline-block;
+    float: left;
     text-align: center;
-
-    > li {
-      width: 80px;
 
       > a {
         position: relative;
@@ -141,7 +131,8 @@
       a.up {
         top: -2px;
       }
-    }
+
+    
   }
 
   //alarm list
@@ -149,20 +140,34 @@
     position: relative;
     top: 5px;
     background: white;
-
-    ul {
-      float: none;
-      li {
-        float: none;
+    width: 300px;
+    border: 1px solid black;
+    font-size: 90%;
+    visibility: hidden;
+    text-align: left;
+    > li {
+      width: 100%;
+      height: 30px;
+      border-bottom: 1px solid gray;
+      
+      > a {
+        position: relative;
+        top: -4px;
+        color: black;
       }
+      > a:visited {
+        color: gray;
+      }
+
+
+    }
+
+    > li:last-child {
+      border-bottom: 0
     }
   }
 
 
-  ul.my_info1 {
-    height: 34px;
-    float: left;
-  }
 }
 
 
@@ -175,6 +180,9 @@
   ul li {
     width: 150px;    
     height: 30px;
+    list-style: none;
+    display: inline-block;
+    float: left;
     a {
       position: relative;
       font-size: 97%;
