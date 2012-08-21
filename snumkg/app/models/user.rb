@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
 
   validates_length_of :password, :minimum => 4 #TODO 6으로 바꿀것!
-  validates_length_of :username, :minimum => 6
+  validates_length_of :username, :minimum => 4 #TODO 6으로 바꿀것!
 
   
   validates_format_of :username, :with => /^[a-zA-Z](\d|\w)*/

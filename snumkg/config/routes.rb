@@ -112,8 +112,8 @@ Snumkg::Application.routes.draw do
   resources :messages
 
   #search
-
   get '/search', :to => 'search#user_name', :as => 'search'
+  get '/search_id', :to => 'search#user_id'
 
   #resources :profile_comments, only:[:create, :destroy]
 
