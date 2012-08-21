@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Like < ActiveRecord::Base
   # attr_accessible :title, :body
   include AlarmHelper
@@ -28,7 +29,7 @@ class Like < ActiveRecord::Base
     if !self.article_id.nil?
       # article_id가 존재할 때
       # 글을 추천할 때
-      if self.article.article_type != 2 # 익명게시물일땐 알람을 생성하지 않음.
+      if self.article.article_type != "익명" # 익명게시물일땐 알람을 생성하지 않음.
         save_alarm_helper(acceptor_id: self.article.writer.id,
                           alarmer_id: self.user.id,
                           article_id: self.article.id,
@@ -37,7 +38,7 @@ class Like < ActiveRecord::Base
     else
       # comment_id가 존재할 때
       # 코멘트를 추천할 때
-      if self.comment.article.article_type != 2 # 익명게시물일땐 알람을 생성하지 않음.
+      if self.comment.article.article_type != "익명" # 익명게시물일땐 알람을 생성하지 않음.
         save_alarm_helper(acceptor_id: self.comment.writer.id,
                           alarmer_id: self.user.id,
                           article_id: self.comment.article.id,
@@ -49,7 +50,7 @@ class Like < ActiveRecord::Base
 
   def destroy_alarm
     if !self.article_id.nil?
-      if self.article.article_type != 2
+      if self.article.article_type != "익명"
         destroy_alarm_helper(:acceptor_id => self.article.writer.id,
                              :alarmer_id => self.user.id,
                              :article_id => self.article.id,

@@ -1,6 +1,7 @@
+#encoding: utf-8
 class Article < ActiveRecord::Base
   attr_protected
-  validates_presence_of :user_id, :unless => Proc.new {|article| article.article_type == 2}
+  validates_presence_of :user_id, :unless => Proc.new {|article| article.article_type == "익명"}
   validates_presence_of :board_id
 
   belongs_to :board

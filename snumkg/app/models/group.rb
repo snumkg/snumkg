@@ -1,5 +1,9 @@
 class Group < ActiveRecord::Base
   # attr_accessible :title, :body
+  # group_type
+  # "일반"
+  # "소꼬지"
+  #
   attr_protected
 
   validates_uniqueness_of :name

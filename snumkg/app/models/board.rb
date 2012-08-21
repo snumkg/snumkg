@@ -2,10 +2,12 @@ class Board < ActiveRecord::Base
   attr_protected
 
   # board_type 
-  # 0 :일반게시판
-  # 1 : 소꼬지게시판
-  # 2 : 익명게시판
-  # 3 : 앨범게시판
+  # "일반"
+  # "익명"
+  # "앨범"
+  # "소꼬지 일정"
+  # "소꼬지 게시판"
+  # "소꼬지 후기"
   has_many :articles
   belongs_to :group
 

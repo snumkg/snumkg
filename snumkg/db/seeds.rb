@@ -39,6 +39,7 @@ group12 =   Group.create(name: "12학번", admin_id: admin.id, group_type: "학�
 Group.create(name: "11학번",  admin_id: admin.id, group_type: "학번")
 Group.create(name: "10학번",  admin_id: admin.id, group_type: "학번")
 Group.create(name: "09학번",  admin_id: admin.id, group_type: "학번")
+sokkoji = Group.create(name: "소꼬지",  admin_id: admin.id, group_type: "소꼬지")
 
 
 #Board
@@ -47,15 +48,16 @@ Group.create(name: "09학번",  admin_id: admin.id, group_type: "학번")
   board3 = Board.create(name: "공지사항", group_id: all_group.id, admin_id: admin.id)
   board4 = Board.create(name: "그냥겟판", group_id: all_group.id, admin_id: admin.id)
 
-  Board.create(name: "소꼬지게시판", group_id: all_group.id, admin_id: admin.id, board_type: 1)
-
+  #소꼬지 board
+  Board.create(name: "소꼬지 게시판", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지")
+  Board.create(name: "소꼬지 후기", group_id: sokkoji.id, admin_id: admin.id)
+  Board.create(name: "일정보기", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지 일정")
 
   #Article
-# article_type 0: 일반게시물, 1: 소꼬지게시물 
 body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ첫번재글임"
 
-for board in Board.all
-  Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
+for board in Board.all[0..4]
+  Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type)
   Article.create(title: "두번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
   Article.create(title: "세번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
 end

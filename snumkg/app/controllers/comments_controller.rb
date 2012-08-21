@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     @comment.content = params[:comment][:content]
     @comment.article_id = params[:comment][:article_id]
 
-    if article.article_type != 2 # 익명게시판이 아닐때
+    if article.article_type != "익명" # 익명게시판이 아닐때
       @comment.user_id = params[:comment][:user_id]
     else
       @comment.set_password(params[:comment][:password])
@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
     board_id = comment.article.board.id
     article_id = comment.article.id
     
-    if comment.article.article_type == 2
+    if comment.article.article_type == "익명"
       if !comment.authentication(params[:password])
         flash[:error] = "비밀번호가 일치하지 않습니다."
       else

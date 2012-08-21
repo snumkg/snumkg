@@ -9,7 +9,9 @@
 
 <% end %>
 
+<div id="calendar"></div>
 
+<div style="display: none;">
 <table id="sokkoji_article" class="table table-striped">
   <thead>
     <tr>
@@ -48,3 +50,4 @@
 <% if current_user %>
   <%= link_to "글쓰기", new_article_path(board_id: params[:board_id], group_id: params[:group_id]) %>
 <% end %>
+</div>

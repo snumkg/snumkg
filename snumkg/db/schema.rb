@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 20120817064343) do
     t.text     "body"
     t.integer  "view_count",    :default => 0
     t.string   "date"
-    t.integer  "article_type",  :default => 0
+    t.string   "article_type",  :default => "일반"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.string   "password_salt"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(:version => 20120817064343) do
     t.integer  "group_id"
     t.string   "name"
     t.integer  "admin_id"
-    t.integer  "board_type", :default => 0
+    t.string   "board_type", :default => "일반"
     t.boolean  "hide",       :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false

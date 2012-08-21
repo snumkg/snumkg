@@ -188,6 +188,7 @@
 }
 
 
+//menu bar
 #menu {
   position: relative;
   left: 150px;
@@ -219,6 +220,7 @@
       top: 27px;
       background: white;
       display: none;
+      z-index: 3;
       border-radius: 0 0 10px 10px;
       -moz-border-radius: 0 0 10px 10px;
       -webkit-border-radius: 0 0 10px 10px;

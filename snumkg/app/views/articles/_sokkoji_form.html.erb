@@ -22,7 +22,7 @@
   <%= f.label :body, '내용' %>
   <%= f.text_area :body, class: "redactor_content" %>
 
-  <%= hidden_field_tag :article_type, 1 %>
+  <%= hidden_field_tag :article_type, "소꼬지" %>
   <br />
   <%= f.submit @article.new_record? ?  "글쓰기" : "수정", class:"btn" %>
 

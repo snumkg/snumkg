@@ -8,7 +8,7 @@
   <%= label_tag :password, '비밀번호' %>
   <%= password_field_tag :password %>
 
-  <%= hidden_field_tag :article_type, 2 %>
+  <%= hidden_field_tag :article_type, "익명" %>
   <%= f.label :body, '내용' %>
   <%= f.text_area :body, class: "redactor_content" %>
   <br />

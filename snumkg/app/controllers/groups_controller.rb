@@ -16,6 +16,11 @@ class GroupsController < ApplicationController
     @boards = @group.boards.where(:hide => false)
   end
 
+  def sokkoji
+    @group = Group.find_by_group_type("소꼬지")
+    @boards = @group.boards.where(:hide => false)
+  end
+
   def create
     @group = Group.new(params[:group])
 

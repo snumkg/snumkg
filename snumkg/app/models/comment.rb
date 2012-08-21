@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Comment < ActiveRecord::Base
   include AlarmHelper
 
@@ -14,7 +15,7 @@ class Comment < ActiveRecord::Base
   has_many :alarms, :dependent => :destroy
 
   validates_presence_of :content
-  validates_presence_of :user_id, :unless => Proc.new {|comment| comment.article.article_type == 2}
+  validates_presence_of :user_id, :unless => Proc.new {|comment| comment.article.article_type == "익명"}
 
 
   def liked_by?(user)
@@ -46,7 +47,7 @@ class Comment < ActiveRecord::Base
       # 게시물에다 코멘트를 다는 경우
       # 게시물 작성자에게 알림
 
-      if self.article.article_type != 2 # 익명게시물이 아닐 때
+      if self.article.article_type != "익명" # 익명게시물이 아닐 때
         # 알람 저장
         save_alarm_helper(acceptor_id: self.article.writer.id, 
                           article_id: self.article_id,
@@ -79,7 +80,7 @@ class Comment < ActiveRecord::Base
 
   def destroy_alarm
     if !self.article_id.nil? # 게시판 댓글
-      if self.article.article_type != 2 # 익명게시판이 아닐 경우
+      if self.article.article_type != "익명" # 익명게시판이 아닐 경우
         alarms = Alarm.where(:alarmer_id => self.writer.id, :article_id => self.article.id, :alarm_type => 1)
         for alarm in alarms
           alarm.destroy

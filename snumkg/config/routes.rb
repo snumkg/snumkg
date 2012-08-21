@@ -54,8 +54,7 @@ Snumkg::Application.routes.draw do
   #home routes
   root :to => 'home#index'
   get '/all', :to => 'home#all', :as => 'all'
-
-  get '/aa', :to => 'images#aaa'
+  get '/sokkoji', :to => 'groups#sokkoji', :as => 'sokkoji'
 
   #admin routes
   get 'admin', :to => 'admin#index'

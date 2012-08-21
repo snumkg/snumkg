@@ -1,3 +1,4 @@
+#encoding: utf-8
 class CreateArticles < ActiveRecord::Migration
   def change
     create_table :articles do |t|
@@ -7,8 +8,7 @@ class CreateArticles < ActiveRecord::Migration
       t.text    :body
       t.integer :view_count, :default => 0
       t.string  :date
-      t.integer :article_type, :default => 0 
-      # article_type 0: 일반게시물, 1: 소꼬지게시물
+      t.string :article_type, :default => "일반"
 
       t.timestamps
     end
