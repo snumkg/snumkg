@@ -83,6 +83,7 @@ function User(options){
 	options = options || {};
 	this.socket = options['socket'];
 	this.uid = options['uid'];
+	this.key = utils.SHA1(String(Math.random())); //랜덤한 값. 유저 인증을 확인하기 위해 사용
 	this.user_id = options['user_id'];
 	this.nickname = options['nickname'];
 	this.profile_thumb_url = options['profile_thumb_url'];
@@ -118,6 +119,7 @@ function User(options){
 				room: room.toHash()
 			});
 			room.broadcastRoomInfo();
+			broadcast_room_list();
 		}
 	}
 
@@ -129,6 +131,7 @@ function User(options){
 		this.socket.emit('quit_room_complete', {message:"OK"}); //Room to lobby
 		this.sendRoomList();
 		room.broadcastRoomInfo();
+		broadcast_room_list();
 
 		return room;
 	}
@@ -199,6 +202,15 @@ function clean_users()
 	}
 }
 
+function auth_user(uid, key)
+{
+	for (var i=0;i<users.length;i++){
+		if (users[i].uid == uid && users[i].key == key)
+			return users[i];
+	}
+	return null;
+}
+
 setInterval(clean_users, 1000);
 
 io.sockets.on('connection', function (socket) {
@@ -208,15 +220,16 @@ io.sockets.on('connection', function (socket) {
 		var nickname = data.nickname;
 		var profile_thumb_url = data.profile_thumb_url;
 		//유저가 접속함
-		users.push(new User({
+		var user = new User({
 			socket: socket,
 			uid: uid,
 			user_id: user_id,
 			nickname: nickname,
 			profile_thumb_url: profile_thumb_url
-		}));
+		})
+		users.push(user);
 		socket.emit('init_client', {
-			hello: "world"
+			key: user.key
 		});
 		//broadcast
 		broadcast_room_list();
@@ -231,54 +244,77 @@ io.sockets.on('connection', function (socket) {
 
 	//방만들기
 	socket.on('create_room', function(data){
-		console.log(data);
-		var room = new Room({
-			title:data.title,
-			master_uid: data.master_uid
-		});
-		rooms.push(room);
-		socket.emit('create_room_complete', {room: room.toHash()});
-		broadcast_room_list();
+		data = data || {};
+		if (auth_user(data.master_uid, data.key)){
+			console.log(data);
+			var room = new Room({
+				title:data.title,
+				master_uid: data.master_uid
+			});
+			rooms.push(room);
+			socket.emit('create_room_complete', {room: room.toHash()});
+			broadcast_room_list();
+		}
+		else {
+			socket.emit('auth_fail', {message: "잘못된 접근입니다(create_room)"});
+		}
 	});
 
 	//방 입장하기
 	socket.on('enter_room', function(data){
-		var room = get_room_by_rid(data.rid);
-		var user = get_user_by_uid(data.uid);
-		if (room && user){
-			if (room.users.length < room.capacity){
-				user.enterRoom(room);
+		data = data || {};
+		if (auth_user(data.uid, data.key)){
+			var room = get_room_by_rid(data.rid);
+			var user = get_user_by_uid(data.uid);
+			if (room && user){
+				if (room.users.length < room.capacity){
+					user.enterRoom(room);
+				}
+				else {
+					socket.emit('enter_room_fail', {message: "방이 가득찼습니다."});
+				}
 			}
 			else {
-				socket.emit('enter_room_fail', {message: "방이 가득찼습니다."});
+				console.log(data);
+				socket.emit('enter_room_fail', {message: "방 입장 오류"});
 			}
 		}
 		else {
-			console.log(data);
-			socket.emit('enter_room_fail', {message: "방 입장 오류"});
+			socket.emit('auth_fail', {message: "잘못된 접근입니다(enter_room)"});
 		}
 	});
 
 	//메시지 보내기
 	socket.on('room_message', function(data){
-		var room = get_room_by_rid(data.rid);
-		var user = get_user_by_uid(data.uid);
-		if (room && user){
-			room.broadcastRoomMessage({
-				user: user.toHash(),
-				message: data.message
-			});
+		data = data || {};
+		if (auth_user(data.uid, data.key)){
+			var room = get_room_by_rid(data.rid);
+			var user = get_user_by_uid(data.uid);
+			if (room && user){
+				room.broadcastRoomMessage({
+					user: user.toHash(),
+					message: data.message
+				});
+			}
+			else {
+				socket.emit('room_message_fail', {message: "메시지 보내기 오류"});
+			}
 		}
 		else {
-			socket.emit('room_message_fail', {message: "메시지 보내기 오류"});
+			socket.emit('auth_fail', {message: "잘못된 접근입니다(room_message)"});
 		}
 	});
 
 	//방에서 나가기
 	socket.on('quit_room', function(data){
-		console.log('===QUIT ROOM!');
-		var user = get_user_by_uid(data.uid);
-		user.quitRoom();
+		data = data || {};
+		if (auth_user(data.uid, data.key)){
+			var user = get_user_by_uid(data.uid);
+			user.quitRoom();
+		}
+		else {
+			socket.emit('auth_fail', {message: "잘못된 접근입니다(quit_room)"});
+		}
 	});
 });
 

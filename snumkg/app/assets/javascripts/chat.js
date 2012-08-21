@@ -1,6 +1,20 @@
 //GLOBAL VARIABLES
 var socket;
 var where = "0";
+var key;
+
+function refresh_online_user_list(users)
+{
+	var list = $('#lobby_user_list');
+	list.children().remove();
+
+	for (var i=0;i<users.length;i++){
+		var user = users[i];
+		var div = $('<div></div>').appendTo(list);
+		$('<img />').attr('src', user.profile_thumb_url).appendTo(div);
+		$('<span></span').appendTo(div).text(user.nickname);
+	}
+}
 
 function refresh_room_user_list(users)
 {
@@ -23,6 +37,7 @@ function refresh_room_list(rooms)
 		var room = rooms[i];
 		var tr = $('<tr></tr>').appendTo(tbody);
 		$('<td></td>').text(room.title).appendTo(tr).addClass('title');
+		$('<td></td>').text(String(room.users.length) + '/' + String(room.capacity)).appendTo(tr).addClass('master');
 		$('<td></td>').text(room.master.nickname).appendTo(tr).addClass('master');
 		var button_td = $('<td></td>').appendTo(tr).addClass('button');
 		var enter_button = $('<a href="#">입장</a>').appendTo(button_td).addClass('btn').attr('rid', room.rid);
@@ -32,7 +47,8 @@ function refresh_room_list(rooms)
 			var rid = $(this).attr('rid');
 			socket.emit('enter_room', {
 				rid: rid,
-				uid: uid
+				uid: uid,
+				key: key
 			});
 			return false;
 		});
@@ -68,14 +84,18 @@ $(function(){
 	$('#create_room_button').click(function(){
 		$('#create_room_dialog').modal('show');
 	});
+	$('#create_room_dialog').on('shown', function(){
+		$('#room_title').focus();
+	});
 
 	//방만들기 확인 버튼
 	$('#create_room_form').submit(function(){
-		$('#room_title').focus();
 		var title = $('#room_title').val();
+		$('#room_title').val("");
 
 		socket.emit('create_room', {
 			master_uid: uid,
+			key: key,
 			title: title
 		});
 		return false;
@@ -87,6 +107,7 @@ $(function(){
 		$('#room_message_text').val("");
 		socket.emit('room_message', {
 			uid: uid,
+			key: key,
 			rid: where,
 			message: message
 		});
@@ -96,7 +117,8 @@ $(function(){
 	//방에서 나가기
 	$('#quit_room_button').click(function(){
 		socket.emit('quit_room', {
-			uid: uid
+			uid: uid,
+			key: key
 		});
 	});
 
@@ -111,6 +133,7 @@ $(function(){
 
 	//LISTEN
 	socket.on('init_client', function(data){
+		key = data.key;
 	});
 	//방 목록 정보
 	socket.on('room_list', function(data){
@@ -118,12 +141,14 @@ $(function(){
 	});
 	//접속중인 유저 정보
 	socket.on('online_users', function(data){
+		refresh_online_user_list(data.users);
 	});
 
 	//방만들기 완료
 	socket.on('create_room_complete', function(data){
 		socket.emit('enter_room', {
 			uid: uid,
+			key: key,
 			rid: data.room.rid
 		});
 		$('#create_room_dialog').modal('hide');
@@ -138,6 +163,7 @@ $(function(){
 	socket.on('enter_room_complete', function(data){
 		change_view('room');
 		where = data.room.rid;
+		$('#room_messages').children().remove();
 	});
 
 	//메시지 보내기 실패
@@ -147,10 +173,12 @@ $(function(){
 	
 	//메시지 옴
 	socket.on('room_message_complete', function(data){
-		var message_div = $('<div></div>').appendTo($('#room_messages'));
+		var room_messages = $('#room_messages');
+		var message_div = $('<div></div>').appendTo(room_messages).addClass('message-div');
 		$('<img />').attr('src', data.user.profile_thumb_url).appendTo(message_div);
 		$('<span></span>').text('(' + data.user.nickname + ') : ').appendTo(message_div);
 		$('<span></span>').text(data.message).appendTo(message_div);
+		room_messages.scrollTop(room_messages[0].scrollHeight);
 	});
 
 	//방에서 나가기
@@ -161,6 +189,11 @@ $(function(){
 	//방에 있는 유저들 정보
 	socket.on('room_info', function(data){
 		refresh_room_user_list(data.users);
+	});
+
+	//잘못된 접근 (uid, key) 인증 실패
+	socket.on('auth_fail', function(data){
+		alert(data.message);
 	});
 
 });

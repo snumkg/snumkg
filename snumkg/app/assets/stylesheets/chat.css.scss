@@ -12,18 +12,28 @@
 	border:1px solid red;
 }
 
-#room_list {
-	th {text-align:center;}
-	.title {width:60%}
-	.master {width:20%;text-align:center;}
-	.button {width:20%;text-align:center;}
+#lobby_wrapper {
+	#lobby_buttons {height:40px;}
+	#lobby_left {
+		float:left;width:600px;height:550px;border:1px solid green;
+		#room_list {
+			th {text-align:center;}
+			th, td {border:1px solid #ddd;}
+			.title {width:55%}
+			.capacity {width:10%;text-align:center;}
+			.master {width:15%;text-align:center;}
+			.button {width:20%;text-align:center;}
+		}
+	}
+	#lobby_right {float:left;width:190px;height:550px;border:1px solid blue;}
 }
 
 #room_wrapper {
 	#room_left {
 		float:left;width:600px;height:600px;border:1px solid green;margin-right:3px;
-		#room_messages {width:590px;height:500px;margin:4px;border:1px solid red;}
+		#room_messages {width:590px;height:500px;margin:4px;border:1px solid red;overflow:auto;}
 		#room_message_wrapper {width:590px;height:80px;margin:4px;border:1px solid red;}
+		.message-div {height:30px;padding:3px;}
 	}
 	#room_right {float:left;width:190px;height:600px;border:1px solid blue;}
 }

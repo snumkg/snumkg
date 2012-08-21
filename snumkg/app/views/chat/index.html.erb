@@ -12,17 +12,28 @@
 		<%= link_to "방만들기", "#", :class => "btn btn-large", :id => "create_room_button" %>
 	</div>
 
-	<table id="room_list" class="table">
-		<thead>
-			<tr>
-				<th class="title">방제목</th>
-				<th class="master">방장</th>
-				<th class="button">&nbsp;</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<div id="lobby_left">
+		<table id="room_list" class="table">
+			<thead>
+				<tr>
+					<th class="title">방제목</th>
+					<th class="capacity">인원수</th>
+					<th class="master">방장</th>
+					<th class="button">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	<div id="lobby_right">
+		<h3>전체 접속자</h3>
+		<div id="lobby_user_list">
+
+		</div>
+	</div>
+
+	<div class="clear"></div>
 
 </div>
 
