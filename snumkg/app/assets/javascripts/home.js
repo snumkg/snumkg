@@ -13,7 +13,7 @@ $(function(){
 		var alarm_list = $("#alarm_list");
 		$(name).css("visibility","hidden");
 		$(login[0]).css("visibility","hidden");
-		$(alarm_list).css("visibility","hidden");
+		$(alarm_list).hide();
 
 	});
 

@@ -5,6 +5,7 @@
   작성자 : <%= current_user.username %>
   <%= f.label :title, '제목' %>
   <%= f.text_field :title %>
+  <%= f.check_box :notice, {}, true, false %>공지
 
   <%= hidden_field_tag :article_type, @board.board_type %>
   <%= f.label :body, '내용' %>

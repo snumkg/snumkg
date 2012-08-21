@@ -4,6 +4,20 @@
 <% end %>
 
 
+<style>
+  #loading-image {
+    z-index: 3;
+    position: absolute;
+    left: 35px;
+    top: 10px;
+    display: none;
+    }
+
+    #alarm_list_box {
+      position: relative;
+    }
+</style>
+
 <div id="nav_container">
   <ul id="my_info">
     <li>
@@ -20,9 +34,13 @@
       </li>
       <li>
       <%= link_to "알림[#{current_user.new_alarm_count}]",user_alarms_path, id: "alarm_link", :remote => true %>
-      <ul id="alarm_list">
-
-      </ul>
+      <div id="alarm_list_box">
+        <div id="loading-image">
+          <%= image_tag "loading.gif", size: "30x30" %>
+        </div>
+        <ul id="alarm_list">
+        </ul>
+      </div>
       </li>
       <li>
       <%= image_tag picture_path(type: "profile", id: current_user.id, :thumb => "thumb"), :size => "25x25" %><%= link_to current_user.nickname, profile_path(current_user), class: "up" %>
@@ -104,21 +122,22 @@
     });
     */
 
+
+
     $("#alarm_link").click(function(){
 
-      $(this).css("visibility","visible");
-
-      
       $.ajax({
         url: '/alarms',
+        beforeSend: function(){
+          $("#alarm_list").html("").show();
+          $("#loading-image").show();
+        },
         success: function(data){
-          $("#alarm_list").html("")
-                          .append($(data).find("#alarm_list_ajax").html())
-                          .css("visibility","visible");
+          $("#loading-image").hide();
 
+          $("#alarm_list").append($(data).find("#alarm_list_ajax").html()).show();
+          $("#alarm_list li.new").css("background", "#fee");
 
-                          $("#alarm_list li.new").css("background", "#fee");
-        
         }
       });
       
