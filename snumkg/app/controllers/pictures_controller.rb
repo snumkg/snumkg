@@ -47,12 +47,12 @@ class PicturesController < ApplicationController
       @picture = Picture.new
       name = p.original_filename
       @picture.name = p.original_filename
-      directory = File.join(Rails.root,'images/articles/',current_user.username,Time.now.to_s)
+      directory = File.join(Rails.root,'images/articles/',current_user.username,Time.now.strftime("%y_%m_%d_%H_%M"))
       @picture.full_path = full_path = File.join(directory,name)
       @picture.thumb_path = thumbnail_path = File.join(directory,"t_"+name)
 
       if !File.directory?(directory)
-        Dir.mkdir(directory)
+        FileUtils.mkdir_p(directory)
       end
 
       if File.exist?(full_path)
