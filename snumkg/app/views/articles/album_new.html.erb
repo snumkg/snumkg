@@ -64,26 +64,28 @@ window.locale = {
 
     if (window.location.hostname === 'blueimp.github.com') {
         // Demo settings:
-        $('#fileupload').fileupload('option', {
-            url: '//jquery-file-upload.appspot.com/',
-            maxFileSize: 5000000,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            process: [
-                {
-                    action: 'load',
-                    fileTypes: /^image\/(gif|jpeg|png)$/,
-                    maxFileSize: 20000000 // 20MB
-                },
-                {
-                    action: 'resize',
-                    maxWidth: 1440,
-                    maxHeight: 900
-                },
-                {
-                    action: 'save'
-                }
-            ]
+      $('#fileupload').fileupload('option', {
+url: '//jquery-file-upload.appspot.com/',
+maxFileSize: 5000000,
+acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+process: [
+{
+action: 'load',
+fileTypes: /^image\/(gif|jpeg|png)$/,
+maxFileSize: 20000000 // 20MB
+},
+{
+action: 'resize',
+maxWidth: 1440,
+maxHeight: 900
+},
+{
+action: 'save'
+}
+]
+
         });
+
         // Upload server status check for browsers with CORS support:
         if ($.support.cors) {
             $.ajax({
@@ -107,6 +109,11 @@ window.locale = {
                 }
             });
         });
+    $("#fileupload").fileupload({
+            add: function (e, data) {
+                    data.submit();
+                        }
+                        });
     }     
            });
 </script>
@@ -157,14 +164,6 @@ window.locale = {
         <span>사진 선택하기</span>
         <input type="file" name="files[]" multiple>
       </span>
-      <button type="submit" class="btn btn-primary start">
-        <i class="icon-upload icon-white"></i>
-        <span>모든 파일 업로드</span>
-      </button>
-      <button type="reset" class="btn btn-warning cancel">
-        <i class="icon-ban-circle icon-white"></i>
-        <span>모든 업로드 취소</span>
-      </button>
       <button type="button" class="btn btn-danger delete">
         <i class="icon-trash icon-white"></i>
         <span>선택삭제</span>

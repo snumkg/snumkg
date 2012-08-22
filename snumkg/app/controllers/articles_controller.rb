@@ -169,6 +169,8 @@ class ArticlesController < ApplicationController
         return
       end
       @article.destroy
+    else
+      @article.destroy
     end
 
     redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id])

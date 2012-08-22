@@ -23,11 +23,13 @@ class PicturesController < ApplicationController
       end
 
       File.open(full_path,"wb") {|f| f.write(params[:image].read)}
+      #썸네일 이미지 만들기
+      #가로 세로 크기가 다를 시 
+      #작은 크기에 맞게 잘라줘서
+      #resizing
       image = ImageList.new(full_path);
-
       width = image.columns
       height = image.rows
-
       if (width > height)
         thumbnail = image.crop((width/2) - (height/2), 0, height, height)
       else
@@ -51,18 +53,25 @@ class PicturesController < ApplicationController
       @picture.full_path = full_path = File.join(directory,name)
       @picture.thumb_path = thumbnail_path = File.join(directory,"t_"+name)
 
+      # 폴더가 없을 시에 폴더를 만들어줌. recursive하게
       if !File.directory?(directory)
         FileUtils.mkdir_p(directory)
       end
-
       if File.exist?(full_path)
         File.delete(full_path)
       end
-
+      #앨범 사진 저장
       File.open(full_path,"wb") {|f| f.write(p.read)}
+
+      # index에서 보여주기 위한 앨범 썸네일 저장
+      image = ImageList.new(full_path);
+      image.resize_to_fill!(220)
+      image.write(thumbnail_path)
+
 
       if @picture.save
         @picture.url = picture_path(type: "album", id: @picture.id)
+        @picture.thumbnail_url =  picture_path(type: "album", thumb: "true", id: @picture.id)
         @picture.save
         render :json => [@picture.to_jq_upload].to_json
       end
@@ -94,7 +103,11 @@ class PicturesController < ApplicationController
         end
       end
     when "album"
-      send_file(Picture.find_by_id(params[:id]).full_path, :type => 'image/jpg', :disposition => 'inline')
+      if params[:thumb].nil?
+        send_file(Picture.find_by_id(params[:id]).full_path, :type => 'image/jpg', :disposition => 'inline')
+      else
+        send_file(Picture.find_by_id(params[:id]).thumb_path, :type => 'image/jpg', :disposition => 'inline')
+      end
     end
  
   end

@@ -75,14 +75,15 @@ end
   
   directory = File.join(Rails.root, "images")
   for article in Article.where(:article_type => "앨범")
-    full_path = File.join(directory,random_number(1,5).to_s + ".jpg")
+    num = random_number(1,5).to_s
+    full_path = File.join(directory,num + ".jpg")
     p = Picture.new
     p.save
     p.full_path = full_path
     p.url = "/pictures/#{p.id}?type=album"
     p.name = "aaa"
-    p.thumb_path = p.full_path
-    p.thumbnail_url = p.url
+    p.thumb_path = "#{directory}/t_"+num+".jpg"
+    p.thumbnail_url = "/pictures/#{p.id}?type=album&thumb=true"
     p.article_id = article.id
     p.save
   end
