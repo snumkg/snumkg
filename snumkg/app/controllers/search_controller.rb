@@ -7,9 +7,11 @@ class SearchController < ApplicationController
    @names = Array.new
    reg = Regexp.new(params[:search_name])
 
-   @users.each do |user| 
-     if (user.nickname =~ reg) 
-       @names.push user 
+   if !params[:search_name].empty?
+     @users.each do |user| 
+       if (user.nickname =~ reg) 
+         @names.push user 
+       end
      end
    end
 
@@ -21,7 +23,7 @@ class SearchController < ApplicationController
   end
 
   def user_id
-    @user = User.find_by_username(params[:id].gsub("\"",""))
+    @user = User.find_by_username(params[:id].gsub("\"","")) unless params[:id].gsub("\"","").empty?
 
     if @user
       render :json => {:valid => false, :text => "이미 사용중인 ID가 있습니다."}.to_json

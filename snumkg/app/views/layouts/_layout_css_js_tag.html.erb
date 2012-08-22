@@ -6,10 +6,13 @@
   <%= javascript_include_tag "bootstrap-modal" %>
   <%= javascript_include_tag "signup" %>
   <%= javascript_include_tag "jquery.placeholder.min" %>
+  <%= javascript_include_tag "bootstrap.min" %>
   <script>
 
     $(function(){
       $('input[placeholder], textarea[placeholder]').placeholder();
+
+      $(".dropdown-toggle").dropdown();
     });
   </script>
 

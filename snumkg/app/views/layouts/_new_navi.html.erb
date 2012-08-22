@@ -38,16 +38,16 @@
       <% end %>
       <li>
       <a href="<%= messages_path(type: "receive")%>">
-        <%= image_tag "snumkg_main/icon_message.png", size: "17x17" %>[<%=current_user.message_count %>]
+        <%= image_tag "snumkg_main/icon_message.png", alt: "메시지",size: "17x17" %>[<%=current_user.message_count %>]
       </a>
       </li>
       <li>
       <a href="<%= user_alarms_path %>" id="alarm_link" data-remote="true">
-        <%= image_tag "snumkg_main/icon_notification.png", size: "17x17" %>[<%= current_user.new_alarm_count %>]
+        <%= image_tag "snumkg_main/icon_notification.png", alt: "알림", size: "17x17" %>[<%= current_user.new_alarm_count %>]
       </a>
       <div id="alarm_list_box">
         <div id="loading-image">
-          <%= image_tag "loading.gif", size: "30x30" %>
+          <%= image_tag "loading.gif", alt: "로딩", size: "30x30" %>
         </div>
         <ul id="alarm_list">
         </ul>
@@ -88,22 +88,24 @@
       </a>
       </li>
       <li>
-      <a href="#">
-        <%= image_tag "snumkg_main/navigation_hakbeon.png", alt: "학번별 공간" %>
-      </a>
-      <ul class="sub_menu">
-        <li>
-        <%= link_to "모아보기", '/all' %>
-        </li>
-        <% for group in @groups %>
-          <% if group.group_type == "학번" %>
-            <li>
-            <%= link_to group.name, group_path(group) %>
-            </li>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">
+          <%= image_tag "snumkg_main/navigation_hakbeon.png", alt: "학번별 공간" %>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <li>
+          <%= link_to "모아보기", '/all' %>
+          </li>
+          <% for group in @groups %>
+            <% if group.group_type == "학번" %>
+              <li>
+              <%= link_to group.name, group_path(group) %>
+              </li>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
-      </li>
+        </ul>
+      </div>
+        </li>
       <li>
       <a href="<%= sokkoji_path %>">
         <%= image_tag "snumkg_main/navigation_sokkogi.png", alt: "소꼬지" %>
