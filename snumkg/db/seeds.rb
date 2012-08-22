@@ -47,20 +47,48 @@ sokkoji = Group.create(name: "소꼬지",  admin_id: admin.id, group_type: "소�
   board2 = Board.create(name: "자유게시판", group_id: all_group.id, admin_id: admin.id)
   board3 = Board.create(name: "공지사항", group_id: all_group.id, admin_id: admin.id)
   board4 = Board.create(name: "그냥겟판", group_id: all_group.id, admin_id: admin.id)
-
+  
   #소꼬지 board
   Board.create(name: "소꼬지 게시판", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지")
-  Board.create(name: "소꼬지 후기", group_id: sokkoji.id, admin_id: admin.id)
   Board.create(name: "일정보기", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지 일정")
+  Board.create(name: "소꼬지 후기", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지 후기")
+  #앨범
+  album = Board.create(name: "앫범게시판", group_id: all_group.id, admin_id: admin.id, board_type: "앨범")
+  anonymous = Board.create(name: "익명게시판", group_id: all_group.id, admin_id: admin.id, board_type: "익명")
 
-  #Article
-body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ첫번재글임"
 
-for board in Board.all[0..4]
+  #Articlet
+body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+
+for board in Board.all[0..3]
+  # 일반게시판 아티클
+  Article.create(title: "공지입니당.", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type, notice: true)
   Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type)
   Article.create(title: "두번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
   Article.create(title: "세번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
 end
+  
+  #앨범게시물
+  10.times do
+    Article.create(title: "롯월 소꼬지", user_id: random_number(1,User.all.count), board_id: album.id, body: body_content, article_type: "앨범")
+  end
+  
+  directory = File.join(Rails.root, "images")
+  for article in Article.where(:article_type => "앨범")
+    full_path = File.join(directory,random_number(1,5).to_s + ".jpg")
+    p = Picture.new
+    p.save
+    p.full_path = full_path
+    p.url = "/pictures/#{p.id}?type=album"
+    p.name = "aaa"
+    p.thumb_path = p.full_path
+    p.thumbnail_url = p.url
+    p.article_id = article.id
+    p.save
+  end
+
+#소꼬지게시판 아티클
+
 #comments
 
 =begin

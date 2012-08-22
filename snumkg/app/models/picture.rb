@@ -1,5 +1,5 @@
 class Picture < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_protected 
   def to_jq_upload
     {
       "name" => self.name,
