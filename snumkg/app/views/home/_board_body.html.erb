@@ -1,0 +1,25 @@
+<div class="body">
+  <table class="table table-condensed">
+    <tbody>
+      <% for article in @articles %>
+        <tr>
+          <td>
+            <%= article.board.name %>
+          </td>
+          <td>
+            <a href="<%= article_path(group_id: article.board.group.id, board_id: article.board.id, id: article.id) %>">
+              <%= article.title %>[<%= article.comments.count%>]
+            </a>
+          </td>
+          <td>
+            <%= article.writer.nickname %>
+          </td>
+          <td>
+            추천<%= article.likes.count %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

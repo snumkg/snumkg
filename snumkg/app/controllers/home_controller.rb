@@ -1,3 +1,4 @@
+#coding: utf-8
 class HomeController < ApplicationController
   layout 'main'
 
@@ -9,6 +10,8 @@ class HomeController < ApplicationController
     if session[:guest].nil? && current_user.nil?
       redirect_to signin_path
     else
+      @all_article = Article.order("created_at DESC")[0..4]
+      @photos = Picture.where("article_id is not null")[0..4]
 
     end
   end

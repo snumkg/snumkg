@@ -1,2 +1,76 @@
+<% content_for :head do %>
+  <%= javascript_include_tag "jquery.masonry.min" %>
 
-<h1>This is Main Page</h1>
+  <style>
+
+    #main_container {
+      
+      margin-top: 2em;
+    }
+    
+    .main_event {
+      float: left;
+      width: 410px;
+      margin: 10px;
+    }
+
+    .main_picture {
+      float: left;
+      width: 410px;
+      margin: 10px;
+    }
+
+    .main_board {
+      float: right;
+      width: 430px;
+      margin: 10px;
+      margin-right: 80px;
+    }
+
+    div.main_board div.board {
+      margin: 1em 0 1em 0;
+    }
+
+    div.main_board div.board div.header {
+      width: 100%;
+      border-bottom: 3px solid #E0DADA;
+    }
+
+  </style>
+
+<% end %>
+<div id="main_container">
+  <div class="box main_event">
+    <%= image_tag "snumkg_main/subhead_event.png", alt: "이벤트" %>
+
+  </div>
+
+  <div class="box main_board">
+    <%= image_tag "snumkg_main/subhead_board.png",alt: "게시판" %>
+    <div class="board">
+      <div class="header">
+        <%= image_tag "snumkg_main/widget_lastest_all.png", alt: "전체최신글" %> 
+      </div>
+
+      <%= render :partial => 'board_body', :locals => {:@articles => @all_article} %>
+    </div>
+    <div class="board">
+      <div class="header">
+        <%= image_tag "snumkg_main/widget_lastest_12.png", alt: "12학번 최신글" %>
+      </div>
+      <%= render :partial => 'board_body', :locals => {:@articles => @all_article} %>
+    </div>
+  </div>
+
+  <div class="box main_picture">
+      <%= image_tag "snumkg_main/subhead_photo.png", alt: "사진" %>
+
+  </div>
+
+
+</div>
+
+
+<script>
+
+</script>

@@ -12,7 +12,7 @@ class Group < ActiveRecord::Base
   def new_article?
     
     for board in self.boards
-      if !board.articles.where("created_at >= ?", Time.now.yesterday.yesterday).limit(1).empty?
+      if board.new_article?
         return true
       end
     end

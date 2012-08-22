@@ -16,6 +16,13 @@
     #alarm_list_box {
       position: relative;
     }
+
+    #nav_container img.new {
+      position: relative;
+      top: -10px;
+    }
+
+
 </style>
 
 <div id="nav_container">
@@ -30,10 +37,14 @@
         </li>
       <% end %>
       <li>
-      <%= link_to "쪽지[#{current_user.message_count}]", messages_path(type: "receive") %>
+      <a href="<%= messages_path(type: "receive")%>">
+        <%= image_tag "snumkg_main/icon_message.png", size: "17x17" %>[<%=current_user.message_count %>]
+      </a>
       </li>
       <li>
-      <%= link_to "알림[#{current_user.new_alarm_count}]",user_alarms_path, id: "alarm_link", :remote => true %>
+      <a href="<%= user_alarms_path %>" id="alarm_link" data-remote="true">
+        <%= image_tag "snumkg_main/icon_notification.png", size: "17x17" %>[<%= current_user.new_alarm_count %>]
+      </a>
       <div id="alarm_list_box">
         <div id="loading-image">
           <%= image_tag "loading.gif", size: "30x30" %>
@@ -69,10 +80,17 @@
   <div id="menu">
     <ul>
       <li>
-      <%= link_to "누구나", group_path(1) %>
+      <a href="<%= group_path(1) %>">
+        <%= image_tag 'snumkg_main/navigation_all.png', alt: "누구나"%>
+        <% if @anyone_group.new_article? %>
+        <%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>
+        <% end %>
+      </a>
       </li>
       <li>
-      <%= link_to "학번별 공간", "#" %>
+      <a href="#">
+        <%= image_tag "snumkg_main/navigation_hakbeon.png", alt: "학번별 공간" %>
+      </a>
       <ul class="sub_menu">
         <li>
         <%= link_to "모아보기", '/all' %>
@@ -87,13 +105,17 @@
       </ul>
       </li>
       <li>
-      <%= link_to "소꼬지", sokkoji_path %>
+      <a href="<%= sokkoji_path %>">
+        <%= image_tag "snumkg_main/navigation_sokkogi.png", alt: "소꼬지" %>
+      </a>
       </li>
       <li>
-      <%= link_to "매일매일", "#" %>
+      <a href="#">
+        <%= image_tag "snumkg_main/navigation_day_by_day.png", alt: "매일매일"%>
+      </a>
       </li>
       <li>
-			<%= link_to "채팅", "#", :onclick => "window.open('/chat','chat','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=820,height=620');" %>
+			<%= link_to (image_tag 'snumkg_main/navigation_chatting.png', alt: "채팅"), "#", :onclick => "window.open('/chat','chat','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=820,height=620');" %>
       </li>
     </ul>
   </div>
