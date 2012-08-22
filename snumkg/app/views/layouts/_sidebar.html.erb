@@ -1,8 +1,16 @@
 <div id="tab_sidebar">
-  <ul>
+  <ul class="nav nav-tabs nav-stacked">
     <% for board in @boards %>
-      <li><%= link_to board.name, articles_path(group_id: board.group.id, board_id: board.id) %><% if board.new_article? %><span class="new">new</span><% end %></li>
+      <li>
+      <a href="<%=articles_path(group_id: board.group.id, board_id: board.id)%>">
+        <%= board.name %>
+        <% if board.new_article? %>
+          <span class="new">new</span>
+        <% end %>
+      </a>
+      </li>
     <% end %>
+
   </ul>
 </div>
 
