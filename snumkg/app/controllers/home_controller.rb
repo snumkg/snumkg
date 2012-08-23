@@ -12,6 +12,8 @@ class HomeController < ApplicationController
     else
       @all_article = Article.order("created_at DESC")[0..4]
       @photos = Picture.where("article_id is not null")[0..4]
+      @upcoming_sokkoji = Article.where("article_type = ? AND date >= ?","소꼬지", Time.now.yesterday.yesterday);
+      @events = @upcoming_sokkoji
 
     end
   end

@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20120817064343) do
     t.string   "title"
     t.text     "body"
     t.integer  "view_count",    :default => 0
-    t.string   "date"
+    t.datetime "date"
     t.string   "article_type",  :default => "일반"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false

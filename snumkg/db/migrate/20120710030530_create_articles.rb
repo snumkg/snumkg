@@ -7,7 +7,7 @@ class CreateArticles < ActiveRecord::Migration
       t.string  :title
       t.text    :body
       t.integer :view_count, :default => 0
-      t.string  :date
+      t.datetime  :date
       t.string :article_type, :default => "일반"
 
       t.timestamps

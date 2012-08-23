@@ -119,6 +119,7 @@ class ArticlesController < ApplicationController
 
     @article = Article.new(params[:article])
     @article.article_type = params[:article_type]
+    @article.date = params[:article][:date].to_datetime unless params[:article][:date].nil? #소꼬지 일정 저장
     @article.board_id = @board.id
 
     #익명게시물일 경우 유저 아이디를 저장하지 않음.

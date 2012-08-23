@@ -10,16 +10,14 @@ $(function(){
 
 		if( string === "" || (typeof string != 'string'))
 			return;
-		arr = string.split("년");
+		arr = string.split("-");
 		year = arr[0];
-		arr = arr[1].split("월");
-		month = arr[0];
-		arr = arr[1].split("일");
+		month = arr[1];
+		arr = arr[2].split(" ");
 		day = arr[0];
-		arr = arr[1].trim().split("시");
+		arr = arr[1].split(":");
 		hour = arr[0];
-		arr = arr[1].split("분");
-		minute = arr[0];
+		minute = arr[1];
 
 		return year+"-"+month+"-"+day+" "+hour+":"+minute+":00";
 

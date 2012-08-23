@@ -36,12 +36,46 @@
       border-bottom: 3px solid #E0DADA;
     }
 
+    div.event_list {
+      margin-top: 1em;
+    }
+
+    div.event_list ul {
+      list-style: none;
+    }
+
+    div.event_list ul li a {
+      color: #F94172;
+    }
+
   </style>
 
 <% end %>
 <div id="main_container">
   <div class="box main_event">
     <%= image_tag "snumkg_main/subhead_event.png", alt: "이벤트" %>
+    <div class="event_list">
+      <ul>
+      <% for event in @events %>
+        <% day = event.date.yday %>
+        <% today = Time.now.yday %>
+
+        <% if day - today == 2 %>
+          <li><%= image_tag "snumkg_main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">
+            <%= event.title %>가 2일 남았습니다.
+          </a></li>
+        <% elsif day - today == 1 %>
+          <li><%= image_tag "snumkg_main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">
+            <%= event.title %>가 1일 남았습니다.
+          </a></li>
+        <% elsif day - today == 0 %>
+          <li><%= image_tag "snumkg_main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">
+            <%= event.title %>가 오늘입니다.
+          </a></li>
+        <% end %>
+      <% end %>
+    </ul>
+    </div>
 
   </div>
 
