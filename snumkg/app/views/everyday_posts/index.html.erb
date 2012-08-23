@@ -1,6 +1,52 @@
 
-<div class="new_post">
-  <%= form_for(@post) do |f| %>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-  <% end %>
+<% content_for(:head) do %>
+  <%= stylesheet_link_tag "post" %>
+<% end %>
+<div id="post_wrapper">
+  <div class="new_post">
+    <%= form_for(@post) do |f| %>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= image_tag picture_path(type: "profile", thumb: true, id: current_user.id) %><%= current_user.nickname %>
+      <%= f.submit "글쓰기", class: "submit" %>
+      <%= f.text_area :content, class: "write_post" %>
+    <% end %>
+  </div>
+  <div class="post_list">
+    <% for post in @posts %>
+      <div class="post">
+        <div class="writer">
+          <%= image_tag picture_path(type: "profile", thumb: true, id: post.user.id), size: "40x40" %><%= post.user.nickname %><br />
+        </div>
+        <div class="show_comment">
+          <div class="post_content"><%= post.content %></div>
+          <table class="table table-condensed">
+            <% for comment in post.everyday_comments %>
+              <tr>
+                <td>
+                  <%= image_tag picture_path(type: "profile", thumb: true, id: comment.user.id), size: "20x20" %><%= comment.user.nickname %>
+                </td>
+                <td>
+                  <%= comment.content %>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <td>
+                <%= image_tag picture_path(type: "profile", thumb: true, id: current_user.id), size: "20x20" %><%= current_user.nickname %>
+              </td>
+              <td>
+                <%= form_for(EverydayComment.new) do |f| %>
+                  <%= f.hidden_field :user_id, :value => current_user.id %>
+                  <%= f.hidden_field :everyday_post_id, :value => post.id %>
+                  <%= f.text_field :content, class: "span5" %>
+                  <%= f.submit "댓글달기", class: "btn btn-small" %>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
 </div>

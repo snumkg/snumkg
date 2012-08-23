@@ -3,149 +3,103 @@
   <%= javascript_include_tag "jquery.color" %>
 <% end %>
 
+<div id="top_navigation">
+	<% if current_user %>
+		<ul id="top_nav_ul1">
+			<li class="top_nav_li1 message">
+			<% if current_user.message_count > 0 %>
+				<div class="absolute"><div class="alarm-count"><%= current_user.message_count %></div></div>
+			<% end %>
+			<%= link_to image_tag("snumkg_main/icon_message.png", alt: "메시지"), messages_path(type: "receive") %>
+			</li>
+			<li class="top_nav_li1 notification">
+			<% if current_user.new_alarm_count > 0 %>
+				<div class="absolute"><div class="alarm-count"><%= current_user.new_alarm_count %></div></div>
+			<% end %>
+			<%= link_to image_tag("snumkg_main/icon_notification.png", alt: "알림"), "#", :id => "alarm_link", "data-remote" => true %>
+			<div id="alarm_list_box">
+				<div id="loading-image">
+					<%= image_tag "loading.gif", alt: "로딩", size: "30x30" %>
+				</div>
+				<ul id="alarm_list" style="display:none;">
+				</ul>
+			</div>
+			</li>
+			<li class="top_nav_li1 level">3</li>
+			<li class="top_nav_li1 profile">
+			<table>
+				<tr>
+					<td><%= image_tag picture_path(type: "profile", id: current_user.id, :thumb => "thumb"), :size => "25x25" %></td>
+					<td><%= link_to current_user.nickname, profile_path(current_user), class: "up" %>님 09학번</td>
+					<td><%= link_to image_tag("snumkg_main/icon_setting.png") %></td>
+				</tr>
+			</table>
+			</li>
+			<li class="top_nav_li1 logout"><%= link_to image_tag("snumkg_main/button_logout.png"), signout_path %></li>
+		</ul>
+	<% else %>
+		<ul>
+			<%= link_to "로그인", "#", class: "login" %>
+			<li class="login_box">
+			<%= render 'shared/login_box' %>
+			</li>
+		</ul>
+		<a href="#myModal" data-toggle="modal">회원가입</a>
+	<% end %>
+</div>
 
-<style>
-  #loading-image {
-    z-index: 3;
-    position: absolute;
-    left: 35px;
-    top: 10px;
-    display: none;
-    }
-
-    #alarm_list_box {
-      position: relative;
-    }
-
-    #nav_container img.new {
-      position: relative;
-      top: -10px;
-    }
-
-    #search_list {
-
-      position: relative;
-      top: -10px;
-      left: 13px;
-      width: 176px;
-      min-height: 100px;
-      border: 1px solid black;
-      background: white;
-      display: none;
-      }
-
-      #search_list ul {
-        margin: 0;
-        padding: 0;
-        text-align: left;
-        }
-
-      #search_list ul li a{
-
-        }
-
-
-</style>
-
-<div id="nav_container">
-  <ul id="my_info">
-    <li>
-    <%= link_to "홈으로", root_path %>
-    </li>
-    <% if current_user %>
-      <% if current_user.admin? %>
-        <li>
-        <%= link_to "관리자페이지", admin_path %>
-        </li>
-      <% end %>
-      <li>
-      <a href="<%= messages_path(type: "receive")%>">
-        <%= image_tag "snumkg_main/icon_message.png", alt: "메시지",size: "17x17" %>[<%=current_user.message_count %>]
-      </a>
-      </li>
-      <li>
-      <a href="<%= user_alarms_path %>" id="alarm_link" data-remote="true">
-        <%= image_tag "snumkg_main/icon_notification.png", alt: "알림", size: "17x17" %>[<%= current_user.new_alarm_count %>]
-      </a>
-      <div id="alarm_list_box">
-        <div id="loading-image">
-          <%= image_tag "loading.gif", alt: "로딩", size: "30x30" %>
-        </div>
-        <ul id="alarm_list">
-        </ul>
-      </div>
-      </li>
-      <li>
-      <%= image_tag picture_path(type: "profile", id: current_user.id, :thumb => "thumb"), :size => "25x25" %><%= link_to current_user.nickname, profile_path(current_user), class: "up" %>
-      </li>
-      <li id="search_box">
-      <%= form_tag search_path, method: :get, remote: true do %>
-        <%= text_field_tag :search_name, nil, class: "span2", :placeholder => "이름을 입력하세요.." %><%= submit_tag "검색", class: "btn-mini", id: "search_name_submit" %>
-        <div id="search_list"></div>
-      <% end %>
-      </li>
-      <li><%= link_to "로그아웃", signout_path %></li>
-    <% else %>
-      <li>
-      <ul>
-        <%= link_to "로그인", "#", class: "login" %>
-        <li class="login_box">
-        <%= render 'shared/login_box' %>
-        </li>
-      </ul>
-      </li>
-      <li><a href="#myModal" data-toggle="modal">회원가입</a></li>
-    <% end %>
-
-  </ul>
-  <div id="logo_box">LOGO</div>
-  <div id="menu">
-    <ul>
-      <li>
-      <a href="<%= group_path(1) %>">
-        <%= image_tag 'snumkg_main/navigation_all.png', alt: "누구나"%>
-        <% if @anyone_group.new_article? %>
-        <%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>
-        <% end %>
-      </a>
-      </li>
-      <li>
-      <div class="dropdown">
-        <a href="#" class="dropdown-toggle">
-          <%= image_tag "snumkg_main/navigation_hakbeon.png", alt: "학번별 공간" %>
-        </a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-          <li>
-          <%= link_to "모아보기", '/all' %>
-          </li>
-          <% for group in @groups %>
-            <% if group.group_type == "학번" %>
-              <li>
-              <%= link_to group.name, group_path(group) %>
-              </li>
-            <% end %>
-          <% end %>
-        </ul>
-      </div>
-        </li>
-      <li>
-      <a href="<%= sokkoji_path %>">
-        <%= image_tag "snumkg_main/navigation_sokkogi.png", alt: "소꼬지" %>
-        <% if @sokkoji_group.new_article? %>
-        <%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>
-        <% end %>
-      </a>
-      </li>
-      <li>
-      <a href="<%= everyday_path %>">
-        <%= image_tag "snumkg_main/navigation_day_by_day.png", alt: "매일매일"%>
-      </a>
-      </li>
-      <li>
+<div id="main_navigation">
+	<div id="logo_box"><%= link_to "SNUMKG", root_path %></div>
+	<div id="menu">
+		<ul>
+			<li>
+			<a href="<%= group_path(1) %>">
+				<%= image_tag 'snumkg_main/navigation_all.png', alt: "누구나"%>
+				<% if @anyone_group.new_article? %>
+					<%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>
+				<% end %>
+			</a>
+			</li>
+			<li>
+			<div class="dropdown">
+				<a href="#" class="dropdown-toggle">
+					<%= image_tag "snumkg_main/navigation_hakbeon.png", alt: "학번별 공간" %>
+				</a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					<li>
+					<%= link_to "모아보기", '/all' %>
+					</li>
+					<% for group in @groups %>
+						<% if group.group_type == "학번" %>
+							<li>
+							<%= link_to group.name, group_path(group) %>
+							</li>
+						<% end %>
+					<% end %>
+				</ul>
+			</div>
+			</li>
+			<li>
+			<a href="<%= sokkoji_path %>">
+				<%= image_tag "snumkg_main/navigation_sokkogi.png", alt: "소꼬지" %>
+				<% if @sokkoji_group.new_article? %>
+					<%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>
+				<% end %>
+			</a>
+			</li>
+			<li>
+			<a href="<%= everyday_path %>">
+				<%= image_tag "snumkg_main/navigation_day_by_day.png", alt: "매일매일"%>
+				<% if EverydayPost.new_post? %>
+					<%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>
+				<% end %>
+			</a>
+			</li>
+			<li>
 			<%= link_to (image_tag 'snumkg_main/navigation_chatting.png', alt: "채팅"), "#", :onclick => "window.open('/chat','chat','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=820,height=620');" %>
-      </li>
-    </ul>
-  </div>
+			</li>
+		</ul>
+	</div>
 </div>
 
 

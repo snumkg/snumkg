@@ -55,7 +55,6 @@ $(function(){
 		}
 	});
 
-
-	$("#myModal").modal({show: false;});
+	$("#myModal").modal({show: false});
 
 });

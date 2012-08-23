@@ -54,6 +54,9 @@ class UsersController < ApplicationController
               .order("CREATED_AT DESC")
               .group_by(&:comment_id)
               .map {|a,alarms| alarms.group_by(&:new)}
+      when 5
+        #매일매일에 댓글일 달릴때
+
       end
     end
 
