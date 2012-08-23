@@ -11,9 +11,11 @@ $(function(){
 		var name = $('.user_menu[visibility="visible"]');
 		var login = $('.login_box[visibility="visible"]');
 		var alarm_list = $("#alarm_list");
+		var search_list = $("#search_list");
 		$(name).css("visibility","hidden");
 		$(login[0]).css("visibility","hidden");
 		$(alarm_list).hide();
+		$(search_list).hide();
 
 	});
 

@@ -4,6 +4,7 @@
     <td>
       <span id="article_title"><%= @article.title %></span>
       <span class="article_like_number">추천 <%= @article.likes.count %></span>
+      <span class="article_writer">작성자: <%= @article.anonymous_name%></span>
     </td>
   </tr>
   <tr>

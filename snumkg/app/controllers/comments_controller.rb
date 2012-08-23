@@ -12,6 +12,7 @@ class CommentsController < ApplicationController
       @comment.user_id = params[:comment][:user_id]
     else
       @comment.set_password(params[:comment][:password])
+      @comment.username= params[:comment][:username]
     end
     @comment.comment_type = 0
 

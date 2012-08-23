@@ -33,7 +33,7 @@
         </span>
       </td>
       <td>
-        <span class="sokkoji_day<%=@index%>"><%= article.date %></span>
+        <span class="sokkoji_day<%=@index%>"><%= article.date.strftime("%m월%d일 %H시%M분") %></span>
       </td>
       <td>
          <span class="sokkoji_writer<%=@index%>"> <%= article.writer.nickname %></span>

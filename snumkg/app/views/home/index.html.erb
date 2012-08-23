@@ -60,13 +60,9 @@
         <% day = event.date.yday %>
         <% today = Time.now.yday %>
 
-        <% if day - today == 2 %>
+        <% if day - today == 2 || day - today == 1 %>
           <li><%= image_tag "snumkg_main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">
-            <%= event.title %>가 2일 남았습니다.
-          </a></li>
-        <% elsif day - today == 1 %>
-          <li><%= image_tag "snumkg_main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">
-            <%= event.title %>가 1일 남았습니다.
+            <%= event.title %>가 <%= day - today %>일 남았습니다.
           </a></li>
         <% elsif day - today == 0 %>
           <li><%= image_tag "snumkg_main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">

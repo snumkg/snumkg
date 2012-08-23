@@ -37,14 +37,15 @@ ActiveRecord::Schema.define(:version => 20120817064343) do
     t.integer  "board_id"
     t.string   "title"
     t.text     "body"
-    t.integer  "view_count",    :default => 0
+    t.integer  "view_count",     :default => 0
     t.datetime "date"
-    t.string   "article_type",  :default => "일반"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.string   "anonymous_name"
+    t.string   "article_type",   :default => "일반"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "password_salt"
     t.string   "password_hash"
-    t.boolean  "notice",        :default => false
+    t.boolean  "notice",         :default => false
   end
 
   create_table "attendances", :force => true do |t|

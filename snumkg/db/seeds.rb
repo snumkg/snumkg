@@ -49,9 +49,10 @@ sokkoji = Group.create(name: "소꼬지",  admin_id: admin.id, group_type: "소�
   board4 = Board.create(name: "그냥겟판", group_id: all_group.id, admin_id: admin.id)
   
   #소꼬지 board
-  Board.create(name: "소꼬지 게시판", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지")
-  Board.create(name: "일정보기", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지 일정")
+
   Board.create(name: "소꼬지 후기", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지 후기")
+  s = Board.create(name: "소꼬지 게시판", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지")
+  Board.create(name: "일정보기", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지 일정")
   #앨범
   album = Board.create(name: "앫범게시판", group_id: all_group.id, admin_id: admin.id, board_type: "앨범")
   anonymous = Board.create(name: "익명게시판", group_id: all_group.id, admin_id: admin.id, board_type: "익명")
@@ -89,6 +90,9 @@ end
   end
 
 #소꼬지게시판 아티클
+  6.times do 
+    Article.create(title: "바보 소꼬지", user_id: random_number(1,User.all.count), board_id: s.id, body: body_content, article_type: "소꼬지", date: Time.now + random_number(-3,3)*60*60*24)
+  end
 
 #comments
 

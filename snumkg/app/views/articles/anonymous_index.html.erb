@@ -3,6 +3,7 @@
     <thead>
       <th class="span1">번호</th>
       <th class="span5">제목</th>
+      <th class="span1">작성자</th>
       <th class="span2">작성일</th>
     </thead>
     <tbody>
@@ -18,6 +19,9 @@
           </span>
           <span class="article_like_number">추천 <%= @article.likes.count %></span>
 
+        </td>
+        <td>
+          <%= @article.anonymous_name %>
         </td>
         <td>
           <%= @article.created_at.strftime("%Y-%m-%d %H:%M%S") %>

@@ -12,7 +12,7 @@
             </a>
           </td>
           <td>
-            <%= article.writer.nickname %>
+            <%= article.writer.nickname  unless article.writer.nil?%>
           </td>
           <td>
             추천<%= article.likes.count %>

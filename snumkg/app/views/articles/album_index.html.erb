@@ -60,6 +60,10 @@
     top: 220;  
     left: 0;  
   }  
+
+  .clear {
+    clear: both;
+  }
 </style>
 
 <div id="article_wrapper">
@@ -83,54 +87,12 @@
       </a>
     </div>  
 <% end %>
+<div class="clear">
+</div>
   <% if current_user %>
-    <%= link_to "글쓰기", new_article_path(:group_id => params[:group_id], :board_id => params[:board_id]) %>
+    <%= link_to "글쓰기", new_article_path(:group_id => params[:group_id], :board_id => params[:board_id]), class: "btn" %>
   <% end %>
 </div>
-
-<div class="hidden">
-<div id="article_wrapper">
-  <table class="table">
-    <thead>
-      <th class="span1">번호</th>
-      <th class="span5">제목</th>
-      <th class="span2">작성일</th>
-      <th class="span1">작성자</th>
-    </thead>
-    <tbody>
-    <% for @article in @articles %>
-      <tr>
-        <td>
-          <%= @index %> <% @index = @index - 1 %>
-        </td>
-        <td class="span7">
-          <% @pictures = @article.pictures %>
-          <% @pictures = @pictures[0..1] %>
-          <% @pictures.each do |picture| %>
-            <%= image_tag picture.url, class: "span1" %>
-          <% end %>
-          <%= link_to @article.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => @article) %>
-          <span class="comment_number">
-            [<%= @article.comments.count %>]
-          </span>
-          <span class="article_like_number">추천 <%= @article.likes.count %></span>
-
-        </td>
-        <td>
-          <%= @article.created_at.strftime("%Y/%m/%d") %>
-        </td>
-        <td>
-          <%= @article.writer.nickname %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-  </table>
-
-
-</div>
-</div>
-
 
 <script>
   

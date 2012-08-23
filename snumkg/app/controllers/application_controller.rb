@@ -59,6 +59,7 @@ class ApplicationController < ActionController::Base
     @hakbun_group = Group.where(:group_type => "학번")
     @new_user = User.new
     @anyone_group = Group.find(1)
+    @sokkoji_group = Group.find_by_group_type("소꼬지")
 
   end
 

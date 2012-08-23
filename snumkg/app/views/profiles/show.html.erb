@@ -1,6 +1,23 @@
+<%= content_for(:head) do %>
+  <style>
+    .profile_header {
+      height: 60px;
+    }
+    .profile_header h1 {
+      float: left;
+    }
+    .profile_header .send_message {
+      position: relative;
+      top: 10px;
+      margin-left: 10px;
+    }
+  </style>
+<% end %>
 
+<div class="profile_header">
 <h1><%=@user.nickname%> 님의 프로필</h1>
-
+<span class="send_message"><%= link_to "쪽지보내기", new_message_path(receiver_id: params[:id]) %></span>
+</div>
 <%= image_tag picture_path(type: "profile", id: params[:id]) %>
 
 <% if current_user == User.find(params[:id]) %>

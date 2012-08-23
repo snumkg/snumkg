@@ -1,3 +1,9 @@
+<% content_for(:head) do %>
+  <%= javascript_include_tag :comments %>
+  <%= stylesheet_link_tag    :comments %>
+<% end %>
+
+
 <table id="show_comments_box">
   <tr>
     <td class="bold">댓글</td>
@@ -5,6 +11,9 @@
   <% for comment in @comments %>
     <tr>
       <td>
+        <span class="comment_writer">
+          <%= comment.username %>
+        </span>
         <span>
           <%= comment.content %>  
         </span>
@@ -20,6 +29,7 @@
             <% end %>
           </span>
         <% end %>
+        <%= link_to "삭제", comment_path(comment), method: :delete %>
       </td>
     </tr>
   <% end %>

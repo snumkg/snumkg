@@ -1,2 +1,2 @@
 
-$("#search_list").append("<%= escape_javascript(render 'search/user_name').html_safe %>");
+$("#search_list").html("").show().append("<%= escape_javascript(render 'search/user_name').html_safe %>");

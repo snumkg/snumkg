@@ -8,6 +8,10 @@ class ArticlesController < ApplicationController
     # 소꼬지 일정을 보여줄 때, 소꼬지 게시판에서 게시물을 가져옴.
       @articles = Board.find_by_board_type("소꼬지")
                         .articles.order("created_at desc")
+    elsif @board.board_type == "소꼬지"
+      # 소꼬지 게시물은 수정하면 다시 상단에 노출되도록 함
+      # 똑같은 소꼬지 게시물을 새로 올리는 것을 방지하기 위해.
+      @articles = @board.articles.order("updated_at desc")
     else
     @articles = @board.articles.order("created_at desc")
     @notices = @board.articles.where(:notice => true).order("created_at desc")
