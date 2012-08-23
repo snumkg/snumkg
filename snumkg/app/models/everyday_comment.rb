@@ -2,7 +2,7 @@
 class EverydayComment < ActiveRecord::Base
   include AlarmHelper
 
-  before_create :save_alarm
+  after_create :save_alarm
   before_destroy :destroy_alarm
 
   attr_accessible :content, :user_id
@@ -21,7 +21,6 @@ class EverydayComment < ActiveRecord::Base
                       everyday_comment_id: self.id,
                       alarmer_id: self.user.id,
                       alarm_type: 5)
-
   end
 
   def destroy_alarm
