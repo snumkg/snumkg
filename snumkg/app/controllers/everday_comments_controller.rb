@@ -1,2 +1,0 @@
-class EverdayCommentsController < ApplicationController
-end
