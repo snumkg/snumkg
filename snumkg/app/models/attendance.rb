@@ -19,6 +19,7 @@ class Attendance < ActiveRecord::Base
 
   def destroy_alarm
     destroy_alarm_helper(:alarmer_id => self.user.id,
+                         :acceptor_id => self.article.writer.id,
                    :article_id => self.article.id,
                    :alarm_type => 4)
   end

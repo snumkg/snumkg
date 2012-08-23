@@ -9,7 +9,7 @@ module UsersHelper
   end
 
   def create_profile_link(string,user_id)
-    link_to string, profile_path(user_id)
+    link_to string, profile_path(user_id, type: "click_alarm")
   end
 
   def show_alarm_messages(alarms)
@@ -54,7 +54,7 @@ module UsersHelper
     when 3
       create_profile_link("#{alarm.acceptor.nickname}님의 프로필에 댓글을 달았습니다.",alarm.acceptor.id)
     when 4
-      link_to "소꼬지에 참석합니다.", sokkoji_article_path(group_id: group_id , board_id: board_id, id: alarm.article.id)
+      create_article_link("#{show_alarm_messages(alarms)}님이 소꼬지에 참석합니다.",group_id,board_id,article.id)
     end
    end
 end

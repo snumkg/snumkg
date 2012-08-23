@@ -26,7 +26,7 @@ class Alarm < ActiveRecord::Base
                   :acceptor_id => self.acceptor_id).find_by_new(true).nil?
         self.new = false
       end
-    when 2
+    when 2 
       unless Alarm.where(:alarm_type => self.alarm_type,
                          :comment_id => self.comment_id,
                          :acceptor_id => self.acceptor_id).find_by_new(true).nil?
@@ -34,6 +34,7 @@ class Alarm < ActiveRecord::Base
       end
 
     end
+    true
 
   end
 end

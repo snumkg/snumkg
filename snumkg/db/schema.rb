@@ -11,17 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817064343) do
+ActiveRecord::Schema.define(:version => 20120823092154) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
     t.integer  "comment_id"
     t.integer  "acceptor_id"
     t.integer  "alarmer_id"
+    t.integer  "everyday_comment_id"
     t.integer  "alarm_type"
-    t.boolean  "new",         :default => true
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "new",                 :default => true
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
   create_table "album_images", :force => true do |t|
@@ -76,6 +77,21 @@ ActiveRecord::Schema.define(:version => 20120817064343) do
     t.string   "password_hash"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "everyday_comments", :force => true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "everyday_post_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "everyday_posts", :force => true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "groups", :force => true do |t|
