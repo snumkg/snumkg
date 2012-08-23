@@ -1,0 +1,2 @@
+module EverydayPostsHelper
+end

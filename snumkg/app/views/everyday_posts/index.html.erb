@@ -1,0 +1,6 @@
+
+<div class="new_post">
+  <%= form_for(@post) do |f| %>
+    <%= f.hidden_field :user_id, current_user.id %>
+  <% end %>
+</div>

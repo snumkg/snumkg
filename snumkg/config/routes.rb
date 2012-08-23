@@ -55,6 +55,7 @@ Snumkg::Application.routes.draw do
   root :to => 'home#index'
   get '/all', :to => 'home#all', :as => 'all'
   get '/sokkoji', :to => 'groups#sokkoji', :as => 'sokkoji'
+  get 'everyday', :to => 'everyday_posts#index', :as => 'everyday'
 
   #admin routes
   get 'admin', :to => 'admin#index'
