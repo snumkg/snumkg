@@ -56,6 +56,6 @@ $(function(){
 	});
 
 
-	$("#myModal").modal();
+	$("#myModal").modal({show: false;});
 
 });
