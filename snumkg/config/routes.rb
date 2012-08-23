@@ -57,6 +57,9 @@ Snumkg::Application.routes.draw do
   get '/sokkoji', :to => 'groups#sokkoji', :as => 'sokkoji'
   get 'everyday', :to => 'everyday_posts#index', :as => 'everyday'
 
+  resources :everyday_posts, :only => [:create, :destroy]
+  resources :everyday_comments, :only => [:create, :destroy]
+
   #admin routes
   get 'admin', :to => 'admin#index'
   get 'admin/groups/hide/:id', :to => 'admin/groups#hide', :as => 'hide_admin_group'
