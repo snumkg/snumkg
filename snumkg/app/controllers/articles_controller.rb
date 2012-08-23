@@ -97,11 +97,10 @@ class ArticlesController < ApplicationController
     @comments = @article.comments
     @comment = Comment.new
 
-    @alarms = @article.alarms.where("acceptor_id = ?",current_user.id)
-
-    alarm = @alarms.find_by_new(true)
-    if params[:type] == "click_alarm" && alarm
-      alarm.update_attribute(:new, false)
+    if params[:type] == "click_alarm"
+      @alarms = @article.alarms.where("acceptor_id = ?",current_user.id)
+      alarm = @alarms.find_by_new(true)
+      alarm.update_attribute(:new, false) unless alarm.nil?
     end
 
     case @article.article_type
