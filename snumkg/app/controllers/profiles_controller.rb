@@ -9,10 +9,15 @@ class ProfilesController < ApplicationController
   def show
     @user = User.find(params[:id])
 
+    alarms = Alarm.where(:acceptor_id => current_user.id,
+                        :alarm_type =>  3, :new => true)
+    if params[:type] == "click_alarm" && alarms
+      for alarm in alarms
+        alarm.update_attribute(:new, false)
+      end
+    end
     @profile_comments = Comment.where(:profile_user_id => params[:id], :comment_type => 1)
     @profile_comment = Comment.new
-
-
   end
 
 end

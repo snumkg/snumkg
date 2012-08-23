@@ -26,21 +26,24 @@ class CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find_by_id(params[:id])
-    group_id = comment.article.board.group.id
-    board_id = comment.article.board.id
-    article_id = comment.article.id
-    
-    if comment.article.article_type == "익명"
-      if !comment.authentication(params[:password])
-        flash[:error] = "비밀번호가 일치하지 않습니다."
-      else
-        comment.destroy
-      end
-    else
-      comment.destroy
-    end
+    if comment.comment_type == 0 # 게시물 댓글일때
+      group_id = comment.article.board.group.id
+      board_id = comment.article.board.id
+      article_id = comment.article.id
 
-    redirect_to article_path(group_id: group_id, board_id: board_id, id: article_id)
+      if comment.article.article_type == "익명" && !comment.authentication(params[:password])
+        # 익명 댓글일 때 비밀번호가 일치하지 않을 시
+        flash[:error] = "비밀번호가 일치하지 않습니다."
+        redirect_to article_path(group_id: group_id, board_id: board_id, id: article_id)
+        return
+      end
+      comment.destroy
+      redirect_to article_path(group_id: group_id, board_id: board_id, id: article_id)
+    else #프로필 댓글일 때
+      pid = comment.profile_user_id
+      comment.destroy
+      redirect_to profile_path(pid)
+    end
   end
 
   def create_profile_comment

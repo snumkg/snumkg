@@ -52,9 +52,9 @@ module UsersHelper
     when 2
       create_article_link("#{show_alarm_messages(alarms)}댓글을 추천하였습니다.",group_id,board_id,article.id)
     when 3
-      create_profile_link("#{alarm.acceptor.nickname}님의 프로필에 댓글을 달았습니다.",alarm.acceptor.id)
+      create_profile_link("#{show_alarm_messages(alarms)}프로필에 댓글을 달았습니다.",alarm.acceptor.id)
     when 4
-      create_article_link("#{show_alarm_messages(alarms)}님이 소꼬지에 참석합니다.",group_id,board_id,article.id)
+      create_article_link("#{show_alarm_messages(alarms)}소꼬지에 참석합니다.",group_id,board_id,article.id)
     end
    end
 end

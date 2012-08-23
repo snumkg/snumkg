@@ -15,7 +15,7 @@ class Comment < ActiveRecord::Base
   has_many :alarms, :dependent => :destroy
 
   validates_presence_of :content
-  validates_presence_of :user_id, :unless => Proc.new {|comment| comment.article.article_type == "익명"}
+  validates_presence_of :user_id, :unless => Proc.new {|comment| comment.article.nil? || comment.article.article_type == "익명"}
 
 
   def liked_by?(user)

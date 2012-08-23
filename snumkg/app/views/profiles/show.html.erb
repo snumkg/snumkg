@@ -37,6 +37,9 @@
     <tr>
       <td class="span2"><%= profile_comment.writer.nickname %></td>
       <td><%= profile_comment.content %></td>
+      <% if profile_comment.writer == current_user || current_user.id == profile_comment.profile_user_id %>
+        <td><%= link_to "삭제", comment_path(profile_comment.id), method: :delete, confirm: "댓글을 삭제하시겠습니까?" %> </td>
+      <% end %>
     </tr>
   <% end %>
 </table>
