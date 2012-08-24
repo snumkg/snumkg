@@ -15,7 +15,7 @@
     <% for post in @posts %>
       <div class="post">
         <div class="writer">
-          <%= image_tag picture_path(type: "profile", thumb: true, id: post.user.id), size: "40x40" %><%= post.user.nickname %><br />
+          <%= render :partial => 'shared/user_menu', :locals => {:writer => post.user, :size => "40x40"} %>
         </div>
         <div class="show_comment">
           <div class="post_content"><%= post.content %></div>
@@ -23,7 +23,7 @@
             <% for comment in post.everyday_comments %>
               <tr>
                 <td>
-                  <%= image_tag picture_path(type: "profile", thumb: true, id: comment.user.id), size: "20x20" %><%= comment.user.nickname %>
+                  <%= render :partial => 'shared/user_menu', :locals => {:writer => comment.user, :size => "20x20"} %>
                 </td>
                 <td>
                   <%= comment.content %>

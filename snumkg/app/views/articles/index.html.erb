@@ -24,7 +24,7 @@
 						<%= @notice.created_at.strftime("%Y/%m/%d") %>
 					</td>
 					<td>
-						<%= render :partial => 'shared/user_menu', :locals => {:writer => @notice.writer} %>
+            <%= render :partial => 'shared/user_menu', :locals => {:writer => @notice.writer, :size => "25x25"} %>
 					</td>
 				</tr>
 			<% end %>
