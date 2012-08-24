@@ -6,13 +6,13 @@ include Magick
 class PicturesController < ApplicationController
 
   def create
-  	if params[:image].nil?
-  		flash[:error] = "그림파일을 선택하세요."
-  		redirect_to :back
-  		return
-		end
     case params[:type]
     when "profile"
+      if params[:image].nil?
+        flash[:error] = "그림파일을 선택하세요."
+        redirect_to :back
+        return
+      end
       name = params[:image].original_filename
       directory = File.join(Rails.root,'app/assets/images/profile/'+current_user.username)
       full_path = File.join(directory,name)
