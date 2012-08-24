@@ -50,7 +50,55 @@
       color: #F94172;
     }
 
+    div.slider {
+      position: relative;
+      width: 445px;
+      float: left;
+      overflow: hidden;
+    }
 
+    ul.slide_box {
+      width: 2225px;
+      list-style: none;
+      margin: 0;
+    }
+
+    ul.slide_box li {
+      position: relative;
+      width: 445px;
+      float: left;
+    }
+
+    ul.slide_box img {
+      width: 390px;
+
+      
+    }
+
+    ul.slide_box li .slide_content {
+      position: absolute;
+      width: 150px;
+      height: 60px;
+      background: url(assets/bg_barousel_content.png);
+      top: 200px;
+      z-index: 1000;
+    }
+
+    .slide_content h3 {
+      color: #abc;
+    }
+
+    ul.slide_nav {
+      list-style: none;
+      width: 45px;
+      position: absolute;
+      left: 395px;
+      margin: 0;
+    }
+
+    ul.slide_nav img {
+      cursor: pointer;
+    }
 
          </style>
 
@@ -99,41 +147,48 @@
 
   <div class="box main_picture">
     <%= image_tag "snumkg_main/subhead_photo.png", alt: "사진" %>
-    <ul class="rslides">
-      <% for picture in @photos %>
+    <div class="slider">
+      <ul class="slide_box">
+        <% index = 1 %>
+        <% for picture in @photos %>
+          <li data-index="<%= index %>">
+          <a href="<%= article_path(group_id: picture.article.board.group.id, board_id: picture.article.board.id, id: picture.article.id)%>">
+            <%= image_tag picture.url, size: "410x250" %>
+
+          </a>
+          <div class="slide_content">
+            <h3><%= picture.article.title %></h3>
+          </div>
+          </li>
+          <% index = index + 1 %>
+        <% end %>
+      </ul>
+      <ul class="slide_nav">
+        <% index = 1 %>
         <li>
-        <a href="<%= article_path(group_id: picture.article.board.group.id, board_id: picture.article.board.id, id: picture.article.id)%>">
-          <%= image_tag picture.url, size: "410x250" %>
-
-        </a>
+        <%= image_tag 'snumkg_main/widget_photo_arrow_up.png', size: "43x43" %>
         </li>
-      <% end %>
-    </ul>
-   </div>
- </div>
+        <% for picture in @photos %>
+          <li data-index="<%= index %>">
+          <%= image_tag picture.thumbnail_url, size: "43x43" %>
+          </li>
+          <% index = index + 1 %>
+        <% end %>
+        <li>
+        <%= image_tag 'snumkg_main/widget_photo_arrow_down.png', size: "43x43" %>
+        </li>
+      </ul>
 
- <script>
+    </div>
+  </div>
+</div>
+
+<script>>
 
 
    $(document).ready(function() {
-     $(".rslides").responsiveSlides({
-       auto: true,             // Boolean: Animate automatically, true or false
-       speed: 1000,            // Integer: Speed of the transition, in milliseconds
-       timeout: 4000,          // Integer: Time between slide transitions, in milliseconds
-       pager: false,           // Boolean: Show pager, true or false
-       nav: true,             // Boolean: Show navigation, true or false
-       random: false,          // Boolean: Randomize the order of the slides, true or false
-       pause: false,           // Boolean: Pause on hover, true or false
-       pauseControls: false,   // Boolean: Pause when hovering controls, true or false
-       prevText: "Previous",   // String: Text for the "previous" button
-       nextText: "Next",       // String: Text for the "next" button
-       maxwidth: "",           // Integer: Max-width of the slideshow, in pixels
-       controls: "",           // Selector: Where controls should be appended to, default is after the 'ul'
-       namespace: "rslides",   // String: change the default namespace used
-       before: function(){},   // Function: Before callback
-       after: function(){}     // Function: After callback
-     });
-       });
+
+          });
 
 
 
