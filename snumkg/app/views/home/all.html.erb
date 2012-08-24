@@ -1,15 +1,21 @@
-<ul id="news_feed">
+<ul id="newsfeed">
 <% for a in @all %>
   <% case a.class.to_s %>
   <% when "Article" %>
 		<li>
-		<%= user_profile_tag(a.writer.id, :small => true) %>님이 <%= link_to  a.title, article_path(group_id: a.board.group.id, board_id: a.board.id, id: a.id) %> 글을 작성하셨습니다.
+		<%= user_profile_tag(a.writer, :small => true) %>님이 <%= link_to  a.title, article_path(group_id: a.board.group.id, board_id: a.board.id, id: a.id) %> 글을 작성하셨습니다.
+		<div class="newsfeed-article">
+			<%= raw a.body %>
+		</div>
 		</li>
   <% when "Comment" %>
     <% case a.comment_type %>
     <% when 0 # 게시물 댓글%>
       <li>
-			<%= user_profile_tag(a.writer.id, :small => true) %>님이 <%= link_to a.article.title, article_path(group_id: a.article.board.group.id, board_id: a.article.board.id, id:a.article.id) %> 글에 댓글을 작성하셨습니다.
+			<%= user_profile_tag(a.writer, :small => true) %>님이 <%= link_to a.article.title, article_path(group_id: a.article.board.group.id, board_id: a.article.board.id, id:a.article.id) %> 글에 댓글을 작성하셨습니다.
+			<div class="newsfeed-article">
+				<%= raw a.content %>
+			</div>
       </li>
     <% when 1 # 프로필 댓글 %>
     <% end %>

@@ -267,7 +267,12 @@ ul li ul {
 }
 
 //newsfeed
-#news_feed {
+#newsfeed {
+	margin:0;	
+	.newsfeed-article {
+		background-color:#eee;border:1px solid #ccc;padding:5px;margin:10px 30px;
+	}
+	li {margin:0;margin-bottom:20px;list-style:none;border-bottom:1px solid #ccc;padding-bottom:10px;}
 }
 
 
