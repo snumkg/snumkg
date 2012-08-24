@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
   end
 
   def check_signin
-    redirect_to signin_path unless signin?
+    flash[:error] = "로그인이 필요한 서비스입니다."
+    redirect_to root_path unless signin?
   end
 
   def check_admin

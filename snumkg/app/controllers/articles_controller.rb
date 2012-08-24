@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ArticlesController < ApplicationController
-  before_filter :check_signin, except: [:index, :show]
+  before_filter :check_signin, except: [:index]
   def index
 
     @board = @boards.find_by_id(params[:board_id])

@@ -1,4 +1,5 @@
 class EverydayPostsController < ApplicationController
+  before_filter :check_signin
   layout 'main'
 
   def index
