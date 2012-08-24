@@ -94,6 +94,9 @@ end
     Article.create(title: "바보 소꼬지", user_id: random_number(1,User.all.count), board_id: s.id, body: body_content, article_type: "소꼬지", date: Time.now + random_number(-3,3)*60*60*24)
   end
 
+  #매일매일
+  
+  
 #comments
 
 =begin

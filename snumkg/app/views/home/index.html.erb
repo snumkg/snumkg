@@ -1,6 +1,8 @@
 <% content_for :head do %>
   <%= javascript_include_tag "jquery.masonry.min" %>
 
+  <%= javascript_include_tag "responsiveslides.min" %>
+  <%= stylesheet_link_tag "responsiveslides" %>
   <style>
 
     #main_container {
@@ -48,7 +50,10 @@
       color: #F94172;
     }
 
-  </style>
+
+
+         </style>
+
 
 <% end %>
 <div id="main_container">
@@ -93,14 +98,43 @@
   </div>
 
   <div class="box main_picture">
-      <%= image_tag "snumkg_main/subhead_photo.png", alt: "사진" %>
+    <%= image_tag "snumkg_main/subhead_photo.png", alt: "사진" %>
+    <ul class="rslides">
+      <% for picture in @photos %>
+        <li>
+        <a href="<%= article_path(group_id: picture.article.board.group.id, board_id: picture.article.board.id, id: picture.article.id)%>">
+          <%= image_tag picture.url, size: "410x250" %>
 
-  </div>
+        </a>
+        </li>
+      <% end %>
+    </ul>
+   </div>
+ </div>
+
+ <script>
 
 
-</div>
+   $(document).ready(function() {
+     $(".rslides").responsiveSlides({
+       auto: true,             // Boolean: Animate automatically, true or false
+       speed: 1000,            // Integer: Speed of the transition, in milliseconds
+       timeout: 4000,          // Integer: Time between slide transitions, in milliseconds
+       pager: false,           // Boolean: Show pager, true or false
+       nav: true,             // Boolean: Show navigation, true or false
+       random: false,          // Boolean: Randomize the order of the slides, true or false
+       pause: false,           // Boolean: Pause on hover, true or false
+       pauseControls: false,   // Boolean: Pause when hovering controls, true or false
+       prevText: "Previous",   // String: Text for the "previous" button
+       nextText: "Next",       // String: Text for the "next" button
+       maxwidth: "",           // Integer: Max-width of the slideshow, in pixels
+       controls: "",           // Selector: Where controls should be appended to, default is after the 'ul'
+       namespace: "rslides",   // String: change the default namespace used
+       before: function(){},   // Function: Before callback
+       after: function(){}     // Function: After callback
+     });
+       });
 
 
-<script>
 
-</script>
+ </script>

@@ -1,5 +1,7 @@
 class Picture < ActiveRecord::Base
   attr_protected 
+
+  belongs_to :article
   def to_jq_upload
     {
       "name" => self.name,
