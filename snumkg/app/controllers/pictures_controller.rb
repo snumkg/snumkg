@@ -6,6 +6,11 @@ include Magick
 class PicturesController < ApplicationController
 
   def create
+  	if params[:image].nil?
+  		flash[:error] = "그림파일을 선택하세요."
+  		redirect_to :back
+  		return
+		end
     case params[:type]
     when "profile"
       name = params[:image].original_filename

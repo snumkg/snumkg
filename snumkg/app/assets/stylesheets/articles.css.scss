@@ -26,6 +26,12 @@
   color: #eee;
 }
 
+#article_list {
+	margin-bottom:5px;padding:0;
+	th {text-align:center;background-color:#f3f3f3;}
+	td, th {padding:5px;border-bottom:1px solid #ddd;}
+}
+
 #article_box {
   width: 700px;  
   border: 1px solid #ddd;

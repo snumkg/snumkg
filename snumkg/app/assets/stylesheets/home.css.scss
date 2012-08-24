@@ -94,12 +94,20 @@ body {font-family:"맑은 고딕"}
 			}
 		}
 	}
+
+	#top_nav_ul2 {
+		float:right;
+		height:100%;
+		margin:0;padding:0;
+		margin-right:20px;
+		.top_nav_li1 {list-style:none;float:left;margin-left:5px;}
+	}
 }
 
 #loading-image {
 	z-index: 3;
 	position: absolute;
-	left: 35px;
+	left: 150px;
 	top: 10px;
 	display: none;
 }
@@ -255,4 +263,9 @@ ul li ul {
   position: absolute;
   visibility: hidden;
   background: white;
+  border:1px solid #ddd;
+}
+
+//newsfeed
+#news_feed {
 }
