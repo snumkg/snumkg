@@ -15,15 +15,16 @@ end
 
 
 #User
+p_path = "#{Rails.root}/app/assets/images"
 admin = User.new(username: "snumkg", email: "snumkg@gmail.com", nickname: "관리자", password: "asdf", password_confirmation: "asdf", admin: true)
 admin.set_password("asdf")
-tg = User.new(username: "xovsxo", email: "taegeonum@gmail.com", nickname: "엄태건", password: "asdf", password_confirmation: "asdf")
+tg = User.new(username: "xovsxo", email: "taegeonum@gmail.com", nickname: "엄태건", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default1.jpg", thumbnail_image_path: "#{p_path}/t_default1.jpg")
 tg.set_password("asdf")
-c = User.new(username: "asdf1", email: "asdf1@gmail.com", nickname: "홍쁘", password: "asdf", password_confirmation: "asdf")
+c = User.new(username: "asdf1", email: "asdf1@gmail.com", nickname: "홍쁘", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default2.jpg", thumbnail_image_path: "#{p_path}/t_default2.jpg")
 c.set_password("asdf")
-d = User.new(username: "asdf2", email: "asdf2@gmail.com", nickname: "김범준", password: "asdf", password_confirmation: "asdf")
+d = User.new(username: "asdf2", email: "asdf2@gmail.com", nickname: "김범준", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default3.jpg", thumbnail_image_path: "#{p_path}/t_default3.jpg")
 d.set_password("asdf")
-e = User.new(username: "asdf3", email: "asdf3@gmail.com", nickname: "백승범", password: "asdf", password_confirmation: "asdf")
+e = User.new(username: "asdf3", email: "asdf3@gmail.com", nickname: "백승범", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", thumbnail_image_path: "#{p_path}/t_default4.jpg")
 e.set_password("asdf")
 
 admin.save
@@ -44,12 +45,20 @@ sokkoji = Group.create(name: "소꼬지",  admin_id: admin.id, group_type: "소�
 
 #Board
 
-  board2 = Board.create(name: "자유게시판", group_id: all_group.id, admin_id: admin.id)
-  board3 = Board.create(name: "공지사항", group_id: all_group.id, admin_id: admin.id)
-  board4 = Board.create(name: "그냥겟판", group_id: all_group.id, admin_id: admin.id)
-  
-  #소꼬지 board
+groups = Group.where(:group_type => "학번")
 
+  board2 = Board.create(name: "자유게시판", group_id: all_group.id, admin_id: admin.id, board_type: "일반")
+  board3 = Board.create(name: "공지사항", group_id: all_group.id, admin_id: admin.id, board_type: "일반")
+  board4 = Board.create(name: "그냥겟판", group_id: all_group.id, admin_id: admin.id, board_type: "일반")
+
+for group in groups 
+  Board.create(name: "자유게시판", group_id: group.id, admin_id: admin.id, board_type: "일반")
+  Board.create(name: "공지사항", group_id: group.id, admin_id: admin.id, board_type: "일반")
+  Board.create(name: "그냥겟판", group_id: group.id, admin_id: admin.id, board_type: "일반")
+
+end
+
+  #소꼬지 board
   Board.create(name: "소꼬지 후기", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지 후기")
   s = Board.create(name: "소꼬지 게시판", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지")
   Board.create(name: "일정보기", group_id: sokkoji.id, admin_id: admin.id, board_type: "소꼬지 일정")
@@ -61,7 +70,7 @@ sokkoji = Group.create(name: "소꼬지",  admin_id: admin.id, group_type: "소�
   #Articlet
 body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
 
-for board in Board.all[0..3]
+for board in Board.where(:board_type => "일반")
   # 일반게시판 아티클
   Article.create(title: "공지입니당.", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type, notice: true)
   Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type)
@@ -95,7 +104,15 @@ end
   end
 
   #매일매일
-  
+
+  3.times do 
+    EverydayPost.create(content: "여러분 방가방가 ㅋㄷㅋㄷㅋㄷ 쿄쿜", user_id: random_number(1,User.all.count))
+  end
+
+  for post in EverydayPost.all
+    post.everyday_comments.create(content: "오홍 방가워염", user_id: random_number(1, User.all.count))
+  end
+ 
   
 #comments
 
