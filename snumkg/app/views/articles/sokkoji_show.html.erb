@@ -11,27 +11,25 @@
   </tr>
   <% if signin? %>
     <tr>
-    <td>
-    <% if @article.attendanced_by?(current_user) %>
-      <%= link_to "참석 취소", destroy_attendance_path(@article), :class => "unlike_article_btn", confirm: "참석을 취소하시겠습니까?" %>
-    <% else %>
-      <%= link_to "참석하기", create_attendance_path(@article), :class => "like_article_btn" %>
-    <% end %>
-    <% if current_user == @article.writer %>
-      <span>
-      <%= link_to "수정하기", edit_article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article) %>
-      </span>
-      <span>
-      <%= link_to "삭제하기", article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article), method: "delete", confirm: "정말로 삭제하시겠습니까?" %>
-      </span>
-    <% end %>
+      <td>
+        <span id ="attendance_box">
+          <%= render :partial => 'attendances/attendance_btn', :locals => {:obj => @article} %>
+        </span>
+        <% if current_user == @article.writer %>
+          <span>
+            <%= link_to "수정하기", edit_article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article) %>
+          </span>
+          <span>
+            <%= link_to "삭제하기", article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article), method: "delete", confirm: "정말로 삭제하시겠습니까?" %>
+          </span>
+        <% end %>
 
-    </td>
+      </td>
     </tr>
 
   <% end %>
   <tr>
-    <td>
+    <td id="attendance_list">
        <% for attendance in @article.attendances %>
           <%= attendance.user.nickname %> 
        <% end %>

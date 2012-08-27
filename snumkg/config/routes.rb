@@ -95,8 +95,8 @@ Snumkg::Application.routes.draw do
   resources :pictures, only: [:show, :create, :destroy]
 
   #sokkogi attendance
-  get '/attendance/:sokkoji_article_id', :to => 'attendances#create', :as => 'create_attendance'
-  get '/cancel_attendance/:sokkoji_article_id', :to => 'attendances#destroy', :as => 'destroy_attendance'
+  get '/attendance', :to => 'attendances#create', :as => 'create_attendance'
+  get '/cancel_attendance', :to => 'attendances#destroy', :as => 'destroy_attendance'
 
 
   #alarm

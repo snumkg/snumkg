@@ -19,21 +19,34 @@ class AttendancesController < ApplicationController
 
 
   def create
-    @sokkoji_article = Article.find_by_id(params[:sokkoji_article_id])
+    @article = Article.find_by_id(params[:id])
 
     @attendance = Attendance.new
-    @attendance.article_id = params[:sokkoji_article_id]
+    @attendance.article_id = params[:id]
     @attendance.user_id = current_user.id
-    @attendance.save
 
-    redirect_to :back
+    if @attendance.save
+
+      respond_to do |format|
+        format.html {redirect_to :back}
+        format.js
+
+      end
+    end
+
   end
 
   def destroy
-    @attendance = Attendance.where(article_id: params[:sokkoji_article_id], user_id: current_user.id).limit(1).first
-    @attendance.destroy
+    @attendance = Attendance.where(article_id: params[:id], user_id: current_user.id).limit(1).first
+    @article = Article.find_by_id(params[:id])
+    
+    if @attendance.destroy
+      respond_to do |format|
+        format.html {redirect_to :back}
+        format.js 
+      end
+    end
 
-    redirect_to :back
     
   end
 end

@@ -57,11 +57,13 @@ class Like < ActiveRecord::Base
                              :alarm_type => 0)
       end
     else
-      destroy_alarm_helper(:acceptor_id => self.comment.writer.id,
-                           :alarmer_id => self.user.id,
-                           :article_id => self.comment.article.id,
-                           :comment_id => self.comment.id,
-                           :alarm_type => 2)
+      if self.comment.article.article_type != "익명" #익명게시물일 땐 알람이 없으므로, 알람을 삭제하지 않는다.
+        destroy_alarm_helper(:acceptor_id => self.comment.writer.id,
+                             :alarmer_id => self.user.id,
+                             :article_id => self.comment.article.id,
+                             :comment_id => self.comment.id,
+                             :alarm_type => 2)
+      end
     end
   end
 
