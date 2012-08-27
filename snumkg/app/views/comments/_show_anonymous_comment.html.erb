@@ -1,0 +1,20 @@
+<tr>
+  <td>
+    <span class="comment_writer">
+      <%= comment.username %>
+    </span>
+    <span>
+      <%= comment.content %>  
+    </span>
+    <span class="comment_like_number" dataid="<%=comment.id%>">
+      좋아요<%= comment.likes.count %>
+    </span>
+    <% if signin? %>
+      <span class="comment_like_box" dataid="<%= comment.id %>">
+        <%= render :partial => "shared/like_btn", :locals => {:obj => comment, type: "comment"} %>
+      </span>
+    <% end %>
+    <%= link_to "삭제", comment_path(comment), method: :delete %>
+  </td>
+</tr>
+

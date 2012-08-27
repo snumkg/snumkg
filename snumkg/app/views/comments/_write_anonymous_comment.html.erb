@@ -1,5 +1,5 @@
 <% if current_user %>
-  <%= form_for(@comment, id: "write_comment_box") do |f| %>
+  <%= form_for(@comment, id: "write_comment_box", remote: true) do |f| %>
     <%= f.text_field :username, placeholder: "이름", class: "span2" %>
     <%= f.text_field :content, placeholder: "내용", class: "span5" %>
     <%= f.password_field :password, placeholder: "비밀번호", class: "span1" %>

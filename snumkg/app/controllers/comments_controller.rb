@@ -10,14 +10,17 @@ class CommentsController < ApplicationController
 
     if article.article_type != "익명" # 익명게시판이 아닐때
       @comment.user_id = params[:comment][:user_id]
-    else
+    else #익명게시판일때
       @comment.set_password(params[:comment][:password])
       @comment.username= params[:comment][:username]
     end
     @comment.comment_type = 0
 
     if @comment.save
-      redirect_to article_path(group_id: article.board.group.id, board_id: article.board.id, id: params[:comment][:article_id])
+      respond_to do |format|
+        format.html {redirect_to article_path(group_id: article.board.group.id, board_id: article.board.id, id: params[:comment][:article_id])}
+        format.js
+      end
     else
       flash[:error] = "comment error"
       redirect_to article_path(group_id: article.board.group.id, board_id: article.board.id, id: params[:comment][:article_id])

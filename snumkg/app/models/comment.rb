@@ -49,11 +49,13 @@ class Comment < ActiveRecord::Base
 
       if self.article.article_type != "익명" # 익명게시물이 아닐 때
         # 글쓴이에게 알람 저장
-        save_alarm_helper(acceptor_id: self.article.writer.id, 
-                          article_id: self.article_id,
-                          comment_id: self.id,
-                          alarmer_id: self.writer.id,
-                          alarm_type: 1)
+        if self.article.writer != self.writer 
+          save_alarm_helper(acceptor_id: self.article.writer.id, 
+                            article_id: self.article_id,
+                            comment_id: self.id,
+                            alarmer_id: self.writer.id,
+                            alarm_type: 1)
+        end
 
 =begin
         #게시물에 댓글을 단 사람들에게 알림
@@ -88,12 +90,14 @@ class Comment < ActiveRecord::Base
   def destroy_alarm
     if self.comment_type == 0 # 게시판 댓글
       if self.article.article_type != "익명" # 익명게시판이 아닐 경우
-        alarm = Alarm.where(:alarmer_id => self.writer.id, 
-                            :comment_id => self.id, 
-                            :acceptor_id => self.article.writer.id, 
-                            :article_id => self.article.id, 
-                            :alarm_type => 1).limit(1).first
-        alarm.destroy
+        if self.article.writer != self.writer
+          alarm = Alarm.where(:alarmer_id => self.writer.id, 
+                              :comment_id => self.id, 
+                              :acceptor_id => self.article.writer.id, 
+                              :article_id => self.article.id, 
+                              :alarm_type => 1).limit(1).first
+          alarm.destroy
+        end
       end
     else  # 프로필 댓글
       alarm = Alarm.where(:alarmer_id => self.writer.id, acceptor_id: self.profile_user_id, :alarm_type => 3).limit(1).first

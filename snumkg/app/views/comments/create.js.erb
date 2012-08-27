@@ -1,0 +1,6 @@
+<% if @comment.article.article_type == "익명" %>
+
+$("#show_comments_box").append("<%= escape_javascript(render :partial => 'comments/show_anonymous_comment', :locals => {:comment => @comment}) %>");
+<% else %>
+$("#show_comments_box").append("<%= escape_javascript(render :partial => 'comments/show_comment', :locals => {:comment => @comment}) %>");
+<% end %>
