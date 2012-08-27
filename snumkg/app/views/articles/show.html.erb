@@ -3,7 +3,7 @@
   <tr>
     <td>
       <span id="article_title"><%= @article.title %></span>
-      <span class="article_like_number">추천 <%= @article.likes.count %></span>
+      <span id="alm" class="article_like_number">좋아요 <%= @article.likes.count %></span>
       <span class="article_writer">작성자:<%= @article.writer.nickname%> </span>
     </td>
   </tr>
@@ -13,11 +13,9 @@
   <% if signin? %>
     <tr>
       <td>
-        <% if @article.liked_by?(current_user) %>
-          <%= link_to "추천 취소", unlike_article_path(@article), :class => "unlike_article_btn" %>
-        <% else %>
-          <%= link_to "추천하기", like_article_path(@article), :class => "like_article_btn" %>
-        <% end %>
+        <span id="like_box">
+          <%= render :partial => 'shared/like_btn', :locals => {:obj => @article, :type => "article"} %>
+        </span>
         <% if current_user == @article.writer %>
           <span>
             <%= link_to "수정하기", edit_article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article) %>
@@ -32,7 +30,7 @@
 
   <% end %>
   <tr>
-    <td>
+    <td id="article_like_list">
       <% for like in @article.likes %>
         <%= like.user.nickname %> 
       <% end %>

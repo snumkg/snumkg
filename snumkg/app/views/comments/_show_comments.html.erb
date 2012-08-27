@@ -17,28 +17,17 @@
         <span>
           <%= comment.content %>  
         </span>
-        <span class="comment_like_number">
-          추천<%= comment.likes.count %>
+        <span class="comment_like_number" dataid="<%= comment.id %>">
+          좋아요<%= comment.likes.count %>
         </span>
         <% if signin? %>
-          <span>
-            <% if comment.liked_by?(current_user) %>
-              <%= link_to "추천취소", unlike_comment_path(comment.id) %>
-            <% else %>
-              <%= link_to "추천하기", like_comment_path(comment.id) %>
-            <% end %>
+          <span class="comment_like_box" dataid="<%=comment.id%>">
+            <%= render :partial => "shared/like_btn", :locals => {:obj => comment, type: "comment"} %>
           </span>
         <% end %>
-        <span>
+        <span class="like_comment_list" data-id="<%=comment.id%>">
           <%= show_like_user(comment) %>
         </span>
-        <ul class="like_comment_list" data-id="<%= comment.id%>">
-          <% list = comment.likes.map {|like| like.user.nickname} %>
-          <% list.shift %>
-          <% for name in list %>
-            <li><%= name %></li>
-          <% end %>
-        </ul>
         <div class="modal hide" data-id="modal<%=comment.id%>">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>

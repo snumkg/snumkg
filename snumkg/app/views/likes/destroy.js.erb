@@ -1,0 +1,14 @@
+<% case params[:type] %>
+<% when "article" %>
+  // 게시물 좋아요 취소 할 때
+$("#like_box").html("").append("<%= escape_javascript(render :partial => 'shared/like', :locals => {:type => "article", id: params[:id]}).html_safe %>");//좋아요 취소-> 좋아요로 변경
+  $("#alm").html("").append("좋아요 <%= @article.likes.count %>");// 좋아요 count 변경
+  $("#article_like_list").html("").append("<% for like in @article.likes %><%= like.user.nickname %><% end %>");// 좋아요 누른 사람들 변경
+<% when "comment" %>
+  // 코멘트 좋아요 취소 할 때
+$('.comment_like_box[dataid="<%=params[:id]%>"]').html("").append("<%= escape_javascript(render :partial => 'shared/like', :locals => {:type => params[:type], :id => params[:id]}).html_safe %>");//좋아요 취소 -> 좋아요 버튼으로 변경
+  $('.comment_like_number[dataid="<%=params[:id]%>"]')
+              .html("")
+              .append("좋아요 <%= @comment.likes.count %>");//좋아요 count 변경
+              $('.like_comment_list[data-id="<%=params[:id]%>"]').html("").append("<%= (show_like_user(@comment)).html_safe%>");// 좋아요 한 사람들 리스트 변경
+<% end %>

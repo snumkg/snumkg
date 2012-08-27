@@ -8,7 +8,6 @@
 
 .comment_like_number {
  display: inline-block;
-  width: 40px;
   
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
@@ -26,16 +25,4 @@
   color: #66f;
 }
 
-.like_comment_list {
-  border-radius: 7px;
-  padding: 3px;
-  position: fixed;
-  background: #ddd;
-  display: none;
-  font-size: 85%;
 
-  li {
-   list-style: none; 
-  }
-  
-}

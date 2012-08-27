@@ -18,15 +18,11 @@
           <%= comment.content %>  
         </span>
         <span class="comment_like_number">
-          추천<%= comment.likes.count %>
+          좋아요<%= comment.likes.count %>
         </span>
         <% if signin? %>
-          <span>
-            <% if comment.liked_by?(current_user) %>
-              <%= link_to "추천취소", unlike_comment_path(comment.id) %>
-            <% else %>
-              <%= link_to "추천하기", "/like_comment/#{comment.id}" %>
-            <% end %>
+          <span id="comment_like_box">
+            <%= render :partial => "shared/like_btn", :locals => {:obj => comment, type: "comment"} %>
           </span>
         <% end %>
         <%= link_to "삭제", comment_path(comment), method: :delete %>

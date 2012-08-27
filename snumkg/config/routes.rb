@@ -85,10 +85,10 @@ Snumkg::Application.routes.draw do
   get '/articles/password_confirmation/:group_id/:board_id/:id', :to => 'articles#password_confirmation', :as => 'article_password_confirmation'
 
   #like, unlike
-  get '/like_article/:article_id(.:format)', :to => 'likes#article', :as => 'like_article'
   get '/unlike_article/:article_id', :to => 'unlikes#article', :as => 'unlike_article'
-  get 'like_comment/:comment_id', :to => 'likes#comment', :as => 'like_comment'
   get 'unlike_comment/:comment_id', :to => 'unlikes#comment', :as => 'unlike_comment'
+  get '/like', :to => 'likes#create', :as => 'like'
+  get '/unlike', :to => 'likes#destroy', :as => 'unlike'
 
 
   #image

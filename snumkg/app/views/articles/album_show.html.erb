@@ -36,9 +36,9 @@
     <tr>
       <td>
         <% if @article.liked_by?(current_user) %>
-          <%= link_to "추천 취소", unlike_article_path(@article), :class => "unlike_article_btn" %>
+          <%= link_to "추천 취소", unlike_path(type: "article", id: @article), :class => "unlike_article_btn" %>
         <% else %>
-          <%= link_to "추천하기", like_article_path(@article), :class => "like_article_btn" %>
+          <%= link_to "추천하기", like_path(type: "article", id: @article), :class => "like_article_btn" %>
         <% end %>
         <% if current_user == @article.writer %>
           <span>

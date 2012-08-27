@@ -1,0 +1,6 @@
+<% if obj.liked_by?(current_user) %>
+  <%= render :partial => 'shared/unlike', :locals => {:type => type, id: obj.id} %>
+<% else %>
+  <%= render :partial => 'shared/like', :locals => {:type => type, id: obj.id} %>
+<% end %>
+
