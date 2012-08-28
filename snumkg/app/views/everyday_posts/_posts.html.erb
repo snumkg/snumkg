@@ -1,0 +1,4 @@
+<% for post in @posts %>
+  <%= render :partial => "everyday_posts/post", :locals => {:post => post} %>
+<% end %>
+

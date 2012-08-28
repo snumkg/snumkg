@@ -1,3 +1,17 @@
 // Place all the styles related to the everyday_posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.everyday_comment {
+  border-top: 1px solid #ccc;
+
+
+  div.comment_box {
+    
+    td {
+      border-bottom: 1px solid #ccc;
+    }
+    
+    
+  }
+}

@@ -4,7 +4,7 @@
 <% end %>
 <div id="post_wrapper">
   <div class="new_post">
-    <%= form_for(@post) do |f| %>
+    <%= form_for(@post, remote: true) do |f| %>
       <%= f.hidden_field :user_id, :value => current_user.id %>
       <%= image_tag picture_path(type: "profile", thumb: true, id: current_user.id) %><%= current_user.nickname %>
       <%= f.submit "글쓰기", class: "submit" %>
@@ -12,41 +12,6 @@
     <% end %>
   </div>
   <div class="post_list">
-    <% for post in @posts %>
-      <div class="post">
-        <div class="writer">
-          <%= render :partial => 'shared/user_menu', :locals => {:writer => post.user, :size => "40x40"} %>
-        </div>
-        <div class="show_comment">
-          <div class="post_content"><%= post.content %></div>
-          <table class="table table-condensed">
-            <% for comment in post.everyday_comments %>
-              <tr>
-                <td>
-                  <%= render :partial => 'shared/user_menu', :locals => {:writer => comment.user, :size => "20x20"} %>
-                </td>
-                <td>
-                  <%= comment.content %>
-                </td>
-              </tr>
-            <% end %>
-            <tr>
-              <td>
-                <%= image_tag picture_path(type: "profile", thumb: true, id: current_user.id), size: "20x20" %><%= current_user.nickname %>
-              </td>
-              <td>
-                <%= form_for(EverydayComment.new) do |f| %>
-                  <%= f.hidden_field :user_id, :value => current_user.id %>
-                  <%= f.hidden_field :everyday_post_id, :value => post.id %>
-                  <%= f.text_field :content, class: "span5" %>
-                  <%= f.submit "댓글달기", class: "btn btn-small" %>
-                <% end %>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    <% end %>
-
+    <%= render :partial => 'everyday_posts/posts', :locals => {:@posts => @posts} %>
   </div>
 </div>

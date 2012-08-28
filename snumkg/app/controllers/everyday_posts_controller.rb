@@ -14,10 +14,12 @@ class EverydayPostsController < ApplicationController
     @post.content = params[:everyday_post][:content]
 
     if @post.save
-      redirect_to everyday_path
+      @posts = EverydayPost.all(:order => "created_at desc")
+      respond_to do |format|
+        format.html {redirect_to everyday_path}
+        format.js
+      end
     end
-
-    
   end
 
   def destroy
