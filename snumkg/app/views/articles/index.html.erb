@@ -35,4 +35,27 @@
 	<% if current_user %>
 		<%= link_to "글쓰기", new_article_path(:group_id => params[:group_id], :board_id => params[:board_id]), :class => "btn" %>
 	<% end %>
+
+  <div class="pagination pagination-centered">
+    <ul>
+      <% page = 1 %>
+      <li><a href="#">&lt&lt</a></li>
+      <% @pages.times do %>
+        <li><%= link_to page, articles_path(group_id: params[:group_id], board_id: params[:board_id], page: page) %></li><% page = page + 1%>
+      <% end %>
+      <li><a href="#">&gt&gt</a></li>
+    </ul>
+
+  </div>
 </div>
+
+<script>
+  //Pagination을 위한 작업
+  var a = <%= params[:page]%5 %>;
+  if(a == 0){ a = 5;};
+
+  var arr = $("div.pagination ul li");
+  $(arr[a]).addClass("active");
+
+
+</script>

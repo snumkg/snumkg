@@ -18,6 +18,18 @@ class ArticlesController < ApplicationController
     @notice_index = @notices.count
     end
 
+    # Pagination
+    articles_in_page = 5 # 한 페이지에 보여주는 아티클 수
+    @pages = @articles.count%articles_in_page == 0 ? (@articles.count/articles_in_page) : (@articles.count/articles_in_page + 1)
+    remains = @articles.count%articles_in_page
+
+    if params[:page]
+      @articles = @articles[((params[:page].to_i-1)*articles_in_page)..((params[:page].to_i)*articles_in_page - 1)]
+    else
+      @articles = @articles[0..9]
+    end
+    # end of Pagination
+
     @index = @articles.count
 
     case @board.board_type

@@ -70,12 +70,15 @@ end
   #Articlet
 body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
 
+25.times do 
+  Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: 1, body: body_content, article_type: "일반")
+end
+
 for board in Board.where(:board_type => "일반")
   # 일반게시판 아티클
   Article.create(title: "공지입니당.", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type, notice: true)
   Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type)
   Article.create(title: "두번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
-  Article.create(title: "세번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
 end
   
   #앨범게시물
