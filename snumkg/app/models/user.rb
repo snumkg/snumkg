@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
   has_many :send_messages, :class_name => 'Message', :foreign_key => 'sender_id'
   has_many :receive_messages, :class_name => 'Message', :foreign_key => 'receiver_id'
 
+  #설문조사
+  has_many :votes
+  has_many :polls, :through => :votes
+
   def self.authentication(username, password)
     user = User.find_by_username(username)
     if user.blank? || Digest::SHA256.hexdigest(password + user.password_salt) != user.password_hash

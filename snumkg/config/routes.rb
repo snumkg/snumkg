@@ -99,9 +99,10 @@ Snumkg::Application.routes.draw do
   get '/cancel_attendance', :to => 'attendances#destroy', :as => 'destroy_attendance'
 
 
-  #votes
-  resources :votes
+  #polls
+  resources :polls
   resources :options, :only => [:update]
+  resources :votes, :only => [:create]
 
   #alarm
   get '/alarms', :to => 'users#alarms', :as => 'user_alarms'

@@ -143,17 +143,17 @@ class ArticlesController < ApplicationController
 
     if @article.save
 
-      #vote 저장
-      @vote = Vote.new
-      @vote.title = params[:vote_title]
-      @vote.article_id = @article.id
-      @vote.save
+      #poll 저장
+      @poll = Poll.new
+      @poll.title = params[:poll_title]
+      @poll.article_id = @article.id
+      @poll.save
 
-      unless @vote.nil?
-        params[:vote_option].each do |key,value|
+      unless @poll.nil?
+        params[:poll_option].each do |key,value|
           @option = Option.new
           @option.content = value
-          @option.vote_id = @vote
+          @option.poll_id = @poll.id
           @option.save
         end
       end

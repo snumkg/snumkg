@@ -6,9 +6,9 @@
   <%= f.label :title, '제목' %>
   <%= f.text_field :title %>
   <%= f.check_box :notice, {}, true, false %>공지
-  <a id="vote_btn" href="#" class="btn">투표</a>
-  <div class="vote_hidden_box hidden"></div>
-  <div class="vote_box"></div>
+  <a id="poll_btn" href="#" class="btn">설문조사</a>
+  <div class="poll_hidden_box hidden"></div>
+  <div class="poll_box"></div>
   <%= hidden_field_tag :article_type, @board.board_type %>
   <%= f.label :body, '내용' %>
   <%= f.text_area :body, class: "redactor_content" %>
@@ -19,7 +19,7 @@
 
 
 <script>
-  $("#vote_btn").click(function(){
-    window.open("/votes/new","child","width=600, height=600"); 
+  $("#poll_btn").click(function(){
+    window.open("/polls/new","child","width=600, height=600"); 
   });
 </script>

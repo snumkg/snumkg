@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830113945) do
+ActiveRecord::Schema.define(:version => 20120830151344) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -124,8 +124,7 @@ ActiveRecord::Schema.define(:version => 20120830113945) do
 
   create_table "options", :force => true do |t|
     t.string   "content"
-    t.integer  "vote_id"
-    t.integer  "count"
+    t.integer  "poll_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -140,6 +139,13 @@ ActiveRecord::Schema.define(:version => 20120830113945) do
     t.integer  "article_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "polls", :force => true do |t|
+    t.string   "title"
+    t.integer  "article_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "profiles", :force => true do |t|
@@ -170,8 +176,9 @@ ActiveRecord::Schema.define(:version => 20120830113945) do
   end
 
   create_table "votes", :force => true do |t|
-    t.string   "title"
-    t.integer  "article_id"
+    t.integer  "user_id"
+    t.integer  "poll_id"
+    t.integer  "option_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

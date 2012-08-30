@@ -7,9 +7,10 @@
       <span class="article_writer">작성자:<%= @article.writer.nickname%> </span>
     </td>
   </tr>
-  <% unless @article.vote.nil? %>
+  <!-- 설문조사 박스-->
+  <% unless @article.poll.nil? %>
   <tr>
-    <td><%= render :partial => 'votes/show', :locals => {:@vote => @article.vote} %></td>
+    <td><%= render :partial => 'polls/show', :locals => {:@poll => @article.poll} %></td>
   </tr>
   <% end %>
   <tr>
