@@ -1,0 +1,22 @@
+<div id="vote_form">
+  <%= text_field_tag "vote_title", nil, :placeholder => "투표 제목을 입력하세요.." %>
+  <a href="#" id="add_option" class="btn">옵션추가</a>
+  <div class="option_box">
+    <%= text_field_tag "vote_option[0]" %><br />
+  </div>
+
+</div>
+<a href="#" id="close" class="btn">투표 생성</a>
+<script>
+  $("#add_option").click(function(){
+    var options = $(".option_box input");
+    var num = options.length;
+    $(".option_box").append('<input id="vote_option_'+num+'" name="vote_option['+num+']" type="text"></input><br />');
+  });
+
+  $("#close").click(function(){
+    $(window.opener.document).find(".vote_box").append($("#vote_form")); 
+    window.close();
+  });
+  
+</script>

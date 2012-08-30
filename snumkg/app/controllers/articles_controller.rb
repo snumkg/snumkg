@@ -19,7 +19,11 @@ class ArticlesController < ApplicationController
     end
 
     # Pagination
-    pagination(@articles, 5)
+    if @board.board_type == "앨범"
+      pagination(@articles, 6)
+    else
+      pagination(@articles, 5)
+    end
 
     # end of Pagination
 
@@ -129,6 +133,7 @@ class ArticlesController < ApplicationController
     @article.date = params[:article][:date].to_datetime unless params[:article][:date].nil? #소꼬지 일정 저장
     @article.board_id = @board.id
 
+
     #익명게시물일 경우 유저 아이디를 저장하지 않음.
     if @article.article_type != "익명"
       @article.user_id = session[:user_id]
@@ -137,6 +142,21 @@ class ArticlesController < ApplicationController
     end
 
     if @article.save
+
+      #vote 저장
+      @vote = Vote.new
+      @vote.title = params[:vote_title]
+      @vote.article_id = @article.id
+      @vote.save
+
+      unless @vote.nil?
+        params[:vote_option].each do |key,value|
+          @option = Option.new
+          @option.content = value
+          @option.vote_id = @vote
+          @option.save
+        end
+      end
 
       if @article.article_type == "앨범" # 앨범게시물일 경우.
         # 이미지와 아티클 연결지어주기 
@@ -151,7 +171,7 @@ class ArticlesController < ApplicationController
 
       end
 
-      redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id])
+      redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id], page: 1)
     else
       case params[:article_type]
       when "일반"
@@ -173,7 +193,7 @@ class ArticlesController < ApplicationController
     if @article.article_type == "익명" # 익명게시물 삭제시
       if !@article.authentication(params[:password])
         flash[:error] = "비밀번호가 일치하지 않습니다."
-        redirect_to article_path(:group_id => params[:group_id], :board_id => params[:board_id], id: params[:id])
+        redirect_to article_path(:group_id => params[:group_id], :board_id => params[:board_id], id: params[:id], page: 1)
         return
       end
       @article.destroy
@@ -181,7 +201,7 @@ class ArticlesController < ApplicationController
       @article.destroy
     end
 
-    redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id])
+    redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id], page: 1)
   end
 
   def password_confirmation

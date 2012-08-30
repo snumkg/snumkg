@@ -36,7 +36,9 @@
       </div>
     </div>
     <% if current_user == comment.writer %>
-      <%= link_to "삭제", comment_path(comment), method: "delete", confirm: "댓글을 삭제하시겠습니까?" %>
+      <div class="right">
+        <a href="<%=comment_path(comment)%>" data-method="delete"><i class="icon-remove"></i></a>
+      </div>
     <% end %>
   </td>
 </tr>

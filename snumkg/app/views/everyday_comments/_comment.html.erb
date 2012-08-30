@@ -5,5 +5,10 @@
   <td>
     <%= comment.content %>
   </td>
+  <% if current_user == comment.user %>
+    <td>
+      <a href="<%=everyday_comment_path(id: comment, page: params[:page]) %>" data-method="delete"><i class="icon-remove"></i></a>
+    </td>
+  <% end %>
 </tr>
 

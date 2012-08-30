@@ -1,0 +1,8 @@
+<div class="show_vote">
+  <h4><%= @vote.title %></h4>
+  <%= form_tag(option_path, method: :put) do %>
+    <% for option in @vote.options %>
+      <input type="radio" name="option" value="<%=option.id%>"><%= option.content %></input>
+    <% end %>
+  <% end %>
+</div>

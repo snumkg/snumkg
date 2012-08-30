@@ -54,8 +54,8 @@ class ApplicationController < ActionController::Base
     alarm.destroy unless alarm.nil?
   end
 
-  def pagination(articles, articles_in_page)
-    articles_in_page = 5 # 한 페이지에 보여주는 아티클 수
+  def pagination(articles, num)
+    articles_in_page = num # 한 페이지에 보여주는 아티클 수
     @pages = articles.count%articles_in_page == 0 ? (articles.count/articles_in_page) : (articles.count/articles_in_page + 1)
     remains = articles.count%articles_in_page
     @start_page = params[:page].to_i%5 == 0 ? ((params[:page].to_i/5)-1)*5 + 1 : (params[:page].to_i/5)*5 + 1

@@ -7,6 +7,11 @@
       <span class="article_writer">작성자:<%= @article.writer.nickname%> </span>
     </td>
   </tr>
+  <% unless @article.vote.nil? %>
+  <tr>
+    <td><%= render :partial => 'votes/show', :locals => {:@vote => @article.vote} %></td>
+  </tr>
+  <% end %>
   <tr>
     <td><div id="article_body"><%= @article.body.html_safe %></div></td>
   </tr>

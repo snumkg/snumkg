@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823092154) do
+ActiveRecord::Schema.define(:version => 20120830113945) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -122,6 +122,14 @@ ActiveRecord::Schema.define(:version => 20120823092154) do
     t.datetime "updated_at",                     :null => false
   end
 
+  create_table "options", :force => true do |t|
+    t.string   "content"
+    t.integer  "vote_id"
+    t.integer  "count"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "pictures", :force => true do |t|
     t.string   "full_path"
     t.string   "size"
@@ -159,6 +167,13 @@ ActiveRecord::Schema.define(:version => 20120823092154) do
     t.datetime "updated_at",                                :null => false
     t.boolean  "is_phone_number_public", :default => true
     t.boolean  "contact",                :default => false
+  end
+
+  create_table "votes", :force => true do |t|
+    t.string   "title"
+    t.integer  "article_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
