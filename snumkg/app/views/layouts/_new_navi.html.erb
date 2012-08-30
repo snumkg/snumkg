@@ -92,7 +92,7 @@
 			</a>
 			</li>
 			<li>
-			<a href="<%= everyday_path %>">
+			<a href="<%= everyday_path(page: 1) %>">
 				<%= image_tag "snumkg_main/navigation_day_by_day.png", alt: "매일매일"%>
 				<% if EverydayPost.new_post? %>
 					<%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>

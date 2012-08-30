@@ -1,23 +1,57 @@
 <div class="pagination pagination-centered">
   <ul>
-    <% if @start_page == 1 %>
-      <!-- 시작 페이지가 1일때, 넘어가기 기능 disabled-->
-      <li class="disabled"><a href="#">&lt&lt</a></li>
-    <% else %>
-      <li><a href="<%= articles_path(group_id: params[:group_id], board_id: params[:board_id], page: (@start_page - 1)) %>">&lt&lt</a></li>
-    <% end %>
-    <!-- pagination -->
-    <% until @start_page > @end_page do %>
-      <li><%= link_to @start_page, articles_path(group_id: params[:group_id], board_id: params[:board_id], page: @start_page) %></li>
-      <% @start_page += 1 %>
-    <% end %>
-    <!-- 끝 페이지일때, 넘어가기 기능 disabled -->
-    <% if @end_page == @pages %>
-      <li class="disabled"><a href="#">&gt&gt</a></li>
-    <% else %>
-      <li><a href="<%= articles_path(group_id: params[:group_id], board_id: params[:board_id], page: @start_page)%>">&gt&gt</a></li>
+    <% case type %>
+    <% when "everyday_posts" %>
+      <% if @start_page == 1 %>
+        <!-- 시작 페이지가 1일때, 넘어가기 기능 disabled-->
+        <li class="disabled"><a href="#">&lt&lt</a></li>
+      <% else %>
+        <li><a href="<%= everyday_path(page: (@start_page - 1)) %>">&lt&lt</a></li>
+      <% end %>
+      <!-- pagination -->
+      <% until @start_page > @end_page do %>
+        <li><%= link_to @start_page, everyday_path(page: @start_page) %></li>
+        <% @start_page += 1 %>
+      <% end %>
+      <!-- 끝 페이지일때, 넘어가기 기능 disabled -->
+      <% if @end_page == @pages %>
+        <li class="disabled"><a href="#">&gt&gt</a></li>
+      <% else %>
+        <li><a href="<%= everyday_path(page: @start_page)%>">&gt&gt</a></li>
+      <% end %>
+
+    <% when "articles"%>
+      <% if @start_page == 1 %>
+        <!-- 시작 페이지가 1일때, 넘어가기 기능 disabled-->
+        <li class="disabled"><a href="#">&lt&lt</a></li>
+      <% else %>
+        <li><a href="<%= articles_path(group_id: params[:group_id], board_id: params[:board_id], page: (@start_page - 1)) %>">&lt&lt</a></li>
+      <% end %>
+      <!-- pagination -->
+      <% until @start_page > @end_page do %>
+        <li><%= link_to @start_page, articles_path(group_id: params[:group_id], board_id: params[:board_id], page: @start_page) %></li>
+        <% @start_page += 1 %>
+      <% end %>
+      <!-- 끝 페이지일때, 넘어가기 기능 disabled -->
+      <% if @end_page == @pages %>
+        <li class="disabled"><a href="#">&gt&gt</a></li>
+      <% else %>
+        <li><a href="<%= articles_path(group_id: params[:group_id], board_id: params[:board_id], page: @start_page)%>">&gt&gt</a></li>
+      <% end %>
     <% end %>
   </ul>
 
 </div>
 
+
+
+<script>
+  //Pagination을 위한 작업
+  var a = <%= params[:page]%5 %>;
+  if(a == 0){ a = 5;};
+
+  var arr = $("div.pagination ul li");
+  $(arr[a]).addClass("active");
+
+
+</script>

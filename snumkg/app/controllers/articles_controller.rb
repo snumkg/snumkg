@@ -19,17 +19,8 @@ class ArticlesController < ApplicationController
     end
 
     # Pagination
-    articles_in_page = 5 # 한 페이지에 보여주는 아티클 수
-    @pages = @articles.count%articles_in_page == 0 ? (@articles.count/articles_in_page) : (@articles.count/articles_in_page + 1)
-    remains = @articles.count%articles_in_page
-    @start_page = params[:page].to_i%5 == 0 ? ((params[:page].to_i/5)-1)*5 + 1 : (params[:page].to_i/5)*5 + 1
-    @end_page = @start_page + 4 < @pages ? @start_page + 4 : @pages
+    pagination(@articles, 5)
 
-    if params[:page]
-      @articles = @articles[((params[:page].to_i-1)*articles_in_page)..((params[:page].to_i)*articles_in_page - 1)]
-    else
-      @articles = @articles[0..9]
-    end
     # end of Pagination
 
     @index = @articles.count

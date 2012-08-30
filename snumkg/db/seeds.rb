@@ -108,7 +108,7 @@ end
 
   #매일매일
 
-  3.times do 
+  10.times do 
     EverydayPost.create(content: "여러분 방가방가 ㅋㄷㅋㄷㅋㄷ 쿄쿜", user_id: random_number(1,User.all.count))
   end
 

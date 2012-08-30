@@ -6,6 +6,8 @@ class EverydayPostsController < ApplicationController
     @posts = EverydayPost.all(:order => "created_at desc")
     @post = EverydayPost.new
     
+    # Pagination
+    pagination(@posts, 5)
   end
 
   def create
