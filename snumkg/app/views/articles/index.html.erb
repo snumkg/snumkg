@@ -36,17 +36,8 @@
 		<%= link_to "글쓰기", new_article_path(:group_id => params[:group_id], :board_id => params[:board_id]), :class => "btn" %>
 	<% end %>
 
-  <div class="pagination pagination-centered">
-    <ul>
-      <% page = 1 %>
-      <li><a href="#">&lt&lt</a></li>
-      <% @pages.times do %>
-        <li><%= link_to page, articles_path(group_id: params[:group_id], board_id: params[:board_id], page: page) %></li><% page = page + 1%>
-      <% end %>
-      <li><a href="#">&gt&gt</a></li>
-    </ul>
+  <%= render :partial => 'shared/pagination', :locals => {:@start_page => @start_page, :@end_page => @end_page} %>
 
-  </div>
 </div>
 
 <script>

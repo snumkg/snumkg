@@ -94,6 +94,8 @@
   <% end %>
 </div>
 
+<%= render :partial => 'shared/pagination', :locals => {:@start_page => @start_page, :@end_page => @end_page} %>
+
 <script>
   
   $(".image_box").hover(function(){
