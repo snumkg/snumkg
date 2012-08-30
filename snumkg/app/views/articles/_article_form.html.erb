@@ -22,4 +22,10 @@
   $("#poll_btn").click(function(){
     window.open("/polls/new","child","width=600, height=600"); 
   });
+
+  $("div.poll_box a").click(function(){
+    $("div.poll_hidden_box").html(" ");
+    $("div.poll_box").html(" ");
+
+  });
 </script>

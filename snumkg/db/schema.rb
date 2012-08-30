@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20120830151344) do
   create_table "polls", :force => true do |t|
     t.string   "title"
     t.integer  "article_id"
+    t.string   "poll_type"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

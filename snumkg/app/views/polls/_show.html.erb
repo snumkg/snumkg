@@ -2,15 +2,22 @@
   <h4><%= @poll.title %> | 총 투표수: <%= @poll.votes.count %></h4>
 
   <% if @poll.users.find_by_id(current_user.id) %>
-    <% for option in @poll.options %>
-      <%= option.content %> | 투표수: <%= option.votes.count %><br/>
-    <% end %>
-    투표하셨습니다.
-  <% else %>
-    <%= form_tag(votes_path) do %>
+    <% case @poll.poll_type %>
+    <% when "일반" %>
       <% for option in @poll.options %>
-        <input type="radio" name="option" value="<%=option.id%>"><%= option.content %></input>
+        <%= option.content %> | 투표자: <%= (option.votes.map {|v| v.user.nickname}).join(",") %> | 투표수 <%= option.votes.count %> <br/>
       <% end %>
+    <% when "익명" %>
+      <% for option in @poll.options %>
+        <%= option.content %> | 투표수: <%= option.votes.count %><br/>
+      <% end %>
+      투표하셨습니다.
+    <% end %>
+  <% else %>
+      <%= form_tag(votes_path) do %>
+        <% for option in @poll.options %>
+          <input type="radio" name="option" value="<%=option.id%>"><%= option.content %></input>
+        <% end %>
       <%= submit_tag "투표하기" %>
     <% end %>
   <% end %>

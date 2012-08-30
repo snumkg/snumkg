@@ -147,6 +147,7 @@ class ArticlesController < ApplicationController
       @poll = Poll.new
       @poll.title = params[:poll_title]
       @poll.article_id = @article.id
+      @poll.poll_type = params[:poll_type]
       @poll.save
 
       unless @poll.nil?
