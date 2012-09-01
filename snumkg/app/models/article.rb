@@ -41,4 +41,21 @@ class Article < ActiveRecord::Base
     self.password_salt, self.password_hash = salt, Digest::SHA256.hexdigest(pass.to_s + salt)
   end
 
+	#지금 기준으로 언제 쓰여졌는지 리턴
+  def relative_time
+  	diff = (Time.now - self.created_at).to_i
+  	
+  	if diff < 60
+  		"방금 전"
+		elsif diff < 3600
+			"#{diff/60}분 전"
+		elsif diff < 86400
+			"#{diff/3600}시간 전"
+		elsif diff < 86400 * 4
+			"#{diff/86400}일 전"
+		else
+			self.created_at.strftime("%m-%d")
+		end
+	end
+
 end

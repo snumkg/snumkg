@@ -3,7 +3,7 @@
   <% case a.class.to_s %>
   <% when "Article" %>
 		<li>
-		<%= user_profile_tag(a.writer, :small => true) %>님이 <%= link_to  a.title, article_path(group_id: a.board.group.id, board_id: a.board.id, id: a.id) %> 글을 작성하셨습니다.
+		<%= user_profile_tag(a.writer, :small => true) %>님이 <%= a.relative_time %>에 <%= link_to  a.title, article_path(group_id: a.board.group.id, board_id: a.board.id, id: a.id) %> 글을 작성하셨습니다.
 		<div class="newsfeed-article">
 			<%= raw a.body %>
 		</div>
