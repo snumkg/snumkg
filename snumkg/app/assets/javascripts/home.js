@@ -1,61 +1,40 @@
 $(function(){
-	$('#error_message').modal({
-		show: true
+	//최근사진 보기 화살표 위로
+	$('#photo_navigation_up_button').click(function(){
+		var selected = $('#main_picture_navigation .photo.selected');
+		//선택된 사진이 첫 번째 사진이면
+		if (selected.is($('#main_picture_navigation .photo').first())){
+			$('#main_picture_navigation .photo').last().trigger('click');
+		}
+		else {
+			selected.prev().trigger('click');
+		}
+		return false;
 	});
-
-
- // 다른 영역을 클릭했을 때 hidden 되도록
- // e.stopPropagation()을 이용하여 구현
- // login_box, name_info 보여주기.숨기기 
-	$(document).click(function(e){
-		var name = $('.user_menu[visibility="visible"]');
-		var login = $('.login_box[visibility="visible"]');
-		var alarm_list = $("#alarm_list");
-		var search_list = $("#search_list");
-		$(name).css("visibility","hidden");
-		$(login[0]).css("visibility","hidden");
-		$(alarm_list).hide();
-		$(search_list).hide();
-
+	$('#photo_navigation_down_button').click(function(){
+		var selected = $('#main_picture_navigation .photo.selected');
+		//선택된 사진이 마지막 사진이면
+		if (selected.is($('#main_picture_navigation .photo').last())){
+			$('#main_picture_navigation .photo').first().trigger('click');
+		}
+		else {
+			selected.next().trigger('click');
+		}
+		return false;
 	});
+	//그림 클릭하면 해당그림으로 변경
+	$('#main_picture_navigation .photo').click(function(){
+		$('#main_picture_navigation .selected').removeClass('selected');
+		var ele = $(this).addClass('selected');
 
-  $('.user').click(function(e){
-		e.stopPropagation();
-
-    $(this).next().css("visibility","visible")
-									.attr("visibility","visible");
-  });
-
-	$('.user_menu').click(function(e){
-		e.stopPropagation();
-	});
-
-	$('.login_box').click(function(e){
-		e.stopPropagation();
-	});
-
-	$('.login').click(function(e){
-		e.stopPropagation();
-
-		$(this).next().css("visibility","visible")
-		.css("top", e.pageY + 20)
-		.attr("visibility","visible");
-
-
-	});
-	//sub_menu drop down
-	//
-	
-	$('#menu ul > li > a').mouseenter(function(){
-
-		$(this).next().slideDown('fast');
-	
+		var current_image = $('#main_picture_screen_image img');
+		var link = $('#main_picture_screen_image a').attr('href', ele.attr('href'));
+		var new_image = $('<img />').attr('src', ele.attr('src')).appendTo(link).addClass('screen_image');
+		current_image.fadeOut(500, function(){
+			$(this).remove();
+		});
+		new_image.fadeIn(500);
+		$('#main_picture_screen_title').text(ele.attr('title'));
 	});
 	
-	$('#menu ul > li').mouseleave(function(){
-		$(this).find('.sub_menu').css("display","none")
-	});
-
 });
-
-

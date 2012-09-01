@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830151344) do
+ActiveRecord::Schema.define(:version => 20120901162211) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -137,8 +137,10 @@ ActiveRecord::Schema.define(:version => 20120830151344) do
     t.string   "thumb_path"
     t.string   "thumbnail_url"
     t.integer  "article_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "main_thumb_path"
+    t.string   "main_thumb_url"
   end
 
   create_table "polls", :force => true do |t|

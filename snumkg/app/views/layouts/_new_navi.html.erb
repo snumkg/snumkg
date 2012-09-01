@@ -10,13 +10,13 @@
 			<% if current_user.message_count > 0 %>
 				<div class="absolute"><div class="alarm-count"><%= current_user.message_count %></div></div>
 			<% end %>
-			<%= link_to image_tag("snumkg_main/icon_message.png", alt: "메시지"), messages_path(type: "receive") %>
+			<%= link_to image_tag("main/icon_message.png", alt: "메시지"), messages_path(type: "receive") %>
 			</li>
 			<li class="top_nav_li1 notification">
 			<% if current_user.new_alarm_count > 0 %>
 				<div class="absolute"><div class="alarm-count"><%= current_user.new_alarm_count %></div></div>
 			<% end %>
-			<%= link_to image_tag("snumkg_main/icon_notification.png", alt: "알림"), "#", :id => "alarm_link", "data-remote" => true %>
+			<%= link_to image_tag("main/icon_notification.png", alt: "알림"), "#", :id => "alarm_link", "data-remote" => true %>
 			<div id="alarm_list_box">
 				<div id="loading-image">
 					<%= image_tag "loading.gif", alt: "로딩", size: "30x30" %>
@@ -31,11 +31,11 @@
 				<tr>
 					<td><%= image_tag picture_path(type: "profile", id: current_user.id, :thumb => "thumb"), :size => "25x25" %></td>
 					<td><%= link_to current_user.nickname, profile_path(current_user), class: "up" %>님 09학번</td>
-					<td><%= link_to image_tag("snumkg_main/icon_setting.png") %></td>
+					<td><%= link_to image_tag("main/icon_setting.png") %></td>
 				</tr>
 			</table>
 			</li>
-			<li class="top_nav_li1 logout"><%= link_to image_tag("snumkg_main/button_logout.png"), signout_path %></li>
+			<li class="top_nav_li1 logout"><%= link_to image_tag("main/button_logout.png"), signout_path %></li>
 		</ul>
 	<% else %>
 		<ul id="top_nav_ul2">
@@ -58,16 +58,16 @@
 		<ul>
 			<li>
 			<a href="<%= group_path(1) %>">
-				<%= image_tag 'snumkg_main/navigation_all.png', alt: "누구나"%>
+				<%= image_tag 'main/navigation_all.png', alt: "누구나"%>
 				<% if @anyone_group.new_article? %>
-					<%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>
+					<%= image_tag 'main/new.png', alt: "new", class: "new" %>
 				<% end %>
 			</a>
 			</li>
 			<li>
 			<div class="dropdown">
 				<a href="#" class="dropdown-toggle">
-					<%= image_tag "snumkg_main/navigation_hakbeon.png", alt: "학번별 공간" %>
+					<%= image_tag "main/navigation_hakbeon.png", alt: "학번별 공간" %>
 				</a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 					<li>
@@ -85,22 +85,22 @@
 			</li>
 			<li>
 			<a href="<%= sokkoji_path %>">
-				<%= image_tag "snumkg_main/navigation_sokkogi.png", alt: "소꼬지" %>
+				<%= image_tag "main/navigation_sokkogi.png", alt: "소꼬지" %>
 				<% if @sokkoji_group.new_article? %>
-					<%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>
+					<%= image_tag 'main/new.png', alt: "new", class: "new" %>
 				<% end %>
 			</a>
 			</li>
 			<li>
 			<a href="<%= everyday_path(page: 1) %>">
-				<%= image_tag "snumkg_main/navigation_day_by_day.png", alt: "매일매일"%>
+				<%= image_tag "main/navigation_day_by_day.png", alt: "매일매일"%>
 				<% if EverydayPost.new_post? %>
-					<%= image_tag 'snumkg_main/new.png', alt: "new", class: "new" %>
+					<%= image_tag 'main/new.png', alt: "new", class: "new" %>
 				<% end %>
 			</a>
 			</li>
 			<li>
-			<%= link_to (image_tag 'snumkg_main/navigation_chatting.png', alt: "채팅"), "#", :onclick => "window.open('/chat','chat','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=820,height=620');" %>
+			<%= link_to (image_tag 'main/navigation_chatting.png', alt: "채팅"), "#", :onclick => "window.open('/chat','chat','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=820,height=620');" %>
 			</li>
 		</ul>
 	</div>

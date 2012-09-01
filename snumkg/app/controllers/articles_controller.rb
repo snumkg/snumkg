@@ -151,7 +151,7 @@ class ArticlesController < ApplicationController
       @poll.save
 
       unless @poll.nil?
-        params[:poll_option].each do |key,value|
+        params[:poll_option].to_a.each do |key,value|
           @option = Option.new
           @option.content = value
           @option.poll_id = @poll.id

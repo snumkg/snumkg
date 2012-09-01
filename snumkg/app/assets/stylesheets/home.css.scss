@@ -1,288 +1,41 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-@import "bootstrap";
-
-@mixin border($px) {
-
-  border-radius: $px;
-  -moz-border-radius: $px;
-  -webkit-border-radius: $px;
+#main_container {
+	margin-top: 2em;
 }
 
-//global class
+#main_column_1 {float:left;width:440px;margin:10px;margin-left:55px;}
+#main_column_2 {float:left;width:440px;margin:10px;}
 
-.hidden {display: none;}
-.left {float:left;}
-.red {color: #F90A5D;}
-.green {color: #14A46D;}
-.small {font-size: 90%;} 
-.clear {clear: both;}
-.absolute {position:absolute;}
-.center {position: relative; margin: 0 auto;}
-
-.user_alarm {
-
-  span {
-    color: red;
-    font-weight: bold;
-  }
+div.main_board div.board {
+	margin: 1em 0 1em 0;
 }
 
-.comment_number {
-
-  font-size: 80%;
-  color: red;
+div.main_board div.board div.header {
+	width: 100%;
+	border-bottom: 3px solid #E0DADA;
 }
 
-body {font-family:"맑은 고딕"}
-
-
-//wrapper
-#wrapper {
-  width: 1000px;
-  margin: auto;
-}
-
-#top_navigation {
-	height:40px;position:fixed;top:0;background-color:white;z-index:100;padding-top:15px;
-	width:1000px;
-	#top_nav_ul1 {
-		float:right;
-		height:100%;
-		margin:0;padding:0;
-		margin-right:20px;
-		.top_nav_li1 {list-style:none;float:left;margin-left:5px;}
-		.top_nav_li1.message {width:30px;}
-		.top_nav_li1.notification {width:30px;}
-		.top_nav_li1.level {width:23px;height:25px;background-image:url("/assets/snumkg_main/icon_level.png");background-repeat:no-repeat;color:white;font-size:11pt;text-align:center;padding-top:2px;}
-		.top_nav_li1.profile {
-			margin-left:10px;
-			a {color:#333;text-decoration:none;font-size:11pt;}
-			font-size:10pt;
-		}
-		.top_nav_li1.logout {margin-left:10px;}
-
-		.alarm-count {position:relative;width:15px;height:15px;background-color:#fc4783;color:white;font-size:12px;font-weight:bold;padding:0;text-align:center;top:-5px;left:-5px;}
-
-		//alarm list
-		#alarm_list {
-			background: white;
-			width: 330px;
-			min-height: 50px;
-			border: 1px solid black;
-			font-size: 90%;
-			text-align: left;
-			margin:0;
-			overflow: auto;
-			> li {
-				width: 100%;
-				height: 30px;
-				border-bottom: 1px solid gray;
-				> a {
-					position: relative;
-					top: -4px;
-					color: black;
-				}
-				> a:visited {
-					color: gray;
-				}
-			}
-
-			> li:last-child {
-				border-bottom: 0
-			}
+div#event_list {
+	margin-top: 1em;
+	ul {
+		list-style: none;
+		li a {
+			color: #F94172;
 		}
 	}
+}
 
-	#top_nav_ul2 {
-		float:right;
-		height:100%;
-		margin:0;padding:0;
-		margin-right:20px;
-		.top_nav_li1 {list-style:none;float:left;margin-left:5px;}
+#main_picture_screen {
+	float:left;border:1px solid #ddd;width:315px;height:355px;overflow:hidden;margin-right:5px;
+	#main_picture_screen_title {position:absolute;background-color:black;color:white;opacity:0.6;width:309px;padding:3px;z-index:100;}
+.screen_image {position:absolute;}
+}
+#main_picture_navigation {
+	float:left;height:360px;width:60px;margin-left:20px;margin-top:7px;
+	ul {
+		list-style:none;margin:0;
+		li {text-align:center;width:60px;margin-bottom:2px;}
+		li.arrow {border:3px solid white;}
+		li.photo {height:60px;border:3px solid white;cursor:pointer;}
+		li.photo.selected {border:3px solid #f66;}
 	}
-}
-
-#loading-image {
-	z-index: 3;
-	position: absolute;
-	left: 150px;
-	top: 10px;
-	display: none;
-}
-#alarm_list_box {
-	position: relative;
-}
-#nav_container img.new {
-	position: relative;
-	top: -10px;
-}
-#search_list {
-	position: relative;
-	top: -10px;
-	left: 13px;
-	width: 176px;
-	min-height: 100px;
-	border: 1px solid black;
-	background: white;
-	display: none;
-}
-#search_list ul {
-	margin: 0;
-	padding: 0;
-	text-align: left;
-}
-
-#main_navigation {
-	margin-top:60px;height:40px;
-	margin-bottom:10px;
-	border-bottom:3px solid #ccc;
-}
-
-//sidebar
-#tab_sidebar {
-  float: left;
-  margin-right: 1em;
-  > ul {
-    list-style: none;
-    margin: 0;
-    width: 200px;
-    border: 1px solid #aaa;
-  }
-}
-
-//navigation menu
-#logo_box {
-  width: 142px;
-	height: 22px;
-  position: absolute;
-  background: #3BDCB7;
-  font-weight: bold;
-  font-size: 200%;
-  text-align: center;
-	padding:5px;
-  a {color: white;text-decoration:none;}
-}
-
-
-#nav_container {
-  position: relative;
-  height: 35px;
-  border-bottom: 3px solid #E0DADA;
-  margin-bottom: 10px;
-  padding: 2px;
-}
-
-
-//search_box
-#search_box {
-  width: 210px;
-  
-	button {
-		margin: 0;
-		position: relative;
-		top: -3px;
-  }
-}
-
-
-
-//menu bar
-#menu {
-  position: relative;
-  left: 150px;
-  text-align: center;
-  background: white;
-
-  ul > li {
-    width: 16%;
-    height: 30px;
-    list-style: none; display: inline-block;
-    float: left;
-     a {
-      position: relative;
-      font-size: 97%;
-      color: #555;
-      letter-spacing: 3px;
-      font-weight: bold;
-    }
-
-    a:hover {
-      text-decoration: none;
-      color: #222324;
-    }
-    ul.dropdown-menu {
-      width: 150px;
-      li {
-        width: 100%;
-        a {
-          font-size: 95%;
-        } 
-      }
-
-    }
-  }
-}
-
-
-//content
-//
-#content {
-  float: left;
-  width: 760px; 
-} 
-#footer {
-  clear: both;
-}
-
-
-// user menu 
-.user {
-  cursor: pointer;
-}
-
-.user_menu {
- visibility: hidden;
- position: absolute;
- z-index: 2;
- background: white;
-
- li {
-  list-style: none;
- }
-}
-
-
-// hidden login_box
-ul li ul {
-  list-style: none;
-}
-
-.login_box {
-  position: absolute;
-  visibility: hidden;
-  background: white;
-  border:1px solid #ddd;
-}
-
-//newsfeed
-#newsfeed {
-	margin:0;	
-	.newsfeed-article {
-		background-color:#eee;border:1px solid #ccc;padding:5px;margin:10px 30px;
-	}
-	li {margin:0;margin-bottom:20px;list-style:none;border-bottom:1px solid #ccc;padding-bottom:10px;}
-}
-
-
-#footer {
-  width: 100%;
-  border-top: 2px solid #C2BBBD;
-  margin-top: 1em;
-  text-align: center;
-  padding: 15px 0;
-  color: #967279;
-  font-weight: bold;
 }

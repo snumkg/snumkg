@@ -1,11 +1,11 @@
 #encoding: utf-8
-
 require 'RMagick'
 include Magick
 
 class PicturesController < ApplicationController
 
   def create
+		@user = current_user
     case params[:type]
     when "profile"
       if params[:image].nil?
@@ -13,11 +13,11 @@ class PicturesController < ApplicationController
         redirect_to :back
         return
       end
-      name = params[:image].original_filename
-      directory = File.join(Rails.root,'app/assets/images/profile/'+current_user.username)
-      full_path = File.join(directory,name)
-      thumbnail_path = File.join(directory,"t_"+name)
 
+      name = params[:image].original_filename
+      directory = File.join(Rails.root,'app/assets/images/profile/'+@user.username)
+      full_path = File.join(directory, name)
+      thumbnail_path = File.join(directory,"thumb_"+name)
 
       if !File.directory?(directory)
         Dir.mkdir(directory)
@@ -33,30 +33,26 @@ class PicturesController < ApplicationController
       #작은 크기에 맞게 잘라줘서
       #resizing
       image = ImageList.new(full_path);
-      width = image.columns
-      height = image.rows
-      if (width > height)
-        thumbnail = image.crop((width/2) - (height/2), 0, height, height)
-      else
-        thumbnail = image.crop(0,(height/2) - (width/2), width, width)
-      end
-
-      thumbnail.thumbnail!(30,30)
+      thumbnail = image.thumbnail_center(30, 30)
       thumbnail.write(thumbnail_path)
 
-      current_user.update_attribute(:profile_image_path,full_path)
-      current_user.update_attribute(:thumbnail_image_path, thumbnail_path)
+      @user.password = @user.password_confirmation = 'asdfgh'
+      @user.update_attributes({
+        :profile_image_path => full_path,
+        :thumbnail_image_path => thumbnail_path
+      })
 
       flash[:success] = "프로필 사진이 성공적으로 등록되었습니다."
-      redirect_to profile_path(current_user)
+      redirect_to profile_path(@user)
     when "album"
       p = params[:files].first
       @picture = Picture.new
       name = p.original_filename
       @picture.name = p.original_filename
-      directory = File.join(Rails.root,'images/articles/',current_user.username,Time.now.strftime("%y_%m_%d_%H_%M"))
+      directory = File.join(Rails.root,'images/articles/', @user.username, Time.now.strftime("%y%m%d_%H%M"))
       @picture.full_path = full_path = File.join(directory,name)
-      @picture.thumb_path = thumbnail_path = File.join(directory,"t_"+name)
+      @picture.thumb_path = thumbnail_path = File.join(directory,"thumb_"+name)
+      @picture.main_thumb_path = main_thumb_path = File.join(directory,"main_thumb_"+name)
 
       # 폴더가 없을 시에 폴더를 만들어줌. recursive하게
       if !File.directory?(directory)
@@ -70,19 +66,22 @@ class PicturesController < ApplicationController
 
       # index에서 보여주기 위한 앨범 썸네일 저장
       image = ImageList.new(full_path);
-      image.resize_to_fill!(220)
-      image.write(thumbnail_path)
+      thumbnail = image.thumbnail_center(220, 220)
+      thumbnail.write(thumbnail_path)
 
+			#메인 슬라이드쇼 앨범 섬네일
+      main_thumbnail = image.thumbnail_center(315, 355)
+      main_thumbnail.write(main_thumb_path)
 
       if @picture.save
         @picture.url = picture_path(type: "album", id: @picture.id)
-        @picture.thumbnail_url =  picture_path(type: "album", thumb: "true", id: @picture.id)
+        @picture.thumbnail_url = picture_path(type: "album", thumb: "true", id: @picture.id)
+        @picture.main_thumb_url = picture_path(type: "album", main_thumb: "true", id: @picture.id)
         @picture.save
         render :json => [@picture.to_jq_upload].to_json
       end
 
     end
-
 
   end
 
@@ -96,25 +95,27 @@ class PicturesController < ApplicationController
 
       if params[:thumb].nil?  # 프로필 이미지 보여주기
         if user.profile_image_path.nil? # default_profile image 보여주기
-          send_file(default_profile_path, :type => 'image/png', :disposition => 'inline')
+          send_file(default_profile_path, :disposition => 'inline')
         else
-          send_file(User.find(params[:id]).profile_image_path, :type => 'image/png', :disposition => 'inline')
+          send_file(User.find(params[:id]).profile_image_path, :disposition => 'inline')
         end
       else # 썸네일 이미지 보여주기
         if user.thumbnail_image_path.nil? # default_thumbnail 보여주기
-          send_file(default_thumb_path, :type => 'image/png', :disposition => 'inline')
+          send_file(default_thumb_path, :disposition => 'inline')
         else
-          send_file(User.find(params[:id]).thumbnail_image_path, :type => 'image/png', :disposition => 'inline')
+          send_file(User.find(params[:id]).thumbnail_image_path, :disposition => 'inline')
         end
       end
     when "album"
-      if params[:thumb].nil?
-        send_file(Picture.find_by_id(params[:id]).full_path, :type => 'image/jpg', :disposition => 'inline')
+      if params[:thumb]
+        send_file(Picture.find_by_id(params[:id]).thumb_path, :disposition => 'inline')
+			elsif params[:main_thumb]
+        send_file(Picture.find_by_id(params[:id]).main_thumb_path, :disposition => 'inline')
       else
-        send_file(Picture.find_by_id(params[:id]).thumb_path, :type => 'image/jpg', :disposition => 'inline')
+        send_file(Picture.find_by_id(params[:id]).full_path, :disposition => 'inline')
       end
     end
- 
+
   end
 
   def destroy
@@ -122,6 +123,29 @@ class PicturesController < ApplicationController
     if @picture.destroy
       render :json => true
     end
-    
+
   end
+end
+
+#시점을 사진 가운데로 crop후 resizing
+class ImageList
+	def thumbnail_center(target_width, target_height)
+		width = self.columns
+		height = self.rows
+		original_ratio = width.to_f / height.to_f
+		target_ratio = target_width.to_f / target_height.to_f
+
+		if original_ratio > target_ratio 
+			#세로길이 유지, 가로 양옆이 잘림
+			adjusted_width = (height * target_ratio).to_i
+			thumbnail = self.crop((width/2) - (adjusted_width / 2), 0, adjusted_width, height)
+		else 
+			#가로길이 유지, 세로 양쪽이 잘림
+			adjusted_height = (width / target_ratio).to_i
+			thumbnail = self.crop(0, (height/2) - (adjusted_height / 2), adjusted_width, height)
+		end
+
+		thumbnail.thumbnail!(target_width, target_height)
+		return thumbnail
+	end
 end

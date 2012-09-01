@@ -10,11 +10,10 @@ class HomeController < ApplicationController
     if session[:guest].nil? && current_user.nil?
       redirect_to signin_path
     else
-      @all_article = Article.order("created_at DESC")[0..4]
-      @photos = Picture.where("article_id is not null")[0..4]
+      @all_article = Article.order("created_at DESC").limit(5)
+      @photos = Picture.where("article_id is not null").order("created_at DESC").limit(4)
       @upcoming_sokkoji = Article.where("article_type = ? AND date >= ?","소꼬지", Time.now.yesterday.yesterday);
       @events = @upcoming_sokkoji
-
     end
   end
 

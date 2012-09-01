@@ -1,196 +1,80 @@
 <% content_for :head do %>
-  <%= javascript_include_tag "jquery.masonry.min" %>
+	<%= javascript_include_tag "jquery.masonry.min" %>
 
-  <%= javascript_include_tag "responsiveslides.min" %>
-  <%= stylesheet_link_tag "responsiveslides" %>
-  <style>
-
-    #main_container {
-      
-      margin-top: 2em;
-    }
-    
-    .main_event {
-      float: left;
-      width: 410px;
-      margin: 10px;
-    }
-
-    .main_picture {
-      float: left;
-      width: 410px;
-      margin: 10px;
-    }
-
-    .main_board {
-      float: right;
-      width: 430px;
-      margin: 10px;
-      margin-right: 80px;
-    }
-
-    div.main_board div.board {
-      margin: 1em 0 1em 0;
-    }
-
-    div.main_board div.board div.header {
-      width: 100%;
-      border-bottom: 3px solid #E0DADA;
-    }
-
-    div.event_list {
-      margin-top: 1em;
-    }
-
-    div.event_list ul {
-      list-style: none;
-    }
-
-    div.event_list ul li a {
-      color: #F94172;
-    }
-
-    div.slider {
-      position: relative;
-      width: 445px;
-      float: left;
-      overflow: hidden;
-    }
-
-    ul.slide_box {
-      width: 2225px;
-      list-style: none;
-      margin: 0;
-    }
-
-    ul.slide_box li {
-      position: relative;
-      width: 445px;
-      float: left;
-    }
-
-    ul.slide_box img {
-      width: 390px;
-
-      
-    }
-
-    ul.slide_box li .slide_content {
-      position: absolute;
-      width: 150px;
-      height: 60px;
-      background: url(assets/bg_barousel_content.png);
-      top: 200px;
-      z-index: 1000;
-    }
-
-    .slide_content h3 {
-      color: #abc;
-    }
-
-    ul.slide_nav {
-      list-style: none;
-      width: 45px;
-      position: absolute;
-      left: 395px;
-      margin: 0;
-    }
-
-    ul.slide_nav img {
-      cursor: pointer;
-    }
-
-         </style>
-
+	<%= javascript_include_tag "responsiveslides.min" %>
+	<%= stylesheet_link_tag "responsiveslides" %>
 
 <% end %>
 <div id="main_container">
-  <div class="box main_event">
-    <%= image_tag "snumkg_main/subhead_event.png", alt: "이벤트" %>
-    <div class="event_list">
-      <ul>
-      <% for event in @events %>
-        <% day = event.date.yday %>
-        <% today = Time.now.yday %>
 
-        <% if day - today == 2 || day - today == 1 %>
-          <li><%= image_tag "snumkg_main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">
-            <%= event.title %>가 <%= day - today %>일 남았습니다.
-          </a></li>
-        <% elsif day - today == 0 %>
-          <li><%= image_tag "snumkg_main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">
-            <%= event.title %>가 오늘입니다.
-          </a></li>
-        <% end %>
-      <% end %>
-    </ul>
-    </div>
+	<div id="main_column_1">
+		<div class="main_event">
+			<%= image_tag "main/subhead_event.png", alt: "이벤트" %>
+			<div id="event_list">
+				<ul>
+					<% for event in @events %>
+						<% day = event.date.yday %>
+						<% today = Time.now.yday %>
 
-  </div>
+						<% if day - today == 2 || day - today == 1 %>
+							<li><%= image_tag "main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">
+								<%= event.title %>가 <%= day - today %>일 남았습니다.
+							</a></li>
+						<% elsif day - today == 0 %>
+							<li><%= image_tag "main/icon_calendar.png", alt:"달력" %><a href="<%= article_path(group_id: event.board.group.id, board_id: event.board.id, id: event.id) %>">
+								<%= event.title %>가 오늘입니다.
+							</a></li>
+						<% end %>
+					<% end %>
+				</ul>
+			</div>
+		</div>
 
-  <div class="box main_board">
-    <%= image_tag "snumkg_main/subhead_board.png",alt: "게시판" %>
-    <div class="board">
-      <div class="header">
-        <%= image_tag "snumkg_main/widget_lastest_all.png", alt: "전체최신글" %> 
-      </div>
+		<div id="main_picture">
+			<%= image_tag "main/subhead_photo.png", alt: "사진" %>
+			<div id="main_picture_container">
+				<div id="main_picture_screen">
+					<div id="main_picture_screen_title"><%= @photos.first.article.title %></div>
+					<div id="main_picture_screen_image">
+						<%= link_to image_tag(@photos.first.main_thumb_url, :class => "screen_image"), article_path(@photos.first.article.board.group, @photos.first.article.board, @photos.first.article) %>
+					</div>
+				</div>
 
-      <%= render :partial => 'board_body', :locals => {:@articles => @all_article} %>
-    </div>
-    <div class="board">
-      <div class="header">
-        <%= image_tag "snumkg_main/widget_lastest_12.png", alt: "12학번 최신글" %>
-      </div>
-      <%= render :partial => 'board_body', :locals => {:@articles => @all_article} %>
-    </div>
-  </div>
+				<div id="main_picture_navigation">
+					<ul>
+						<li class="arrow"><%= link_to image_tag("main/widget_photo_arrow_up.png"), "#", :id => "photo_navigation_up_button" %>
+						<% @photos.each_with_index do |photo, i| %>
+							<li class="photo <%= (i == 0) ? "selected" : "" %>" title="<%= photo.article.title %>" href="<%= article_path(photo.article.board.group, photo.article.board, photo.article) %>" src="<%= photo.main_thumb_url %>"><%= image_tag photo.thumbnail_url %></li>
+						<% end %>
+						<li class="arrow"><%= link_to image_tag("main/widget_photo_arrow_down.png"), "#", :id => "photo_navigation_down_button" %>
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!-- main_column_1 끝 -->
+	</div>
 
-  <div class="box main_picture">
-    <%= image_tag "snumkg_main/subhead_photo.png", alt: "사진" %>
-    <div class="slider">
-      <ul class="slide_box">
-        <% index = 1 %>
-        <% for picture in @photos %>
-          <li data-index="<%= index %>">
-          <a href="<%= article_path(group_id: picture.article.board.group.id, board_id: picture.article.board.id, id: picture.article.id)%>">
-            <%= image_tag picture.url, size: "410x250" %>
+	<div id="main_column_2">
+		<div class="main_board">
+			<%= image_tag "main/subhead_board.png", alt: "게시판" %>
+			<div class="board">
+				<div class="header">
+					<%= image_tag "main/widget_lastest_all.png", alt: "전체최신글" %> 
+				</div>
 
-          </a>
-          <div class="slide_content">
-            <h3><%= picture.article.title %></h3>
-          </div>
-          </li>
-          <% index = index + 1 %>
-        <% end %>
-      </ul>
-      <ul class="slide_nav">
-        <% index = 1 %>
-        <li>
-        <%= image_tag 'snumkg_main/widget_photo_arrow_up.png', size: "43x43" %>
-        </li>
-        <% for picture in @photos %>
-          <li data-index="<%= index %>">
-          <%= image_tag picture.thumbnail_url, size: "43x43" %>
-          </li>
-          <% index = index + 1 %>
-        <% end %>
-        <li>
-        <%= image_tag 'snumkg_main/widget_photo_arrow_down.png', size: "43x43" %>
-        </li>
-      </ul>
+				<%= render :partial => 'board_body', :locals => {:@articles => @all_article} %>
+			</div>
+			<div class="board">
+				<div class="header">
+					<%= image_tag "main/widget_lastest_12.png", alt: "12학번 최신글" %>
+				</div>
+				<%= render :partial => 'board_body', :locals => {:@articles => @all_article} %>
+			</div>
+		</div>
 
-    </div>
-  </div>
+		<!-- main_column_2 끝 -->
+	</div>
+
+	<div class="clear"></div>
 </div>
-
-<script>>
-
-
-   $(document).ready(function() {
-
-          });
-
-
-
-
-</script>
