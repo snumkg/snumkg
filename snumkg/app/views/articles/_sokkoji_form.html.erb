@@ -10,7 +10,7 @@
 
 <%= render 'new_js_css_tag' %>
 
-<%= form_for(@article, url:articles_path(group_id: params[:group_id], board_id: params[:board_id])) do |f| %>
+<%= form_for(@article) do |f| %>
 
   작성자 : <%= current_user.username %>
   <%= f.label :title, '제목' %>

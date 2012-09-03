@@ -12,7 +12,6 @@
 <script src="http://blueimp.github.com/Bootstrap-Image-Gallery/js/bootstrap-image-gallery.min.js"></script>
 
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<%= javascript_include_tag 'jquery.fileupload-fp' %>
 <%= javascript_include_tag 'jquery.iframe-transport' %>
 <%= javascript_include_tag 'jquery.fileupload' %>
 <%= javascript_include_tag 'jquery.fileupload-ui' %>
@@ -26,96 +25,33 @@
 <!-- add include_tag js files to config.assets.precompile in ...environments/production.rb if you have it in vendor/ assets -->
 <script type="text/javascript" charset="utf-8">
 
-window.locale = {
+  window.locale = {
     "fileupload": {
-        "errors": {
-            "maxFileSize": "File is too big",
-            "minFileSize": "File is too small",
-            "acceptFileTypes": "Filetype not allowed",
-            "maxNumberOfFiles": "Max number of files exceeded",
-            "uploadedBytes": "Uploaded bytes exceed file size",
-            "emptyResult": "Empty file upload result"
-        },
-        "error": "Error",
-        "start": "Start",
-        "cancel": "Cancel",
-        "destroy": "Delete"
+      "errors": {
+        "maxFileSize": "File is too big",
+        "minFileSize": "File is too small",
+        "acceptFileTypes": "Filetype not allowed",
+        "maxNumberOfFiles": "Max number of files exceeded",
+        "uploadedBytes": "Uploaded bytes exceed file size",
+        "emptyResult": "Empty file upload result"
+      },
+      "error": "Error",
+      "start": "Start",
+      "cancel": "Cancel",
+      "destroy": "Delete"
     }
-};
+  };
   $(function () {
+
       // Initialize the jQuery File Upload widget:
-     
+      $('#fileupload').fileupload();
 
- 
-
-
-    // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload();
-
-    // Enable iframe cross-domain access via redirect option:
-    $('#fileupload').fileupload(
-        'option',
-        'redirect',
-        window.location.href.replace(
-            /\/[^\/]*$/,
-            '/cors/result.html?%s'
-        )
-    );
-
-    if (window.location.hostname === 'blueimp.github.com') {
-        // Demo settings:
-      $('#fileupload').fileupload('option', {
-url: '//jquery-file-upload.appspot.com/',
-maxFileSize: 5000000,
-acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-process: [
-{
-action: 'load',
-fileTypes: /^image\/(gif|jpeg|png)$/,
-maxFileSize: 20000000 // 20MB
-},
-{
-action: 'resize',
-maxWidth: 1440,
-maxHeight: 900
-},
-{
-action: 'save'
+      $("#fileupload").fileupload({
+add: function (e, data) {
+data.submit();
 }
-]
-
-        });
-
-        // Upload server status check for browsers with CORS support:
-        if ($.support.cors) {
-            $.ajax({
-                url: '//jquery-file-upload.appspot.com/',
-                type: 'HEAD'
-            }).fail(function () {
-                $('<span class="alert alert-error"/>')
-                    .text('Upload server currently unavailable - ' +
-                            new Date())
-                    .appendTo('#fileupload');
-            });
-        }
-    } else {
-        // Load existing files:
-        $('#fileupload').each(function () {
-            var that = this;
-            $.getJSON(this.action, function (result) {
-                if (result && result.length) {
-                    $(that).fileupload('option', 'done')
-                        .call(that, null, {result: result});
-                }
-            });
-        });
-    $("#fileupload").fileupload({
-            add: function (e, data) {
-                    data.submit();
-                        }
-                        });
-    }     
-           });
+});
+});
 </script>
 
 
@@ -128,9 +64,6 @@ action: 'save'
       .each(function(i,e){
         $("#new_article").append('<input type="hidden" name="picture['+i+']" value="'+ $(e).attr("picture")+'"></input>')});
       });
-
-
-
   });
 </script>
 <script>
@@ -185,6 +118,25 @@ action: 'save'
   <br>
   <!-- The table listing the files available for upload/download -->
   <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+    <% for picture in @pictures %>
+      <tr class="template-download fade in">
+        <td class="preview">
+          <a href="<%=picture.url%>" title="<%=picture.name%>" rel="gallery" download="<%=picture.name%>" picture="<%=picture.id%>"><img src="<%=picture.url%>"></a>
+        </td>
+        <td class="name">
+          <a href="<%=picture.url%>" title="<%=picture.name%>" rel="<%=picture.url%>gallery" download="<%=picture.name%>"><%=picture.name%></a>
+        </td>
+        <td class="size"><span><%=picture.size%></span></td>
+        <td colspan="2"></td>
+        <td class="delete">
+          <button class="btn btn-danger" data-type="DELETE" data-url="<%= picture.url%>">
+            <i class="icon-trash icon-white"></i>
+            <span>삭제</span>
+          </button>
+          <input type="checkbox" name="delete" value="1">
+        </td>
+      </tr>
+    <% end %>
   </table>
 <% end %>
 <br>

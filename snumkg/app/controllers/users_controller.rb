@@ -70,9 +70,6 @@ class UsersController < ApplicationController
       end
     end
 
-    #@new_alarms = Array.new
-    #@old_alarms = Array.new
-
     @all_alarms = Array.new
 
     # 여러명이 같은 글에 추천했을 때, 
@@ -80,7 +77,6 @@ class UsersController < ApplicationController
     types = [0, 1, 2, 3, 4]
     types.each do |type|
       @all_alarms = @all_alarms + select_alarm(type)
-      #push_new_old_alarms(select_alarm(type), @new_alarms, @old_alarms)
     end
 
     # new_alarms는 hash 배열. 
@@ -89,7 +85,6 @@ class UsersController < ApplicationController
     #
     # new 값이 true를 가진 값들은 new_alarms에 삽입됨
     # hash key: true/false, value: 알람 배열
-
     new_count = 0
     
     @all_alarms.map! do |alarms|
@@ -105,36 +100,12 @@ class UsersController < ApplicationController
       end
     end
 
-=begin
-    @new_alarms.map! do |alarms|
-      for alarm in alarms[true]
-        #alarm.update_attribute(:new, false) # new컬럼 값 false로 변경
-      end
-      unless alarms[false].nil?
-        {:new => true, :alarms => (alarms[true] + alarms[false] ).uniq {|alarm| alarm.alarmer}}
-      else
-        {:new => true, :alarms => alarms[true].uniq {|alarm| alarm.alarmer}}
-      end
-    end
-
-    @old_alarms.map! do |alarms|
-      # 한 사람이 여러번의 댓글을 달 때
-      # 알람은 여러개 생성되지만
-      # 보여줄땐 하나만 보여주도록
-      {:new => false, :alarms => alarms[false].uniq {|alarm| alarm.alarmer}}
-    end
-=end
-    #@all_alarms = @new_alarms + @old_alarms
+   #@all_alarms = @new_alarms + @old_alarms
     #all_alarms 최근 순서대로 정렬
-
     @all_alarms.sort! do |a,b|
       a[:alarms][0].created_at < b[:alarms][0].created_at ? 1 : -1
     end
-    
-=begin
-    session[:alarm_counts] = current_user.alarm_counts # 새로운 알림이 오면 배경색을 바꿔주기 위해 세선에 정보를 저장헤둠
-    current_user.update_attribute(:alarm_counts, new_count)
-=end
+
     respond_to do |format|
       
       format.html
