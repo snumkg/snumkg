@@ -4,3 +4,4 @@ $("#show_comments_box").append("<%= escape_javascript(render :partial => 'commen
 <% else %>
 $("#show_comments_box").append("<%= escape_javascript(render :partial => 'comments/show_comment', :locals => {:comment => @comment}) %>");
 <% end %>
+$("#comment_content").val("");
