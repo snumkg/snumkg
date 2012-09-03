@@ -46,82 +46,34 @@ window.locale = {
 
 
     // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload();
+      $('#fileupload').fileupload();
+      // Load existing files:
 
-    // Enable iframe cross-domain access via redirect option:
-    $('#fileupload').fileupload(
-        'option',
-        'redirect',
-        window.location.href.replace(
-            /\/[^\/]*$/,
-            '/cors/result.html?%s'
-        )
-    );
+      $("#fileupload").fileupload({
+add: function (e, data) {
+data.submit();
+}
+});
 
-    if (window.location.hostname === 'blueimp.github.com') {
-        // Demo settings:
-        $('#fileupload').fileupload('option', {
-            url: '//jquery-file-upload.appspot.com/',
-            maxFileSize: 5000000,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            process: [
-                {
-                    action: 'load',
-                    fileTypes: /^image\/(gif|jpeg|png)$/,
-                    maxFileSize: 20000000 // 20MB
-                },
-                {
-                    action: 'resize',
-                    maxWidth: 1440,
-                    maxHeight: 900
-                },
-                {
-                    action: 'save'
-                }
-            ]
-        });
-        // Upload server status check for browsers with CORS support:
-        if ($.support.cors) {
-            $.ajax({
-                url: '//jquery-file-upload.appspot.com/',
-                type: 'HEAD'
-            }).fail(function () {
-                $('<span class="alert alert-error"/>')
-                    .text('Upload server currently unavailable - ' +
-                            new Date())
-                    .appendTo('#fileupload');
-            });
-        }
-    } else {
-        // Load existing files:
-        $('#fileupload').each(function () {
-            var that = this;
-            $.getJSON(this.action, function (result) {
-                if (result && result.length) {
-                    $(that).fileupload('option', 'done')
-                        .call(that, null, {result: result});
-                }
-            });
-        });
-    }     
-           });
+      });
 </script>
 
 
 <script>
   //글쓰기 클릭할 때 업로드된 이미지 parameter로 넘기기
-
   $(function(){
     $('#article_submit').click(function(){
       $('tr.template-download.fade.in > td.preview > a')
       .each(function(i,e){
-        $("#new_article").append('<input type="hidden" name="picture['+i+']" value="'+ $(e).attr("picture")+'"></input>')});
+        // album_new 일때
+        if( $("#new_article").length != 0){
+          $("#new_article").append('<input type="hidden" name="picture['+i+']" value="'+ $(e).attr("picture")+'"></input>');
+        }
+        else{
+          $(".edit_article").append('<input type="hidden" name="picture['+i+']" value="'+ $(e).attr("picture")+'"></input>');
+      }});
       });
-
-
-
-  });
-</script>
+  });</script>
 
 <style>
   td.preview > a > img {
@@ -131,10 +83,8 @@ window.locale = {
 
 <% end %>
 
-<%= render 'new_js_css_tag' %>
 
 <%= render 'article_form' %>
-
 <%= form_for(Picture.new, :url => pictures_path(Picture.new, :type => "album"), :html => {:multipart => true, :id => "fileupload"}) do |f| %>
   <div class="row fileupload-buttonbar">
     <div class="span7">
@@ -144,15 +94,7 @@ window.locale = {
         <span>사진 선택하기</span>
         <input type="file" name="files[]" multiple>
       </span>
-      <button type="submit" class="btn btn-primary start">
-        <i class="icon-upload icon-white"></i>
-        <span>모든 파일 업로드</span>
-      </button>
-      <button type="reset" class="btn btn-warning cancel">
-        <i class="icon-ban-circle icon-white"></i>
-        <span>모든 업로드 취소</span>
-      </button>
-      <button type="button" class="btn btn-danger delete">
+        <button type="button" class="btn btn-danger delete">
         <i class="icon-trash icon-white"></i>
         <span>선택삭제</span>
       </button>
@@ -174,8 +116,9 @@ window.locale = {
   <!-- The table listing the files available for upload/download -->
   <table role="presentation" class="table table-striped">
     <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery">
-      <% for picture in @pictures %>
-    <tr class="template-download fade in">
+      <% unless @pictures.nil? %>
+        <% for picture in @pictures %>
+          <tr class="template-download fade in">
             <td class="preview">
               <a href="<%=picture.url%>" title="<%=picture.name%>" rel="gallery" download="<%=picture.name%>" picture="<%=picture.id%>"><img src="<%=picture.url%>"></a>
             </td>
@@ -184,15 +127,16 @@ window.locale = {
             </td>
             <td class="size"><span><%=picture.size%></span></td>
             <td colspan="2"></td>
-        <td class="delete">
-          <button class="btn btn-danger" data-type="DELETE" data-url="<%= picture.url%>">
+            <td class="delete">
+              <button class="btn btn-danger" data-type="DELETE" data-url="<%= picture.url%>">
                 <i class="icon-trash icon-white"></i>
                 <span>삭제</span>
-            </button>
-            <input type="checkbox" name="delete" value="1">
-        </td>
-    </tr>
-  <% end %>
+              </button>
+              <input type="checkbox" name="delete" value="1">
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
     </tbody>
   </table>
 
