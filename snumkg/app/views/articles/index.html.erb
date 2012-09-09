@@ -36,7 +36,6 @@
 		<%= link_to "글쓰기", new_article_path(:group_id => params[:group_id], :board_id => params[:board_id]), :class => "btn" %>
 	<% end %>
 
-  <%= render :partial => 'shared/pagination', :locals => {:@start_page => @start_page, :@end_page => @end_page, :type => "articles"} %>
-
+  <%= paginate @articles %>
 </div>
 

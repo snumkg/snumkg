@@ -4,28 +4,13 @@ class ArticlesController < ApplicationController
   def index
 
     @board = @boards.find_by_id(params[:board_id])
-    if @board.board_type == "소꼬지 일정"
-    # 소꼬지 일정을 보여줄 때, 소꼬지 게시판에서 게시물을 가져옴.
-      @articles = Board.find_by_board_type("소꼬지")
-                        .articles.order("created_at desc")
-    elsif @board.board_type == "소꼬지"
-      # 소꼬지 게시물은 수정하면 다시 상단에 노출되도록 함
-      # 똑같은 소꼬지 게시물을 새로 올리는 것을 방지하기 위해.
-      @articles = @board.articles.order("updated_at desc")
-    else
-    @articles = @board.articles.order("created_at desc")
     @notices = @board.articles.where(:notice => true).order("created_at desc")
     @notice_index = @notices.count
-    end
 
     # Pagination
-    if @board.board_type == "앨범"
-      pagination(@articles, 6)
-    else
-      pagination(@articles, 5)
+    if @board.board_type != "앨범"
+      @articles = @board.articles.page(params[:page].to_i).per(5)
     end
-
-    # end of Pagination
 
     @index = @articles.count
 
@@ -33,12 +18,20 @@ class ArticlesController < ApplicationController
     when "일반" # 일반게시판
       render 'index'
     when "소꼬지 일정" # 소꼬지 달력
+    # 소꼬지 일정을 보여줄 때, 소꼬지 게시판에서 게시물을 가져옴.
+      @articles = Board.find_by_board_type("소꼬지").page(params[:page].to_i).per(5)
+                        .articles.order("created_at desc")
       render 'sokkoji_calendar'
     when "소꼬지" # 소꼬지 게시판
+      # 소꼬지 게시물은 수정하면 다시 상단에 노출되도록 함
+      # 똑같은 소꼬지 게시물을 새로 올리는 것을 방지하기 위해.
+
+      @articles = @board.articles.order("updated_at desc")
       render 'sokkoji_index'
     when "익명" # 익명 게시판
       render 'anonymous_index'
     when "앨범"
+      @articles = @board.articles.page(params[:page].to_i).per(6)
       render 'album_index'
     end
   end
