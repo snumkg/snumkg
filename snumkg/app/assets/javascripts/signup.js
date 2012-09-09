@@ -66,6 +66,15 @@ $(function(){
 		}
 	});
 
+	$("#user_password").keypress(function(){
+		var conf = $("#user_password_confirmation").val();
+
+		if( conf.length != 0 && $(this).val() != conf){
+			error_msg($("#user_password_confirmation").next(), "비밀번호가 일치하지 않습니다");
+		}
+
+	});
+
 	$("#user_password_confirmation").focusout(function(){
 		var pw = $("#user_password").val();
 
