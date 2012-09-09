@@ -1,0 +1,26 @@
+#group_list {
+  th {text-align:center;}
+  td {text-align:center;}
+}
+
+#board_list {
+  float:left;width:200px;border:1px solid #ddd;
+  ul {
+    list-style:none;padding:10px;margin:0;
+    li {
+      padding:5px;
+    }
+  }
+  a {color:#333;}
+  .selected-board {background-color:#fcc;}
+  #board_list_buttons {
+    padding:10px;
+    a {color:red;}
+  }
+}
+#board_content {
+  margin-left:210px;border:1px solid #ddd;
+  #board_info {
+    td, th {vertical-align:middle;}
+  }
+}

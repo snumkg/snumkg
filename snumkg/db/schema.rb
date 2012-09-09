@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909112857) do
+ActiveRecord::Schema.define(:version => 20120909113032) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(:version => 20120909112857) do
     t.integer  "acceptor_id"
     t.integer  "alarmer_id"
     t.integer  "everyday_comment_id"
-    t.integer  "everyday_post_id"
     t.integer  "alarm_type"
     t.boolean  "new",                 :default => true
     t.datetime "created_at",                            :null => false
@@ -61,10 +60,11 @@ ActiveRecord::Schema.define(:version => 20120909112857) do
     t.integer  "group_id"
     t.string   "name"
     t.integer  "admin_id"
-    t.string   "board_type", :default => "일반"
-    t.boolean  "hide",       :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.string   "board_type",  :default => "일반"
+    t.boolean  "hide",        :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "board_order", :default => 0
   end
 
   create_table "comments", :force => true do |t|

@@ -1,3 +1,50 @@
-// Place all the styles related to the admin controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
+
+@mixin border($px) {
+
+  border-radius: $px;
+  -moz-border-radius: $px;
+  -webkit-border-radius: $px;
+}
+
+//global class
+.hidden {display: none;}
+.left {float:left;}
+.red {color: #F90A5D;}
+.green {color: #14A46D;}
+.small {font-size: 90%;} 
+.clear {clear: both;}
+.absolute {position:absolute;}
+.center {position: relative; margin: 0 auto;}
+
+.user_alarm {
+  span {
+    color: red;
+    font-weight: bold;
+  }
+}
+
+.comment_number {
+
+  font-size: 80%;
+  color: red;
+}
+
+body {font-family:"맑은 고딕"}
+
+
+//wrapper
+#wrapper {
+  width: 1000px;
+  margin: auto;
+}
+
+#footer {
+  width: 100%;
+  border-top: 2px solid #C2BBBD;
+  margin-top: 1em;
+  text-align: center;
+  padding: 15px 0;
+  color: #967279;
+  font-weight: bold;
+}

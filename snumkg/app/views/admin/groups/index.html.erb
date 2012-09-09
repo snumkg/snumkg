@@ -1,0 +1,25 @@
+<table class="table" id="group_list">
+	<thead>
+		<tr>
+			<th class="name">그룹명</th>
+			<th class="type">그룹타입</th>
+			<th class="type">숨기기</th>
+			<th class="buttons">&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for group in @groups %>
+			<tr>
+				<td><%= group.name %></td>
+				<td><%= group.group_type %></td>
+				<td><%= group.hide %></td>
+				<td>
+					<%= link_to "수정", edit_admin_group_path(group), :class => "btn" %>
+					<%= link_to "게시판관리", admin_group_path(group), :class => "btn btn-info" %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<%= link_to "그룹 추가", new_admin_group_path, :class => "btn" %>

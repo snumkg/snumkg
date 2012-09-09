@@ -20,4 +20,8 @@ class Group < ActiveRecord::Base
     false
   end
 
+  def boards
+    Board.where(group_id: self.id).order('board_order ASC')
+  end
+
 end

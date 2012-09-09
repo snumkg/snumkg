@@ -1,9 +1,16 @@
+<h1><%= @group.name %></h1>
+<div id="board_list">
+	<ul>
+		<% for board in @boards %>
+			<li><%= link_to board.name, "#", :class => "board", :board_id => board.id %></li>
+		<% end %>
+	</ul>
+  <div id="board_list_buttons">
+    <%= link_to "[위로]", "#", :id => "board_up_button" %>
+    <%= link_to "[아래로]", "#", :id => "board_down_button" %>
+  </div>
+</div>
 
-<ul>
-  게시판관리
-  <% for board in @boards %>
-  <li>
-    <%= board.name %> | <%= link_to "수정", edit_admin_board_path(board) %> | <%= link_to "삭제", admin_board_path(board), method: :delete %>
-  </li>
-<% end %>
-</ul>
+<div id="board_content">
+	adfadsf
+</div>

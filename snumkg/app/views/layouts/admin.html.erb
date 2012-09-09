@@ -2,26 +2,40 @@
 <html>
 <head>
   <title>Snumkg<%="[#{current_user.alarm_counts if current_user}]" %></title>
-  <%= stylesheet_link_tag    "home", controller_path, :media => "all" %>
+  <%= stylesheet_link_tag    "admin", controller_path, :media => "all" %>
   <%= javascript_include_tag "jquery", "jquery_ujs" %>
-  <%= javascript_include_tag "home", controller_path %>
+  <%= javascript_include_tag "admin", controller_path %>
   <%= javascript_include_tag "bootstrap-modal" %>
   <%= csrf_meta_tags %>
   <%= yield :head %>
 </head>
 <body>
   <div id="wrapper">
-    <%= render 'layouts/navigator' %>
+		<div class="navbar" id="top_navigation">
+			<div class="navbar-inner">
+				<div class="container">
+					<ul class="nav">
+						<li class="active"><%= link_to "Admin", admin_path %></li>
+						<li><%= link_to "유저", admin_users_path %></li>
+						<li><%= link_to "그룹관리", admin_groups_path %></li>
+					</ul>
+					<ul class="nav pull-right">
+						<li><%= link_to "로그아웃", signout_path %></li>
+					</ul>
 
-    <%= render 'shared/error_messages' %>
-    <%= render 'layouts/success_message' %>
-    <div id="content_wrapper">
-      <div id="content">
-        <%= yield %>
-      </div>
-    </div>
+				</div>
+			</div>
+		</div>
 
-    <%= render 'layouts/footer' %>
-  </div>
+		<%= render 'shared/error_messages' %>
+		<%= render 'layouts/success_message' %>
+		<div id="content_wrapper">
+			<div id="content">
+				<%= yield %>
+			</div>
+		</div>
+
+		<%= render 'layouts/footer' %>
+	</div>
 </body>
 </html>

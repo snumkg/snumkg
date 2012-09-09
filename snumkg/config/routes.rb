@@ -66,7 +66,9 @@ Snumkg::Application.routes.draw do
   get 'admin/boards/hide/:id', :to => 'admin/boards#hide', :as => 'hide_admin_board'
   namespace :admin do
     resources :users
-    resources :groups
+    resources :groups do 
+      post 'set_board_orders'
+    end
     resources :boards
   end
 

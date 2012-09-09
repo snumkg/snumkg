@@ -1,5 +1,6 @@
 #encoding: utf-8
 class Admin::BoardsController < AdminController
+  layout false
   
   def new
     @board = Board.new 
@@ -25,11 +26,11 @@ class Admin::BoardsController < AdminController
     @board = Board.find_by_id(params[:id])
 
     if @board.update_attributes(params[:board])
-      flash[:success] = "게시판이 성공적으로 변경되었습니다.."
-      redirect_to admin_path
+      flash[:success] = "#{@board.name}이 성공적으로 변경되었습니다.."
+      redirect_to admin_group_path(@board.group)
     else
       flash[:error] = "게시판 수정 실패"
-      redirect_to admin_path
+      redirect_to admin_group_path(@board.group)
     end
    
   end
