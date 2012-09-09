@@ -1,7 +1,11 @@
 module AuthHelper
 
   def current_user
-    User.find_by_id(session[:user_id])
+    if @current_user.nil?
+      @current_user = User.find_by_id(session[:user_id])
+    else
+      @current_user
+    end
   end
 
   def signin?

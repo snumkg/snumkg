@@ -1,7 +1,7 @@
 #coding: utf-8
 class AuthController < ApplicationController
 
-  layout 'main'
+  layout 'default'
   def signout
     session[:user_id] = nil
     session[:authorized_contact_user] = nil
@@ -11,7 +11,6 @@ class AuthController < ApplicationController
 
   def signin
     @user = User.new
-    render layout: "default"
 
     if signin?
       redirect_to root_path

@@ -38,16 +38,8 @@
   <%= f.label :password_confirmation, '*비밀번호 확인' %>
   <%= f.password_field :password_confirmation %><span class="red small"></span>
 
-  <%= label_tag :phone_number_1, '연락처' %>
-  <%= select_tag :phone_number_1, options_for_select([['010','010'],['011','011'],['016','016'],['017','017'],['019','019']]), class: "span1" %>
-  <%= text_field_tag :phone_number_2, nil, class: "span1" %> <%= text_field_tag :phone_number_3, nil, class: "span1"%>
-  <%= f.check_box :is_phone_number_public, {}, true, false %>연락처 공개
-
   <%= f.label :nickname, '*이름' %>
   <%= f.text_field :nickname %><span class="red small"></span>
-
-  <%= f.label :email, "이메일" %>
-  <%= f.text_field :email %><span class="red small"></span>
 
   <br />
 

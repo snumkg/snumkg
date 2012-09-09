@@ -13,16 +13,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    phone_number = params[:phone_number_1] + "-" + params[:phone_number_2] + "-" + params[:phone_number_3]
-    @user.phone_number = phone_number
     @user.set_password(@user.password)
 
     if @user.save
+
       session[:user_id] = @user.id
-      redirect_to root_path
+      respond_to do |format|
+        format.js {}
+      end
     else
       flash[:error] = "회원가입 할 수 없습니다. 회원정보를 다시 입력해주세요."
-      redirect_to :back
+      redirect_to signin_path
     end
   end
 
@@ -120,7 +121,19 @@ class UsersController < ApplicationController
   end
 
   def update
-    raise
+    @user = User.find_by_id(params[:id])
+    phone_number = params[:phone_number_1] + "-" + params[:phone_number_2] + "-" + params[:phone_number_3]
+    @user.phone_number = phone_number
+
+    #년도는 필요없기 때문에 2000년으로 적어놓음.
+    birthday = "2000" + params[:birth_month] + "-" + params[:birth_day]
+    @user.birthday = birthday
+    @user.password = @user.password_confirmation = 'asdfgh'
+    
+    if @user.save
+      redirect_to root_path
+    end
+
   end
 
   def destroy

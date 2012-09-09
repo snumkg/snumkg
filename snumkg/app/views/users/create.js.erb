@@ -1,0 +1,2 @@
+$('div.modal-header').find('h3').html("추가정보 입력");
+$('div.modal-body').html("<%= escape_javascript(render :partial => 'additional_info', :locals => {:@user => @user}) %>");
