@@ -24,7 +24,7 @@ $(function(){
     var board_id = selected_li.find('[board_id]').attr('board_id');
     if (board_id && selected_li.prev().size() > 0){
       selected_li.prev().before(selected_li);
-      send_board_orders();
+      send_positions();
     }
     return false;
   });
@@ -34,7 +34,7 @@ $(function(){
     var board_id = selected_li.find('[board_id]').attr('board_id');
     if (board_id && selected_li.next().size() > 0){
       selected_li.next().after(selected_li);
-      send_board_orders();
+      send_positions();
     }
     return false;
   });
@@ -45,18 +45,18 @@ function edit_admin_board_path(board_id)
   return "/admin/boards/" + board_id + "/edit";
 }
 
-function send_board_orders()
+function send_positions()
 {
-  var board_orders = [];
+  var positions = [];
   $('[board_id]').each(function(i){
     var board_id = $(this).attr('board_id');
-    board_orders.push(board_id);
+    positions.push(board_id);
   });
   $.ajax({
-    url: "/admin/groups/"+1+"/set_board_orders",
+    url: "/admin/groups/"+1+"/set_positions",
     type: "POST",
     data: {
-      board_orders: board_orders
+      positions: positions
     }
   });
 }

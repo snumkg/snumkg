@@ -7,9 +7,15 @@ class CreateArticles < ActiveRecord::Migration
       t.string  :title
       t.text    :body
       t.integer :view_count, :default => 0
-      t.datetime  :date
-      t.string :anonymous_name
+      t.boolean :is_notice, :default => false #공지글인지
+
       t.string :article_type, :default => "일반"
+      t.datetime  :date
+
+      #익게용
+      t.string :anonymous_name
+      t.string :password_salt
+      t.string :password_hash 
 
       t.timestamps
     end

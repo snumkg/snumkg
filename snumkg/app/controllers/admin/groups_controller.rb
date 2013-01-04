@@ -48,11 +48,11 @@ class Admin::GroupsController < AdminController
     redirect_to admin_groups_path
   end
 
-  def set_board_orders
-    @board_orders = params[:board_orders].to_a
-    @board_orders.each_with_index do |board_id, i|
+  def set_positions
+    @positions = params[:positions].to_a
+    @positions.each_with_index do |board_id, i|
       board = Board.find(board_id)
-      board.board_order = i
+      board.position = i
       board.save
     end
 

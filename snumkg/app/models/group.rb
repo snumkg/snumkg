@@ -21,7 +21,7 @@ class Group < ActiveRecord::Base
   end
 
   def boards
-    Board.where(group_id: self.id).order('board_order ASC')
+    Board.where(group_id: self.id).order('position ASC')
   end
 
 end
