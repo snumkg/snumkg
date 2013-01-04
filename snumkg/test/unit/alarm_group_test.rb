@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AlbumImageTest < ActiveSupport::TestCase
+class AlarmGroupTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

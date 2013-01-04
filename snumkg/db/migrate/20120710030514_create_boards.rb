@@ -6,7 +6,7 @@ class CreateBoards < ActiveRecord::Migration
       t.string  :name
       t.integer :admin_id
       t.string :board_type, :default => "일반"
-      t.boolean :hide, :default => false
+      t.boolean :is_hidden, :default => false
       t.integer :position, :default => 0 #게시판 순서
 
 
