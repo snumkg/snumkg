@@ -14,14 +14,14 @@ class Attendance < ActiveRecord::Base
     save_alarm_helper(acceptor_id: self.article.writer.id,
                       alarmer_id: self.user.id,
                       article_id: self.article.id,
-                      alarm_type: 4)
+                      alarm_type: "참석")
   end
 
   def destroy_alarm
     destroy_alarm_helper(:alarmer_id => self.user.id,
                          :acceptor_id => self.article.writer.id,
-                   :article_id => self.article.id,
-                   :alarm_type => 4)
+                         :article_id => self.article.id,
+                         :alarm_type => "참석")
   end
 
 end

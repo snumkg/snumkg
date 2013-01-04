@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
   create_table "alarm_groups", :force => true do |t|
     t.integer  "article_id"
     t.integer  "comment_id"
-    t.integer  "alarm_type"
+    t.string   "alarm_type"
     t.integer  "accepter_id"
     t.boolean  "is_new",      :default => true
     t.datetime "created_at",                    :null => false

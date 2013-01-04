@@ -3,7 +3,7 @@ class Like < ActiveRecord::Base
   # attr_accessible :title, :body
   include AlarmHelper
 
-  before_create :save_alarm
+  after_create :save_alarm
   before_destroy :destroy_alarm
 
   belongs_to :article
@@ -26,44 +26,36 @@ class Like < ActiveRecord::Base
   end
 =end
   def save_alarm
-    if !self.article_id.nil?
-      # article_id가 존재할 때
-      # 글을 추천할 때
-      if self.article.type_text != "익명" # 익명게시물일땐 알람을 생성하지 않음.
-        save_alarm_helper(accepter_id: self.article.writer.id,
-                          alarmer_id: self.user.id,
-                          article_id: self.article.id,
-                          alarm_type: 0)
-      end
-    else
-      # comment_id가 존재할 때
+    if self.comment_id
       # 코멘트를 추천할 때
-      if self.comment.article.type_text != "익명" # 익명게시물일땐 알람을 생성하지 않음.
-        save_alarm_helper(accepter_id: self.comment.writer.id,
-                          alarmer_id: self.user.id,
-                          article_id: self.comment.article.id,
-                          comment_id: self.comment.id,
-                          alarm_type: 2)
-      end
+      save_alarm_helper(accepter_id: self.comment.writer.id,
+                        alarmer_id: self.user.id,
+                        article_id: self.comment.article.id,
+                        comment_id: self.comment.id,
+                        alarm_type: "댓글추천")
+    elsif self.article_id
+      # 글을 추천할 때
+      save_alarm_helper(accepter_id: self.article.writer.id,
+                        alarmer_id: self.user.id,
+                        article_id: self.article.id,
+                        alarm_type: "글추천")
     end
   end
 
   def destroy_alarm
-    if !self.article_id.nil?
-      if self.article.type_text != "익명"
-        destroy_alarm_helper(:accepter_id => self.article.writer.id,
-                             :alarmer_id => self.user.id,
-                             :article_id => self.article.id,
-                             :alarm_type => 0)
-      end
-    else
-      if self.comment.article.type_text != "익명" #익명게시물일 땐 알람이 없으므로, 알람을 삭제하지 않는다.
-        destroy_alarm_helper(:accepter_id => self.comment.writer.id,
-                             :alarmer_id => self.user.id,
-                             :article_id => self.comment.article.id,
-                             :comment_id => self.comment.id,
-                             :alarm_type => 2)
-      end
+    if self.comment_id
+      # 코맨트 추천 취소
+      destroy_alarm_helper(:accepter_id => self.comment.writer.id,
+                           :alarmer_id => self.user.id,
+                           :article_id => self.comment.article.id,
+                           :comment_id => self.comment.id,
+                           :alarm_type => "댓글추천")
+    elsif self.article_id
+      # 글 추천 취소
+      destroy_alarm_helper(:accepter_id => self.article.writer.id,
+                           :alarmer_id => self.user.id,
+                           :article_id => self.article.id,
+                           :alarm_type => "글추천")
     end
   end
 

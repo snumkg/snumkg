@@ -42,66 +42,38 @@ class Comment < ActiveRecord::Base
 
   private
   def save_alarm
-    if self.profile_user_id.nil? 
-      # profile_user_id가 nil 일 때
-      # 게시물에다 코멘트를 다는 경우
-      # 게시물 작성자에게 알림
-
-      if self.article.article_type != "익명" # 익명게시물이 아닐 때
-        # 글쓴이에게 알람 저장
-        if self.article.writer != self.writer 
-          save_alarm_helper(acceptor_id: self.article.writer.id, 
-                            article_id: self.article_id,
-                            comment_id: self.id,
-                            alarmer_id: self.writer.id,
-                            alarm_type: 1)
-        end
-
-=begin
-        #게시물에 댓글을 단 사람들에게 알림
-        #댓글을 여러번 단 사람들 중복 제거
-        comment_writers = self.article.comments.uniq {|c| c.writer}
-
-        for comment_writer in comment_writers
-          if comment_writer != self.writer && comment_writer != self.article.writer
-            # 코멘트 글쓴이와 댓글 쓴사람이 같을 때
-            # 코멘트 글쓴이와 아티클 글쓴이가 같을 때
-            # 알람을 생성하지 않음(중복알람 제거)
-            save_alarm_helper(acceptor_id: comment_writer.id,
-                              article_id: self.article_id,
-                              comment_id: self.id,
-                              alarmer_id: self.writer.id,
-                              alarm_type:  1)
-          end
-        end    
-=end
-      end
-    else
+    if self.profile_user_id
       # profile_user_id의 값이 존재할 때
       # 프로필 페이지에다 코멘트를 다는 경우  
       # 프로필 페이지의 유저에게 알림
-      save_alarm_helper(acceptor_id: self.profile_user_id,
+      save_alarm_helper(accepter_id: self.profile_user_id,
                         alarmer_id: self.writer.id,
                         comment_id: self.id,
-                        alarm_type: 3)
+                        alarm_type: "프로필댓글")
+    else
+      # 게시물 작성자에게 알림
+      # 글쓴이에게 알람 저장
+      save_alarm_helper(accepter_id: self.article.writer.id, 
+                        article_id: self.article_id,
+                        comment_id: self.id,
+                        alarmer_id: self.writer.id,
+                        alarm_type: "댓글")
     end
   end
 
   def destroy_alarm
-    if self.comment_type == 0 # 게시판 댓글
-      if self.article.article_type != "익명" # 익명게시판이 아닐 경우
-        if self.article.writer != self.writer
-          alarm = Alarm.where(:alarmer_id => self.writer.id, 
-                              :comment_id => self.id, 
-                              :acceptor_id => self.article.writer.id, 
-                              :article_id => self.article.id, 
-                              :alarm_type => 1).limit(1).first
-          alarm.destroy
-        end
-      end
-    else  # 프로필 댓글
-      alarm = Alarm.where(:alarmer_id => self.writer.id, acceptor_id: self.profile_user_id, :alarm_type => 3).limit(1).first
-      alarm.destroy
+    if self.profile_user_id then
+      #프로필 댓글
+      destroy_alarm_helper(accepter_id: self.profile_user_id,
+                           alarmer_id: self.writer.id,
+                           comment_id: self.id,
+                           alarm_type: "프로필댓글")
+    else
+      destroy_alarm_helper(accepter_id: self.article.writer.id, 
+                           article_id: self.article_id,
+                           comment_id: self.id,
+                           alarmer_id: self.writer.id,
+                           alarm_type: "댓글")
     end
   end
 

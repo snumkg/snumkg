@@ -26,6 +26,7 @@ class LikesController < ApplicationController
       @like.comment_id = params[:id]
       @like.user_id = current_user.id unless current_user.nil?
       @comment = Comment.find_by_id(params[:id])
+      @like.article_id = @comment.article_id
 =begin
     @comment = Comment.find_by_id(params[:comment_id])
     save_alarm(Alarm.new, @comment.writer.id, 2, :article_id => @comment.article.id, :comment_id => params[:comment_id])

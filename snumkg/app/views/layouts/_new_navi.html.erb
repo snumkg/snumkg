@@ -140,9 +140,10 @@
           $("#loading-image").show();
         },
         success: function(data){
+          console.log($(data));
           $("#loading-image").hide();
 
-          $("#alarm_list").append($(data).find("#alarm_list_ajax").html()).show();
+          $("#alarm_list").append($(data).children()).show();
           $("#alarm_list li.new").css("background", "#fee");
 
         }

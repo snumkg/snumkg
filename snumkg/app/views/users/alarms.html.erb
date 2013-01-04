@@ -1,9 +1,9 @@
 <ul id="alarm_list_ajax" data-alarmcounts="<%=session[:alarm_counts]%>">
   <% unless @all_alarms.nil? %>
-    <% @all_alarms.each_with_index do |alarms, index| %>
-      <li class="<%= "new" if alarms[:new] %>">
-      <%= image_tag picture_path(type: "profile", thumb: "true", id: alarms[:alarms][0].alarmer.id) %>
-        <%= alarm_messages_link(alarms[:alarms]) %>
+    <% @all_alarms.each_with_index do |alarm, index| %>
+      <li class="<%= "new" if alarm[:is_new] %>">
+      <%# image_tag picture_path(type: "profile", thumb: "true", id: alarms[:alarms][0].alarmer.id) %>
+        <%= raw alarm[:text] %>
       </li>
     <% end %>
   <% end %>

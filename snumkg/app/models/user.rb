@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :send_messages, :class_name => 'Message', :foreign_key => 'sender_id'
   has_many :receive_messages, :class_name => 'Message', :foreign_key => 'receiver_id'
-  has_many :alarm_groups, :class_name => 'AlarmGroup', :foreign_key => 'acceptor_id'
+  has_many :alarm_groups, :class_name => 'AlarmGroup', :foreign_key => 'accepter_id'
 
   #설문조사
   has_many :votes
