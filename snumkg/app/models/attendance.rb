@@ -1,3 +1,4 @@
+#coding: utf-8
 class Attendance < ActiveRecord::Base
   include AlarmHelper
 
