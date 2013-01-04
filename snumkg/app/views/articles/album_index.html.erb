@@ -73,7 +73,7 @@
       <a href="<%= article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article) %>">
         <div class="image_box">
           <% for image in @article.pictures[0..2] %>
-            <%= image_tag image.thumbnail_url %>
+            <%= image_tag image.thumb_url %>
           <% end %>
         </div>
         <div class="cover boxcaption">  

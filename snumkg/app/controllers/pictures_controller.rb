@@ -17,7 +17,7 @@ class PicturesController < ApplicationController
       name = params[:image].original_filename
       directory = File.join(Rails.root,'app/assets/images/profile/'+@user.username)
       full_path = File.join(directory, name)
-      thumbnail_path = File.join(directory,"thumb_"+name)
+      thumb_path = File.join(directory,"thumb_"+name)
 
       if !File.directory?(directory)
         Dir.mkdir(directory)
@@ -34,12 +34,12 @@ class PicturesController < ApplicationController
       #resizing
       image = ImageList.new(full_path);
       thumbnail = image.thumbnail_center(30, 30)
-      thumbnail.write(thumbnail_path)
+      thumbnail.write(thumb_path)
 
       @user.password = @user.password_confirmation = 'asdfgh'
       @user.update_attributes({
         :profile_image_path => full_path,
-        :thumbnail_image_path => thumbnail_path
+        :thumbnail_image_path => thumb_path
       })
 
       flash[:success] = "프로필 사진이 성공적으로 등록되었습니다."
@@ -51,7 +51,7 @@ class PicturesController < ApplicationController
       @picture.name = p.original_filename
       directory = File.join(Rails.root,'images/articles/', @user.username, Time.now.strftime("%y%m%d_%H%M"))
       @picture.full_path = full_path = File.join(directory,name)
-      @picture.thumb_path = thumbnail_path = File.join(directory,"thumb_"+name)
+      @picture.thumb_path = thumb_path = File.join(directory,"thumb_"+name)
       @picture.main_thumb_path = main_thumb_path = File.join(directory,"main_thumb_"+name)
 
       # 폴더가 없을 시에 폴더를 만들어줌. recursive하게
@@ -67,7 +67,7 @@ class PicturesController < ApplicationController
       # index에서 보여주기 위한 앨범 썸네일 저장
       image = ImageList.new(full_path);
       thumbnail = image.thumbnail_center(220, 220)
-      thumbnail.write(thumbnail_path)
+      thumbnail.write(thumb_path)
 
 			#메인 슬라이드쇼 앨범 섬네일
       main_thumbnail = image.thumbnail_center(315, 355)

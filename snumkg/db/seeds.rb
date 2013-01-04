@@ -18,13 +18,13 @@ end
 p_path = "#{Rails.root}/app/assets/images"
 admin = User.new(username: "snumkg", email: "snumkg@gmail.com", nickname: "관리자", password: "asdf", password_confirmation: "asdf", admin: true)
 admin.set_password("asdf")
-tg = User.new(username: "xovsxo", email: "taegeonum@gmail.com", nickname: "엄태건", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default1.jpg", thumbnail_image_path: "#{p_path}/t_default1.jpg")
+tg = User.new(username: "xovsxo", email: "taegeonum@gmail.com", nickname: "엄태건", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default1.jpg", thumb_image_path: "#{p_path}/t_default1.jpg")
 tg.set_password("asdf")
-c = User.new(username: "asdf1", email: "asdf1@gmail.com", nickname: "홍쁘", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default2.jpg", thumbnail_image_path: "#{p_path}/t_default2.jpg")
+c = User.new(username: "asdf1", email: "asdf1@gmail.com", nickname: "홍쁘", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default2.jpg", thumb_image_path: "#{p_path}/t_default2.jpg")
 c.set_password("asdf")
-d = User.new(username: "asdf2", email: "asdf2@gmail.com", nickname: "김범준", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default3.jpg", thumbnail_image_path: "#{p_path}/t_default3.jpg")
+d = User.new(username: "asdf2", email: "asdf2@gmail.com", nickname: "김범준", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default3.jpg", thumb_image_path: "#{p_path}/t_default3.jpg")
 d.set_password("asdf")
-e = User.new(username: "asdf3", email: "asdf3@gmail.com", nickname: "백승범", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", thumbnail_image_path: "#{p_path}/t_default4.jpg")
+e = User.new(username: "asdf3", email: "asdf3@gmail.com", nickname: "백승범", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", thumb_image_path: "#{p_path}/t_default4.jpg")
 e.set_password("asdf")
 
 admin.save
@@ -76,7 +76,7 @@ end
 
 for board in Board.where(:board_type => "일반")
   # 일반게시판 아티클
-  Article.create(title: "공지입니당.", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type, notice: true)
+  Article.create(title: "공지입니당.", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type, is_notice: true)
   Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type)
   Article.create(title: "두번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
 end
@@ -96,7 +96,7 @@ end
     p.url = "/pictures/#{p.id}?type=album"
     p.name = "aaa"
     p.thumb_path = "#{directory}/t_"+num+".jpg"
-    p.thumbnail_url = "/pictures/#{p.id}?type=album&thumb=true"
+    p.thumb_url = "/pictures/#{p.id}?type=album&thumb=true"
     p.article_id = article.id
     p.save
   end

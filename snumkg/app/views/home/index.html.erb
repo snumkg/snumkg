@@ -44,7 +44,7 @@
 					<ul>
 						<li class="arrow"><%= link_to image_tag("main/widget_photo_arrow_up.png"), "#", :id => "photo_navigation_up_button" %>
 						<% @photos.each_with_index do |photo, i| %>
-							<li class="photo <%= (i == 0) ? "selected" : "" %>" title="<%= photo.article.title %>" href="<%= article_path(photo.article.board.group, photo.article.board, photo.article) %>" src="<%= photo.main_thumb_url %>"><%= image_tag photo.thumbnail_url %></li>
+							<li class="photo <%= (i == 0) ? "selected" : "" %>" title="<%= photo.article.title %>" href="<%= article_path(photo.article.board.group, photo.article.board, photo.article) %>" src="<%= photo.main_thumb_url %>"><%= image_tag photo.thumb_url %></li>
 						<% end %>
 						<li class="arrow"><%= link_to image_tag("main/widget_photo_arrow_down.png"), "#", :id => "photo_navigation_down_button" %>
 					</ul>

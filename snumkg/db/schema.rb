@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909113032) do
+ActiveRecord::Schema.define(:version => 20120830151344) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "article_id"
@@ -29,9 +29,9 @@ ActiveRecord::Schema.define(:version => 20120909113032) do
   create_table "album_images", :force => true do |t|
     t.integer  "article_id"
     t.string   "full_path"
+    t.string   "file_name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "file_name"
   end
 
   create_table "articles", :force => true do |t|
@@ -40,14 +40,14 @@ ActiveRecord::Schema.define(:version => 20120909113032) do
     t.string   "title"
     t.text     "body"
     t.integer  "view_count",     :default => 0
+    t.boolean  "is_notice",      :default => false
+    t.string   "article_type",   :default => "일반"
     t.datetime "date"
     t.string   "anonymous_name"
-    t.string   "article_type",   :default => "일반"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
     t.string   "password_salt"
     t.string   "password_hash"
-    t.boolean  "notice",         :default => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "attendances", :force => true do |t|
@@ -61,11 +61,11 @@ ActiveRecord::Schema.define(:version => 20120909113032) do
     t.integer  "group_id"
     t.string   "name"
     t.integer  "admin_id"
-    t.string   "board_type",  :default => "일반"
-    t.boolean  "hide",        :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.integer  "board_order", :default => 0
+    t.string   "board_type", :default => "일반"
+    t.boolean  "hide",       :default => false
+    t.integer  "position",   :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -136,12 +136,12 @@ ActiveRecord::Schema.define(:version => 20120909113032) do
     t.string   "url"
     t.string   "name"
     t.string   "thumb_path"
-    t.string   "thumbnail_url"
+    t.string   "thumb_url"
     t.integer  "article_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
     t.string   "main_thumb_path"
     t.string   "main_thumb_url"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "polls", :force => true do |t|
@@ -166,18 +166,17 @@ ActiveRecord::Schema.define(:version => 20120909113032) do
     t.string   "nickname"
     t.string   "phone_number"
     t.string   "department"
-    t.integer  "grade"
+    t.string   "entrance_year"
     t.string   "email"
+    t.date     "birthday"
     t.integer  "alarm_counts",           :default => 0
     t.integer  "level",                  :default => 1
     t.string   "profile_image_path"
-    t.string   "thumbnail_image_path"
+    t.string   "thumb_image_path"
     t.boolean  "admin",                  :default => false
+    t.boolean  "is_phone_number_public", :default => true
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.boolean  "is_phone_number_public", :default => true
-    t.boolean  "contact",                :default => false
-    t.date     "birthday"
   end
 
   create_table "votes", :force => true do |t|
