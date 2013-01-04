@@ -107,6 +107,10 @@ end
   end
 
   #매일매일
+  
+  everyday_group = Group.create(name: "11학번",  admin_id: admin.id, group_type: "학번")
+  board = Board.create(name: "매일매일", group_id: all_group.id, admin_id: admin.id, board_type: "일반")
+
 
   10.times do 
     EverydayPost.create(content: "여러분 방가방가 ㅋㄷㅋㄷㅋㄷ 쿄쿜", user_id: random_number(1,User.all.count))

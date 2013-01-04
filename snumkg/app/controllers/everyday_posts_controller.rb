@@ -7,7 +7,6 @@ class EverydayPostsController < ApplicationController
     @page = params[:page].to_i || 1
 
     @posts = @board.articles.order("created_at desc").page(@page).per(5)
-    @posts = Article.where(:article_type => Article.type_i_to_s("매일매일"), :order => "created_at desc").page(@page).per(5)
     @post = Article.new
    
   end
