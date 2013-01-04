@@ -1,9 +1,9 @@
 <div class="post">
   <div class="writer">
-    <%= render :partial => 'shared/user_menu', :locals => {:writer => post.user, :size => "40x40"} %>
+    <%= render :partial => 'shared/user_menu', :locals => {:writer => post.writer, :size => "40x40"} %>
   </div>
   <div class="show_comment">
-    <div class="post_content"><%= post.content %></div>
+    <div class="post_content"><%= post.body %></div>
     <table class="table table-condensed" data-id="<%=post.id%>">
       <%= render :partial => 'everyday_comments/comments', :locals => {:post => post} %>
       <tr data-id="<%= post.id %>">

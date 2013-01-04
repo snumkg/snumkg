@@ -77,6 +77,7 @@ class ApplicationController < ActionController::Base
     @new_user = User.new
     @anyone_group = Group.find(1)
     @sokkoji_group = Group.find_by_group_type("소꼬지")
+    @everyday_group = Group.find_by_group_type("매일매일")
 
   end
 

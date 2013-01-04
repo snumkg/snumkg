@@ -94,7 +94,7 @@
 			<li>
 			<a href="<%= everyday_path(page: 1) %>">
 				<%= image_tag "main/navigation_day_by_day.png", alt: "매일매일"%>
-				<% if EverydayPost.new_post? %>
+				<% if @everyday_group.new_article? %>
 					<%= image_tag 'main/new.png', alt: "new", class: "new" %>
 				<% end %>
 			</a>

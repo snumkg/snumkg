@@ -4,16 +4,15 @@
 <% end %>
 <div id="post_wrapper">
   <div class="new_post">
-    <%= form_for(@post, remote: true) do |f| %>
+    <%= form_for(:post, remote: true) do |f| %>
       <%= f.hidden_field :user_id, :value => current_user.id %>
       <%= image_tag picture_path(type: "profile", thumb: true, id: current_user.id) %><%= current_user.nickname %>
       <%= f.submit "글쓰기", class: "submit" %>
-      <%= f.text_area :content, class: "write_post" %>
+      <%= f.text_area :body, class: "write_post" %>
     <% end %>
   </div>
   <div class="post_list">
-    <%= render :partial => 'everyday_posts/posts', :locals => {:@posts => @articles} %>
+    <%= render :partial => 'everyday_posts/posts', :locals => {:@posts => @posts} %>
   </div>
 
-  <%= render :partial => 'shared/pagination', :locals => {:@start_page => @start_page, :@end_page => @end_page, :type => "everyday_posts"} %>
 </div>
