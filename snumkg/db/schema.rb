@@ -16,13 +16,11 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
   create_table "alarm_groups", :force => true do |t|
     t.integer  "article_id"
     t.integer  "comment_id"
-    t.integer  "everyday_comment_id"
-    t.integer  "everyday_post_id"
     t.integer  "alarm_type"
-    t.integer  "user_id"
-    t.boolean  "is_new",              :default => true
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.integer  "accepter_id"
+    t.boolean  "is_new",      :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "alarms", :force => true do |t|
@@ -116,7 +114,7 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.integer  "receiver_id"
     t.string   "title"
     t.text     "content"
-    t.boolean  "read",        :default => false
+    t.boolean  "is_read",     :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end
@@ -171,7 +169,7 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.integer  "level",                  :default => 1
     t.string   "profile_image_path"
     t.string   "thumb_image_path"
-    t.boolean  "admin",                  :default => false
+    t.boolean  "is_admin",               :default => false
     t.boolean  "is_phone_number_public", :default => true
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false

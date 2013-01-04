@@ -17,9 +17,9 @@ class User < ActiveRecord::Base
   
   has_many :articles
   has_many :comments
-  has_many :alarms, :class_name => 'Alarm', :foreign_key => 'acceptor_id'
   has_many :send_messages, :class_name => 'Message', :foreign_key => 'sender_id'
   has_many :receive_messages, :class_name => 'Message', :foreign_key => 'receiver_id'
+  has_many :alarm_groups, :class_name => 'AlarmGroup', :foreign_key => 'acceptor_id'
 
   #설문조사
   has_many :votes
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def message_count
-    self.receive_messages.where(:read => false).count
+    self.receive_messages.where(:is_read => false).count
   end
 
   private
@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
 
   public
   def occured_alarm_count
-    cnt = Alarm.where(acceptor_id: self.id).count
+    cnt = Alarm.where(accepter_id: self.id).count
 
     if cnt != 0
       cnt - self.alarm_counts
@@ -74,11 +74,11 @@ class User < ActiveRecord::Base
   end
 
   def alarms
-    Alarm.where(acceptor_id: self.id)
+    AlarmGroup.where(accepter_id: self.id)
   end
 
   def new_alarm_count
-    Alarm.where(acceptor_id: self.id, is_new: true).count
+    AlarmGroup.where(accepter_id: self.id, is_new: true).count
   end
 
  end

@@ -16,7 +16,7 @@ end
 
 #User
 p_path = "#{Rails.root}/app/assets/images"
-admin = User.new(username: "snumkg", email: "snumkg@gmail.com", nickname: "관리자", password: "asdf", password_confirmation: "asdf", admin: true)
+admin = User.new(username: "snumkg", email: "snumkg@gmail.com", nickname: "관리자", password: "asdf", password_confirmation: "asdf", is_admin: true)
 admin.set_password("asdf")
 tg = User.new(username: "xovsxo", email: "taegeonum@gmail.com", nickname: "엄태건", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default1.jpg", thumb_image_path: "#{p_path}/t_default1.jpg")
 tg.set_password("asdf")
