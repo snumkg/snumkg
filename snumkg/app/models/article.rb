@@ -1,6 +1,9 @@
 #encoding: utf-8
 class Article < ActiveRecord::Base
   attr_protected
+
+  before_save :setting_default
+
   validates_presence_of :user_id, :unless => Proc.new {|article| article.article_type == "익명"}
   validates_presence_of :board_id
 
@@ -15,58 +18,14 @@ class Article < ActiveRecord::Base
   has_many :alarms, :class_name => 'Alarm', :foreign_key => :article_id
   has_many :pictures, :dependent => :destroy
 
+
   # type
-  # 0: 일반 게시물
-  # 1: 소꼬지 게시물
-  # 2: 익명 게시물
-  # 3: 앨범 게시물
-  # 4: 매일매일 게시물
+  # 일반 게시물
+  # 소꼬지 게시물
+  # 익명 게시물
+  # 앨범 게시물
+  # 매일매일 게시물
   
-  def type_text
-    case self.article_type
-    when 0
-      "일반"
-    when 1
-      "소꼬지"
-    when 2
-      "익명"
-    when 3
-      "앨범"
-    when 4
-      "매일매일"
-    end
-  end
-
-  def type_s_to_i(str)
-    case str
-    when "일반"
-      0
-    when "소꼬지"
-      1
-    when "익명"
-      2
-    when "앨범"
-      3
-    when "매일매일"
-      4
-    end
-  end
-
-  def type_i_to_s(i)
-    case i
-    when 0
-      "일반"
-    when 1
-      "소꼬지"
-    when 2
-      "익명"
-    when 3
-      "앨범"
-    when 4
-      "매일매일"
-    end
-  end
-
   def liked_by?(user_id)
     !Like.where(:article_id => self.id, :user_id => user_id).limit(1).first.nil?
   end
@@ -109,5 +68,15 @@ class Article < ActiveRecord::Base
 			self.created_at.strftime("%m-%d")
 		end
 	end
+
+  def article_type
+    Board.find_by_id(self.board_id).board_type
+  end
+
+  def setting_default
+    if self.title.nil? || self.title.empty? | self.title.blank?
+      self.title = "제목없음"
+    end
+  end
 
 end

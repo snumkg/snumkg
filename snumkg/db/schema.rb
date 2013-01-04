@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.text     "body"
     t.integer  "view_count",     :default => 0
     t.boolean  "is_notice",      :default => false
-    t.string   "article_type",   :default => "일반"
     t.datetime "date"
     t.string   "anonymous_name"
     t.string   "password_salt"

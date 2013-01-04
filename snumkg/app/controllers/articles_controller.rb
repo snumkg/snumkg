@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
     @page = params[:page].to_i || 1
 
     # Pagination
-    if @board.type_text != "앨범" # 앨범은 보여주는 이미지의 갯수가 다르다.
+    if @board.board_type != "앨범" # 앨범은 보여주는 이미지의 갯수가 다르다.
       @articles = @board.articles.page(@page).order("created_at desc").per(5)
     else
       @articles = @board.articles.page(@page).per(6)
@@ -17,7 +17,7 @@ class ArticlesController < ApplicationController
 
     @index = @articles.count
 
-    case @board.type_text
+    case @board.board_type
     when "일반" # 일반게시판
       render 'index'
     when "소꼬지 일정" # 소꼬지 달력
@@ -40,7 +40,7 @@ class ArticlesController < ApplicationController
   def new
     @board = Board.find_by_id(params[:board_id])
     @article = Article.new
-    case @board.type_text
+    case @board.board_type
     when "일반" # 일반게시판
       render 'new'
     when "소꼬지" # 소꼬지게시판
@@ -58,7 +58,7 @@ class ArticlesController < ApplicationController
 
     @pictures = @article.pictures
 
-    case @article.type_text
+    case @article.article_type
     when "일반" # 일반게시물
       render 'edit'
     when "소꼬지" # 소꼬지게시물
@@ -75,9 +75,8 @@ class ArticlesController < ApplicationController
 
     @article.title = params[:article][:title]
     @article.body = params[:article][:body]
-    @article.article_type = Article.type_s_to_i(params[:article_type])
 
-    if @article.type_text == "앨범"
+    if @article.article_type == "앨범"
         # 이미지와 아티클 연결지어주기 
         if !params[:picture].nil?
           pictures = params[:picture]
@@ -106,7 +105,7 @@ class ArticlesController < ApplicationController
       alarm.update_attribute(:is_new, false) unless alarm.nil?
     end
 
-    case @article.type_text
+    case @article.article_type
     when "일반" # 일반게시물
       render 'show'
     when "소꼬지" # 소꼬지 게시물
@@ -123,13 +122,12 @@ class ArticlesController < ApplicationController
     @board = Board.find_by_id(params[:board_id])
 
     @article = Article.new(params[:article])
-    @article.article_type = Article.type_s_to_i(params[:article_type])
     @article.date = params[:article][:date].to_datetime unless params[:article][:date].nil? #소꼬지 일정 저장
     @article.board_id = @board.id
 
 
     #익명게시물일 경우 유저 아이디를 저장하지 않음.
-    if @article.type_text != "익명"
+    if @article.article_type != "익명"
       @article.user_id = session[:user_id]
     else
       @article.set_password(params[:password])
@@ -153,7 +151,7 @@ class ArticlesController < ApplicationController
         end
       end
 
-      if @article.type_text == "앨범" # 앨범게시물일 경우.
+      if @article.article_type == "앨범" # 앨범게시물일 경우.
         # 이미지와 아티클 연결지어주기 
         if !params[:picture].nil?
           pictures = params[:picture]
@@ -185,7 +183,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find_by_id(params[:id])
 
-    if @article.type_text == "익명" # 익명게시물 삭제시
+    if @article.article_type == "익명" # 익명게시물 삭제시
       if !@article.authentication(params[:password])
         flash[:error] = "비밀번호가 일치하지 않습니다."
         redirect_to article_path(:group_id => params[:group_id], :board_id => params[:board_id], id: params[:id], page: 1)

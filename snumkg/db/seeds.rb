@@ -71,23 +71,23 @@ end
 body_content = "안녕하세요 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
 
 25.times do 
-  Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: 1, body: body_content, article_type: "일반")
+  Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: 1, body: body_content)
 end
 
 for board in Board.where(:board_type => "일반")
   # 일반게시판 아티클
-  Article.create(title: "공지입니당.", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type, is_notice: true)
-  Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content, article_type: board.board_type)
+  Article.create(title: "공지입니당.", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content,is_notice: true)
+  Article.create(title: "첫번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
   Article.create(title: "두번째 글", user_id: random_number(1,User.all.count), board_id: board.id, body: body_content)
 end
   
   #앨범게시물
   10.times do
-    Article.create(title: "롯월 소꼬지", user_id: random_number(1,User.all.count), board_id: album.id, body: body_content, article_type: "앨범")
+    Article.create(title: "롯월 소꼬지", user_id: random_number(1,User.all.count), board_id: album.id, body: body_content)
   end
   
   directory = File.join(Rails.root, "images")
-  for article in Article.where(:article_type => "앨범")
+  for article in Board.where(:board_type => "앨범").limit(1).first.articles
     num = random_number(1,5).to_s
     full_path = File.join(directory,num + ".jpg")
     p = Picture.new
@@ -103,21 +103,23 @@ end
 
 #소꼬지게시판 아티클
   6.times do 
-    Article.create(title: "바보 소꼬지", user_id: random_number(1,User.all.count), board_id: s.id, body: body_content, article_type: "소꼬지", date: Time.now + random_number(-3,3)*60*60*24)
+    Article.create(title: "바보 소꼬지", user_id: random_number(1,User.all.count), board_id: s.id, body: body_content, date: Time.now + random_number(-3,3)*60*60*24)
   end
 
   #매일매일
   
-  everyday_group = Group.create(name: "11학번",  admin_id: admin.id, group_type: "학번")
-  board = Board.create(name: "매일매일", group_id: all_group.id, admin_id: admin.id, board_type: "일반")
-
+  everyday_group = Group.create(name: "매일매일",  admin_id: admin.id, group_type: "매일매일")
+  everyday_board = Board.create(name: "매일매일", group_id: everyday_group.id, admin_id: admin.id, board_type: "매일매일")
 
   10.times do 
-    EverydayPost.create(content: "여러분 방가방가 ㅋㄷㅋㄷㅋㄷ 쿄쿜", user_id: random_number(1,User.all.count))
+    Article.create(body: "여러분 방가방가 ㅋㄷㅋㄷㅋㄷ 쿄쿜", user_id: random_number(1,User.all.count), board_id: everyday_board.id)
   end
 
-  for post in EverydayPost.all
-    post.everyday_comments.create(content: "오홍 방가워염", user_id: random_number(1, User.all.count))
+  for post in everyday_board.articles 
+    comment = post.comments.new
+    comment.content = "오홍 방가워염"
+    comment.user_id = random_number(1, User.all.count)
+    comment.save
   end
  
   

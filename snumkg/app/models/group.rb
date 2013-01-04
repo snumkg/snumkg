@@ -1,9 +1,10 @@
+#encoding: utf-8
 class Group < ActiveRecord::Base
   # attr_accessible :title, :body
   # group_type
-  # "일반"
-  # "소꼬지"
-  #
+  # 0: "일반"
+  # 1: "소꼬지"
+  # 2: "매일매일"
   attr_protected
 
   validates_uniqueness_of :name
@@ -18,6 +19,17 @@ class Group < ActiveRecord::Base
     end
 
     false
+  end
+
+  def type_text
+    case self.group_type
+    when 0
+      "일반"
+    when 1
+      "소꼬지"
+    when 2
+      "매일매일"
+    end
   end
 
   def boards
