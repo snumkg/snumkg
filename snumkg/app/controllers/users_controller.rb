@@ -47,14 +47,14 @@ class UsersController < ApplicationController
         Alarm.where(:alarm_type => type, :acceptor_id => current_user.id)
               .order("CREATED_AT DESC")
               .group_by(&:article_id)
-              .map {|article_id,alarms| alarms.group_by(&:new)}
+              .map {|article_id,alarms| alarms.group_by(&:is_new)}
 
       when 2
         # 내 댓글이 추천받을 때
         Alarm.where(:alarm_type => type, :acceptor_id => current_user.id)
               .order("CREATED_AT DESC")
               .group_by(&:comment_id)
-              .map {|a,alarms| alarms.group_by(&:new)}
+              .map {|a,alarms| alarms.group_by(&:_is_new)}
       when 5
         #매일매일에 댓글일 달릴때
 
@@ -92,12 +92,12 @@ class UsersController < ApplicationController
       unless alarms[true].nil?
         new_count = new_count + 1
         if alarms[false].nil?
-          {:new => true, :alarms => alarms[true].uniq { |alarm| alarm.alarmer}}
+          {:is_new => true, :alarms => alarms[true].uniq { |alarm| alarm.alarmer}}
         else
-          {:new => true, :alarms => (alarms[true] + alarms[false] ).uniq {|alarm| alarm.alarmer}}
+          {:is_new => true, :alarms => (alarms[true] + alarms[false] ).uniq {|alarm| alarm.alarmer}}
         end
       else
-        {:new => false, :alarms => alarms[false].uniq {|alarm| alarm.alarmer}}
+        {:is_new => false, :alarms => alarms[false].uniq {|alarm| alarm.alarmer}}
       end
     end
 

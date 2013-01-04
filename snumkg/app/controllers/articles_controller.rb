@@ -101,8 +101,8 @@ class ArticlesController < ApplicationController
 
     if params[:type] == "click_alarm"
       @alarms = @article.alarms.where("acceptor_id = ?",current_user.id)
-      alarm = @alarms.find_by_new(true)
-      alarm.update_attribute(:new, false) unless alarm.nil?
+      alarm = @alarms.find_by_is_new(true)
+      alarm.update_attribute(:is_new, false) unless alarm.nil?
     end
 
     case @article.article_type

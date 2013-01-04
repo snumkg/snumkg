@@ -8,7 +8,7 @@ class CreateAlarms < ActiveRecord::Migration
       t.integer :everyday_comment_id
       t.integer :everyday_post_id
       t.integer :alarm_type
-      t.boolean :new, :default => true
+      t.boolean :is_new, :default => true
 
       t.timestamps
     end
