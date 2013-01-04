@@ -14,12 +14,10 @@ class CommentsController < ApplicationController
       @comment.set_password(params[:comment][:password])
       @comment.username= params[:comment][:username]
     end
-    @comment.comment_type = 0
 
     if @comment.save
       respond_to do |format|
         format.html {redirect_to article_path(group_id: article.board.group.id, board_id: article.board.id, id: params[:comment][:article_id])}
-        format.js
       end
     else
       flash[:error] = "comment error"
@@ -29,7 +27,7 @@ class CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find_by_id(params[:id])
-    if comment.comment_type == 0 # 게시물 댓글일때
+    if comment.profile_user_id.nil? # 게시물 댓글일때
       group_id = comment.article.board.group.id
       board_id = comment.article.board.id
       article_id = comment.article.id
@@ -54,7 +52,6 @@ class CommentsController < ApplicationController
     @profile_comment.profile_user_id = params[:profile_user_id]
     @profile_comment.user_id = current_user.id unless current_user.nil?
     @profile_comment.content = params[:content]
-    @profile_comment.comment_type = 1
 
     @profile_comment.save
 

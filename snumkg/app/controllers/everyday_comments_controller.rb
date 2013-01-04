@@ -1,10 +1,12 @@
 class EverydayCommentsController < ApplicationController
 
   def create
-    @comment = EverydayComment.new(params[:everyday_comment])
+    @comment = Comment.new
+    @comment.user_id = params[:everyday_comment][:user_id]
+    @comment.article_id = params[:everyday_comment][:article_id]
+    @comment.content = params[:everyday_comment][:content]
 
     if @comment.save
-
       respond_to do |format|
         format.html {redirect_to everyday_path}
         format.js
@@ -13,7 +15,7 @@ class EverydayCommentsController < ApplicationController
   end
 
   def destroy
-    @comment = EverydayComment.find_by_id(params[:id])
+    @comment = Comment.find_by_id(params[:id])
 
     if current_user == @comment.user
       if @comment.destroy

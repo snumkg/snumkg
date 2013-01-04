@@ -99,11 +99,6 @@ class ArticlesController < ApplicationController
     @comments = @article.comments
     @comment = Comment.new
 
-    if params[:type] == "click_alarm"
-      @alarms = @article.alarms.where("acceptor_id = ?",current_user.id)
-      alarm = @alarms.find_by_is_new(true)
-      alarm.update_attribute(:is_new, false) unless alarm.nil?
-    end
 
     case @article.article_type
     when "일반" # 일반게시물
@@ -125,11 +120,9 @@ class ArticlesController < ApplicationController
     @article.date = params[:article][:date].to_datetime unless params[:article][:date].nil? #소꼬지 일정 저장
     @article.board_id = @board.id
 
-
     #익명게시물일 경우 유저 아이디를 저장하지 않음.
     if @article.article_type != "익명"
       @article.user_id = session[:user_id]
-    else
       @article.set_password(params[:password])
     end
 
@@ -164,7 +157,9 @@ class ArticlesController < ApplicationController
 
       end
 
-      redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id], page: 1)
+      respond_to do |format|
+       format.html {redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id], page: 1)}
+      end
     else
       case params[:article_type]
       when "일반"

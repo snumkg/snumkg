@@ -1,6 +1,6 @@
-<%= form_for(EverydayComment.new, remote: true) do |f| %>
+<%= form_for(:everyday_comment, method: :post, url: everyday_comments_path, remote: true) do |f| %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
-  <%= f.hidden_field :everyday_post_id, :value => post.id %>
+  <%= f.hidden_field :article_id, :value => post.id %>
   <%= f.text_field :content, class: "span5 comment_content", :"data-id" => post.id %>
   <%= f.submit "댓글달기", class: "btn btn-small" %>
 <% end %>

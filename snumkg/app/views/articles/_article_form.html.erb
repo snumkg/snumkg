@@ -5,7 +5,7 @@
   작성자 : <%= current_user.username %>
   <%= f.label :title, '제목' %>
   <%= f.text_field :title %>
-  <%= f.check_box :notice, {}, true, false %>공지
+  <%= f.check_box :is_notice, {}, true, false %>공지
   <a id="poll_btn" href="#" class="btn">설문조사</a>
   <div class="poll_hidden_box hidden"></div>
   <div class="poll_box"></div>

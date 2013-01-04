@@ -14,11 +14,12 @@ class EverydayPostsController < ApplicationController
   def create
     @post = Article.new
     @post.user_id = params[:everyday_post][:user_id]
-    @post.content = params[:everyday_post][:content]
+    @post.body = params[:everyday_post][:body]
+    @post.board_id = params[:everyday_post][:board_id]
 
     if @post.save
       @page = params[:page].to_i || 1
-      @posts = Article.where(:article_type => "매일매일", :order => "created_at desc").page(@page).per(5)
+      @posts = @post.board.articles.order("created_at desc").page(1).per(5)
       @post = Article.new      
       
       respond_to do |format|
