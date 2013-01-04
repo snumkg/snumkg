@@ -23,19 +23,19 @@ class Alarm < ActiveRecord::Base
     when 0, 1, 3, 4
       unless Alarm.where(:alarm_type => self.alarm_type,
                   :article_id => self.article_id,
-                  :acceptor_id => self.acceptor_id).find_by_new(true).nil?
+                  :acceptor_id => self.acceptor_id).find_by_is_new(true).nil?
         self.new = false
       end
     when 2 
       unless Alarm.where(:alarm_type => self.alarm_type,
                          :comment_id => self.comment_id,
-                         :acceptor_id => self.acceptor_id).find_by_new(true).nil?
+                         :acceptor_id => self.acceptor_id).find_by_is_new(true).nil?
         self.new = false
       end
     when 5
       unless Alarm.where(:alarm_type => self.alarm_type,
                          :everyday_post_id => self.everyday_post_id,
-                         :acceptor_id => self.acceptor_id).find_by_new(true).nil?
+                         :acceptor_id => self.acceptor_id).find_by_is_new(true).nil?
         self.new = false
       end
     end
