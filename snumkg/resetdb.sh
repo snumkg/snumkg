@@ -1,1 +1,1 @@
-rake db:drop;rake db:migrate;rake db:seed
+bundle exec rake db:drop;bundle exec rake db:migrate;bundle exec rake db:seed

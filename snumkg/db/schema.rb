@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120909113032) do
     t.integer  "acceptor_id"
     t.integer  "alarmer_id"
     t.integer  "everyday_comment_id"
+    t.integer  "everyday_post_id"
     t.integer  "alarm_type"
     t.boolean  "new",                 :default => true
     t.datetime "created_at",                            :null => false
