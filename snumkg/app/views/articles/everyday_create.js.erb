@@ -1,0 +1,2 @@
+$("div.post_list").html("").append("<%= escape_javascript(render :partial => 'everyday_posts/posts', :locals => {:@posts => @posts} ) %>");
+$("#everyday_post_content").val("");
