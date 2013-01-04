@@ -10,6 +10,8 @@ class ArticlesController < ApplicationController
     # Pagination
     if @board.board_type != "앨범" # 앨범은 보여주는 이미지의 갯수가 다르다.
       @articles = @board.articles.page(params[:page].to_i).order("created_at desc").per(5)
+    else
+      @articles = @board.articles.page(params[:page].to_i).per(6)
     end
 
     @index = @articles.count
@@ -19,7 +21,7 @@ class ArticlesController < ApplicationController
       render 'index'
     when "소꼬지 일정" # 소꼬지 달력
     # 소꼬지 일정을 보여줄 때, 소꼬지 게시판에서 게시물을 가져옴.
-      @articles = Board.find_by_board_type("소꼬지").page(params[:page].to_i).per(5).articles.order("created_at desc")
+      #@articles = Board.find_by_board_type("소꼬지").page(params[:page].to_i).per(5).articles.order("created_at desc")
       render 'sokkoji_calendar'
     when "소꼬지" # 소꼬지 게시판
       # 소꼬지 게시물은 수정하면 다시 상단에 노출되도록 함
@@ -30,7 +32,6 @@ class ArticlesController < ApplicationController
     when "익명" # 익명 게시판
       render 'anonymous_index'
     when "앨범"
-      @articles = @board.articles.page(params[:page].to_i).per(6)
       render 'album_index'
     end
   end
