@@ -69,14 +69,20 @@ class Article < ActiveRecord::Base
 		end
 	end
 
-  def article_type
-    Board.find_by_id(self.board_id).board_type
-  end
 
   def setting_default
-    if self.title.nil? || self.title.empty? | self.title.blank?
+    def is_valid?(str)
+      not(str.nil? || str.empty? || str.blank?)
+    end
+
+    # 글 제목이 없을 경우 제목없음으로 넣어줌
+    unless is_valid?(self.title)
       self.title = "제목없음"
     end
+
+    # 아티클 타입은 board 타입과 항상 같게 저장
+    self.article_type = Board.find_by_id(self.board_id).board_type
   end
+
 
 end

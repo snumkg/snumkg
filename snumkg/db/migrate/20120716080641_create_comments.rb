@@ -5,7 +5,7 @@ class CreateComments < ActiveRecord::Migration
       t.integer :user_id
       t.integer :profile_user_id # 프로필에 댓글 달 때
       t.string :content
-      t.integer :comment_type, :default => 0
+      #t.string :comment_type
       t.string :username
       t.string :password_salt
       t.string :password_hash

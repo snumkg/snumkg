@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.text     "body"
     t.integer  "view_count",     :default => 0
     t.boolean  "is_notice",      :default => false
+    t.string   "article_type"
     t.datetime "date"
     t.string   "anonymous_name"
     t.string   "password_salt"
@@ -68,27 +69,11 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.integer  "user_id"
     t.integer  "profile_user_id"
     t.string   "content"
-    t.integer  "comment_type",    :default => 0
     t.string   "username"
     t.string   "password_salt"
     t.string   "password_hash"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-  end
-
-  create_table "everyday_comments", :force => true do |t|
-    t.string   "content"
-    t.integer  "user_id"
-    t.integer  "everyday_post_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  create_table "everyday_posts", :force => true do |t|
-    t.string   "content"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "groups", :force => true do |t|

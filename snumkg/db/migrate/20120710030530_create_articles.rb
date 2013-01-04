@@ -8,6 +8,7 @@ class CreateArticles < ActiveRecord::Migration
       t.text    :body
       t.integer :view_count, :default => 0
       t.boolean :is_notice, :default => false #공지글인지
+      t.string :article_type
 
       t.datetime  :date
 
