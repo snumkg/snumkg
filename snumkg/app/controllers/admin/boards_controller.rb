@@ -39,9 +39,9 @@ class Admin::BoardsController < AdminController
     @board = Board.find_by_id(params[:id])
 
     if params[:hide] == "false"
-      @board.update_attribute(:hide, false)
+      @board.update_attribute(:is_hidden, false)
     else
-      @board.update_attribute(:hide, true)
+      @board.update_attribute(:is_hidden, true)
     end
     redirect_to admin_path
   end

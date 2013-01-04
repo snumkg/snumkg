@@ -13,12 +13,12 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find_by_id(params[:id])
-    @boards = @group.boards.where(:hide => false)
+    @boards = @group.boards.where(:is_hidden => false)
   end
 
   def sokkoji
     @group = Group.find_by_group_type("소꼬지")
-    @boards = @group.boards.where(:hide => false)
+    @boards = @group.boards.where(:is_hidden => false)
   end
 
   def create

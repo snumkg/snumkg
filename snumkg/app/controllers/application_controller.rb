@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
 
   private
   def get_groups
-    @groups = Group.where(:hide => false)
+    @groups = Group.where(:is_hidden => false)
     @hakbun_group = Group.where(:group_type => "학번")
     @new_user = User.new
     @anyone_group = Group.find(1)
@@ -85,6 +85,6 @@ class ApplicationController < ActionController::Base
 
   def set_group_boards
     @current_group = Group.find_by_id(params[:group_id])
-    @boards = @current_group.boards.where(:hide => false) if @current_group
+    @boards = @current_group.boards.where(:is_hidden => false) if @current_group
   end
 end

@@ -34,9 +34,9 @@ class Admin::GroupsController < AdminController
     @group = Group.find_by_id(params[:id])
 
     if params[:hide] == "false"
-      @group.update_attribute(:hide, false)
+      @group.update_attribute(:is_hidden, false)
     else
-      @group.update_attribute(:hide, true)
+      @group.update_attribute(:is_hidden, true)
     end
     redirect_to admin_groups_path
   end
