@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def new_alarm_count
-    Alarm.where(acceptor_id: self.id, new: true).count
+    Alarm.where(acceptor_id: self.id, is_new: true).count
   end
 
  end
