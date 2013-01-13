@@ -56,6 +56,28 @@ $(function(){
 		$(this).find('.sub_menu').css("display","none")
 	});
 
+  //알람
+  $(function(){
+    $("#alarm_link").click(function(){
+      
+      $.ajax({
+        url: '/alarms',
+        beforeSend: function(){
+          $("#alarm_list").html("").show();
+          $("#loading-image").show();
+        },
+        success: function(data){
+          $("#loading-image").hide();
+
+          $("#alarm_list").append($(data).children()).show();
+          $("#alarm_list li.new").css("background", "#fee");
+
+        }
+      });
+      
+    });
+  });
+
 });
 
 

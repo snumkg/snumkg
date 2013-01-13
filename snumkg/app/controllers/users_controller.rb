@@ -27,25 +27,12 @@ class UsersController < ApplicationController
     end
   end
 
+  #프로필 페이지
   def show
     @user = User.find(params[:id])
 
-    @profile_comments = Comment.where(:profile_user_id => params[:id], :comment_type => 1)
+    @profile_comments = Comment.where(:profile_user_id => params[:id])
     @profile_comment = Comment.new
-
-  end
-
-  def alarms
-    @user = current_user
-    @alarm_groups = @user.alarm_groups
-
-    @all_alarms = @user.alarm_groups.order("updated_at DESC").map{|alarm_group| {
-      is_new: alarm_group.is_new,
-      text: alarm_group.alarm_text
-    }}
-
-    render :layout => false
-    
   end
 
   def edit
@@ -71,5 +58,14 @@ class UsersController < ApplicationController
   def destroy
   end 
 
+  #알람 리스트의 뷰에 해당하는 액션
+  #인자 : page
+  def alarms
+    @page = params[:page] || 1
+    @user = current_user
+    @alarm_groups = @user.alarm_groups.order("updated_at DESC").page(@page).per(6)
+
+    render :layout => false
+  end
 
 end

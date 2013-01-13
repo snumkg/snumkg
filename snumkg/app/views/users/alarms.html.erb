@@ -1,13 +1,10 @@
-<ul id="alarm_list_ajax" data-alarmcounts="<%=session[:alarm_counts]%>">
-  <% unless @all_alarms.nil? %>
-    <% @all_alarms.each_with_index do |alarm, index| %>
-      <li class="<%= "new" if alarm[:is_new] %>">
-      <%# image_tag picture_path(type: "profile", thumb: "true", id: alarms[:alarms][0].alarmer.id) %>
-        <%= raw alarm[:text] %>
+<% unless @alarm_groups.nil? %>
+  <ul>
+    <% @alarm_groups.each_with_index do |alarm_group, index| %>
+      <li class="<%= "new" if alarm_group.is_new %>">
+      <%= image_tag alarm_group.alarm_profile_picture %>
+      <%= alarm_group.alarm_text %>
       </li>
     <% end %>
-  <% end %>
-
-</ul>
-
-
+  </ul>
+<% end %>

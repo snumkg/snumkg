@@ -109,16 +109,17 @@ Snumkg::Application.routes.draw do
   #alarm
   get '/alarms', :to => 'users#alarms', :as => 'user_alarms'
 
-  #user profile
-  get '/profile/:id', :to => 'profiles#show', :as => 'profile'
-  #get '/profile_image/:id(.:thumb)', :to => 'profiles#get_profile_image', :as => 'profile_image'
-  #post '/upload_profile_image', :to => 'profiles#upload_profile_image', :as => 'upload_profile_image'
-
   #profile comment 
   post 'profile/create_comment', :to => 'comments#create_profile_comment', :as => 'profile_comment'
 
+  #유저
   resources :users
+  get "profile/:id", :to => "users#show", :as => "profile"
+
+  #코맨트
   resources :comments, only:[:create, :destroy]
+
+  #쪽지
   resources :messages
 
   #search

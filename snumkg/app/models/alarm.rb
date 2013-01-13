@@ -3,7 +3,9 @@ class Alarm < ActiveRecord::Base
   attr_protected
   validates_presence_of :alarmer_id 
 
+  belongs_to :alarmer, :class_name => "User", :foreign_key => "alarmer_id"
   belongs_to :alarm_group
+
   after_destroy :destroy_alarm 
   before_save :save_alarm
 

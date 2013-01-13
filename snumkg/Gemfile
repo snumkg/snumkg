@@ -10,8 +10,8 @@ gem 'sqlite3'
 
 gem 'thin'
 gem 'bootstrap-sass', '2.0.0'
-gem 'rmagick'
-gem 'kaminari'
+gem 'rmagick' #이미지 프로세싱 (crop, resize 등)
+gem 'kaminari' #pagination
 
 
 # Gems used only for assets and not required

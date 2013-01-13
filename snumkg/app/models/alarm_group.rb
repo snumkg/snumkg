@@ -18,28 +18,36 @@ class AlarmGroup < ActiveRecord::Base
   validates_uniqueness_of :accepter_id, :scope => [:article_id, :comment_id, :alarm_type]
   has_many :alarms, :dependent => :delete_all
 
+  #알람 메시지를 생성하기 위한 메소드들
+  def alarm_profile_picture
+    self.alarms.order("updated_at DESC").limit(1).first.alarmer.thumb_image_path
+  end
+
   def alarm_text
     #알람을 묶어 알람 텍스트 생성
     @people = self.alarms.order("updated_at DESC").map{|x| User.find_by_id(x.alarmer_id).nickname}
 
     # 알림 인원이 3명 이하일땐 이름을 모두 표시
     if @people.size <= 3 then
-      @people_text = @people.join(", ") + "님이 "
+      @people_text = @people.join(", ") + "님이"
     else
-      @people_text = @people[0..2].join(", ") + " 외 #{@people.size - 3}명이 "
+      @people_text = @people[0..2].join(", ") + " 외 #{@people.size - 3}명이"
     end
+
+    @article = self.article
+    @comment = self.comment
 
     case self.alarm_type
     when "글추천"
-      create_article_link("#{@people_text}글을 추천하였습니다.", self.article.board.group.id, self.article.board.id, self.article.id)
+      "#{@people_text} #{@article.title}글을 추천하였습니다."
     when "댓글"
-      create_article_link("#{@people_text}글에 댓글을 달았습니다.", self.article.board.group.id, self.article.board.id, self.article.id)
+      "#{@people_text} 글에 댓글을 달았습니다."
     when "댓글추천"
-      "#{@people_text}댓글을 추천하였습니다."
+      "#{@people_text} 댓글을 추천하였습니다."
     when "프로필댓글"
-      "#{@people_text}프로필에 댓글을 달았습니다."
+      "#{@people_text} 프로필에 댓글을 달았습니다."
     when "참석"
-      "#{@people_text}참석합니다."
+      "#{@people_text} 참석합니다."
     end
   end
 
