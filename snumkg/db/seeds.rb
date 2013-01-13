@@ -18,13 +18,13 @@ end
 p_path = "#{Rails.root}/app/assets/images"
 admin = User.new(username: "snumkg", email: "snumkg@gmail.com", nickname: "관리자", password: "asdf", password_confirmation: "asdf", is_admin: true)
 admin.set_password("asdf")
-tg = User.new(username: "xovsxo", email: "taegeonum@gmail.com", nickname: "엄태건", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default1.jpg", thumb_image_path: "#{p_path}/t_default1.jpg")
+tg = User.new(username: "xovsxo", email: "taegeonum@gmail.com", nickname: "엄태건", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default1.jpg", profile_image_thumb_path: "#{p_path}/t_default1.jpg")
 tg.set_password("asdf")
-c = User.new(username: "asdf1", email: "asdf1@gmail.com", nickname: "홍쁘", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default2.jpg", thumb_image_path: "#{p_path}/t_default2.jpg")
+c = User.new(username: "asdf1", email: "asdf1@gmail.com", nickname: "홍쁘", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default2.jpg", profile_image_thumb_path: "#{p_path}/t_default2.jpg")
 c.set_password("asdf")
-d = User.new(username: "asdf2", email: "asdf2@gmail.com", nickname: "김범준", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default3.jpg", thumb_image_path: "#{p_path}/t_default3.jpg")
+d = User.new(username: "asdf2", email: "asdf2@gmail.com", nickname: "김범준", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default3.jpg", profile_image_thumb_path: "#{p_path}/t_default3.jpg")
 d.set_password("asdf")
-e = User.new(username: "asdf3", email: "asdf3@gmail.com", nickname: "백승범", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", thumb_image_path: "#{p_path}/t_default4.jpg")
+e = User.new(username: "asdf3", email: "asdf3@gmail.com", nickname: "백승범", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", profile_image_thumb_path: "#{p_path}/t_default4.jpg")
 e.set_password("asdf")
 
 admin.save

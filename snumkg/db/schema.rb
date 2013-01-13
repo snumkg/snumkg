@@ -149,14 +149,14 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.string   "entrance_year"
     t.string   "email"
     t.date     "birthday"
-    t.integer  "alarm_counts",           :default => 0
-    t.integer  "level",                  :default => 1
+    t.integer  "alarm_counts",             :default => 0
+    t.integer  "level",                    :default => 1
     t.string   "profile_image_path"
-    t.string   "thumb_image_path"
-    t.boolean  "is_admin",               :default => false
-    t.boolean  "is_phone_number_public", :default => true
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.string   "profile_image_thumb_path"
+    t.boolean  "is_admin",                 :default => false
+    t.boolean  "is_phone_number_public",   :default => true
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
   end
 
   create_table "votes", :force => true do |t|

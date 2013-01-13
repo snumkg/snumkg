@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
       render 'index'
     when "소꼬지 일정" # 소꼬지 달력
     # 소꼬지 일정을 보여줄 때, 소꼬지 게시판에서 게시물을 가져옴.
-      #@articles = Board.find_by_board_type("소꼬지").page(params[:page].to_i).per(5).articles.order("created_at desc")
+      @articles = Board.find_by_board_type("소꼬지").articles.page(@page).order("created_at desc").per(10)
       render 'sokkoji_calendar'
     when "소꼬지" # 소꼬지 게시판
       # 소꼬지 게시물은 수정하면 다시 상단에 노출되도록 함
