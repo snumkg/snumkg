@@ -1,3 +1,4 @@
-$("<%= escape_javascript(render :partial => 'everyday_comments/comment', :locals => {:comment => @comment})%>").insertBefore('tr[data-id="<%= @comment.article_id %>"]');
+
+$('table[data-id="<%= @comment.article_id %>"] tbody').html("").append($("<%= escape_javascript(render :partial => 'everyday_comments/comments', :locals => {:post => @post})%><%= escape_javascript(render :partial => 'everyday_comments/create', :locals => {:post => @post}) %>"));
 
 $(".comment_content[data-id=<%=@comment.article_id %>]").val("");

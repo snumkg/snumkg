@@ -30,6 +30,13 @@ class EverydayPostsController < ApplicationController
   end
 
   def destroy
-    
+    @post = Article.find_by_id(params[:id])
+
+    if @post.destroy
+      
+      redirect_to everyday_post_path(page: params[:page])
+    else
+
+    end
   end
 end
