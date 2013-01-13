@@ -1,0 +1,7 @@
+      <tr data-id="<%= post.id %>">
+        <td>
+          <%= image_tag current_user.profile_image_thumb_url, size: "20x20" %><%= current_user.nickname %>
+        </td>
+        <td>
+          <%= render :partial => 'everyday_comments/new', :locals => {:post => post} %>
+        </td>

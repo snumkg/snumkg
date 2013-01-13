@@ -7,6 +7,8 @@ class EverydayCommentsController < ApplicationController
     @comment.content = params[:everyday_comment][:content]
 
     if @comment.save
+      @post = Article.find_by_id(@comment.article_id)
+      @comments = @post.comments
       respond_to do |format|
         format.html {redirect_to everyday_path}
         format.js
@@ -16,8 +18,9 @@ class EverydayCommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find_by_id(params[:id])
+    @post = @comment.article
 
-    if current_user == @comment.user
+    if current_user == @comment.writer
       if @comment.destroy
         respond_to do |format|
           format.html {redirect_to everyday_path(page: params[:page])}

@@ -1,0 +1,4 @@
+$('table[data-id="<%= @post.id %>"] tbody').html("").append($("<%= escape_javascript(render :partial => 'everyday_comments/comments', :locals => {:post => @post})%><%= escape_javascript(render :partial => 'everyday_comments/create', :locals => {:post => @post}) %>"));
+
+$(".comment_content[data-id=<%=@post.id %>]").val("");
+
