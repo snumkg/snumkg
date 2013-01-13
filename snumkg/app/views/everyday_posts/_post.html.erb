@@ -3,7 +3,7 @@
     <%= render :partial => 'shared/user_menu', :locals => {:writer => post.writer, :size => "40x40"} %>
   </div>
   <div class="show_comment">
-    <div class="post_content"><%= post.body %></div>
+    <div class="post_content"><%= post.body %><% if current_user == post.writer %><%= link_to '<i class="icon-remove">'.html_safe, everyday_post_path(id: post.id, page: params[:page]), method: :delete %><% end %></i></div>
     <table class="table table-condensed" data-id="<%=post.id%>">
       <%= render :partial => 'everyday_comments/comments', :locals => {:post => post} %>
       <%= render :partial => 'everyday_comments/create', :locals => {:post => post} %>

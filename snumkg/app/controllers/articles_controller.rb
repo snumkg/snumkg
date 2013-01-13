@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
     if @board.board_type != "앨범" # 앨범은 보여주는 이미지의 갯수가 다르다.
       @articles = @board.articles.page(@page).order("created_at desc").per(5)
     else
-      @articles = @board.articles.page(@page).per(6)
+      @articles = @board.articles.page(@page).order("created_at desc").per(6)
     end
 
     @index = @articles.count
@@ -127,7 +127,6 @@ class ArticlesController < ApplicationController
     end
 
     if @article.save
-
       #poll 저장
       @poll = Poll.new
       @poll.title = params[:poll_title]
@@ -153,8 +152,6 @@ class ArticlesController < ApplicationController
             pict.update_attribute(:article_id, @article.id)
           end
         end
-        
-
       end
 
       respond_to do |format|

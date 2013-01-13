@@ -33,10 +33,10 @@ class EverydayPostsController < ApplicationController
     @post = Article.find_by_id(params[:id])
 
     if @post.destroy
-      
-      redirect_to everyday_post_path(page: params[:page])
+      redirect_to everyday_path(page: params[:page])
     else
-
+      flash[:error] = "게시물을 삭제할 수 없습니다."
+      redirect_to everyday_path(page: params[:page])
     end
   end
 end

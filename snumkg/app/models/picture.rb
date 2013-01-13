@@ -7,7 +7,7 @@ class Picture < ActiveRecord::Base
       "name" => self.name,
       "size" => "20",
       "url" => self.url,
-      "thumbnail_url" => self.url,
+      "thumb_url" => self.url,
       "id" => self.id,
       "delete_url" => self.url,
       "delete_type" => "DELETE" 

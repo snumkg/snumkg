@@ -75,7 +75,7 @@ class PicturesController < ApplicationController
 
       if @picture.save
         @picture.url = picture_path(type: "album", id: @picture.id)
-        @picture.thumbnail_url = picture_path(type: "album", thumb: "true", id: @picture.id)
+        @picture.thumb_url = picture_path(type: "album", thumb: "true", id: @picture.id)
         @picture.main_thumb_url = picture_path(type: "album", main_thumb: "true", id: @picture.id)
         @picture.save
         render :json => [@picture.to_jq_upload].to_json

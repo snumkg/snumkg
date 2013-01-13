@@ -85,7 +85,7 @@ data.submit();
 
 
 <%= render 'article_form' %>
-<%= form_for(Picture.new, :url => pictures_path(Picture.new, :type => "album"), :html => {:multipart => true, :id => "fileupload"}) do |f| %>
+<%= form_for(Picture.new, :url => pictures_path(Picture.new, :type => "album"), method: :post, :html => {:multipart => true, :id => "fileupload"}) do |f| %>
   <div class="row fileupload-buttonbar">
     <div class="span7">
       <!-- The fileinput-button span is used to style the file input field as button -->
