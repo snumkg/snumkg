@@ -25,18 +25,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def save_alarm(alarm, acceptor_id, alarm_type, acid ={})
-    if acceptor_id != current_user.id
-      alarm.acceptor_id = acceptor_id
+  def save_alarm(alarm, accepter_id, alarm_type, acid ={})
+    if accepter_id != current_user.id
+      alarm.accepter_id = accepter_id
       alarm.alarmer_id = current_user.id
       alarm.alarm_type = alarm_type
    
       alarm.article_id = acid[:article_id]
       alarm.comment_id = acid[:comment_id]
       alarm.save
-      alarm.acceptor.update_attribute(:alarm_counts,alarm.acceptor.alarm_counts + 1)
+      alarm.accepter.update_attribute(:alarm_counts,alarm.accepter.alarm_counts + 1)
 
-   ##   new_alarms = alarm.acceptor.alarms[0..(alarm.acceptor.alarm_counts-1)]
+   ##   new_alarms = alarm.accepter.alarms[0..(alarm.accepter.alarm_counts-1)]
 
    ##   new_alarms.group_by(&:
       # 새로운 알림 숫자를 저장할 때, 같은 것끼리 모아서 보여주기.
@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def destroy_alarm(alarm)
-    user = alarm.acceptor
+    user = alarm.accepter
 
     if user.alarm_counts > 0 
       user.update_attribute(:alarm_counts, user.alarm_counts - 1)

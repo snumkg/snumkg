@@ -16,7 +16,7 @@ class AlarmGroup < ActiveRecord::Base
   belongs_to :comment
   validates_presence_of :accepter_id
   validates_uniqueness_of :accepter_id, :scope => [:article_id, :comment_id, :alarm_type]
-  has_many :alarms, :dependent => :destroy
+  has_many :alarms, :dependent => :delete_all
 
   def alarm_text
     #알람을 묶어 알람 텍스트 생성

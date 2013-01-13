@@ -26,7 +26,10 @@ module  AlarmHelper
       )
     end
     alarm_group.is_new = true
-    alarm_group.save
+    if alarm_group.save
+    else
+      raise hash.to_s
+    end
 
     alarm = Alarm.create(
       alarm_group_id: alarm_group.id,
@@ -40,9 +43,11 @@ module  AlarmHelper
       alarm_group = AlarmGroup.where(:accepter_id => hash[:accepter_id],
                            :article_id => hash[:article_id],
                            :comment_id => hash[:comment_id],
-                           :alarm_type => hash[:alarm_type]).first
-      alarm_group.alarms.where(:alarmer_id => hash[:alarmer_id]).each do |alarm|
-        alarm.destroy
+                           :alarm_type => hash[:alarm_type]).limit(1).first
+      if alarm_group then
+        alarm_group.alarms.where(:alarmer_id => hash[:alarmer_id]).each do |alarm|
+          alarm.destroy
+        end
       end
     end
   end
@@ -100,7 +105,7 @@ module  AlarmHelper
     when 2
       create_article_link("#{show_alarm_messages(alarms)}댓글을 추천하였습니다.",group_id,board_id,article.id)
     when 3
-      create_profile_link("#{show_alarm_messages(alarms)}프로필에 댓글을 달았습니다.",alarm.acceptor.id)
+      create_profile_link("#{show_alarm_messages(alarms)}프로필에 댓글을 달았습니다.",alarm.accepter.id)
     when 4
       create_article_link("#{show_alarm_messages(alarms)}소꼬지에 참석합니다.",group_id,board_id,article.id)
     end

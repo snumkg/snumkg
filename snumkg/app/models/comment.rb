@@ -12,7 +12,6 @@ class Comment < ActiveRecord::Base
   belongs_to :profile_user, :class_name => 'User', :foreign_key => :profile_user_id
 
   has_many :likes, :dependent => :destroy
-  has_many :alarms, :dependent => :destroy
 
   validates_presence_of :content
   validates_presence_of :user_id, :unless => Proc.new {|comment| comment.article.nil? || comment.article.article_type == "익명"}

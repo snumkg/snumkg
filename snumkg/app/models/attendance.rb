@@ -2,7 +2,7 @@
 class Attendance < ActiveRecord::Base
   include AlarmHelper
 
-  before_create :save_alarm
+  after_create :save_alarm
   before_destroy :destroy_alarm
   
   belongs_to :article
@@ -12,7 +12,7 @@ class Attendance < ActiveRecord::Base
 
   private
   def save_alarm
-    save_alarm_helper(acceptor_id: self.article.writer.id,
+    save_alarm_helper(accepter_id: self.article.writer.id,
                       alarmer_id: self.user.id,
                       article_id: self.article.id,
                       alarm_type: "참석")
@@ -20,7 +20,7 @@ class Attendance < ActiveRecord::Base
 
   def destroy_alarm
     destroy_alarm_helper(:alarmer_id => self.user.id,
-                         :acceptor_id => self.article.writer.id,
+                         :accepter_id => self.article.writer.id,
                          :article_id => self.article.id,
                          :alarm_type => "참석")
   end
