@@ -56,6 +56,7 @@ Snumkg::Application.routes.draw do
 
   #alarm
   get '/alarms', :to => 'users#alarms', :as => 'user_alarms'
+  get '/change_alarm_state/:id', :to => "users#change_alarm_state", :as => "change_alarm_state"
 
 
   #유저

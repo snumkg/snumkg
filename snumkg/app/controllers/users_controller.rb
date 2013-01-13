@@ -85,9 +85,26 @@ class UsersController < ApplicationController
   def alarms
     @page = params[:page] || 1
     @user = current_user
-    @alarm_groups = @user.alarm_groups.order("updated_at DESC").page(@page).per(6)
+    @alarm_groups = @user.alarm_groups.order("refreshed_at DESC").page(@page).per(10)
+    @alarm_groups.each do |alarm_group|
+      if alarm_group.state == 0 then
+        alarm_group.state = 1
+        alarm_group.save
+      end
+    end
 
     render :layout => false
+  end
+
+  def change_alarm_state
+    @alarm_group = AlarmGroup.find_by_id(params[:id])
+    if @alarm_group and @alarm_group.accepter_id == session[:user_id] then
+      @alarm_group.state = 2
+      @alarm_group.save
+      render :json => {alarm_group_id: @alarm_group.id, success: true}
+    else
+      render :json => {error: "에러"}
+    end
   end
 
 end

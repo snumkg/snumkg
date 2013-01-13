@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   end
 
   def new_alarm_count
-    AlarmGroup.where(accepter_id: self.id, is_new: true).count
+    AlarmGroup.where(accepter_id: self.id, state: 0).count
   end
 
   def profile_image_url

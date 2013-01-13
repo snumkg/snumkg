@@ -25,7 +25,8 @@ module  AlarmHelper
         hash[:alarm_type]
       )
     end
-    alarm_group.is_new = true
+    alarm_group.state = 0
+    alarm_group.refreshed_at = Time.now
     if alarm_group.save
     else
       raise hash.to_s

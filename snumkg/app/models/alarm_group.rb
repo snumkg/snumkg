@@ -51,4 +51,38 @@ class AlarmGroup < ActiveRecord::Base
     end
   end
 
+  def link_url
+    article = self.article
+    comment = self.comment
+    if article then
+      board = article.board
+      group = board.group
+    end
+
+    if article then
+      article_path(group_id: group.id, board_id: board.id, id: article.id)
+    else
+      nil
+    end
+  end
+
+  #refreshed_at을 상대적인 시간으로 표시함
+  def relative_time
+    diff = Time.now - self.refreshed_at
+    minutes = (diff / 60).to_i
+    hours = (minutes / 3600).to_i
+    days = (hours / (3600*24)).to_i
+    if diff < 60
+      "1분 전"
+    elsif diff < 3600
+      "#{minutes}분 전"
+    elsif diff < 3600 * 24
+      "#{hours}시간 전"
+    elsif diff < 3600 * 24 * 3
+      "#{days}일 전"
+    else
+      self.refreshed_at.strftime("%Y년 %m월 %d일")
+    end
+  end
+
 end

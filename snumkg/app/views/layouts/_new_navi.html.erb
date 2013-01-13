@@ -13,9 +13,7 @@
 			<%= link_to image_tag("main/icon_message.png", alt: "메시지"), messages_path(type: "receive") %>
 			</li>
 			<li class="top_nav_li1 notification">
-			<% if current_user.new_alarm_count > 0 %>
-				<div class="absolute"><div class="alarm-count"><%= current_user.new_alarm_count %></div></div>
-			<% end %>
+      <div class="absolute"><div id="alarm_count_text" class="alarm-count"><%= current_user.new_alarm_count %></div></div>
 			<%= link_to image_tag("main/icon_notification.png", alt: "알림"), "#", :id => "alarm_link", "data-remote" => true %>
 			<div id="alarm_list_box">
 				<div id="loading-image">

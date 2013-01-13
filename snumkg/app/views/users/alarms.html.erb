@@ -1,9 +1,20 @@
 <% unless @alarm_groups.nil? %>
   <ul>
     <% @alarm_groups.each_with_index do |alarm_group, index| %>
-      <li class="<%= "new" if alarm_group.is_new %>">
-      <%= image_tag alarm_group.alarm_profile_picture %>
-      <%= alarm_group.alarm_text %>
+      <li class="alarm-item <%= "new" if alarm_group.state != 2 %>">
+      <a href="<%= alarm_group.link_url %>" class="alarm-link" alarm-group-id="<%= alarm_group.id %>">
+        <div class="alarm-item-left">
+          <%= image_tag alarm_group.alarm_profile_picture, size: "40x40" %>
+        </div>
+        <div class="alarm-item-right">
+          <div class="alarm-item-text">
+            <%= alarm_group.alarm_text %>
+          </div>
+          <div class="alarm-item-time">
+            <%= alarm_group.relative_time %>
+          </div>
+        </div>
+      </a>
       </li>
     <% end %>
   </ul>

@@ -18,9 +18,10 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.integer  "comment_id"
     t.string   "alarm_type"
     t.integer  "accepter_id"
-    t.boolean  "is_new",      :default => true
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.integer  "state",        :default => 0
+    t.datetime "refreshed_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "alarms", :force => true do |t|

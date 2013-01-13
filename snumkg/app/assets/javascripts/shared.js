@@ -56,28 +56,45 @@ $(function(){
 		$(this).find('.sub_menu').css("display","none")
 	});
 
-  //알람
-  $(function(){
-    $("#alarm_link").click(function(){
-      
-      $.ajax({
-        url: '/alarms',
-        beforeSend: function(){
-          $("#alarm_list").html("").show();
-          $("#loading-image").show();
-        },
-        success: function(data){
-          $("#loading-image").hide();
+  //알람 읽어오기
+  refresh_alarm_count();
+  $("#alarm_link").click(function(){
+    $.ajax({
+      url: '/alarms',
+      beforeSend: function(){
+        $("#alarm_list").html("").show();
+        $("#loading-image").show();
+      },
+      success: function(data){
+        $("#loading-image").hide();
+        $("#alarm_list").append($(data).children()).show();
+        $('#alarm_count_text').text(0);
+        refresh_alarm_count();
 
-          $("#alarm_list").append($(data).children()).show();
-          $("#alarm_list li.new").css("background", "#fee");
-
-        }
-      });
-      
+        //클릭하면 alarm-group state를 2로
+        $('.alarm-link').unbind('click').click(function(){
+          var href = $(this).attr('href');
+          $.ajax({
+            url: "/change_alarm_state/" + $(this).attr('alarm-group-id'),
+            success: function(result){
+              if (result.success){
+                location.href = href;
+              }
+            }
+          });
+          return false;
+        });
+      }
     });
   });
 
 });
 
-
+//알람 카운트가 0이면 숨김
+function refresh_alarm_count(){
+  var alarm_count = $('#alarm_count_text');
+  if (alarm_count.text() == '0'){
+    alarm_count.hide();
+  }
+  else {alarm_count.show();}
+}
