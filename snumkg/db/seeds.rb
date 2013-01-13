@@ -112,7 +112,7 @@ end
   everyday_board = Board.create(name: "매일매일", group_id: everyday_group.id, admin_id: admin.id, board_type: "매일매일")
 
   10.times do 
-    Article.create(body: "여러분 방가방가 ㅋㄷㅋㄷㅋㄷ 쿄쿜", user_id: random_number(1,User.all.count), board_id: everyday_board.id)
+    Article.create(title: "asdf",body: "여러분 방가방가 ㅋㄷㅋㄷㅋㄷ 쿄쿜", user_id: random_number(1,User.all.count), board_id: everyday_board.id)
   end
 
   for post in everyday_board.articles 
