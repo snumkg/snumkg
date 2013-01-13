@@ -73,10 +73,10 @@ class UsersController < ApplicationController
   def profile_image_thumb
     user = User.find_by_id(params[:id])
     default_thumb_path = "#{Rails.root}/app/assets/images/default_profile_thumbnail.png"
-    if user.thumb_image_path.nil? # default_thumbnail 보여주기
+    if user.profile_image_thumb_path.nil? # default_thumbnail 보여주기
       send_file(default_thumb_path, :disposition => 'inline')
     else
-      send_file(User.find(params[:id]).thumb_image_path, :disposition => 'inline')
+      send_file(User.find(params[:id]).profile_image_thumb_path, :disposition => 'inline')
     end
   end
 
