@@ -86,26 +86,7 @@ class PicturesController < ApplicationController
   end
 
   def show
-    default_thumb_path = "#{Rails.root}/app/assets/images/default_profile_thumbnail.png"
-    default_profile_path = "#{Rails.root}/app/assets/images/default_profile_image.png"
-
     case params[:type]
-    when "profile"
-      user = User.find_by_id(params[:id])
-
-      if params[:thumb].nil?  # 프로필 이미지 보여주기
-        if user.profile_image_path.nil? # default_profile image 보여주기
-          send_file(default_profile_path, :disposition => 'inline')
-        else
-          send_file(User.find(params[:id]).profile_image_path, :disposition => 'inline')
-        end
-      else # 썸네일 이미지 보여주기
-        if user.thumb_image_path.nil? # default_thumbnail 보여주기
-          send_file(default_thumb_path, :disposition => 'inline')
-        else
-          send_file(User.find(params[:id]).thumb_image_path, :disposition => 'inline')
-        end
-      end
     when "album"
       if params[:thumb]
         send_file(Picture.find_by_id(params[:id]).thumb_path, :disposition => 'inline')
@@ -115,7 +96,6 @@ class PicturesController < ApplicationController
         send_file(Picture.find_by_id(params[:id]).full_path, :disposition => 'inline')
       end
     end
-
   end
 
   def destroy

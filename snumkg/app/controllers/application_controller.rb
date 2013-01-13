@@ -25,35 +25,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def save_alarm(alarm, accepter_id, alarm_type, acid ={})
-    if accepter_id != current_user.id
-      alarm.accepter_id = accepter_id
-      alarm.alarmer_id = current_user.id
-      alarm.alarm_type = alarm_type
-   
-      alarm.article_id = acid[:article_id]
-      alarm.comment_id = acid[:comment_id]
-      alarm.save
-      alarm.accepter.update_attribute(:alarm_counts,alarm.accepter.alarm_counts + 1)
-
-   ##   new_alarms = alarm.accepter.alarms[0..(alarm.accepter.alarm_counts-1)]
-
-   ##   new_alarms.group_by(&:
-      # 새로운 알림 숫자를 저장할 때, 같은 것끼리 모아서 보여주기.
-      # 엄태건님 외 3명이 글에 댓글을 남겼습니다.
-
-    end
-  end
-
-  def destroy_alarm(alarm)
-    user = alarm.accepter
-
-    if user.alarm_counts > 0 
-      user.update_attribute(:alarm_counts, user.alarm_counts - 1)
-    end
-    alarm.destroy unless alarm.nil?
-  end
-
   def pagination(articles, num)
     articles_in_page = num # 한 페이지에 보여주는 아티클 수
     @pages = articles.count%articles_in_page == 0 ? (articles.count/articles_in_page) : (articles.count/articles_in_page + 1)
@@ -67,7 +38,6 @@ class ApplicationController < ActionController::Base
       @articles = articles[0..9]
     end
   end
-
 
 
   private

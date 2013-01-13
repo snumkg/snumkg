@@ -20,7 +20,7 @@ class AlarmGroup < ActiveRecord::Base
 
   #알람 메시지를 생성하기 위한 메소드들
   def alarm_profile_picture
-    self.alarms.order("updated_at DESC").limit(1).first.alarmer.thumb_image_path
+    self.alarms.order("updated_at DESC").limit(1).first.alarmer.profile_image_thumb_url
   end
 
   def alarm_text

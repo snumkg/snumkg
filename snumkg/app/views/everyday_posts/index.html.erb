@@ -7,7 +7,7 @@
     <%= form_for(:everyday_post, method: :post, url: everyday_posts_path,remote: true) do |f| %>
       <%= f.hidden_field :user_id, :value => current_user.id %>
       <%= f.hidden_field :board_id, :value => @board.id %>
-      <%= image_tag picture_path(type: "profile", thumb: true, id: current_user.id) %><%= current_user.nickname %>
+      <%= image_tag current_user.profile_image_thumb_url %><%= current_user.nickname %>
       <%= f.submit "글쓰기", class: "submit" %>
       <%= f.text_area :body, class: "write_post" %>
     <% end %>

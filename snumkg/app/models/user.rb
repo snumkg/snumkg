@@ -53,32 +53,16 @@ class User < ActiveRecord::Base
     self.receive_messages.where(:is_read => false).count
   end
 
-  private
-  def set_count_diff(after,before)
-    if after > before
-      after - before
-    else
-      0
-    end
-  end
-
-  public
-  def occured_alarm_count
-    cnt = Alarm.where(accepter_id: self.id).count
-
-    if cnt != 0
-      cnt - self.alarm_counts
-    else
-      0
-    end
-  end
-
-  def alarms
-    AlarmGroup.where(accepter_id: self.id)
-  end
-
   def new_alarm_count
     AlarmGroup.where(accepter_id: self.id, is_new: true).count
+  end
+
+  def profile_image_url
+    "/profile_image/#{self.id}"
+  end
+
+  def profile_image_thumb_url
+    "/profile_image_thumb/#{self.id}"
   end
 
  end

@@ -8,7 +8,7 @@
       <%= render :partial => 'everyday_comments/comments', :locals => {:post => post} %>
       <tr data-id="<%= post.id %>">
         <td>
-          <%= image_tag picture_path(type: "profile", thumb: true, id: current_user.id), size: "20x20" %><%= current_user.nickname %>
+          <%= image_tag current_user.profile_image_thumb_url, size: "20x20" %><%= current_user.nickname %>
         </td>
         <td>
           <%= render :partial => 'everyday_comments/new', :locals => {:post => post} %>

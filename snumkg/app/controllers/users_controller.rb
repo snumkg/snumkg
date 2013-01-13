@@ -27,14 +27,6 @@ class UsersController < ApplicationController
     end
   end
 
-  #프로필 페이지
-  def show
-    @user = User.find(params[:id])
-
-    @profile_comments = Comment.where(:profile_user_id => params[:id])
-    @profile_comment = Comment.new
-  end
-
   def edit
     @user = current_user
   end
@@ -57,6 +49,36 @@ class UsersController < ApplicationController
 
   def destroy
   end 
+
+  #프로필 페이지
+  def show
+    @user = User.find(params[:id])
+
+    @profile_comments = Comment.where(:profile_user_id => params[:id])
+    @profile_comment = Comment.new
+  end
+
+  #프로필 이미지 다운로드
+  def profile_image
+    user = User.find_by_id(params[:id])
+    default_profile_path = "#{Rails.root}/app/assets/images/default_profile_image.png"
+    if user.nil? or user.profile_image_path.nil? # default_profile image 보여주기
+      send_file(default_profile_path, :disposition => 'inline')
+    else
+      send_file(User.find(params[:id]).profile_image_path, :disposition => 'inline')
+    end
+  end
+
+  #프로필 이미지(썸네일) 다운로드
+  def profile_image_thumb
+    user = User.find_by_id(params[:id])
+    default_thumb_path = "#{Rails.root}/app/assets/images/default_profile_thumbnail.png"
+    if user.thumb_image_path.nil? # default_thumbnail 보여주기
+      send_file(default_thumb_path, :disposition => 'inline')
+    else
+      send_file(User.find(params[:id]).thumb_image_path, :disposition => 'inline')
+    end
+  end
 
   #알람 리스트의 뷰에 해당하는 액션
   #인자 : page

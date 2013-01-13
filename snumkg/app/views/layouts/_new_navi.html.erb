@@ -29,7 +29,7 @@
 			<li class="top_nav_li1 profile">
 			<table>
 				<tr>
-					<td><%= image_tag picture_path(type: "profile", id: current_user.id, :thumb => "thumb"), :size => "25x25" %></td>
+					<td><%= image_tag profile_image_thumb_path(id: current_user.id), :size => "25x25" %></td>
 					<td><%= link_to current_user.nickname, profile_path(current_user), class: "up" %>님 09학번</td>
 					<td><%= link_to image_tag("main/icon_setting.png") %></td>
 				</tr>
