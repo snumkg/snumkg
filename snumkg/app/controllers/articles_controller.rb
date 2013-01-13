@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
     if @board.board_type != "앨범" # 앨범은 보여주는 이미지의 갯수가 다르다.
       @articles = @board.articles.page(@page).order("created_at desc").per(5)
     else
-      @articles = @board.articles.page(@page).order("created_at desc").per(6)
+      @articles = @board.articles.page(@page).per(6)
     end
 
     @index = @articles.count
@@ -72,6 +72,8 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find_by_id(params[:id])
+    @article.update_attributes(params[:article])
+    @article.date = params[:article][:date] unless params[:article][:date].nil? #소꼬지 일정 저장
 
     @article.title = params[:article][:title]
     @article.body = params[:article][:body]
@@ -117,7 +119,7 @@ class ArticlesController < ApplicationController
     @board = Board.find_by_id(params[:board_id])
 
     @article = Article.new(params[:article])
-    @article.date = params[:article][:date].to_datetime unless params[:article][:date].nil? #소꼬지 일정 저장
+    @article.date = params[:article][:date] unless params[:article][:date].nil? #소꼬지 일정 저장
     @article.board_id = @board.id
 
     #익명게시물일 경우 유저 아이디를 저장하지 않음.
@@ -127,6 +129,7 @@ class ArticlesController < ApplicationController
     end
 
     if @article.save
+
       #poll 저장
       @poll = Poll.new
       @poll.title = params[:poll_title]
@@ -152,6 +155,7 @@ class ArticlesController < ApplicationController
             pict.update_attribute(:article_id, @article.id)
           end
         end
+
       end
 
       respond_to do |format|

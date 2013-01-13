@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
 
 
   def index
-    if !current_user.admin?
+    if !current_user.is_admin
       flash[:error] = "접근가능한 사용자가 아닙니다."
       redirect_to root_path
     else
@@ -24,7 +24,7 @@ class ContactsController < ApplicationController
 
   def check_password
     
-    if user = User.authentication(current_user.username, params[:password]) && current_user.admin?
+    if user = User.authentication(current_user.username, params[:password]) && current_user.is_admin
       flash[:contact] = true
       redirect_to contacts_path
     else

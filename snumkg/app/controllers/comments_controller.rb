@@ -18,6 +18,8 @@ class CommentsController < ApplicationController
     if @comment.save
       respond_to do |format|
         format.html {redirect_to article_path(group_id: article.board.group.id, board_id: article.board.id, id: params[:comment][:article_id])}
+        format.js {
+        }
       end
     else
       flash[:error] = "comment error"

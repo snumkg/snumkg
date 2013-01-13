@@ -18,7 +18,7 @@ module ApplicationHelper
   	if user
 			content_tag("span", :class => "user-profile") do 
 				content_tag("a", (
-					image_tag(picture_path(type: "profile", id: user.id, thumb:true), :alt => user.nickname, :size => (options[:small] ? "25x25" : nil)) + " " + content_tag("span", user.nickname, :class => "user-profile-nickname")
+					image_tag(user.profile_image_thumb_url, :alt => user.nickname, :size => (options[:small] ? "25x25" : nil)) + " " + content_tag("span", user.nickname, :class => "user-profile-nickname")
 				), :href => profile_path(user.id))
 			end
 		else
