@@ -4,6 +4,7 @@ class Article < ActiveRecord::Base
 
   before_save :setting_default
 	before_create :set_number #글번호 부여
+  after_create :set_newsfeed
 
   validates_presence_of :user_id, :unless => Proc.new {|article| article.article_type == "익명"}
   validates_presence_of :board_id
@@ -79,6 +80,12 @@ class Article < ActiveRecord::Base
 			board.save
 		end
 	end
+
+  def set_newsfeed
+    news = Newsfeed.new
+    news.article_id = self.id
+    news.save
+  end
 
 
   def setting_default

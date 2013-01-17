@@ -2,7 +2,7 @@
 class Comment < ActiveRecord::Base
   include AlarmHelper
 
-  after_create :save_alarm
+  after_create :save_alarm, :set_newsfeed
   before_destroy :destroy_alarm
 
   attr_accessible :content
@@ -74,6 +74,12 @@ class Comment < ActiveRecord::Base
                            alarmer_id: self.writer.id,
                            alarm_type: "댓글")
     end
+  end
+
+  def set_newsfeed
+    news = Newsfeed.new
+    news.comment_id = self.id
+    news.save
   end
 
 end

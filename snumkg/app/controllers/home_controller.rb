@@ -21,10 +21,9 @@ class HomeController < ApplicationController
   end
 
   def all
-    @all = Article.all + Comment.all + Like.all + Attendance.all 
-    @all.sort! do |a,b|
-      a.created_at < b.created_at ? 1 : -1
-    end
+    @page = params[:page] || 1
+    @all = Newsfeed.order("created_at DESC").page(@page).per(10)
+
   end
 
 end

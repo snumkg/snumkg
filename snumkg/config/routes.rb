@@ -9,6 +9,7 @@ Snumkg::Application.routes.draw do
   #매일매일
   resources :everyday_posts, :only => [:create, :destroy]
   resources :everyday_comments, :only => [:create, :destroy]
+  get '/everyday/:page', :to => 'everyday_posts#page'
 
   #관리자 페이지
   get 'admin', :to => 'admin#index'

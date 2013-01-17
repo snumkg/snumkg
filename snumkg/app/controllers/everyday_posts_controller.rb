@@ -11,6 +11,7 @@ class EverydayPostsController < ApplicationController
     @post = Article.new
   end
 
+
   def create
     @post = Article.new
     @post.user_id = params[:everyday_post][:user_id]

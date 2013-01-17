@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130104102507) do
+ActiveRecord::Schema.define(:version => 20130117084009) do
 
   create_table "alarm_groups", :force => true do |t|
     t.integer  "article_id"
@@ -104,6 +104,13 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.boolean  "is_read",     :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "newsfeeds", :force => true do |t|
+    t.integer  "comment_id"
+    t.integer  "article_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "options", :force => true do |t|

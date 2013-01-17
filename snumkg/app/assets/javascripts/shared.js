@@ -98,3 +98,44 @@ function refresh_alarm_count(){
   }
   else {alarm_count.show();}
 }
+
+//infinite scroll
+//
+//{
+//	url: "/everyday", 
+//	param_name: "page" (default로 page 지정되어 있음), 
+//	success: function(data){ ...} (ajax call 성공 시)
+//}
+$.fn.infiniteScroll = function(object){
+	var target = $(this);
+	target.attr("data-page", "1");
+
+	//ajax call로 page 변수 날리고 데이터 값 얻어오는 부분
+	function ajax_call(target, object){
+		param_name = object.param_name || "page";
+		page = parseInt(target.attr("data-page")) + 1;
+		target.attr("data-page", page);
+		$.ajax({
+			url: object.url + "?" + param_name + "=" + page,
+			success: function(data){
+				object.success(data);
+			}
+		});
+	}
+
+	if(target.css('overflow') == 'scroll'){
+		target.scroll(function(e){
+			if( target.scrollTop() + 50 >=  (target[0].scrollHeight - target.height())){
+				ajax_call(target, object);
+			}
+		});
+	}
+	else{
+		$(window).scroll(function(e){
+			// scroll이 끝까지 내려갔을 경우
+			if($(window).scrollTop() + 30 >= ($(document).height() - $(window).height())){
+				ajax_call(target, object);
+			}
+		});
+	}
+}
