@@ -1,9 +1,8 @@
 #encoding: utf-8
 class ApplicationController < ActionController::Base
-
   include AuthHelper
 
-  protect_from_forgery
+  #protect_from_forgery
   before_filter :get_groups
   before_filter :set_group_boards
 
