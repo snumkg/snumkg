@@ -14,5 +14,14 @@ class Picture < ActiveRecord::Base
     }
   end
 
+	def to_json_for_redactor
+		{
+      "name" => self.name,
+      "filelink" => self.url,
+      "thumb_url" => self.url,
+      "id" => self.id
+		}
+	end
+
 end
 

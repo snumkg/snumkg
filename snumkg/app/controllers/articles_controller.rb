@@ -10,9 +10,9 @@ class ArticlesController < ApplicationController
 
     # Pagination
     if @board.board_type != "앨범" # 앨범은 보여주는 이미지의 갯수가 다르다.
-      @articles = @board.articles.page(@page).order("created_at desc").per(5)
+      @articles = @board.articles.page(@page).order("created_at DESC").per(5)
     else
-      @articles = @board.articles.page(@page).per(6)
+      @articles = @board.articles.page(@page).order("created_at DESC").per(6)
     end
 
     @index = @articles.count
@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
       render 'index'
     when "소꼬지 일정" # 소꼬지 달력
     # 소꼬지 일정을 보여줄 때, 소꼬지 게시판에서 게시물을 가져옴.
-      @articles = Board.find_by_board_type("소꼬지").articles.page(@page).order("created_at desc").per(10)
+      @articles = Board.find_by_board_type("소꼬지").articles.page(@page).order("created_at DESC").per(10)
       render 'sokkoji_calendar'
     when "소꼬지" # 소꼬지 게시판
       # 소꼬지 게시물은 수정하면 다시 상단에 노출되도록 함
@@ -40,6 +40,7 @@ class ArticlesController < ApplicationController
   def new
     @board = Board.find_by_id(params[:board_id])
     @article = Article.new
+=begin
     case @board.board_type
     when "일반" # 일반게시판
       render 'new'
@@ -50,6 +51,7 @@ class ArticlesController < ApplicationController
     when "앨범" # 앨범게시판
       render 'album_new'
     end
+=end
   end
 
   def edit
@@ -96,7 +98,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
-
     @article = Article.find_by_id(params[:id])
     @comments = @article.comments
     @comment = Comment.new
@@ -194,7 +195,7 @@ class ArticlesController < ApplicationController
   end
 
   def password_confirmation
-
+		#익명글 삭제 패스워드 확인
   end
 
 end

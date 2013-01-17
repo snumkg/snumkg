@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.integer  "board_id"
     t.string   "title"
     t.text     "body"
+    t.integer  "number"
     t.integer  "view_count",     :default => 0
     t.boolean  "is_notice",      :default => false
     t.string   "article_type"
@@ -58,11 +59,12 @@ ActiveRecord::Schema.define(:version => 20130104102507) do
     t.integer  "group_id"
     t.string   "name"
     t.integer  "admin_id"
-    t.string   "board_type", :default => "일반"
-    t.boolean  "is_hidden",  :default => false
-    t.integer  "position",   :default => 0
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.string   "board_type",    :default => "일반"
+    t.boolean  "is_hidden",     :default => false
+    t.integer  "position",      :default => 0
+    t.integer  "article_count", :default => 1
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "comments", :force => true do |t|

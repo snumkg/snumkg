@@ -44,13 +44,13 @@ class PicturesController < ApplicationController
 
       flash[:success] = "프로필 사진이 성공적으로 등록되었습니다."
       redirect_to profile_path(@user)
-    when "album"
-      p = params[:files].first
+    when "article"
+      p = params[:file]
       @picture = Picture.new
-      name = p.original_filename
       @picture.name = p.original_filename
-      directory = File.join(Rails.root,'images/articles/', @user.username, Time.now.strftime("%y%m%d_%H%M"))
-      @picture.full_path = full_path = File.join(directory,name)
+      directory = File.join(Rails.root,'images/articles/')
+      name = p.original_filename
+      @picture.full_path = full_path = File.join(directory, name)
       @picture.thumb_path = thumb_path = File.join(directory,"thumb_"+name)
       @picture.main_thumb_path = main_thumb_path = File.join(directory,"main_thumb_"+name)
 
@@ -78,7 +78,14 @@ class PicturesController < ApplicationController
         @picture.thumb_url = picture_path(type: "album", thumb: "true", id: @picture.id)
         @picture.main_thumb_url = picture_path(type: "album", main_thumb: "true", id: @picture.id)
         @picture.save
-        render :json => [@picture.to_jq_upload].to_json
+				render :json => {
+					:name => @picture.name,
+					:filelink => @picture.url,
+					:thumb_url => @picture.url,
+					:id => @picture.id
+				}
+			else
+				render :json => {error: "error"}
       end
 
     end

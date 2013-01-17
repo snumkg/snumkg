@@ -3,6 +3,7 @@ class Article < ActiveRecord::Base
   attr_protected
 
   before_save :setting_default
+	before_create :set_number #글번호 부여
 
   validates_presence_of :user_id, :unless => Proc.new {|article| article.article_type == "익명"}
   validates_presence_of :board_id
@@ -66,6 +67,16 @@ class Article < ActiveRecord::Base
 			"#{diff/86400}일 전"
 		else
 			self.created_at.strftime("%m-%d")
+		end
+	end
+
+	def set_number
+		#글번호 부여
+		board = self.board
+		if board then
+			self.number = board.article_count
+			board.article_count = board.article_count + 1
+			board.save
 		end
 	end
 
