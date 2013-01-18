@@ -2,3 +2,7 @@
 .redactor_content {
   height: 200px;
 }
+
+.plupload_button.plupload_start {
+	display:none;
+}

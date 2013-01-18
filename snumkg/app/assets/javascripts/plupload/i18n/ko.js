@@ -1,7 +1,7 @@
 // Republic of Korea
 plupload.addI18n({
    'Select files' : '파일 선택',
-   'Add files to the upload queue and click the start button.' : '파일을 업로드 큐에 추가하여 시작 버튼을 클릭하십시오.',
+   'Add files to the upload queue and click the start button.' : '파일을 업로드 큐에 추가하여 삽입 버튼을 클릭하십시오.',
    'Filename' : '파일 이름',
    'Status' : '상태',
    'Size' : '크기',

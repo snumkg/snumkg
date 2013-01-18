@@ -45,55 +45,47 @@ class PicturesController < ApplicationController
       flash[:success] = "프로필 사진이 성공적으로 등록되었습니다."
       redirect_to profile_path(@user)
     when "article"
-			@result = []
-			params[:files].each do |file|
-				@picture = Picture.new
-				@picture.name = file.original_filename
-				directory = File.join(Rails.root,'images/articles/')
-				name = file.original_filename
-				@picture.full_path = full_path = File.join(directory, name)
-				@picture.thumb_path = thumb_path = File.join(directory,"thumb_"+name)
-				@picture.main_thumb_path = main_thumb_path = File.join(directory,"main_thumb_"+name)
+			file = params[:file]
+			@picture = Picture.new
+			@picture.name = file.original_filename
+			directory = File.join(Rails.root,'images/articles/')
+			name = file.original_filename
+			@picture.full_path = full_path = File.join(directory, name)
+			@picture.thumb_path = thumb_path = File.join(directory,"thumb_"+name)
+			@picture.main_thumb_path = main_thumb_path = File.join(directory,"main_thumb_"+name)
 
-				# 폴더가 없을 시에 폴더를 만들어줌. recursive하게
-				if !File.directory?(directory)
-					FileUtils.mkdir_p(directory)
-				end
-				if File.exist?(full_path)
-					File.delete(full_path)
-				end
-				#앨범 사진 저장
-				File.open(full_path,"wb") {|f| f.write(file.read)}
+			# 폴더가 없을 시에 폴더를 만들어줌. recursive하게
+			if !File.directory?(directory)
+				FileUtils.mkdir_p(directory)
+			end
+			if File.exist?(full_path)
+				File.delete(full_path)
+			end
+			#앨범 사진 저장
+			File.open(full_path,"wb") {|f| f.write(file.read)}
 
-				# index에서 보여주기 위한 앨범 썸네일 저장
-				image = ImageList.new(full_path)
-				thumbnail = image.thumbnail_center(220, 220)
-				thumbnail.write(thumb_path)
+			# index에서 보여주기 위한 앨범 썸네일 저장
+			image = ImageList.new(full_path)
+			thumbnail = image.thumbnail_center(220, 220)
+			thumbnail.write(thumb_path)
 
-				#메인 슬라이드쇼 앨범 섬네일
-				main_thumbnail = image.thumbnail_center(315, 355)
-				main_thumbnail.write(main_thumb_path)
+			#메인 슬라이드쇼 앨범 섬네일
+			main_thumbnail = image.thumbnail_center(315, 355)
+			main_thumbnail.write(main_thumb_path)
 
-				if @picture.save
-					@picture.url = picture_path(type: "album", id: @picture.id)
-					@picture.thumb_url = picture_path(type: "album", thumb: "true", id: @picture.id)
-					@picture.main_thumb_url = picture_path(type: "album", main_thumb: "true", id: @picture.id)
-					@picture.save
-				end
-
-				#업로드 파일 정보 담기
-				@result.push({
-					:name => @picture.name,
-					:filelink => @picture.url,
-					:thumb_url => @picture.url,
-					:id => @picture.id
-				})
+			if @picture.save
+				@picture.url = picture_path(type: "album", id: @picture.id)
+				@picture.thumb_url = picture_path(type: "album", thumb: "true", id: @picture.id)
+				@picture.main_thumb_url = picture_path(type: "album", main_thumb: "true", id: @picture.id)
+				@picture.save
 			end
 
+			#업로드 파일 정보 담기
 			render :json => {
-				result: @result
+				:name => @picture.name,
+				:url => @picture.url,
+				:id => @picture.id
 			}
-
     end
 
   end
@@ -135,7 +127,7 @@ class ImageList
 		else 
 			#가로길이 유지, 세로 양쪽이 잘림
 			adjusted_height = (width / target_ratio).to_i
-			thumbnail = self.crop(0, (height/2) - (adjusted_height / 2), adjusted_width, height)
+			thumbnail = self.crop(0, (height/2) - (adjusted_height / 2), width, adjusted_height)
 		end
 
 		thumbnail.thumbnail!(target_width, target_height)

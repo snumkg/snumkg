@@ -255,8 +255,8 @@ var RLANG = {
 					'<a href="javascript:void(null);">' + RLANG.link + '</a>' +
 				'</div>' +
 				'<form id="redactorInsertImageForm" method="post" action="" enctype="multipart/form-data">' +
-					'<div id="redactor_tab1" class="redactor_tab">' +
-						'<input type="file" id="redactor_file" name="files[]" multiple />' +
+					'<div id="redactor_tab1" style="height:330px;" class="redactor_tab plupload_uploader">' +
+						//TODO'<input type="file" id="redactor_file" name="files[]" multiple />' +
 					'</div>' +
 					'<div id="redactor_tab2" class="redactor_tab" style="display: none;">' +
 						'<div id="redactor_image_box"></div>' +
@@ -268,7 +268,7 @@ var RLANG = {
 				'</div>' +
 				'</div>' +
 				'<div id="redactor_modal_footer">' +
-					'<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
+					'<input type="button" class="redactor_modal_btn redactor_btn_modal_close" value="' + RLANG.cancel + '"/ >' +
 					'<input type="button" name="upload" class="redactor_modal_btn" id="redactor_upload_btn" value="' + RLANG.insert + '" />' +
 				'</div>',
 
@@ -604,6 +604,7 @@ var RLANG = {
 		// Initialization
 		init: function()
 		{
+			//TODO
 			// get dimensions
 			this.height = this.$el.css('height');
 			this.width = this.$el.css('width');
@@ -3237,23 +3238,6 @@ var RLANG = {
 
 				if (this.opts.imageUpload !== false)
 				{
-
-					// dragupload
-					if (this.opts.uploadCrossDomain === false && this.isMobile() === false)
-					{
-
-						if ($('#redactor_file').size() !== 0)
-						{
-							$('#redactor_file').dragupload(
-							{
-								url: this.opts.imageUpload,
-								uploadFields: this.opts.uploadFields,
-								success: $.proxy(this.imageUploadCallback, this),
-								error: $.proxy(this.opts.imageUploadErrorCallback, this)
-							});
-						}
-					}
-
 					// ajax upload
 					this.uploadInit('redactor_file',
 					{
@@ -3293,7 +3277,10 @@ var RLANG = {
 
 			}, this);
 
-			this.modalInit(RLANG.image, this.opts.modal_image, 610, callback);
+			this.modalInit(RLANG.image, this.opts.modal_image, 800, callback);
+			//TODO
+			$('.plupload_uploader').plupload();
+			uploaded_files = [];
 
 		},
 		imageSetThumb: function(e)
@@ -3309,7 +3296,29 @@ var RLANG = {
 			}
 			else
 			{
-				this.modalClose();
+				var ele = this;
+				//TODO
+				var uploader = $('.plupload_uploader').pluploadQueue();
+				// Files in queue upload them first
+				if (uploader.files.length > 0) {
+						// When all files are uploaded submit form
+						uploader.bind('StateChanged', function() {
+								if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
+									//업로드 완료시!
+									for (var i=0;i<uploaded_files.length;i++){
+										var data = '<img src="' + uploaded_files[i].url + '" />';
+										ele._imageSet(data, true);
+									}
+								}
+						});
+						uploader.start();
+						$('#redactor_upload_btn').prop('disabled', true);
+				} else {
+						alert('하나 이상의 파일을 업로드 해야합니다.');
+						return false;
+				}
+				return false;
+
 			}
 		},
 		imageUploadCallback: function(data)
@@ -3534,18 +3543,6 @@ var RLANG = {
 				}
 
 				$('#redactor_filename').val(text);
-
-				// dragupload
-				if (this.opts.uploadCrossDomain === false && this.isMobile() === false)
-				{
-					$('#redactor_file').dragupload(
-					{
-						url: this.opts.fileUpload,
-						uploadFields: this.opts.uploadFields,
-						success: $.proxy(this.fileUploadCallback, this),
-						error: $.proxy(this.opts.fileUploadErrorCallback, this)
-					});
-				}
 
 				this.uploadInit('redactor_file',
 				{
@@ -3998,153 +3995,6 @@ var RLANG = {
 
 })(jQuery);
 
-/*
-	Plugin Drag and drop Upload v1.0.2
-	http://imperavi.com/
-	Copyright 2012, Imperavi Inc.
-*/
-(function($){
-
-	"use strict";
-
-	// Initialization
-	$.fn.dragupload = function(options)
-	{
-		return this.each(function() {
-			var obj = new Construct(this, options);
-			obj.init();
-		});
-	};
-
-	// Options and variables
-	function Construct(el, options) {
-
-		this.opts = $.extend({
-
-			url: false,
-			success: false,
-			error: false,
-			preview: false,
-			uploadFields: false,
-
-			text: RLANG.drop_file_here,
-			atext: RLANG.or_choose
-
-		}, options);
-
-		this.$el = $(el);
-	}
-
-	// Functionality
-	Construct.prototype = {
-		init: function()
-		{
-			if (!$.browser.msie)
-			{
-				this.droparea = $('<div class="redactor_droparea"></div>');
-				this.dropareabox = $('<div class="redactor_dropareabox">' + this.opts.text + '</div>');
-				this.dropalternative = $('<div class="redactor_dropalternative">' + this.opts.atext + '</div>');
-
-				this.droparea.append(this.dropareabox);
-
-				this.$el.before(this.droparea);
-				this.$el.before(this.dropalternative);
-
-				// drag over
-				this.dropareabox.bind('dragover', $.proxy(function() { return this.ondrag(); }, this));
-
-				// drag leave
-				this.dropareabox.bind('dragleave', $.proxy(function() { return this.ondragleave(); }, this));
-
-				var uploadProgress = $.proxy(function(e)
-				{
-					var percent = parseInt(e.loaded / e.total * 100, 10);
-					this.dropareabox.text('Loading ' + percent + '%');
-
-				}, this);
-
-				var xhr = jQuery.ajaxSettings.xhr();
-
-				if (xhr.upload)
-				{
-					xhr.upload.addEventListener('progress', uploadProgress, false);
-				}
-
-				var provider = function () { return xhr; };
-
-				// drop
-				this.dropareabox.get(0).ondrop = $.proxy(function(event)
-				{
-					event.preventDefault();
-
-					this.dropareabox.removeClass('hover').addClass('drop');
-
-					var file = event.dataTransfer.files[0];
-					var fd = new FormData();
-
-					// append hidden fields
-					if (this.opts.uploadFields !== false && typeof this.opts.uploadFields === 'object')
-					{
-						$.each(this.opts.uploadFields, $.proxy(function(k,v)
-						{
-							if (v.toString().indexOf('#') === 0)
-							{
-								v = $(v).val();
-							}
-
-							fd.append(k, v);
-
-						}, this));
-					}
-
-					// append file data
-					fd.append('file', file);
-
-					$.ajax({
-						url: this.opts.url,
-						dataType: 'html',
-						data: fd,
-						xhr: provider,
-						cache: false,
-						contentType: false,
-						processData: false,
-						type: 'POST',
-						success: $.proxy(function(data)
-						{
-							var json = $.parseJSON(data);
-
-							if (typeof json.error == 'undefined')
-							{
-								this.opts.success(json);
-							}
-							else
-							{
-								this.opts.error(this, json);
-								this.opts.success(false);
-							}
-
-						}, this)
-					});
-
-
-				}, this);
-			}
-		},
-		ondrag: function()
-		{
-			this.dropareabox.addClass('hover');
-			return false;
-		},
-		ondragleave: function()
-		{
-			this.dropareabox.removeClass('hover');
-			return false;
-		}
-	};
-
-})(jQuery);
-
-
 
 // Define: Linkify plugin from stackoverflow
 (function($){
@@ -4187,6 +4037,7 @@ var RLANG = {
 	{
 		this.each(linkifyThis);
 	};
+
 
 })(jQuery);
 
