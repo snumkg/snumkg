@@ -15,8 +15,6 @@ class ArticlesController < ApplicationController
       @articles = @board.articles.page(@page).order("created_at DESC").per(6)
     end
 
-    @index = @articles.count
-
     case @board.board_type
     when "일반" # 일반게시판
       render 'index'

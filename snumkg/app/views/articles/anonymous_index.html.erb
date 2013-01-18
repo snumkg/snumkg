@@ -10,7 +10,7 @@
     <% for @article in @articles %>
       <tr>
         <td>
-          <%= @index %> <% @index = @index - 1 %>
+          <%= @article.number %>
         </td>
         <td class="span7">
           <%= link_to @article.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => @article) %>

@@ -24,7 +24,7 @@
   <tbody>
   <% for article in @articles %>
     <tr title="<%= article.title%>" writer="<%= article.writer.nickname%>" day="<%= article.date %>" url="<%= article_path(group_id: params[:group_id], id: article) %>">
-      <td><%= @index %><% @index = @index - 1%></td>
+      <td><%= article.number %></td>
       <td>
         <%= link_to article.title, article_path(:group_id => params[:group_id], board_id: params[:board_id], :id => article) %>
         <span class="comment_number">
@@ -35,10 +35,10 @@
         </span>
       </td>
       <td>
-        <span class="sokkoji_day<%=@index%>"><%= article.date %></span>
+        <span class="sokkoji_day<%= article.number %>"><%= article.date %></span>
       </td>
       <td>
-         <span class="sokkoji_writer<%=@index%>"> <%= article.writer.nickname %></span>
+         <span class="sokkoji_writer<%= article.number %>"> <%= article.writer.nickname %></span>
       </td>
     </tr>
 
