@@ -84,6 +84,7 @@ class PicturesController < ApplicationController
 			render :json => {
 				:name => @picture.name,
 				:url => @picture.url,
+				:thumb_url => @picture.thumb_url,
 				:id => @picture.id
 			}
     end

@@ -130,6 +130,10 @@ class ArticlesController < ApplicationController
     end
 
     if @article.save
+			# picture_ids 저장
+			if params[:picture_ids]
+				Picture.where(:id => params[:picture_ids].split(",")).update_all(:article_id => @article.id)
+			end
 
       #poll 저장
       @poll = Poll.new

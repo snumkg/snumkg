@@ -3310,6 +3310,8 @@ var RLANG = {
 										ele._imageSet(data, true);
 									}
 								}
+								picture_ids = picture_ids.concat($.map(uploaded_files, function(x){ return x.id; }));
+								$('#picture_ids').val(picture_ids.join(","));
 						});
 						uploader.start();
 						$('#redactor_upload_btn').prop('disabled', true);

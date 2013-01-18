@@ -2,13 +2,15 @@ $(function(){
 	 $('.redactor_content').redactor({
       lang: 'ko',
 			imageUpload: '/pictures?type=article',
-			fileUpload: '/file_upload.php'
+			fileUpload: '/file_upload.php',
+			fixed: true
   });
 
 });
 
 //업로드된 파일 목록을 담는 전역 변수
 var uploaded_files = [];
+var picture_ids = [];
 
 $.fn.plupload = function(){
 	$(this).pluploadQueue({
