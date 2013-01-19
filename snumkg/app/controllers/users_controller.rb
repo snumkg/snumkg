@@ -85,7 +85,7 @@ class UsersController < ApplicationController
   def alarms
     @page = params[:page] || 1
     @user = current_user
-    @alarm_groups = @user.alarm_groups.order("refreshed_at DESC").page(@page).per(10)
+    @alarm_groups = @user.alarm_groups.order("refreshed_at DESC").page(@page).per(5)
     @alarm_groups.each do |alarm_group|
       if alarm_group.state == 0 then
         alarm_group.state = 1

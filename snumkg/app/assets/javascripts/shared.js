@@ -10,11 +10,10 @@ $(function(){
 	$(document).click(function(e){
 		var name = $('.user_menu[visibility="visible"]');
 		var login = $('.login_box[visibility="visible"]');
-		var alarm_list = $("#alarm_list");
+		var alarm_list = $("#alarm_list_box").hide();
 		var search_list = $("#search_list");
 		$(name).css("visibility","hidden");
 		$(login[0]).css("visibility","hidden");
-		$(alarm_list).hide();
 		$(search_list).hide();
 
 	});
@@ -59,36 +58,80 @@ $(function(){
   //알람 읽어오기
   refresh_alarm_count();
   $("#alarm_link").click(function(){
-    $.ajax({
-      url: '/alarms',
-      beforeSend: function(){
-        $("#alarm_list").html("").show();
-        $("#loading-image").show();
-      },
-      success: function(data){
-        $("#loading-image").hide();
-        $("#alarm_list").append($(data).children()).show();
-        $('#alarm_count_text').text(0);
-        refresh_alarm_count();
-
-        //클릭하면 alarm-group state를 2로
-        $('.alarm-link').unbind('click').click(function(){
-          var href = $(this).attr('href');
-          $.ajax({
-            url: "/change_alarm_state/" + $(this).attr('alarm-group-id'),
-            success: function(result){
-              if (result.success){
-                location.href = href;
-              }
-            }
-          });
-          return false;
-        });
-      }
-    });
+    load_alarms(1);
+    $('#alarm_list_box').show().getNiceScroll().resize();
+		return false;
+  });
+  $('#alarm_list_box').scroll(function(){
+    var ele = $(this);
+    var scrollHeight = ele.get(0).scrollHeight;
+    var scrollTop = ele.scrollTop();
+    var scrollBottom = ele.scrollTop() + ele.height();
+    var difference = scrollHeight - scrollBottom;
+    if (difference < 10){
+      var current_page = parseInt($('#alarm_list_box').attr('page')) || 1;
+      load_alarms(current_page + 1);
+    }
+  }).niceScroll({cursorcolor: "#999"});
+  //
+  $(window).scroll(function(){
+    $('#alarm_list_box').getNiceScroll().resize();
   });
 
 });
+
+// 알람을 로딩해서 alarm_list_box에 붙임
+function load_alarms(page){
+  var box = $('#alarm_list_box');
+  if (box.attr('loading') == 'true') return;
+  page = page || 1;
+  if (page == 1){
+    box.attr('completed', 'false');
+  }
+  if (box.attr('completed') == 'true') return;
+  $.ajax({
+    url: '/alarms?page='+page,
+    beforeSend: function(){
+      if (page == 1){
+        $("#alarm_list").children().remove();
+      }
+      $("#loading-image").show();
+    },
+    success: function(data){
+      var html_dom = $(data);
+      var new_item_count = html_dom.children().size();
+      box.attr('loading', 'false');
+      $("#loading-image").hide();
+      $("#alarm_list").append(html_dom.children());
+      $('#alarm_count_text').text(0);
+      refresh_alarm_count();
+
+      if (new_item_count == 0){
+        box.attr('completed', 'true');
+        return false;
+      }
+      else {
+        box.attr('page', page);
+      }
+
+      //클릭하면 alarm-group state를 2로
+      $('.alarm-link').unbind('click').click(function(){
+        var href = $(this).attr('href');
+        $.ajax({
+          url: "/change_alarm_state/" + $(this).attr('alarm-group-id'),
+          success: function(result){
+            if (result.success){
+              location.href = href;
+            }
+          }
+        });
+        return false;
+      });
+      $('#alarm_list_box').trigger('scroll');
+    }
+  });
+  box.attr('loading', 'true');
+}
 
 //알람 카운트가 0이면 숨김
 function refresh_alarm_count(){

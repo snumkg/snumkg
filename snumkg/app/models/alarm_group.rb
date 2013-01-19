@@ -70,8 +70,8 @@ class AlarmGroup < ActiveRecord::Base
   def relative_time
     diff = Time.now - self.refreshed_at
     minutes = (diff / 60).to_i
-    hours = (minutes / 3600).to_i
-    days = (hours / (3600*24)).to_i
+    hours = (diff / 3600).to_i
+    days = (diff / (3600*24)).to_i
     if diff < 60
       "1분 전"
     elsif diff < 3600

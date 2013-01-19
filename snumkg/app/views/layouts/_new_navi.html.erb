@@ -14,13 +14,15 @@
 			</li>
 			<li class="top_nav_li1 notification">
       <div class="absolute"><div id="alarm_count_text" class="alarm-count"><%= current_user.new_alarm_count %></div></div>
-			<%= link_to image_tag("main/icon_notification.png", alt: "알림"), "#", :id => "alarm_link", "data-remote" => true %>
-			<div id="alarm_list_box">
+			<%= link_to image_tag("main/icon_notification.png", alt: "알림"), "#", :id => "alarm_link" %>
+			<div id="alarm_list_box" style="display:none;">
+				<ul id="alarm_list">
+				</ul>
 				<div id="loading-image">
 					<%= image_tag "loading.gif", alt: "로딩", size: "30x30" %>
 				</div>
-				<ul id="alarm_list" style="display:none;">
-				</ul>
+        <div id="">
+        </div>
 			</div>
 			</li>
 			<li class="top_nav_li1 level">3</li>
