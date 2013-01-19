@@ -31,22 +31,22 @@ user.save
 user = User.new(username: "asdf3", email: "asdf3@gmail.com", nickname: "백승범", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", profile_image_thumb_path: "#{p_path}/t_default4.jpg")
 user.set_password("asdf")
 user.save
-user = User.new(username: "asdf4", email: "asdf4@gmail.com", nickname: "이종민", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", profile_image_thumb_path: "#{p_path}/t_default4.jpg")
+user = User.new(username: "asdf4", email: "asdf4@gmail.com", nickname: "이종민", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default1.jpg", profile_image_thumb_path: "#{p_path}/t_default1.jpg")
 user.set_password("asdf")
 user.save
-user = User.new(username: "asdf5", email: "asdf5@gmail.com", nickname: "홍길동", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", profile_image_thumb_path: "#{p_path}/t_default4.jpg")
+user = User.new(username: "asdf5", email: "asdf5@gmail.com", nickname: "홍길동", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default2.jpg", profile_image_thumb_path: "#{p_path}/t_default2.jpg")
 user.set_password("asdf")
 user.save
-user = User.new(username: "asdf6", email: "asdf6@gmail.com", nickname: "김영희", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", profile_image_thumb_path: "#{p_path}/t_default4.jpg")
+user = User.new(username: "asdf6", email: "asdf6@gmail.com", nickname: "김영희", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default3.jpg", profile_image_thumb_path: "#{p_path}/t_default3.jpg")
 user.set_password("asdf")
 user.save
 user = User.new(username: "asdf7", email: "asdf7@gmail.com", nickname: "박철수", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", profile_image_thumb_path: "#{p_path}/t_default4.jpg")
 user.set_password("asdf")
 user.save
-user = User.new(username: "asdf8", email: "asdf8@gmail.com", nickname: "뀨잉", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", profile_image_thumb_path: "#{p_path}/t_default4.jpg")
+user = User.new(username: "asdf8", email: "asdf8@gmail.com", nickname: "뀨잉", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default1.jpg", profile_image_thumb_path: "#{p_path}/t_default1.jpg")
 user.set_password("asdf")
 user.save
-user = User.new(username: "asdf9", email: "asdf9@gmail.com", nickname: "뿌잉", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default4.jpg", profile_image_thumb_path: "#{p_path}/t_default4.jpg")
+user = User.new(username: "asdf9", email: "asdf9@gmail.com", nickname: "뿌잉", password: "asdf", password_confirmation: "asdf", profile_image_path: "#{p_path}/default2.jpg", profile_image_thumb_path: "#{p_path}/t_default4.jpg")
 user.set_password("asdf")
 user.save
 
@@ -145,7 +145,7 @@ end
 	article = Article.create(title: "안뇽하세용키키키키 #{i}", body: "딩가딩가", user_id: 1, board_id: 1)
 	comment = Comment.new
   comment.article_id = article.id
-	comment.user_id = i
+	comment.user_id = ((i-1) % 10) + 1
 	comment.content = "댓글 #{i}"
 	comment.save
 end
