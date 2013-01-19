@@ -21,6 +21,9 @@ body {
   font-size:9pt;
   font-family: "굴림", Gulim, "돋움", Dotum, AppleGothic, Sans-Serif;
 }
+label, label input, label textarea, label select {
+  display: inline;
+}
 
 .comment_number {
   font-size: 80%;

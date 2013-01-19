@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
     end
 
     case @board.board_type
-    when "일반" # 일반게시판
+    when "일반", '익명' then # 일반게시판
       render 'index'
     when "소꼬지 일정" # 소꼬지 달력
     # 소꼬지 일정을 보여줄 때, 소꼬지 게시판에서 게시물을 가져옴.
@@ -27,8 +27,6 @@ class ArticlesController < ApplicationController
 
       #@articles = @board.articles.order("updated_at desc")
       render 'sokkoji_index'
-    when "익명" # 익명 게시판
-      render 'anonymous_index'
     when "앨범"
       render 'album_index'
     end
@@ -97,12 +95,10 @@ class ArticlesController < ApplicationController
 
 
     case @article.article_type
-    when "일반" # 일반게시물
+    when "일반", "익명" then # 일반게시물
       render 'show'
     when "소꼬지" # 소꼬지 게시물
       render 'sokkoji_show'
-    when "익명" # 익명게시물
-      render 'anonymous_show'
     when "앨범" # 앨범게시물
       @images = @article.pictures
       render 'album_show'
@@ -116,9 +112,10 @@ class ArticlesController < ApplicationController
     @article.board_id = @board.id
 
     #익명게시물일 경우 유저 아이디를 저장하지 않음.
-    if @board.board_type != "익명"
-      @article.user_id = session[:user_id]
+    if @board.board_type == "익명"
       @article.set_password(params[:password])
+    else
+      @article.user_id = session[:user_id]
     end
 
     if @article.save

@@ -24,7 +24,11 @@
 						<%= @notice.created_at.strftime("%Y/%m/%d") %>
 					</td>
 					<td class="writer">
-            <%= render :partial => 'shared/user_menu', :locals => {:writer => @notice.writer, :size => "16x16"} %>
+            <% if @notice.writer %>
+              <%= render :partial => 'shared/user_menu', :locals => {:writer => @notice.writer, :size => "16x16"} %>
+            <% else %>
+              <%= @notice.nickname %>
+            <% end %>
 					</td>
 				</tr>
       <% end %>
@@ -41,7 +45,13 @@
             <span class="article_like_number">추천 <%= article.likes.count %></span>
           </td>
           <td class="date"><%= article.created_at.strftime("%Y/%m/%d") %></td>
-          <td class="writer"><%= render :partial => 'shared/user_menu', :locals => {:writer => article.writer, :size => "16x16"} %></td>
+          <td class="writer">
+            <% if article.writer %>
+              <%= render :partial => 'shared/user_menu', :locals => {:writer => article.writer, :size => "16x16"} %>
+            <% else %>
+              <%= article.nickname %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

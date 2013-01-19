@@ -28,34 +28,42 @@ class Like < ActiveRecord::Base
   def save_alarm
     if self.comment_id
       # 코멘트를 추천할 때
-      save_alarm_helper(accepter_id: self.comment.writer.id,
-                        alarmer_id: self.user.id,
-                        article_id: self.comment.article.id,
-                        comment_id: self.comment.id,
-                        alarm_type: "댓글추천")
+      if self.comment.writer and self.user and self.comment.article and self.comment
+        save_alarm_helper(accepter_id: self.comment.writer.id,
+                          alarmer_id: self.user.id,
+                          article_id: self.comment.article.id,
+                          comment_id: self.comment.id,
+                          alarm_type: "댓글추천")
+      end
     elsif self.article_id
       # 글을 추천할 때
-      save_alarm_helper(accepter_id: self.article.writer.id,
-                        alarmer_id: self.user.id,
-                        article_id: self.article.id,
-                        alarm_type: "글추천")
+      if self.article.writer and self.user and self.article
+        save_alarm_helper(accepter_id: self.article.writer.id,
+                          alarmer_id: self.user.id,
+                          article_id: self.article.id,
+                          alarm_type: "글추천")
+      end
     end
   end
 
   def destroy_alarm
     if self.comment_id
       # 코맨트 추천 취소
-      destroy_alarm_helper(:accepter_id => self.comment.writer.id,
-                           :alarmer_id => self.user.id,
-                           :article_id => self.comment.article.id,
-                           :comment_id => self.comment.id,
-                           :alarm_type => "댓글추천")
+      if self.comment.writer and self.user and self.comment.article and self.comment
+        destroy_alarm_helper(:accepter_id => self.comment.writer.id,
+                             :alarmer_id => self.user.id,
+                             :article_id => self.comment.article.id,
+                             :comment_id => self.comment.id,
+                             :alarm_type => "댓글추천")
+      end
     elsif self.article_id
       # 글 추천 취소
-      destroy_alarm_helper(:accepter_id => self.article.writer.id,
-                           :alarmer_id => self.user.id,
-                           :article_id => self.article.id,
-                           :alarm_type => "글추천")
+      if self.article.writer and self.user and self.article
+        destroy_alarm_helper(:accepter_id => self.article.writer.id,
+                             :alarmer_id => self.user.id,
+                             :article_id => self.article.id,
+                             :alarm_type => "글추천")
+      end
     end
   end
 

@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
       @comment.user_id = params[:comment][:user_id]
     else #익명게시판일때
       @comment.set_password(params[:comment][:password])
-      @comment.username= params[:comment][:username]
+      @comment.anonymous_name = params[:comment][:anonymous_name]
     end
 
     if @comment.save

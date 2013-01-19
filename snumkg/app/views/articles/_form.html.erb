@@ -1,10 +1,21 @@
 <%= render 'new_js_css_tag' %>
+<% if @article.errors.full_messages.length > 0 %>
+  <%= @article.errors.full_messages.join(";") %>
+<% end %>
 <%= form_for(@article, :html => {:class => "article-form"}) do |f| %>
   <%= hidden_field_tag :picture_ids %>
 
+  <!-- 익명 게시판 -->
+  <% if @board.board_type == '익명' %>
+    <div>
+      <%= f.text_field :anonymous_name, placeholder: "이름", style: "width:100px;" %><br>
+      <%= password_field_tag :password, nil, placeholder: "비밀번호", style: "width:100px;" %>
+    </div>
+  <% end %>
+
   <div>
-    <%= f.text_field :title, :placeholder => "제목을 입력하세요." %>
-    <%= f.check_box :is_notice, {}, true, false %> 공지
+    <%= f.text_field :title, :placeholder => "제목을 입력하세요.", style: "width:90%;" %>
+    <label><%= f.check_box :is_notice, {}, true, false %> 공지</label>
   </div>
 
   <!-- 소꼬지 날짜 입력 -->

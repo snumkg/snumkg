@@ -4,7 +4,7 @@
     <td>
       <span id="article_title"><%= @article.title %></span>
       <span id="alm" class="article_like_number">좋아요 <%= @article.likes.count %></span>
-      <span class="article_writer">작성자:<%= @article.writer.nickname%> </span>
+      <span class="article_writer">작성자:<%= @article.nickname%> </span>
     </td>
   </tr>
   <tr>
@@ -38,12 +38,20 @@
   </tr>
   <tr>
     <td>
-      <%= render 'comments/show_comments', :locals => {:@comments => @comments}%>
+      <% if @article.article_type == '익명' %>
+        <%= render 'comments/show_anonymous_comments', :locals => {:@comments => @comments} %>
+      <% else %>
+        <%= render 'comments/show_comments', :locals => {:@comments => @comments}%>
+      <% end %>
     </td>
   </tr>
   <tr>
     <td>
-      <%= render 'comments/write_comment', :locals => {:@comment => @comment, :@article => @article} %>
+      <% if @article.article_type == '익명' %>
+        <%= render 'comments/write_anonymous_comment', :locals => {:@comment => @comment} %>
+      <% else %>
+        <%= render 'comments/write_comment', :locals => {:@comment => @comment, :@article => @article} %>
+      <% end %>
     </td>
   </tr>
 </table>

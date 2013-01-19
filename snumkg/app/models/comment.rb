@@ -38,6 +38,15 @@ class Comment < ActiveRecord::Base
     self.password_salt, self.password_hash = salt, Digest::SHA256.hexdigest(pass.to_s + salt)
   end
 
+  # 글쓴이의 닉네임 리턴
+  def nickname
+    if self.writer then
+      self.writer.nickname
+    else
+      self.anonymous_name
+    end
+  end
+
 
   private
   def save_alarm
@@ -45,34 +54,42 @@ class Comment < ActiveRecord::Base
       # profile_user_id의 값이 존재할 때
       # 프로필 페이지에다 코멘트를 다는 경우  
       # 프로필 페이지의 유저에게 알림
-      save_alarm_helper(accepter_id: self.profile_user_id,
-                        alarmer_id: self.writer.id,
-                        comment_id: self.id,
-                        alarm_type: "프로필댓글")
+      if self.writer
+        save_alarm_helper(accepter_id: self.profile_user_id,
+                          alarmer_id: self.writer.id,
+                          comment_id: self.id,
+                          alarm_type: "프로필댓글")
+      end
     else
       # 게시물 작성자에게 알림
       # 글쓴이에게 알람 저장
-      save_alarm_helper(accepter_id: self.article.writer.id, 
-                        article_id: self.article_id,
-                        comment_id: self.id,
-                        alarmer_id: self.writer.id,
-                        alarm_type: "댓글")
+      if self.article.writer and self.article and self.writer
+        save_alarm_helper(accepter_id: self.article.writer.id, 
+                          article_id: self.article.id,
+                          comment_id: self.id,
+                          alarmer_id: self.writer.id,
+                          alarm_type: "댓글")
+      end
     end
   end
 
   def destroy_alarm
     if self.profile_user_id then
       #프로필 댓글
-      destroy_alarm_helper(accepter_id: self.profile_user_id,
-                           alarmer_id: self.writer.id,
-                           comment_id: self.id,
-                           alarm_type: "프로필댓글")
+      if self.writer
+        destroy_alarm_helper(accepter_id: self.profile_user_id,
+                             alarmer_id: self.writer.id,
+                             comment_id: self.id,
+                             alarm_type: "프로필댓글")
+      end
     else
-      destroy_alarm_helper(accepter_id: self.article.writer.id, 
-                           article_id: self.article_id,
-                           comment_id: self.id,
-                           alarmer_id: self.writer.id,
-                           alarm_type: "댓글")
+      if self.article.writer and self.article and self.writer
+        destroy_alarm_helper(accepter_id: self.article.writer.id, 
+                             article_id: self.article.id,
+                             comment_id: self.id,
+                             alarmer_id: self.writer.id,
+                             alarm_type: "댓글")
+      end
     end
   end
 

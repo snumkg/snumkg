@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20130117084009) do
     t.integer  "user_id"
     t.integer  "profile_user_id"
     t.string   "content"
-    t.string   "username"
+    t.string   "anonymous_name"
     t.string   "password_salt"
     t.string   "password_hash"
     t.datetime "created_at",      :null => false

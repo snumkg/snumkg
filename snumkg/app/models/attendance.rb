@@ -12,17 +12,21 @@ class Attendance < ActiveRecord::Base
 
   private
   def save_alarm
-    save_alarm_helper(accepter_id: self.article.writer.id,
-                      alarmer_id: self.user.id,
-                      article_id: self.article.id,
-                      alarm_type: "참석")
+    if self.article.writer and self.user and self.article
+      save_alarm_helper(accepter_id: self.article.writer.id,
+                        alarmer_id: self.user.id,
+                        article_id: self.article.id,
+                        alarm_type: "참석")
+    end
   end
 
   def destroy_alarm
-    destroy_alarm_helper(:alarmer_id => self.user.id,
-                         :accepter_id => self.article.writer.id,
-                         :article_id => self.article.id,
-                         :alarm_type => "참석")
+    if self.article.writer and self.user and self.article
+      destroy_alarm_helper(:alarmer_id => self.user.id,
+                           :accepter_id => self.article.writer.id,
+                           :article_id => self.article.id,
+                           :alarm_type => "참석")
+    end
   end
 
 end
