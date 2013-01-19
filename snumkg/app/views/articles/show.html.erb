@@ -21,7 +21,7 @@
             <%= link_to "수정하기", edit_article_path(group_id: params[:group_id], board_id: params[:board_id], id: @article) %>
           </span>
           <span>
-            <%= render 'articles/delete_btn', :locals => {:@article => @article} %>
+            <%= link_to "삭제하기", article_path(board_id: params[:board_id], group_id: params[:group_id], id: @article), :method => "delete",  :confirm => "정말로 삭제하시겠습니까?" %>
           </span>
         <% end %>
 

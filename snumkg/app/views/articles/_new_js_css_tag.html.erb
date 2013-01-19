@@ -1,10 +1,20 @@
 <% content_for(:head) do %>
-  <%= javascript_include_tag "redactor/redactor" %>
-  <%= javascript_include_tag "redactor/ko" %>
   <%= javascript_include_tag "new_article" %>
-  <%= stylesheet_link_tag "redactor/redactor" %>
   <%= stylesheet_link_tag "new_article" %>
 
+  <% #redactor %>
+  <%= javascript_include_tag "redactor/redactor" %>
+  <%= javascript_include_tag "redactor/ko" %>
+  <%= stylesheet_link_tag "redactor/redactor" %>
+
+  <% # 소꼬지 달력 %>
+  <%= javascript_include_tag "fullcalendar" %>
+  <%= stylesheet_link_tag    "fullcalendar" %>
+  <%= stylesheet_link_tag "jquery-ui-1.8.21.custom" %>
+  <%= javascript_include_tag "jquery-ui-1.8.21.custom.min" %>
+  <%= javascript_include_tag "jquery-ui-timepicker-addon" %>
+
+  <% #plupload %>
 	<%= javascript_include_tag "plupload/plupload.full" %>
 	<%= javascript_include_tag "plupload/jquery.plupload.queue/jquery.plupload.queue" %>
 	<%= javascript_include_tag "plupload/i18n/ko" %>

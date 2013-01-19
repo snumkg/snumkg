@@ -1,4 +1,0 @@
-<% if current_user == @article.writer %>
-  <a href="<%= article_path(board_id: params[:board_id], group_id: params[:group_id], id: @article) %>" data-method="delete" rel="nofollow" data-confirm="정말로 삭제하시겠습니까?"><i class="icon-remove"></i></a>
-<% end %>
-

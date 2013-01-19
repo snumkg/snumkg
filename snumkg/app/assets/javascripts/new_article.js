@@ -10,6 +10,14 @@ $(function(){
     $('#picture_ids').val(a = $('[picture-id]').map(function(x){return $(this).attr('picture-id')}).toArray().join(','));
   });
 
+  //소꼬지 달력 입력
+	$('#sokkoji_date').datetimepicker({
+		dateFormat: "yy-mm-dd",
+		timeFormat: "hh:mm",
+		stepHour: 1,
+		stepMinute: 10,
+	});	
+
 });
 
 //업로드된 파일 목록을 담는 전역 변수

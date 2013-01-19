@@ -113,11 +113,10 @@ class ArticlesController < ApplicationController
     @board = Board.find_by_id(params[:board_id])
 
     @article = Article.new(params[:article])
-    @article.date = params[:article][:date] unless params[:article][:date].nil? #소꼬지 일정 저장
     @article.board_id = @board.id
 
     #익명게시물일 경우 유저 아이디를 저장하지 않음.
-    if @article.article_type != "익명"
+    if @board.board_type != "익명"
       @article.user_id = session[:user_id]
       @article.set_password(params[:password])
     end

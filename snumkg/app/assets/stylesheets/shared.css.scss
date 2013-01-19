@@ -27,9 +27,6 @@ body {
   color: red;
 }
 
-body {font-family: "맑은 고딕"}
-
-
 //wrapper
 #wrapper {
   width: 1000px;
@@ -58,7 +55,7 @@ body {font-family: "맑은 고딕"}
     .alarm-count {position:relative;width:15px;height:15px;background-color:#fc4783;color:white;font-size:12px;font-weight:bold;padding:0;text-align:center;top:-5px;left:-5px;}
 
     //alarm list
-    #alarm_list_box {background: white;width:330px; min-height: 50px; max-height: 400px; border:1px solid black; font-size: 90%; text-align: left; margin:0; padding:0; overflow: auto;}
+    #alarm_list_box {background: white;width:330px; min-height: 50px; max-height: 400px; border:1px solid black; text-align: left; margin:0; padding:0; overflow: auto;}
     #alarm_list {
       background: white; padding:0;margin:0;
       li {
@@ -208,7 +205,7 @@ body {font-family: "맑은 고딕"}
 
 
 //content
-#content {
+#content_right {
   margin-left:180px;
 } 
 #footer {
