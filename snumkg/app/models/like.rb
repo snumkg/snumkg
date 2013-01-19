@@ -11,8 +11,7 @@ class Like < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :user_id
-  validates_uniqueness_of :article_id, :scope => :user_id, :unless => Proc.new {|like| like.article_id.nil?}
-  validates_uniqueness_of :comment_id, :scope => :user_id, :unless => Proc.new {|like| like.comment_id.nil?}
+  validates_uniqueness_of :article_id, :scope => [:user_id, :comment_id]
 
   #validate :article_xor_comment # article_id나 comment_id둘중 하나는 반드시 값을 가져야 함. 둘다 가져서는 안됨.
 
