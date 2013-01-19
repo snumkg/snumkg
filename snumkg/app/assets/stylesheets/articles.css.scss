@@ -1,13 +1,8 @@
 // Place all the styles related to the articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.right {
-  float: right;
-}
-
-.bold {
-  font-weight: bold;
-}
+.right {float: right;}
+.bold {font-weight: bold;}
 
 .delete_btn {
   display: inline-block;
@@ -27,13 +22,17 @@
 }
 
 #article_list {
-	margin-bottom:5px;padding:0;
+	margin-bottom:5px;padding:0;width:100%;
 	th {text-align:center;background-color:#f3f3f3;}
-	td, th {padding:5px;border-bottom:1px solid #ddd;}
+	td, th {padding:3px;border-bottom:1px solid #ddd;}
+  .number {width:50px;text-align:center;}
+  .title {}
+  .date {width:100px;text-align:center;}
+  .writer {width:100px;text-align:center;}
 }
 
 #article_box {
-  width: 700px;  
+  width: 100%;
   border: 1px solid #ddd;
   
   td {
@@ -66,8 +65,7 @@ span#article_title {
 }
 
 #show_comments_box {
-  width: 600px;
-
+  width: 100%;
   td {
     padding: 2px;
   }
@@ -78,18 +76,14 @@ span#article_title {
     margin: 0;
 }
 
-
 .comment_writer {
   display: inline-block; 
   font-weight: bold;
   margin-right: 1em;
-  
 }
-
 
 .article_like_number {
   display: inline-block;
-  
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;

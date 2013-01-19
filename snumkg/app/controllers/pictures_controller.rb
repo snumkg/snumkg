@@ -55,12 +55,9 @@ class PicturesController < ApplicationController
 			@picture.main_thumb_path = main_thumb_path = File.join(directory,"main_thumb_"+name)
 
 			# 폴더가 없을 시에 폴더를 만들어줌. recursive하게
-			if !File.directory?(directory)
-				FileUtils.mkdir_p(directory)
-			end
-			if File.exist?(full_path)
-				File.delete(full_path)
-			end
+      FileUtils.mkdir_p(directory) unless File.directory?(directory)
+      File.delete(full_path) if File.exist?(full_path)
+
 			#앨범 사진 저장
 			File.open(full_path,"wb") {|f| f.write(file.read)}
 

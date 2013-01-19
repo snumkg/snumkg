@@ -61,8 +61,8 @@ class AlarmGroup < ActiveRecord::Base
 
     if article then
       article_path(group_id: group.id, board_id: board.id, id: article.id)
-    else
-      nil
+    elsif self.alarm_type == '프로필댓글'
+      profile_path(self.user)
     end
   end
 

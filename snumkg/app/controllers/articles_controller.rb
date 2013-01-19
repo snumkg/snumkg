@@ -5,12 +5,11 @@ class ArticlesController < ApplicationController
 
     @board = @boards.find_by_id(params[:board_id])
     @notices = @board.articles.where(:is_notice => true).order("created_at desc")
-    @notice_index = @notices.count
     @page = params[:page].to_i || 1
 
     # Pagination
     if @board.board_type != "앨범" # 앨범은 보여주는 이미지의 갯수가 다르다.
-      @articles = @board.articles.page(@page).order("created_at DESC").per(5)
+      @articles = @board.articles.page(@page).order("created_at DESC").per(15)
     else
       @articles = @board.articles.page(@page).order("created_at DESC").per(6)
     end
@@ -57,7 +56,7 @@ class ArticlesController < ApplicationController
     @board = @article.board
 
     @pictures = @article.pictures
-
+=begin
     case @article.article_type
     when "일반" # 일반게시물
       render 'edit'
@@ -68,6 +67,7 @@ class ArticlesController < ApplicationController
     when "앨범" # 앨범게시물
       render 'album_edit'
     end
+=end
   end
 
   def update
@@ -77,20 +77,15 @@ class ArticlesController < ApplicationController
 
     @article.title = params[:article][:title]
     @article.body = params[:article][:body]
-
-    if @article.article_type == "앨범"
-        # 이미지와 아티클 연결지어주기 
-        if !params[:picture].nil?
-          pictures = params[:picture]
-          pictures.each do |key, value|
-            pict = Picture.find_by_id(value)
-            pict.update_attribute(:article_id, @article.id)
-          end
-        end
-    end
-
+    
     if @article.save
       redirect_to article_path(group_id: @article.board.group.id, board_id: @article.board.id, id: params[:id])
+
+      #이미지 연결
+      if params[:picture_ids] then
+        @article.pictures.update_all(article_id: nil)
+        Picture.where(:id => params[:picture_ids].split(",")).update_all(:article_id => @article.id)
+      end
     end
 
   end
@@ -128,43 +123,17 @@ class ArticlesController < ApplicationController
     end
 
     if @article.save
-			# picture_ids 저장
-			if params[:picture_ids]
-				Picture.where(:id => params[:picture_ids].split(",")).update_all(:article_id => @article.id)
-			end
-
-      #poll 저장
-      @poll = Poll.new
-      @poll.title = params[:poll_title]
-      @poll.article_id = @article.id
-      @poll.poll_type = params[:poll_type]
-      @poll.save
-
-      unless @poll.nil?
-        params[:poll_option].to_a.each do |key,value|
-          @option = Option.new
-          @option.content = value
-          @option.poll_id = @poll.id
-          @option.save
-        end
-      end
-
-      if @article.article_type == "앨범" # 앨범게시물일 경우.
-        # 이미지와 아티클 연결지어주기 
-        if !params[:picture].nil?
-          pictures = params[:picture]
-          pictures.each do |key, value|
-            pict = Picture.find_by_id(value)
-            pict.update_attribute(:article_id, @article.id)
-          end
-        end
-
+      # picture_ids 저장
+      if params[:picture_ids]
+        Picture.where(:id => params[:picture_ids].split(",")).update_all(:article_id => @article.id)
       end
 
       respond_to do |format|
-       format.html {redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id], page: 1)}
+        format.html {redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id], page: 1)}
       end
     else
+      render 'new'
+=begin
       case params[:article_type]
       when "일반"
         render 'new'
@@ -175,7 +144,7 @@ class ArticlesController < ApplicationController
       when "앨범"
         render 'album_new'
       end
-
+=end
     end
   end
 

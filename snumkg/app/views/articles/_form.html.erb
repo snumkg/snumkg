@@ -1,0 +1,12 @@
+<%= render 'new_js_css_tag' %>
+<%= form_for(@article, :html => {:class => "article-form"}) do |f| %>
+	<%= hidden_field_tag :article_type, @board.board_type %>
+	<%= hidden_field_tag :picture_ids %>
+
+	<div>
+		<%= f.text_field :title, :placeholder => "제목을 입력하세요." %>
+		<%= f.check_box :is_notice, {}, true, false %> 공지
+	</div>
+	<%= f.text_area :body, class: "redactor_content" %>
+	<%= f.submit @article.new_record? ? "글쓰기" : "수정", class: "btn" %>
+<% end %>

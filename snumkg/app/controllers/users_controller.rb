@@ -96,6 +96,14 @@ class UsersController < ApplicationController
     render :layout => false
   end
 
+  def new_alarm_count
+    if current_user then
+      render :json => {count: current_user.new_alarm_count}
+    else
+      render :json => {count: 0}
+    end
+  end
+
   def change_alarm_state
     @alarm_group = AlarmGroup.find_by_id(params[:id])
     if @alarm_group and @alarm_group.accepter_id == session[:user_id] then

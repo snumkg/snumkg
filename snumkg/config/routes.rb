@@ -18,7 +18,7 @@ Snumkg::Application.routes.draw do
   namespace :admin do
     resources :users
     resources :groups do 
-      post 'set_board_orders'
+      post 'set_positions'
     end
     resources :boards
   end
@@ -58,6 +58,7 @@ Snumkg::Application.routes.draw do
   #alarm
   get '/alarms', :to => 'users#alarms', :as => 'user_alarms'
   get '/change_alarm_state/:id', :to => "users#change_alarm_state", :as => "change_alarm_state"
+  get '/new_alarm_count', :to => "users#new_alarm_count", :as => "new_alarm_count"
 
 
   #유저

@@ -1,17 +1,21 @@
 $(function(){
-	 $('.redactor_content').redactor({
-      lang: 'ko',
-			imageUpload: '/pictures?type=article',
-			fileUpload: '/file_upload.php',
-			fixed: true
+  $('.redactor_content').redactor({
+    lang: 'ko',
+    imageUpload: '/pictures?type=article',
+    fileUpload: '/file_upload.php',
+    fixed: true
+  });
+  //전송하기 전 picture_ids 를 채움
+  $('.article-form').submit(function(){
+    $('#picture_ids').val(a = $('[picture-id]').map(function(x){return $(this).attr('picture-id')}).toArray().join(','));
   });
 
 });
 
 //업로드된 파일 목록을 담는 전역 변수
 var uploaded_files = [];
-var picture_ids = [];
 
+//대상 엘리먼트에 plupload를 붙임
 $.fn.plupload = function(){
 	$(this).pluploadQueue({
 		// General settings

@@ -138,9 +138,25 @@ function refresh_alarm_count(){
   var alarm_count = $('#alarm_count_text');
   if (alarm_count.text() == '0'){
     alarm_count.hide();
+    $('title').text("서울대학교 모꼬지");
   }
-  else {alarm_count.show();}
+  else {
+    alarm_count.show();
+    $('title').text("서울대학교 모꼬지 ("+alarm_count.text()+")");
+  }
 }
+
+//서버에서 새 알람 수를 얻어옴
+function fetch_new_alarm_count(){
+  $.ajax({
+    url: "/new_alarm_count",
+    success: function(x){
+      $('#alarm_count_text').text(x.count);
+      refresh_alarm_count();
+    }
+  });
+}
+setInterval(fetch_new_alarm_count, 12000); //12초마다 반복
 
 //infinite scroll
 //

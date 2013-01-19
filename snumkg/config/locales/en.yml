@@ -3,3 +3,10 @@
 
 en:
   hello: "Hello world"
+  views:
+      pagination:
+            first: "&laquo; 처음"
+            previous: "&lsaquo; 이전"
+            next: "다음 &rsaquo;"
+            last: "마지막 &raquo;"
+            truncate: "..."

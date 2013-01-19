@@ -12,7 +12,7 @@
 			<tr>
 				<td><%= group.name %></td>
 				<td><%= group.group_type %></td>
-				<td><%= group.hide %></td>
+				<td><%= group.is_hidden %></td>
 				<td>
 					<%= link_to "수정", edit_admin_group_path(group), :class => "btn" %>
 					<%= link_to "게시판관리", admin_group_path(group), :class => "btn btn-info" %>

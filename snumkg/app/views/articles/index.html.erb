@@ -1,18 +1,18 @@
 <div id="article_wrapper">
 	<table id="article_list">
 		<thead>
-			<th class="span1">번호</th>
-			<th class="span5">제목</th>
-			<th class="span2">작성일</th>
-			<th class="span2">작성자</th>
+			<th class="number">번호</th>
+			<th class="title">제목</th>
+			<th class="date">작성일</th>
+			<th class="writer">작성자</th>
 		</thead>
 		<tbody>
 			<% for @notice in @notices %>
 				<tr class="notice">
-					<td>
-						공지<%= @notice_index %> <% @notice_index = @notice_index - 1 %>
+					<td class="number">
+            <span class="label label-important">공지</span>
 					</td>
-					<td class="span7">
+					<td class="title">
 						<%= link_to @notice.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => @notice) %>
 						<span class="comment_number">
 							[<%= @notice.comments.count %>]
@@ -20,21 +20,36 @@
 						<span class="article_like_number">추천 <%= @notice.likes.count %></span>
 
 					</td>
-					<td>
+					<td class="date">
 						<%= @notice.created_at.strftime("%Y/%m/%d") %>
 					</td>
-					<td>
-            <%= render :partial => 'shared/user_menu', :locals => {:writer => @notice.writer, :size => "25x25"} %>
+					<td class="writer">
+            <%= render :partial => 'shared/user_menu', :locals => {:writer => @notice.writer, :size => "16x16"} %>
 					</td>
 				</tr>
-			<% end %>
-			<%= render 'show' %>
-		</tbody>
-	</table>
+      <% end %>
 
-	<% if current_user %>
-		<%= link_to "글쓰기", new_article_path(:group_id => params[:group_id], :board_id => params[:board_id]), :class => "btn" %>
-	<% end %>
+      <% for article in @articles %>
+        <tr>
+          <td class="number"><%= article.number %></td>
+          <td class="title">
+            <%= link_to article.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => article) %>
+            <span class="comment_number">[<%= article.comments.count %>]</span>
+            <% if article.pictures.size > 0 %>
+              <span><%= image_tag "icons/picture.gif" %></span>
+            <% end %>
+            <span class="article_like_number">추천 <%= article.likes.count %></span>
+          </td>
+          <td class="date"><%= article.created_at.strftime("%Y/%m/%d") %></td>
+          <td class="writer"><%= render :partial => 'shared/user_menu', :locals => {:writer => article.writer, :size => "16x16"} %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if current_user %>
+    <%= link_to "글쓰기", new_article_path(:group_id => params[:group_id], :board_id => params[:board_id]), :class => "btn" %>
+  <% end %>
 
   <%= paginate @articles %>
 </div>

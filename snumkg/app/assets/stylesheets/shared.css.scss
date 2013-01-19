@@ -1,14 +1,12 @@
 @import "bootstrap";
 
 @mixin border($px) {
-
   border-radius: $px;
   -moz-border-radius: $px;
   -webkit-border-radius: $px;
 }
 
 //global class
-
 .hidden {display: none;}
 .left {float:left;}
 .red {color: #F90A5D;}
@@ -17,17 +15,14 @@
 .clear {clear: both;}
 .absolute {position:absolute;}
 .center {position: relative; margin: 0 auto;}
-
-.user_alarm {
-
-  span {
-    color: red;
-    font-weight: bold;
-  }
+a:link {color:#333;}
+a:visited {color:#333;}
+body {
+  font-size:9pt;
+  font-family: "굴림", Gulim, "돋움", Dotum, AppleGothic, Sans-Serif;
 }
 
 .comment_number {
-
   font-size: 80%;
   color: red;
 }
@@ -130,14 +125,16 @@ body {font-family: "맑은 고딕"}
 
 //sidebar
 #tab_sidebar {
-  float: left;
-  margin-right: 1em;
-  > ul {
-    list-style: none;
-    margin: 0;
-    width: 200px;
-    border: 1px solid #aaa;
-}
+  float: left;width: 150px;
+  padding: 5px;
+  border-radius: 7px;
+  border:3px solid #fdd;
+  ul {
+    list-style: none;margin: 0;
+    li {padding-left:20px;margin:4px;background-repeat:no-repeat;background-position:5px 4px;}
+    li.board {background-image:url("/assets/icons/board.gif");}
+    li.album {background-image:url("/assets/icons/album.gif");}
+  }
 }
 
 //navigation menu
@@ -190,7 +187,6 @@ body {font-family: "맑은 고딕"}
     float: left;
     a {
       position: relative;
-      font-size: 97%;
       color: #555;
       letter-spacing: 3px;
       font-weight: bold;
@@ -204,9 +200,6 @@ body {font-family: "맑은 고딕"}
     width: 150px;
     li {
       width: 100%;
-      a {
-        font-size: 95%;
-      } 
     }
 
   }
@@ -215,15 +208,12 @@ body {font-family: "맑은 고딕"}
 
 
 //content
-//
 #content {
-  float: left;
-  width: 760px; 
+  margin-left:180px;
 } 
 #footer {
   clear: both;
 }
-
 
 // user menu 
 .user {

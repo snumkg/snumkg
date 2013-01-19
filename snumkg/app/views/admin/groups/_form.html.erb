@@ -3,8 +3,8 @@
   <%= f.text_field :name %>
 	<%= f.label :group_type, "그룹타입" %>
 	<%= f.text_field :group_type %>
-	<%= f.label :hide, "숨기기" %>
-	<%= f.check_box :hide %>
+	<%= f.label :is_hidden, "숨기기" %>
+	<%= f.check_box :is_hidden %>
 	<br>
   <%= f.submit @group.new_record? ? "만들기" : "수정"  %>
 <% end %>

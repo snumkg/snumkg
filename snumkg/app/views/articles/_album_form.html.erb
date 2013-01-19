@@ -53,23 +53,6 @@ data.submit();
       });
 </script>
 
-
-<script>
-  //글쓰기 클릭할 때 업로드된 이미지 parameter로 넘기기
-  $(function(){
-    $('#article_submit').click(function(){
-      $('tr.template-download.fade.in > td.preview > a')
-      .each(function(i,e){
-        // album_new 일때
-        if( $("#new_article").length != 0){
-          $("#new_article").append('<input type="hidden" name="picture['+i+']" value="'+ $(e).attr("picture")+'"></input>');
-        }
-        else{
-          $(".edit_article").append('<input type="hidden" name="picture['+i+']" value="'+ $(e).attr("picture")+'"></input>');
-      }});
-      });
-  });</script>
-
 <style>
   td.preview > a > img {
     width: 50%;

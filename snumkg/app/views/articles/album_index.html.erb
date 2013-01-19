@@ -25,8 +25,6 @@
     width: 220px;
 
   }
-    
-    
 
   .boxcaption{  
     float: left;  
@@ -96,23 +94,14 @@
 <%= paginate @articles %>
 
 <script>
-  
   $(".image_box").hover(function(){
-    
-    var length = $(this).find("img").length;
-
-    if(length >= 2){
-
-      $(this).find("img").stop().animate({
-        left: '-=220px' 
-      })
-
-    }
-    console.log(length);
+      var length = $(this).find("img").length;
+      if(length >= 2){
+        $(this).find("img").stop().animate({
+          left: '-=220px' 
+        })
+      }
     }, function(){
-
-
-
       $(this).find("img").stop().animate({
         left: "0px"
       });

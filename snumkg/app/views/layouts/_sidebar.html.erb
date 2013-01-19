@@ -1,16 +1,15 @@
 <div id="tab_sidebar">
-  <ul class="nav nav-tabs nav-stacked">
+  <ul>
     <% for board in @boards %>
-      <li>
+      <li class="<%= board.board_type_en %>">
       <a href="<%=articles_path(group_id: board.group.id, board_id: board.id, page: 1)%>">
         <%= board.name %>
         <% if board.new_article? %>
-					<span class="new"><%= image_tag "main/new.png" %></span>
+					<span class="new"><%= image_tag "icons/new.png" %></span>
         <% end %>
       </a>
       </li>
     <% end %>
-
   </ul>
 </div>
 

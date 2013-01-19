@@ -3306,12 +3306,10 @@ var RLANG = {
 								if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
 									//업로드 완료시!
 									for (var i=0;i<uploaded_files.length;i++){
-										var data = '<img src="' + uploaded_files[i].url + '" />';
+										var data = '<img src="' + uploaded_files[i].url + '" picture-id="'+uploaded_files[i].id+'" />';
 										ele._imageSet(data, true);
 									}
 								}
-								picture_ids = picture_ids.concat($.map(uploaded_files, function(x){ return x.id; }));
-								$('#picture_ids').val(picture_ids.join(","));
 						});
 						uploader.start();
 						$('#redactor_upload_btn').prop('disabled', true);

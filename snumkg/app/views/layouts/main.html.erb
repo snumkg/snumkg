@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Snumkg<%="[#{current_user.new_alarm_count if current_user}]" %></title>
+  <title>서울대학교 모꼬지 <%="(#{current_user.new_alarm_count})" if current_user and current_user.new_alarm_count>0 %></title>
   <%= render 'layouts/layout_css_js_tag' %>
 </head>
 <body>

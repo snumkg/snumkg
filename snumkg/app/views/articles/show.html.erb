@@ -7,12 +7,6 @@
       <span class="article_writer">작성자:<%= @article.writer.nickname%> </span>
     </td>
   </tr>
-  <!-- 설문조사 박스-->
-  <% unless @article.poll.nil? %>
-  <tr>
-    <td><%= render :partial => 'polls/show', :locals => {:@poll => @article.poll} %></td>
-  </tr>
-  <% end %>
   <tr>
     <td><div id="article_body"><%= @article.body.html_safe %></div></td>
   </tr>

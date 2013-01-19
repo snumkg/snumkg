@@ -6,6 +6,7 @@ RELANG['ko'] = {
 	table: '표',
 	link: '링크',
 	link_insert: '링크 삽입...',
+	link_new_tab: '새 창으로 띄우기',
 	unlink: '링크 삭제',
 	formatting: '스타일',
 	paragraph: '단락',
