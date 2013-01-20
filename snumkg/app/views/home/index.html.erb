@@ -63,13 +63,13 @@
 					<%= image_tag "main/widget_lastest_all.png", alt: "전체최신글" %> 
 				</div>
 
-				<%= render :partial => 'board_body', :locals => {:@articles => @all_article} %>
+				<%= render :partial => 'board_body', :locals => {:@articles => @article_all} %>
 			</div>
 			<div class="board">
 				<div class="header">
 					<%= image_tag "main/widget_lastest_12.png", alt: "12학번 최신글" %>
 				</div>
-				<%= render :partial => 'board_body', :locals => {:@articles => @all_article} %>
+				<%= render :partial => 'board_body', :locals => {:@articles => @article_12} %>
 			</div>
 		</div>
 
