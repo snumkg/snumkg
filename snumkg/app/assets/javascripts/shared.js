@@ -3,6 +3,9 @@ $(function(){
 		show: true
 	});
 
+  $('input[placeholder], textarea[placeholder]').placeholder();
+  $(".dropdown-toggle").dropdown();
+
 
  // 다른 영역을 클릭했을 때 hidden 되도록
  // e.stopPropagation()을 이용하여 구현

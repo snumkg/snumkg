@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Snumkg<%="[#{current_user.alarm_counts if current_user}]" %></title>
-  <%= stylesheet_link_tag    "home", controller_path, :media => "all" %>
-  <%= javascript_include_tag "jquery", "jquery_ujs" %>
-  <%= javascript_include_tag "home", controller_path %>
-  <%= javascript_include_tag "bootstrap-modal" %>
-  <%= csrf_meta_tags %>
-  <%= yield :head %>
+  <title>서울대학교 모꼬지 <%="(#{current_user.new_alarm_count})" if current_user and current_user.new_alarm_count>0 %></title>
+
+  <%= render 'layouts/layout_css_js_tag' %>
 </head>
 <body>
   <div id="wrapper">
