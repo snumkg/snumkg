@@ -11,7 +11,7 @@ class LikesController < ApplicationController
       @like.user_id = current_user.id unless current_user.nil?
 
       if @like.errors.any?
-        @result = {error: "이미 추천하셨습니다."}
+        @result = {error: "이미 좋아요를 누르셨습니다."}
       else
         @like.save
       end

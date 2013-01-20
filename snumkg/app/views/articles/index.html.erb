@@ -17,7 +17,7 @@
 						<span class="comment_number">
 							[<%= @notice.comments.count %>]
 						</span>
-						<span class="article_like_number">추천 <%= @notice.likes.count %></span>
+						<span class="article_like_number">좋아요 <%= @notice.likes.count %></span>
 
 					</td>
 					<td class="date">
@@ -42,7 +42,7 @@
             <% if article.pictures.size > 0 %>
               <span><%= image_tag "icons/picture.gif" %></span>
             <% end %>
-            <span class="article_like_number">추천 <%= article.likes.count %></span>
+            <span class="article_like_number">좋아요 <%= article.likes.count %></span>
           </td>
           <td class="date"><%= article.created_at.strftime("%Y/%m/%d") %></td>
           <td class="writer">

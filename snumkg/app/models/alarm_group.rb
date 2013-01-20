@@ -39,11 +39,11 @@ class AlarmGroup < ActiveRecord::Base
 
     case self.alarm_type
     when "글추천"
-      "#{@people_text} #{@article.title}글을 추천하였습니다."
+      "#{@people_text} #{@article.title}글을 좋아합니다."
     when "댓글"
       "#{@people_text} 글에 댓글을 달았습니다."
     when "댓글추천"
-      "#{@people_text} 댓글을 추천하였습니다."
+      "#{@people_text} 회원님의 댓글을 좋아합니다: \"#{@comment.content}\""
     when "프로필댓글"
       "#{@people_text} 프로필에 댓글을 달았습니다."
     when "참석"

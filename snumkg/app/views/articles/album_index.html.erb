@@ -76,7 +76,7 @@
         <div class="cover boxcaption">  
           <h4><%= @article.title %>
             <span class="comment_number">[<%= @article.comments.count%>]</span>
-          <span class="choochun">추천 <%= @article.likes.count %></span>
+          <span class="choochun">좋아요 <%= @article.likes.count %></span>
           </h4>
 
           <p><%= @article.nickname%><br /><%= @article.created_at.strftime("%y/%m/%d")%></p>
