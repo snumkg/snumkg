@@ -63,9 +63,11 @@ Snumkg::Application.routes.draw do
 
   #유저
   resources :users
+  get 'profile/edit', :to => "users#edit", :as => "edit_profile"
   get "profile/:id(.:format)", :to => "users#show", :as => "profile" #프로필 페이지
   get 'profile_image/:id', :to => "users#profile_image"
   get 'profile_image_thumb/:id', :to => "users#profile_image_thumb"
+  put 'update_additional_user_info', :to => "users#update_additional_user_info", :as => "update_additional_user_info"
 
 
   #코맨트

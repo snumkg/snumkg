@@ -1,17 +1,30 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
-
-
 <%= form_for(@user) do |f| %>
-  <%= f.label :password, '비밀번호 수정' %>
-  <%= f.password_field :password %>
-
-  <%= f.label :password_confirmation, '비밀번호 확인' %>
-  <%= f.password_field :password_confirmation %>
-
-  <%= f.label :nickname, '이름' %>
-  <%= f.text_field :nickname %>
-  <br />
+  <table>
+    <tr>
+      <th>아이디:</th>
+      <td><%= @user.username %></td>
+    </tr>
+    <tr>
+      <th>이메일:</th>
+      <td><%= f.text_field :email %></td>
+    </tr>
+    <tr>
+      <th>생일</th>
+      <td><%= f.text_field :birthday %></td>
+    </tr>
+    <tr>
+      <th>학과</th>
+      <td><%= f.text_field :department %></td>
+    </tr>
+    <tr>
+      <th>휴대폰</th>
+      <td><%= f.text_field :phone_number %></td>
+    </tr>
+    <tr>
+      <th>입학년도</th>
+      <td><%= f.select :entrance_year, (1..(Time.now.year-2000)).to_a.reverse.map{|x| (x<10) ? "0#{x}" : x} %></td>
+    </tr>
+  </table>
 
   <%= f.submit "수정하기", class: "btn" %>
 <% end %>

@@ -2,7 +2,7 @@
 <div class="modal hide fade" id="profile_modal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3 class="user-nickname"><%= @user.nickname %></h3>
+    <h3><span class="user-nickname"><%= @user.nickname %></span> (<span class="deaprtment"><%= @user.department %> <%= @user.entrance_year %></span>)</h3>
   </div>
   <div class="modal-body">
     <div class="user-buttons">
@@ -25,10 +25,6 @@
         <tr>
           <th>생일:</th>
           <td class="birthday"><%= @user.birthday_text %></td>
-        </tr>
-        <tr>
-          <th>학과 및 학번:</th>
-          <td class="department"><%= @user.department %> <%= @user.entrance_year %></td>
         </tr>
       </table>
     </div>

@@ -32,7 +32,12 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by_id(params[:id])
+    @user = current_user
+    redirect_to edit_profile_path
+  end
+
+  def update_additional_user_info
+    @user = current_user
     phone_number = params[:phone_number_1] + "-" + params[:phone_number_2] + "-" + params[:phone_number_3]
     @user.phone_number = phone_number
 
