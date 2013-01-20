@@ -34,9 +34,8 @@ div.post .writer {
 
 div.show_comment {
   background: white;
-  width: 79%;
   margin: 0 auto;
-  font-size: 95%;
+  margin-left:40px;
 }
 
 div.post_content {

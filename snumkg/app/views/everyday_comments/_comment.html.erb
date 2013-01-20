@@ -5,10 +5,12 @@
   <td>
     <%= comment.content %>
   </td>
-  <% if current_user == comment.writer %>
-    <td>
+  <td>
+    <% if current_user == comment.writer %>
       <%= link_to "<i class='icon-remove'></i>".html_safe, everyday_comment_path(id: comment, page: params[:page]), method: :delete %>
-    </td>
-  <% end %>
+    <% else %>
+      &nbsp;
+    <% end %>
+  </td>
 </tr>
 
