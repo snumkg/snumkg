@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
     end
 
     case @board.board_type
-    when "일반", '익명' then # 일반게시판
+    when "일반", '익명', '소꼬지' then # 일반게시판
       render 'index'
     when "소꼬지 일정" # 소꼬지 달력
     # 소꼬지 일정을 보여줄 때, 소꼬지 게시판에서 게시물을 가져옴.
@@ -93,6 +93,9 @@ class ArticlesController < ApplicationController
     @comments = @article.comments
     @comment = Comment.new
 
+    #조회수 증가
+    @article.view_count = @article.view_count + 1
+    @article.save 
 
     case @article.article_type
     when "일반", "익명" then # 일반게시물

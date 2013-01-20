@@ -5,6 +5,7 @@
 			<th class="title">제목</th>
 			<th class="date">작성일</th>
 			<th class="writer">작성자</th>
+			<th class="view_count">조회</th>
 		</thead>
 		<tbody>
 			<% for @notice in @notices %>
@@ -30,6 +31,7 @@
               <%= @notice.nickname %>
             <% end %>
 					</td>
+          <td class="view_count"><%= @notice.view_count %></td>
 				</tr>
       <% end %>
 
@@ -52,6 +54,7 @@
               <%= article.nickname %>
             <% end %>
           </td>
+          <td class="view_count"><%= article.view_count %></td>
         </tr>
       <% end %>
     </tbody>
