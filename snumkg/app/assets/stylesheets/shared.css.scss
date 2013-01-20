@@ -282,3 +282,13 @@ li {margin:0;margin-bottom:20px;list-style:none;border-bottom:1px solid #ccc;pad
   color: #967279;
   font-weight: bold;
 }
+
+//좋아요 숫자 표시
+.article_like_number {
+  display: inline-block; -webkit-border-radius: 7px; -moz-border-radius: 7px; border-radius: 7px; background: #ffe4e1; color: gray; text-align: center; font-weight: bold; font-size: 85%;
+}
+
+//좋아요 숫자 표시
+.sokkoji_attendance_number {
+  display: inline-block; -webkit-border-radius: 7px; -moz-border-radius: 7px; border-radius: 7px; background: #e4e1ff; color: gray; text-align: center; font-weight: bold; font-size: 85%;
+}

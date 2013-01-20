@@ -1,29 +1,37 @@
 <div class="body">
-	<table class="table table-condensed">
-		<tbody>
-			<% for article in @articles %>
-				<tr>
-					<td class="boardname"><%= article.board.name %></td>
-					<td class="title">
-						<a href="<%= article_path(group_id: article.board.group.id, board_id: article.board.id, id: article.id) %>"> 
-							<%= article.title %> 
-							<% if article.comments.count > 0 %>
-								<span class="comment_count">[<%= article.comments.count%>]</span>
-							<% end %>
-						</a>
-						<span class="relative_time"> <%= article.relative_time %></span>
-					</td>
-					<td class="writer"><%= article.nickname  unless article.writer.nil?%></td>
-					<td class="votecount">
-						<% if article.article_type == "소꼬지" %>
-							참석<%= article.attendances.count %>
-						<% else %>
-							좋아요 <%= article.likes.count %>
-						<% end %>
-					</td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
+  <table class="table table-condensed">
+    <tbody>
+      <% for article in @articles %>
+        <tr>
+          <td class="boardname"><%= article.board.name %></td>
+          <td class="title">
+            <a href="<%= article_path(group_id: article.board.group.id, board_id: article.board.id, id: article.id) %>"> 
+              <%= article.title %> 
+              <% if article.comments.count > 0 %>
+                <span class="comment_count">[<%= article.comments.count%>]</span>
+              <% end %>
+            </a>
+            <!-- 좋아요 -->
+            <% if article.likes.count > 0 %>
+              <span class="article_like_number">좋아요 <%= article.likes.count %></span>
+            <% end %>
+            <!-- 소꼬지 -->
+            <% if article.attendances.count > 0 %>
+              <span class="sokkoji_attendance_number">참석 <%= article.attendances.count %></span>
+            <% end %>
+
+            <span class="relative_time"> <%= article.relative_time %></span>
+          </td>
+          <td class="writer">
+            <% if article.writer %>
+              <%= user_profile_tag article.writer %>
+            <% else %>
+              <%= article.nickname %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
