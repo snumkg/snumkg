@@ -1,0 +1,40 @@
+<% @user = User.first %>
+<div class="modal hide fade" id="profile_modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3 class="user-nickname"><%= @user.nickname %></h3>
+  </div>
+  <div class="modal-body">
+    <div class="user-buttons">
+      <%= link_to (raw "<i class=\"icon-comment\"></i> 쪽지 보내기"), new_message_path(receiver_id: @user.id), :class => "btn message_link" %>
+      <%= link_to (raw "<i class=\"icon-home\"></i> 담벼락 방문"), profile_path(@user), :class => "btn profile_link" %>
+    </div>
+    <div class="user-image">
+      <%= image_tag @user.profile_image_url, class: "profile_image" %>
+    </div>
+    <div class="user-info">
+      <table>
+        <tr>
+          <th>아이디:</th>
+          <td class="username"><%= @user.username %></td>
+        </tr>
+        <tr>
+          <th>이메일:</th>
+          <td class="email"><%= @user.email %></td>
+        </tr>
+        <tr>
+          <th>생일:</th>
+          <td class="birthday"><%= @user.birthday_text %></td>
+        </tr>
+        <tr>
+          <th>학과 및 학번:</th>
+          <td class="department"><%= @user.department %> <%= @user.entrance_year %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>

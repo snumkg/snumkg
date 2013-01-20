@@ -193,3 +193,24 @@ $.fn.infiniteScroll = function(object){
 		});
 	}
 }
+
+function show_profile(user_id){
+  $.ajax({
+    url: '/profile/' + user_id + ".json",
+    success: function(data){
+      var user = data.user;
+      var profile_modal = $('#profile_modal');
+      profile_modal.find('.user-nickname').html(user.nickname);
+      profile_modal.find('.profile_image').attr('src', user.profile_url);
+      profile_modal.find('.username').html(user.username);
+      profile_modal.find('.email').html(user.email);
+      profile_modal.find('.birthday').html(user.birthday);
+      profile_modal.find('.department').html(user.department);
+
+      profile_modal.find('.message_link').attr('href', user.message_path);
+      profile_modal.find('.profile_link').attr('href', user.profile_path);
+      profile_modal.modal('show');
+    }
+  });
+  return false;
+}

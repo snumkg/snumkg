@@ -63,7 +63,7 @@ Snumkg::Application.routes.draw do
 
   #유저
   resources :users
-  get "profile/:id", :to => "users#show", :as => "profile" #프로필 페이지
+  get "profile/:id(.:format)", :to => "users#show", :as => "profile" #프로필 페이지
   get 'profile_image/:id', :to => "users#profile_image"
   get 'profile_image_thumb/:id', :to => "users#profile_image_thumb"
 

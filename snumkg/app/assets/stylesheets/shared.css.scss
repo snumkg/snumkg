@@ -219,16 +219,6 @@ label, label input, label textarea, label select {
 .user {
   cursor: pointer;
 }
-.user_menu {
-  visibility: hidden;
-  position: absolute;
-  z-index: 2;
-  background: white;
-
-  li {
-    list-style: none;
- }
-}
 
 // 유저 프로필
 .user-profile {
@@ -238,6 +228,26 @@ label, label input, label textarea, label select {
 .user-profile.large {
   img {vertical-align:middle;width:40px;height:40px;}
   a {font-size:1.1em;}
+}
+
+// 유저 프로필 modal dialog
+#profile_modal {
+  .user-buttons {
+    margin-bottom:5px;
+  }
+  .user-image {
+    width:200px;height:200px;overflow:hidden;float:left;
+    img {width:100%;}
+  }
+  .user-info {
+    margin-left:210px;
+    table {
+      width:100%;
+      th {width:70px;}
+      td,th {padding:3px;}
+    }
+  }
+  .clear {clear:both;}
 }
 
 

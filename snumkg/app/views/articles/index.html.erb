@@ -40,6 +40,10 @@
               <% if article.attendances.count > 0 %>
                 <span class="sokkoji_attendance_number">참석 <%= article.attendances.count %></span>
               <% end %>
+              <!-- 새 글 -->
+              <% if (Time.now.to_date - article.created_at.to_date).to_i <= 2 %>
+                <%= image_tag "icons/new.png" %>
+              <% end %>
 
             </td>
             <!-- 소꼬지 -->

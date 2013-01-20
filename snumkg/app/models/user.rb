@@ -1,3 +1,4 @@
+#coding: utf-8
 class User < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
   attr_protected :level, :password_salt, :password_hash
@@ -31,6 +32,13 @@ class User < ActiveRecord::Base
       user = nil
     end
     user
+  end
+
+  #생년월일 텍스트
+  def birthday_text
+    if self.birthday
+      self.birthday.strftime("%m월 %d일")
+    end
   end
 
   def new_alarm

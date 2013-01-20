@@ -53,9 +53,27 @@ class UsersController < ApplicationController
   #프로필 페이지
   def show
     @user = User.find(params[:id])
-
     @profile_comments = Comment.where(:profile_user_id => params[:id])
     @profile_comment = Comment.new
+
+    respond_to do |format|
+      format.html {}
+      format.json do 
+        render :json => {
+          user: {
+            nickname: @user.nickname,
+            profile_url: @user.profile_image_url,
+            username: @user.username,
+            email: @user.email,
+            birthday: @user.birthday_text,
+            department: "#{@user.department} #{@user.entrance_year}",
+            
+            profile_path: profile_path(@user),
+            message_path: new_message_path(receiver_id: @user.id)
+          }
+        }
+      end
+    end
   end
 
   #프로필 이미지 다운로드

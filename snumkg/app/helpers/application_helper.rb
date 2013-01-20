@@ -19,7 +19,7 @@ module ApplicationHelper
 			content_tag("span", :class => "user-profile #{"large" if options[:size] == 'large'}") do 
 				content_tag("a", (
 					image_tag(user.profile_image_thumb_url, :alt => user.nickname) + " " + content_tag("span", user.nickname, :class => "user-profile-nickname")
-				), :href => profile_path(user.id))
+				), :href => profile_path(user), :onclick => "return show_profile(#{user.id});")
 			end
 		else
 			content_tag("span", :class => "user-profile") do 
