@@ -32,21 +32,32 @@
     </tr>
 
   <% end %>
-  <tr>
-    <td id="article_like_list">
-      <% for like in @article.likes %>
-        <%= like.user.nickname %> 
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <td id="attendance_list">
-       <% for attendance in @article.attendances %>
-          <%= attendance.user.nickname %> 
-       <% end %>
-       <%= "님이 참석합니다." unless @article.attendances.count == 0%>
-    </td>
-  </tr>
+  <!-- 좋아요 & 참석자 리스트 -->
+  <% if @article.likes.count > 0 or @article.attendances.count > 0 %>
+    <tr>
+      <td>
+        <% if @article.likes.count > 0 %>
+          <h5>이 글을 좋아하는 사람들</h5>
+          <div id="article_like_list" style="margin-bottom:5px;">
+            <% for like in @article.likes %>
+              <%= user_profile_tag like.user, image: true %> 
+            <% end %>
+          </div>
+        <% end %>
+        <% if @article.likes.count > 0 and @article.attendances.count > 0 %>
+          <div style="height:5px;clear:both;">&nbsp;</div>
+        <% end %>
+        <% if @article.attendances.count > 0 %>
+          <h5>참석하는 사람들</h5>
+          <div id="attendance_list">
+            <% for attendance in @article.attendances %>
+              <%= user_profile_tag attendance.user, image: true %> 
+            <% end %>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
   <tr>
     <td>
       <% if @article.article_type == '익명' %>

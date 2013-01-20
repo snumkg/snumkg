@@ -6,7 +6,6 @@ $(function(){
   $('input[placeholder], textarea[placeholder]').placeholder();
   $(".dropdown-toggle").dropdown();
 
-
  // 다른 영역을 클릭했을 때 hidden 되도록
  // e.stopPropagation()을 이용하여 구현
  // login_box, name_info 보여주기.숨기기 
@@ -197,6 +196,7 @@ $.fn.infiniteScroll = function(object){
 	}
 }
 
+//프로필 사진 클릭 시
 function show_profile(user_id){
   $.ajax({
     url: '/profile/' + user_id + ".json",
@@ -217,3 +217,17 @@ function show_profile(user_id){
   });
   return false;
 }
+
+//프로필 사진에 마우스 오버
+/*
+function profile_mouseover(user_id){
+  var profile_box = $('.user-profile.image[user_id=' + user_id + ']');
+  profile_box.find('.background, .nickname').show();
+}
+
+//프로필 사진에서 마우스아웃
+function profile_mouseout(user_id){
+  var profile_box = $('.user-profile.image[user_id=' + user_id + ']');
+  profile_box.find('.background, .nickname').hide();
+}
+*/

@@ -150,6 +150,15 @@ end
 	comment.save
 end
 
+#샘플 알람 생성을 위한
+1.upto(10) do |i|
+	article = Article.last
+  like = Like.new
+	like.user_id = ((i-1) % 10) + 1
+	like.article_id = article.id
+  like.save
+end
+
 
 #comments
 
