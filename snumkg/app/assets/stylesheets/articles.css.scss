@@ -10,6 +10,7 @@
 	td, th {padding:3px;border-bottom:1px solid #ddd;}
   .number {width:50px;text-align:center;}
   .title {}
+  .sokkoji_date {width:105px;text-align:center;}
   .date {width:80px;text-align:center;}
   .writer {width:90px;text-align:center;}
   .view_count {width:50px;text-align:center;}
@@ -66,16 +67,14 @@ span#article_title {
   margin-right: 1em;
 }
 
+//좋아요 숫자 표시
 .article_like_number {
-  display: inline-block;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
-  background: #ffe4e1;
-  color: gray;
-  text-align: center;
-  font-weight: bold;
-  font-size: 85%;
+  display: inline-block; -webkit-border-radius: 7px; -moz-border-radius: 7px; border-radius: 7px; background: #ffe4e1; color: gray; text-align: center; font-weight: bold; font-size: 85%;
+}
+
+//좋아요 숫자 표시
+.sokkoji_attendance_number {
+  display: inline-block; -webkit-border-radius: 7px; -moz-border-radius: 7px; border-radius: 7px; background: #e4e1ff; color: gray; text-align: center; font-weight: bold; font-size: 85%;
 }
 
 

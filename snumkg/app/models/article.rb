@@ -53,6 +53,25 @@ class Article < ActiveRecord::Base
     self.password_salt, self.password_hash = salt, Digest::SHA256.hexdigest(pass.to_s + salt)
   end
 
+  # 소꼬지 날짜 텍스트 리턴
+  def date_text
+    if self.date
+      self.date.strftime("%m월 %d일 (%H:%M)")
+    else
+      "날짜 없음"
+    end
+  end
+
+  # 작성 시간 리턴
+  def created_at_text
+    diff = (Time.now.to_date - self.created_at.to_date).to_i
+    if diff == 0 then
+      self.created_at.strftime("%H:%M")
+    else
+      self.created_at.strftime("%Y/%m/%d")
+    end
+  end
+
   # 글쓴이의 닉네임 리턴
   def nickname
     if self.writer then

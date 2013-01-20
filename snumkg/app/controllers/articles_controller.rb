@@ -21,12 +21,6 @@ class ArticlesController < ApplicationController
     # 소꼬지 일정을 보여줄 때, 소꼬지 게시판에서 게시물을 가져옴.
       @articles = Board.find_by_board_type("소꼬지").articles.page(@page).order("created_at DESC").per(10)
       render 'sokkoji_calendar'
-    when "소꼬지" # 소꼬지 게시판
-      # 소꼬지 게시물은 수정하면 다시 상단에 노출되도록 함
-      # 똑같은 소꼬지 게시물을 새로 올리는 것을 방지하기 위해.
-
-      #@articles = @board.articles.order("updated_at desc")
-      render 'sokkoji_index'
     when "앨범"
       render 'album_index'
     end
@@ -98,7 +92,7 @@ class ArticlesController < ApplicationController
     @article.save 
 
     case @article.article_type
-    when "일반", "익명" then # 일반게시물
+    when "일반", "익명", "소꼬지" then # 일반게시물
       render 'show'
     when "소꼬지" # 소꼬지 게시물
       render 'sokkoji_show'

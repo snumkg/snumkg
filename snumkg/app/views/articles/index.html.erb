@@ -1,61 +1,62 @@
 <div id="article_wrapper">
-	<table id="article_list">
-		<thead>
-			<th class="number">번호</th>
-			<th class="title">제목</th>
-			<th class="date">작성일</th>
-			<th class="writer">작성자</th>
-			<th class="view_count">조회</th>
-		</thead>
-		<tbody>
-			<% for @notice in @notices %>
-				<tr class="notice">
-					<td class="number">
-            <span class="label label-important">공지</span>
-					</td>
-					<td class="title">
-						<%= link_to @notice.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => @notice) %>
-						<span class="comment_number">
-							[<%= @notice.comments.count %>]
-						</span>
-						<span class="article_like_number">좋아요 <%= @notice.likes.count %></span>
-
-					</td>
-					<td class="date">
-						<%= @notice.created_at.strftime("%Y/%m/%d") %>
-					</td>
-					<td class="writer">
-            <% if @notice.writer %>
-              <%= render :partial => 'shared/user_menu', :locals => {:writer => @notice.writer, :size => "16x16"} %>
-            <% else %>
-              <%= @notice.nickname %>
-            <% end %>
-					</td>
-          <td class="view_count"><%= @notice.view_count %></td>
-				</tr>
+  <table id="article_list">
+    <thead>
+      <th class="number">번호</th>
+      <th class="title">제목</th>
+      <!-- 소꼬지 -->
+      <% if @board.board_type == '소꼬지' %>
+        <th class="sokkoji_date">소꼬지 날짜</th>
       <% end %>
+      <th class="date">작성일</th>
+      <th class="writer">작성자</th>
+      <th class="view_count">조회</th>
+    </thead>
+    <tbody>
+      <% [@notices, @articles].each_with_index do |articles, index| %>
+        <% for article in articles %>
+          <tr class="<%= "notice" if index == 0 %>">
+            <td class="number">
+              <% if index == 0 %>
+                <span class="label label-important">공지</span>
+              <% else %>
+                <%= article.number %>
+              <% end %>
+            </td>
+            <td class="title">
+              <%= link_to article.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => article) %>
+              <!-- 코맨트 -->
+              <% if article.comments.count > 0 %>
+                <span class="comment_number">[<%= article.comments.count %>]</span>
+              <% end %>
+              <!-- 이미지 -->
+              <% if article.pictures.size > 0 %>
+                <span><%= image_tag "icons/picture.gif" %></span>
+              <% end %>
+              <!-- 좋아요 -->
+              <% if article.likes.count > 0 %>
+                <span class="article_like_number">좋아요 <%= article.likes.count %></span>
+              <% end %>
+              <!-- 소꼬지 -->
+              <% if article.attendances.count > 0 %>
+                <span class="sokkoji_attendance_number">참석 <%= article.attendances.count %></span>
+              <% end %>
 
-      <% for article in @articles %>
-        <tr>
-          <td class="number"><%= article.number %></td>
-          <td class="title">
-            <%= link_to article.title, article_path(:group_id => params[:group_id], :board_id => params[:board_id], :id => article) %>
-            <span class="comment_number">[<%= article.comments.count %>]</span>
-            <% if article.pictures.size > 0 %>
-              <span><%= image_tag "icons/picture.gif" %></span>
+            </td>
+            <!-- 소꼬지 -->
+            <% if @board.board_type == '소꼬지' %>
+              <td class="sokkoji_date"><%= article.date_text %></td>
             <% end %>
-            <span class="article_like_number">좋아요 <%= article.likes.count %></span>
-          </td>
-          <td class="date"><%= article.created_at.strftime("%Y/%m/%d") %></td>
-          <td class="writer">
-            <% if article.writer %>
-              <%= render :partial => 'shared/user_menu', :locals => {:writer => article.writer, :size => "16x16"} %>
-            <% else %>
-              <%= article.nickname %>
-            <% end %>
-          </td>
-          <td class="view_count"><%= article.view_count %></td>
-        </tr>
+            <td class="date"><%= article.created_at_text %></td>
+            <td class="writer">
+              <% if article.writer %>
+                <%= render :partial => 'shared/user_menu', :locals => {:writer => article.writer, :size => "16x16"} %>
+              <% else %>
+                <%= article.nickname %>
+              <% end %>
+            </td>
+            <td class="view_count"><%= article.view_count %></td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
