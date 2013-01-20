@@ -8,7 +8,6 @@ $(function(){
  // e.stopPropagation()을 이용하여 구현
  // login_box, name_info 보여주기.숨기기 
 	$(document).click(function(e){
-		var name = $('.user_menu[visibility="visible"]');
 		var login = $('.login_box[visibility="visible"]');
 		var alarm_list = $("#alarm_list_box").hide();
 		var search_list = $("#search_list");
@@ -24,10 +23,6 @@ $(function(){
     $(this).next().css("visibility","visible")
 									.attr("visibility","visible");
   });
-
-	$('.user_menu').click(function(e){
-		e.stopPropagation();
-	});
 
 	$('.login_box').click(function(e){
 		e.stopPropagation();

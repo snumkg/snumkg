@@ -49,7 +49,7 @@
             <td class="date"><%= article.created_at_text %></td>
             <td class="writer">
               <% if article.writer %>
-                <%= render :partial => 'shared/user_menu', :locals => {:writer => article.writer, :size => "16x16"} %>
+                <%= user_profile_tag(article.writer) %>
               <% else %>
                 <%= article.nickname %>
               <% end %>

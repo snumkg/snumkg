@@ -219,7 +219,6 @@ label, label input, label textarea, label select {
 .user {
   cursor: pointer;
 }
-
 .user_menu {
   visibility: hidden;
   position: absolute;
@@ -229,6 +228,16 @@ label, label input, label textarea, label select {
   li {
     list-style: none;
  }
+}
+
+// 유저 프로필
+.user-profile {
+  img {vertical-align:bottom;width:20px;height:20px;}
+  a {text-decoration:none;}
+}
+.user-profile.large {
+  img {vertical-align:middle;width:40px;height:40px;}
+  a {font-size:1.1em;}
 }
 
 
