@@ -89,6 +89,8 @@ Snumkg::Application.routes.draw do
     resources ':board_id', :as => 'articles', :controller => 'articles'
   end
 
+  post '/article_password/:type/:id', :to => 'articles#password_confirmation', :as => 'article_password_confirmation'
+
 	#chatting
 	get '/chat', :to => 'chat#index'
       

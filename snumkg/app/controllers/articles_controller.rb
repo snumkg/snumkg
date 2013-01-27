@@ -1,6 +1,7 @@
 #encoding: utf-8
 class ArticlesController < ApplicationController
   before_filter :check_signin, except: [:index]
+  before_filter :check_writer, only: [:edit, :update, :destroy]
   def index
 
     @board = @boards.find_by_id(params[:board_id])
@@ -69,8 +70,10 @@ class ArticlesController < ApplicationController
 
     @article.title = params[:article][:title]
     @article.body = params[:article][:body]
+
     
     if @article.save
+      flash[:success] = "게시글이 성공적으로 수정되었습니다."
       redirect_to article_path(group_id: @article.board.group.id, board_id: @article.board.id, id: params[:id])
 
       #이미지 연결
@@ -144,22 +147,37 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find_by_id(params[:id])
 
-    if @article.article_type == "익명" # 익명게시물 삭제시
-      if !@article.authentication(params[:password])
-        flash[:error] = "비밀번호가 일치하지 않습니다."
-        redirect_to article_path(:group_id => params[:group_id], :board_id => params[:board_id], id: params[:id], page: 1)
-        return
-      end
-      @article.destroy
-    else
-      @article.destroy
+    if @article.destroy 
+      flash[:success] = "게시글이 성공적으로 삭제되었습니다."
+      redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id], page: 1)
     end
-
-    redirect_to articles_path(:group_id => params[:group_id], :board_id => params[:board_id], page: 1)
   end
 
   def password_confirmation
 		#익명글 삭제 패스워드 확인
+    article = Article.find_by_id(params[:id])
+    params[:group_id] = article.board.group.id
+    params[:board_id] = article.board.id
+
+    unless article.authentication(params[:password]) 
+      flash[:error] = "비밀번호가 잘못되었습니다." 
+      redirect_to article_path(group_id: article.board.group.id, board_id: article.board.id, id: params[:id])
+    else
+      if(params[:type] == 'edit') # 수정하기
+        redirect_to edit_article_path(group_id: article.board.group.id, board_id: article.board.id, id: params[:id])
+      elsif(params[:type] == 'destroy') # 삭제하기
+        destroy
+      end
+    end
   end
 
+  def check_writer
+    article = Article.find_by_id(params[:id])
+    if article.article_type != "익명"
+      if current_user != article.writer
+        flash[:error] = "접근권한이 없습니다."
+        redirect_to root_path
+      end
+    end
+  end
 end

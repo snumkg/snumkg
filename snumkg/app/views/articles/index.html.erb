@@ -1,4 +1,16 @@
 <div id="article_wrapper">
+  <% if @board.board_type == "소꼬지" %>
+    <%= content_for(:head) do %>
+      <%= javascript_include_tag "fullcalendar" %>
+      <%= stylesheet_link_tag    "fullcalendar" %>
+
+      <%= stylesheet_link_tag "jquery-ui-1.8.21.custom" %>
+      <%= javascript_include_tag "jquery-ui-1.8.21.custom.min" %>
+      <%= javascript_include_tag "jquery-ui-timepicker-addon" %>
+      <%= javascript_include_tag "sokkoji_calendar" %>
+    <% end %>
+    <div id="calendar"></div>
+  <% end %>
   <table id="article_list">
     <thead>
       <th class="number">번호</th>
@@ -14,7 +26,7 @@
     <tbody>
       <% [@notices, @articles].each_with_index do |articles, index| %>
         <% for article in articles %>
-          <tr class="<%= "notice" if index == 0 %>">
+          <tr class="<%= "notice" if index == 0 %>" title="<%= article.title %>" day="<%= if @board.board_type == '소꼬지' then  article.date.strftime("%Y-%m-%d %H:%M:00") end %>">
             <td class="number">
               <% if index == 0 %>
                 <span class="label label-important">공지</span>

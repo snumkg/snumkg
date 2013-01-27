@@ -6,8 +6,8 @@ $(function(){
 	var y = date.getFullYear();
 
 	
+	/*
 	function parseDay(string){
-
 		if( string === "" || (typeof string != 'string'))
 			return;
 		arr = string.split("-");
@@ -20,38 +20,20 @@ $(function(){
 		minute = arr[1];
 
 		return year+"-"+month+"-"+day+" "+hour+":"+minute+":00";
-
 	}
+	*/
 
 	var c = 10;
-	
-/*	
-	 // 왜 안될까 ?????????????????????????
-	var e = $('#sokkoji_article tbody tr').map(function(i,e){
-	
-		return {
-			title: $(this).attr('title'),
-			start: parseDay($(this).attr('day')),
-			allDay: false
-		};
-
-
-	});
-	console.log(e);
-	
-*/
-	
-	var articles = $('#sokkoji_article tbody tr');
+	var articles = $('#article_list tbody tr');
 
 	var c = [];
 	articles.each(function(){
 		var d = {
 			title: $(this).attr('title'),
-			start: parseDay($(this).attr('day')),
+			start: $(this).attr('day'),
 			url: $(this).attr('url'),
 			allDay: false
 		}
-		//console.log(d);
 		c.push(d);
 		
 	});
@@ -65,7 +47,6 @@ $(function(){
 		}];
 */
 	$('#calendar').fullCalendar({
-
 		header:{
 			left: 'title',
 			center: '',
@@ -73,9 +54,7 @@ $(function(){
 		},
 		events: c,
 		timeFormat: 'TTh:mm'
-	
 	});
-
 });
 
 

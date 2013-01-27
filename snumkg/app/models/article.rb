@@ -51,7 +51,15 @@ class Article < ActiveRecord::Base
 
   def set_password(pass)
     salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
-    self.password_salt, self.password_hash = salt, Digest::SHA256.hexdigest(pass.to_s + salt)
+    self.password_salt, self.password_hash = salt, encrypt(pass, salt) 
+  end
+
+  def encrypt(password, salt)
+    Digest::SHA256.hexdigest(password + salt) 
+  end
+
+  def authentication(password)
+    self.password_hash == encrypt(password, self.password_salt) 
   end
 
   # 소꼬지 날짜 텍스트 리턴
