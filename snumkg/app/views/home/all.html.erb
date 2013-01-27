@@ -1,29 +1,34 @@
 <ul id="newsfeed">
-  <% for a in @all %>
-    <% case a.class.to_s %>
-    <% when "Article" %>
+  <% for feed in @all %>
+    <% if feed.comment_id.nil? %>
+      <% article = feed.article %>
       <li>
-      <%= user_profile_tag(a.writer, :small => true) %>님이 <%= a.relative_time %>에 <%= link_to  a.title, article_path(group_id: a.board.group.id, board_id: a.board.id, id: a.id) %> 글을 작성하셨습니다.
+      <%= user_profile_tag(article.writer, :small => true) %>님이 <%= article.relative_time %>에 <%= link_to  article.title, article_path(group_id: article.board.group.id, board_id: article.board.id, id: article.id) %> 글을 작성하셨습니다.
       <div class="newsfeed-article">
-        <%= raw a.body %>
+        <%= raw article.body %>
       </div>
       </li>
-    <% when "Comment" %>
-      <% if a.profile_user_id.nil? # 프로필 댓글 %>
-        <li>
-        <%= user_profile_tag(a.writer, :small => true) %>님이 <%= link_to a.article.title, article_path(group_id: a.article.board.group.id, board_id: a.article.board.id, id:a.article.id) %> 글에 댓글을 작성하셨습니다.
-        <div class="newsfeed-article">
-          <%= raw a.content %>
-        </div>
-        </li>
-        <% else # 게시물 댓글 %>
-          <%= user_profile_tag(a.writer, :small => true) %>님이 <%= link_to a.profile_user.nickname, user_path(a.profile_user_id) %>님의 프로필에 댓글을 작성하셨습니다.
-          <div class="newsfeed-article">
-            <%= raw a.content %>
-          </div>
-        <% end %>
-      <% when "Like" %>
-      <% when "Attendance" %>
-      <% end %>
+    <% else %>
+      <% article = feed.comment.article %>
+      <li>
+      <%= user_profile_tag(feed.comment.writer, :small => true) %>님이 <%= link_to article.title, article_path(group_id: article.board.group.id, board_id: article.board.id, id:article.id) %> 글에 댓글을 작성하셨습니다.
+      <div class="newsfeed-article">
+        <%= raw feed.comment.content %>
+      </div>
+      </li>
     <% end %>
-  </ul>
+  <% end %>
+</ul>
+
+<script>
+  $('#newsfeed').infiniteScroll({
+    url: '/all',
+    beforeSend: function(){
+      show_loading_image(); 
+    },
+    success: function(data){
+      $('#newsfeed').append($(data).find('#newsfeed').children());
+      hide_loading_image();
+    }
+  });
+</script>

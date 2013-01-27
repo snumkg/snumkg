@@ -11,6 +11,7 @@ class Comment < ActiveRecord::Base
   belongs_to :writer, :class_name => 'User', :foreign_key => :user_id
   belongs_to :profile_user, :class_name => 'User', :foreign_key => :profile_user_id
 
+  has_one :newsfeed
   has_many :likes, :dependent => :destroy
 
   validates_presence_of :content

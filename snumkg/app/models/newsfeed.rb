@@ -1,5 +1,5 @@
 class Newsfeed < ActiveRecord::Base
-  has_one :article
-  has_one :comment
+  belongs_to :article
+  belongs_to :comment
 
 end

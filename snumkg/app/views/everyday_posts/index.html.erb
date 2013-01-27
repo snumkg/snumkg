@@ -17,3 +17,14 @@
   </div>
 
 </div>
+
+<script>
+  $('.post_list').infiniteScroll({
+    url: '/everyday',
+    beforeSend: function(){ show_loading_image();},
+    success: function(data){ 
+      $('.post_list').append($(data).find('.post_list').children());
+      hide_loading_image();
+    }
+  });
+</script>

@@ -15,6 +15,7 @@ class Article < ActiveRecord::Base
   has_many :likes, :dependent => :destroy
   has_many :attendances, :dependent => :destroy
   has_one :poll
+  has_one :newsfeed
   #has_many :album_images, :dependent => :destroy
   has_many :alarms, :class_name => 'Alarm', :foreign_key => :article_id
   has_many :pictures, :dependent => :destroy

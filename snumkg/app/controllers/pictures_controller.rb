@@ -39,7 +39,7 @@ class PicturesController < ApplicationController
       @user.password = @user.password_confirmation = 'asdfgh'
       @user.update_attributes({
         :profile_image_path => full_path,
-        :thumb_image_path => thumb_path
+        :profile_image_thumb_path => thumb_path
       })
 
       flash[:success] = "프로필 사진이 성공적으로 등록되었습니다."

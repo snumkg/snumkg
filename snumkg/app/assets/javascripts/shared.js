@@ -173,6 +173,7 @@ $.fn.infiniteScroll = function(object){
 		target.attr("data-page", page);
 		$.ajax({
 			url: object.url + "?" + param_name + "=" + page,
+			beforeSend: object.beforeSend || (function(){})(),
 			success: function(data){
 				object.success(data);
 			}
@@ -216,4 +217,16 @@ function show_profile(user_id){
     }
   });
   return false;
+}
+
+
+
+
+function show_loading_image(){
+	$('#loading-image-center').css('top', $(window).scrollTop() + $(window).height()/2 - 25);
+	$('#loading-image-center').css('left', $(window).width()/2 - 25).show();
+}
+
+function hide_loading_image(){
+	$('#loading-image-center').hide();
 }

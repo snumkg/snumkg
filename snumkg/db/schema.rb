@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20130117084009) do
     t.string   "password_salt"
     t.string   "nickname"
     t.string   "phone_number"
+    t.boolean  "is_phone_number_public",   :default => true
     t.string   "department"
     t.string   "entrance_year"
     t.string   "email"
@@ -164,7 +165,6 @@ ActiveRecord::Schema.define(:version => 20130117084009) do
     t.string   "profile_image_path"
     t.string   "profile_image_thumb_path"
     t.boolean  "is_admin",                 :default => false
-    t.boolean  "is_phone_number_public",   :default => true
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
   end
