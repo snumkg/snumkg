@@ -40,12 +40,12 @@ class UsersController < ApplicationController
     @user = current_user
     phone_number = params[:phone_number_1] + "-" + params[:phone_number_2] + "-" + params[:phone_number_3]
     @user.phone_number = phone_number
+    @user.email = params[:user][:email]
 
     #년도는 필요없기 때문에 2000년으로 적어놓음.
-    birthday = "2000" + params[:birth_month] + "-" + params[:birth_day]
+    birthday = "2000-" + params[:birth_month] + "-" + params[:birth_day]
     @user.birthday = birthday
     @user.password = @user.password_confirmation = 'asdfgh'
-    
     if @user.save
       redirect_to root_path
     end

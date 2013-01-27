@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   
   validates_format_of :username, :with => /^[a-zA-Z](\d|\w)*/
-  #validates_format_of :phone_number, :with => /01\d-(\d{4}|\d{3})-\d{4}/, :allow_blank => true
+  validates_format_of :phone_number, :with => /01\d-(\d{4}|\d{3})-\d{4}/, :allow_blank => true
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true
   
   has_many :articles

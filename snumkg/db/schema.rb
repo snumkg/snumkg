@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20130117084009) do
     t.string   "username"
     t.string   "password_hash"
     t.string   "password_salt"
+    t.string   "name"
     t.string   "nickname"
     t.string   "phone_number"
     t.boolean  "is_phone_number_public",   :default => true

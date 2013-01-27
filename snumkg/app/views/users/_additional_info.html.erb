@@ -1,20 +1,26 @@
 <h3> 회원가입이 완료되었습니다. 추가정보를 입력하세요.</h3>
 <%= form_for(@user, :url => update_additional_user_info_path) do |f| %>
-  <%= label_tag :phone_number_1, '연락처' %>
-  <%= select_tag :phone_number_1, options_for_select([['010','010'],['011','011'],['016','016'],['017','017'],['019','019']]), class: "span1" %>
-  <%= text_field_tag :phone_number_2, nil, class: "span1" %> <%= text_field_tag :phone_number_3, nil, class: "span1"%>
-  <%= f.check_box :is_phone_number_public, {}, true, false %>연락처 공개
-
-
-  <%= f.label :email, "이메일" %>
-  <%= f.text_field :email %><span class="red small"></span>
-  <br />
-
-  생일<br />
-  <%= text_field_tag :birth_month, nil, placeholder: "출생 월", class: "span1" %>
-  <%= text_field_tag :birth_day, nil, placeholder: "출생 일", class: "span1" %>
-
-  <br />
+  <table>
+    <tr>
+      <th>연락처</th>
+      <td>
+        <%= select_tag :phone_number_1, options_for_select([['010','010'],['011','011'],['016','016'],['017','017'],['019','019']]), style: "width:60px" %>
+        <%= text_field_tag :phone_number_2, nil, class: "span1" %> <%= text_field_tag :phone_number_3, nil, class: "span1"%>
+        <label><%= f.check_box :is_phone_number_public, {}, true, false %>연락처 공개</label>
+      </td>
+    </tr>
+    <tr>
+      <th>이메일</th>
+      <td><%= f.text_field :email, placeholder: "example@example.com" %><span class="red small"></span></td>
+    </tr>
+    <tr>
+      <th>생일</th>
+      <td>
+        <%= text_field_tag :birth_month, nil, style: "width:30px", maxlength: 2 %>월
+        <%= text_field_tag :birth_day, nil, style: "width:30px;", maxlength: 2 %>일
+      </td>
+    </tr>
+  </table>
 
   <%= f.submit "입력 완료", class: "btn" %>
 <% end %>

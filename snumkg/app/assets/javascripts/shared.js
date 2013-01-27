@@ -75,7 +75,18 @@ $(function(){
     $('#alarm_list_box').getNiceScroll().resize();
   });
 
+  //회원가입 시 닉네임 자동 생성 (학과 + 학번 + 이름)
+  $('#new_user_table input, #new_user_table select').keyup(refresh_user_nickname).change(refresh_user_nickname);
+
 });
+
+function refresh_user_nickname(){
+  var entrance_year = $('#user_entrance_year').val();
+  var department = departments_map[$('#user_department').val()];
+  var name = $('#user_name').val().slice(1);
+  var nickname = department + entrance_year + name;
+  $('#user_nickname').val(nickname);
+}
 
 // 알람을 로딩해서 alarm_list_box에 붙임
 function load_alarms(page){

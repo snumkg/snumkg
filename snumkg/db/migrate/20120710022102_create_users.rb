@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
 			t.string :username
 			t.string :password_hash
 			t.string :password_salt
+      t.string :name
 			t.string :nickname
 			t.string :phone_number  #폰번호
       t.boolean :is_phone_number_public, :default => true
